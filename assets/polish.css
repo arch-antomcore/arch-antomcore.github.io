@@ -1,0 +1,684 @@
+/*
+ * AetherCore — Launch Polish Layer v1.0
+ * Injected over compiled bundle. Does NOT override structure — only refines.
+ * ─────────────────────────────────────────────────────────────────────────
+ */
+
+/* ══════════════════════════════════════════════════════
+   0. LOADING SCREEN
+══════════════════════════════════════════════════════ */
+#ac-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #07060480;
+  backdrop-filter: blur(0px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: opacity .55s cubic-bezier(.4,0,.2,1), backdrop-filter .55s;
+  pointer-events: none;
+}
+#ac-loader.loaded {
+  opacity: 0;
+  pointer-events: none;
+}
+.ac-loader-mark {
+  width: 44px;
+  height: 44px;
+  position: relative;
+}
+.ac-loader-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  animation: acSpin 1.4s linear infinite;
+}
+.ac-loader-ring:nth-child(1) {
+  border-top-color: #54dec5;
+  border-right-color: #54dec530;
+}
+.ac-loader-ring:nth-child(2) {
+  inset: 6px;
+  border-top-color: transparent;
+  border-right-color: #d8bd7880;
+  border-bottom-color: #d8bd7840;
+  animation-duration: 2.1s;
+  animation-direction: reverse;
+}
+.ac-loader-dot {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 6px; height: 6px;
+  background: #54dec5;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 14px #54dec5;
+  animation: acPulse 1.4s ease-in-out infinite;
+}
+.ac-loader-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #f1eadb55;
+  animation: acBlink 1.4s ease-in-out infinite;
+}
+@keyframes acSpin   { to { transform: rotate(360deg); } }
+@keyframes acPulse  { 0%,100%{opacity:.4;transform:translate(-50%,-50%)scale(.85)} 50%{opacity:1;transform:translate(-50%,-50%)scale(1.15)} }
+@keyframes acBlink  { 0%,100%{opacity:.3} 50%{opacity:.9} }
+
+/* ══════════════════════════════════════════════════════
+   1. ROOT REFINEMENTS & FONT POLISH
+══════════════════════════════════════════════════════ */
+:root {
+  /* tighten up easing for richer feel */
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+  --ease-smooth: cubic-bezier(.16, 1, .3, 1);
+  --ease-snappy: cubic-bezier(.25, .46, .45, .94);
+}
+
+html {
+  font-optical-sizing: auto;
+}
+
+body {
+  font-kerning: normal;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Better text rendering across all headings */
+h1, h2, h3, h4 {
+  text-rendering: geometricPrecision;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "ss01" 1;
+}
+
+p, li, dd {
+  font-feature-settings: "kern" 1, "liga" 1;
+  hanging-punctuation: first last;
+}
+
+/* ══════════════════════════════════════════════════════
+   2. SCROLLBAR — MORE REFINED
+══════════════════════════════════════════════════════ */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#54dec540, #d8bd7840);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(#54dec56b, #d8bd7866);
+}
+* { scrollbar-width: thin; scrollbar-color: #d8bd7840 transparent; }
+
+/* ══════════════════════════════════════════════════════
+   3. PROGRESS BAR — SHARPER GLOW
+══════════════════════════════════════════════════════ */
+.aether-progress {
+  height: 1.5px !important;
+  box-shadow: 0 0 14px #54dec56b, 0 0 42px #d8bd7833 !important;
+  background: linear-gradient(90deg, #54dec5, #d8bd78, #ff8f70, #54dec5) !important;
+  background-size: 200% 100% !important;
+  animation: progressShimmer 3s linear infinite !important;
+}
+@keyframes progressShimmer {
+  from { background-position: 0 0; }
+  to   { background-position: 200% 0; }
+}
+
+/* ══════════════════════════════════════════════════════
+   4. NAVBAR — REFINED GLASS
+══════════════════════════════════════════════════════ */
+#navbar.scrolled {
+  border-bottom-color: #f1eadb16 !important;
+  box-shadow: 0 1px 0 #f1eadb06, 0 24px 80px #00000066 !important;
+}
+
+/* Desktop nav pill */
+.desktop-nav {
+  gap: .25rem !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   5. HERO SECTION — MORE BREATHING ROOM
+══════════════════════════════════════════════════════ */
+.hero-section {
+  padding-top: max(8rem, 14svh) !important;
+  padding-bottom: max(5.5rem, 10svh) !important;
+}
+
+/* Headline — slightly tighter tracking on large sizes */
+.hero-headline {
+  letter-spacing: -.01em;
+}
+
+/* Scroll line indicator — refine */
+.scroll-line {
+  height: 3rem !important;
+  width: 1px !important;
+  background: linear-gradient(to bottom, #54dec5, #54dec500) !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   6. SECTION RHYTHM — FIX SHORT SECTIONS
+   Key sections get enforced min-heights so nothing
+   feels like a stub on any viewport.
+══════════════════════════════════════════════════════ */
+
+/* What section */
+section#what {
+  padding-top:    clamp(5rem,  9vw, 8rem)  !important;
+  padding-bottom: clamp(5rem,  9vw, 8rem)  !important;
+}
+
+/* How / architecture loop */
+section#how {
+  padding-top:    clamp(5.5rem, 10vw, 9rem) !important;
+  padding-bottom: clamp(5.5rem, 10vw, 9rem) !important;
+  min-height: max(640px, 80svh);
+}
+
+/* Interface / terminal */
+section#interface {
+  padding-top:    clamp(5.5rem, 10vw, 9rem) !important;
+  padding-bottom: clamp(5.5rem, 10vw, 9rem) !important;
+  min-height: max(560px, 72svh);
+}
+
+/* Proof rail — give it consistent height */
+.proof-rail {
+  padding-top:    clamp(4rem,  8vw, 7rem)  !important;
+  padding-bottom: clamp(4rem,  8vw, 7rem)  !important;
+}
+
+/* CTA/Signup section — never feel cramped */
+section#waitlist,
+section#cta,
+[data-section="cta"] {
+  padding-top:    clamp(6rem, 12vw, 10rem) !important;
+  padding-bottom: clamp(6rem, 12vw, 10rem) !important;
+  min-height: max(480px, 56svh);
+}
+
+/* Philosophy section */
+section#philosophy,
+section#why {
+  padding-top:    clamp(5rem,  9vw, 8.5rem) !important;
+  padding-bottom: clamp(5rem,  9vw, 8.5rem) !important;
+}
+
+/* Roadmap/Timeline section */
+section#roadmap,
+section#timeline {
+  padding-top:    clamp(5rem,  9vw, 8.5rem) !important;
+  padding-bottom: clamp(5rem,  9vw, 8.5rem) !important;
+}
+
+/* Generic py-24 class can feel tight; bump slightly */
+.py-24 {
+  padding-top:    clamp(4.5rem, 7.5vw, 6.5rem) !important;
+  padding-bottom: clamp(4.5rem, 7.5vw, 6.5rem) !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   7. SECTION DIVIDERS — SHARPER SEPARATORS
+══════════════════════════════════════════════════════ */
+.section-border::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #54dec522 18%,
+    #d8bd7848 50%,
+    #54dec522 82%,
+    transparent 100%
+  ) !important;
+  max-width: 1400px !important;
+  opacity: .9;
+}
+.section-border::after {
+  background: #0d0c09 !important;
+  border-color: #d8bd7890 !important;
+  box-shadow: 0 0 18px #d8bd7840, 0 0 40px #d8bd7818 !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   8. TICKER — PAUSE INDICATOR ON HOVER
+══════════════════════════════════════════════════════ */
+.ticker-shell:hover::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  background: radial-gradient(ellipse at 50% 50%, #d8bd780a, transparent 70%) !important;
+  z-index: 3 !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   9. CARDS — SUBTLER, CLEANER HOVER
+══════════════════════════════════════════════════════ */
+.card,
+.glass-panel {
+  transition:
+    transform .4s var(--ease-smooth, cubic-bezier(.16,1,.3,1)),
+    border-color .3s ease,
+    box-shadow .4s ease,
+    background .3s ease !important;
+}
+.card:hover,
+.glass-panel:hover {
+  transform: translateY(-4px) !important;
+}
+
+/* Proof cells — lift on hover */
+.proof-cell {
+  transition:
+    transform .38s var(--ease-smooth, cubic-bezier(.16,1,.3,1)),
+    border-color .3s ease,
+    box-shadow .38s ease !important;
+}
+.proof-cell:hover {
+  transform: translateY(-4px) scale(1.018) !important;
+  box-shadow: 0 28px 72px -34px #54dec55a, inset 0 0 24px #54dec511 !important;
+}
+
+/* Architecture nodes */
+.architecture-node {
+  transition:
+    transform .35s var(--ease-smooth, cubic-bezier(.16,1,.3,1)),
+    border-color .3s ease,
+    box-shadow .35s ease,
+    background .3s ease !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   10. BUTTONS — PREMIUM FEEL
+══════════════════════════════════════════════════════ */
+.btn-primary {
+  letter-spacing: .01em;
+  font-feature-settings: "kern" 1;
+  transition:
+    transform .32s var(--ease-smooth, cubic-bezier(.16,1,.3,1)),
+    box-shadow .32s ease,
+    background .28s ease !important;
+}
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.02) !important;
+  box-shadow: 0 22px 60px -20px #d8bd78b8, inset 0 0 0 1px #ffffff44 !important;
+}
+.btn-primary:active {
+  transform: translateY(-1px) scale(.995) !important;
+  transition-duration: .12s !important;
+}
+
+.btn-ghost {
+  transition:
+    transform .32s var(--ease-smooth, cubic-bezier(.16,1,.3,1)),
+    border-color .28s ease,
+    background .28s ease,
+    color .28s ease,
+    box-shadow .32s ease !important;
+}
+.btn-ghost:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 16px 44px -24px #54dec555 !important;
+}
+.btn-ghost:active {
+  transform: translateY(0) !important;
+}
+
+/* CTA button ripple */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), #ffffff28 0%, transparent 65%);
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+}
+.btn-primary:hover::after { opacity: 1; }
+
+/* ══════════════════════════════════════════════════════
+   11. SIGNUP / EARLY ACCESS FORM
+══════════════════════════════════════════════════════ */
+.signup-input {
+  transition: border-color .25s ease, background .25s ease, box-shadow .25s ease !important;
+}
+.signup-input:focus {
+  box-shadow: 0 0 0 3px #54dec518, 0 0 20px #54dec510 !important;
+  border-color: #54dec566 !important;
+}
+
+/* Feedback text */
+.signup-feedback {
+  font-size: .8rem !important;
+  letter-spacing: .02em;
+  min-height: 1.5rem !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   12. TERMINAL — MORE AUTHENTIC
+══════════════════════════════════════════════════════ */
+.terminal-card {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+.terminal-bar {
+  padding: .65rem 1rem !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+/* macOS-style traffic lights */
+.terminal-dot {
+  transition: filter .2s !important;
+}
+.terminal-dot:hover {
+  filter: brightness(1.3) !important;
+}
+
+/* Typing line animation polish */
+.typing-line-demo {
+  transition: opacity .2s ease !important;
+}
+.typing-line-demo + .typing-line-demo {
+  border-top: 1px solid #f1eadb06;
+  padding-top: .35rem;
+  margin-top: .35rem;
+}
+
+/* ══════════════════════════════════════════════════════
+   13. SPEC STACK — VISUAL DEPTH
+══════════════════════════════════════════════════════ */
+.spec-stack {
+  border-radius: 16px !important;
+}
+.spec-row {
+  border-radius: 10px !important;
+}
+.spec-row:hover {
+  padding-left: 1.15rem !important;
+  border-color: #d8bd7840 !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   14. LOOP DIAGRAM — REFINED
+══════════════════════════════════════════════════════ */
+.center-hub {
+  transition: box-shadow .4s ease, transform .4s ease !important;
+}
+.center-hub:hover {
+  box-shadow: 0 0 60px #54dec53d, inset 0 1px #ffffff22 !important;
+  transform: translate(-50%, -50%) scale(1.08) !important;
+}
+.loop-node {
+  transition:
+    transform .38s var(--ease-smooth, cubic-bezier(.16,1,.3,1)),
+    border-color .3s ease,
+    background .3s ease,
+    box-shadow .38s ease !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   15. PHILOSOPHY CARDS — SMOOTH LEFT BORDER
+══════════════════════════════════════════════════════ */
+.philosophy-card {
+  transition:
+    transform .35s var(--ease-smooth, cubic-bezier(.16,1,.3,1)),
+    border-color .3s ease,
+    padding-left .35s ease !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   16. TIMELINE — REFINED DOT GLOW
+══════════════════════════════════════════════════════ */
+.timeline-dot {
+  box-shadow: 0 0 20px 4px #c4a96e55 !important;
+}
+.timeline-item {
+  transition: transform .35s ease !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   17. FOOTER — MORE SUBSTANTIAL
+══════════════════════════════════════════════════════ */
+.footer-shell {
+  padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 2.5rem) clamp(3rem, 5vw, 4rem) !important;
+  background: linear-gradient(#d8bd780a, transparent 28%), #070705e0 !important;
+  border-top: 1px solid #d8bd781a !important;
+}
+
+.footer-link {
+  transition: color .2s ease, transform .2s ease !important;
+}
+.footer-link:hover {
+  transform: translateX(3px) !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   18. CAROUSEL CARDS — CASE CARD REFINEMENTS
+══════════════════════════════════════════════════════ */
+.aether-case-card {
+  transition:
+    transform .46s var(--ease-smooth, cubic-bezier(.16,1,.3,1)),
+    border-color .34s ease,
+    box-shadow .46s ease !important;
+}
+.aether-case-card:hover {
+  transform: translateY(-6px) scale(1.015) !important;
+}
+
+/* Signal cards */
+.signal-card {
+  transition:
+    transform .34s var(--ease-smooth, cubic-bezier(.16,1,.3,1)),
+    border-color .28s ease !important;
+}
+.signal-card:hover {
+  transform: translateY(-4px) !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   19. FOCUS-VISIBLE — ACCESSIBLE & BEAUTIFUL
+══════════════════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid #54dec5bb !important;
+  outline-offset: 4px !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 0 4px #54dec515 !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   20. MOBILE POLISH
+══════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  /* Section spacing on mobile — reduce but keep generous */
+  .py-24  { padding-top: clamp(3.5rem, 8vw, 5rem)  !important; padding-bottom: clamp(3.5rem, 8vw, 5rem) !important; }
+  .py-32  { padding-top: clamp(4rem,   9vw, 6rem)   !important; padding-bottom: clamp(4rem,   9vw, 6rem) !important; }
+  .py-36  { padding-top: clamp(4.5rem, 10vw, 7rem)  !important; padding-bottom: clamp(4.5rem, 10vw, 7rem) !important; }
+  .py-40  { padding-top: clamp(5rem,   11vw, 7.5rem)!important; padding-bottom: clamp(5rem,   11vw, 7.5rem) !important; }
+
+  /* Hero on mobile — ensure full coverage */
+  .hero-section {
+    padding-top:    max(6.5rem, env(safe-area-inset-top, 0px) + 5rem) !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* Mobile nav toggle — larger touch target */
+  .nav-toggle {
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+  }
+
+  /* Mobile menu — better shadow */
+  .mobile-menu.open {
+    box-shadow: 0 28px 90px #00000077 !important;
+  }
+
+  /* Mobile buttons — full width but capped nicely */
+  .btn-primary, .btn-ghost {
+    max-width: 22rem !important;
+  }
+
+  /* Hero headline on very small screens */
+  .hero-headline {
+    font-size: clamp(2.8rem, 12vw, 3.65rem) !important;
+  }
+
+  /* Ticker on mobile */
+  .ticker-track > span {
+    padding: .6rem .9rem !important;
+  }
+
+  /* Proof cells on mobile */
+  .proof-cell {
+    min-height: 5.2rem !important;
+  }
+
+  /* Footer mobile */
+  .footer-shell {
+    padding: 3.5rem 1.25rem 2.5rem !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   21. SAFE AREA INSETS (notch/dynamic island)
+══════════════════════════════════════════════════════ */
+@supports (padding-top: env(safe-area-inset-top)) {
+  #navbar {
+    padding-left:  max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+  .footer-shell {
+    padding-bottom: max(3rem, env(safe-area-inset-bottom, 0px) + 2rem) !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   22. EYEBROW TAGS — REFINED
+══════════════════════════════════════════════════════ */
+.eyebrow {
+  backdrop-filter: blur(16px) saturate(1.4) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.4) !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   23. HERO METRICS BAR — GLASS REFINEMENT
+══════════════════════════════════════════════════════ */
+.hero-metrics {
+  border: 1px solid #f1eadb1a !important;
+  box-shadow: 0 24px 80px #00000044, inset 0 1px #ffffff0e !important;
+}
+.hero-metric:not(:last-child) {
+  border-right: 1px solid #f1eadb12;
+}
+
+/* ══════════════════════════════════════════════════════
+   24. BRAND MARK — REFINED GLOW
+══════════════════════════════════════════════════════ */
+.brand-logo {
+  transition: filter .3s ease, transform .3s ease !important;
+}
+.group:hover .brand-logo,
+a:hover .brand-logo {
+  filter: drop-shadow(0 0 22px #d8bd7857) drop-shadow(0 8px 20px #00000055) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   25. LANGUAGE SWITCH — SUBTLE POLISH
+══════════════════════════════════════════════════════ */
+.language-switch button {
+  transition: background .2s ease, color .2s ease, transform .2s ease !important;
+}
+.language-switch button:hover {
+  transform: scale(1.05) !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   26. SKIP LINK — ACCESSIBILITY
+══════════════════════════════════════════════════════ */
+.skip-link:focus {
+  transform: translateY(0) !important;
+  box-shadow: 0 4px 24px #00000055 !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   27. SELECTION COLOR — BRANDED
+══════════════════════════════════════════════════════ */
+::selection {
+  background: #54dec530 !important;
+  color: #f1eadb !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   28. STATUS PILLS — REFINED GLOW
+══════════════════════════════════════════════════════ */
+.status-now {
+  box-shadow: 0 0 18px #54dec520 !important;
+}
+.status-next {
+  box-shadow: 0 0 18px #d8bd7818 !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   29. ICON CAPS — CONSISTENT
+══════════════════════════════════════════════════════ */
+.cap-icon {
+  transition: background .25s ease, border-color .25s ease, transform .25s ease !important;
+}
+.card:hover .cap-icon,
+.glass-panel:hover .cap-icon {
+  transform: scale(1.08) !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   30. ANCHOR SMOOTH SCROLL OFFSET
+   Sections use scroll-margin-top; ensure consistent
+══════════════════════════════════════════════════════ */
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+/* ══════════════════════════════════════════════════════
+   31. PRINT — BASIC CLEANUP
+══════════════════════════════════════════════════════ */
+@media print {
+  #ac-loader, .aether-progress, #navbar,
+  .premium-bg-scene, .site-ambient, .grain {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   32. REDUCED MOTION — HONOR PREFERENCE
+══════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  #ac-loader,
+  .ac-loader-ring,
+  .ac-loader-dot,
+  .ac-loader-label {
+    animation: none !important;
+    transition: none !important;
+  }
+  #ac-loader {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   33. HIGH CONTRAST MEDIA
+══════════════════════════════════════════════════════ */
+@media (forced-colors: active) {
+  .btn-primary { border: 2px solid ButtonText !important; }
+  .card, .glass-panel { border: 1px solid CanvasText !important; }
+}
