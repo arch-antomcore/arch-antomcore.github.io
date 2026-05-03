@@ -536,17 +536,9 @@ section#timeline {
   filter: drop-shadow(0 0 10px rgba(216,189,120,0.4)) !important;
 }
 
-/* Hardware ID watermark */
-.aether-case-card::after {
-  content: 'HW_ID_SYS_' attr(key);
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-family: var(--mono);
-  font-size: 8px;
-  color: var(--gold);
-  opacity: 0.15;
-  letter-spacing: 0.2em;
+/* Clean technical aesthetic */
+.aether-card-footer span {
+  letter-spacing: 0.05em;
 }
 
 /* ══════════════════════════════════════════════════════
