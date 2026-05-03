@@ -507,20 +507,46 @@ section#timeline {
 /* ══════════════════════════════════════════════════════
    18. TICKER CARDS — BEAUTIFIED
  ══════════════════════════════════════════════════════ */
-.signal-card {
+.signal-card, .aether-case-card {
+  display: flex !important;
+  flex-direction: column !important;
   transition: transform .4s var(--ease-smooth), border-color .3s ease !important;
   cursor: default;
+  position: relative;
+  overflow: hidden;
 }
-.signal-card:hover {
+
+.signal-card:hover, .aether-case-card:hover {
   transform: translateY(-4px) scale(1.02) !important;
   border-color: rgba(216,189,120,.4) !important;
 }
+
+/* Technical Footer Spec */
+.aether-card-footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(to top, rgba(216,189,120,0.02), transparent);
+}
+
 .signal-icon {
   transition: transform .4s ease, filter .4s ease !important;
 }
+
 .signal-card:hover .signal-icon {
   transform: scale(1.1) !important;
   filter: drop-shadow(0 0 10px rgba(216,189,120,0.4)) !important;
+}
+
+/* Hardware ID watermark */
+.aether-case-card::after {
+  content: 'HW_ID_SYS_' attr(key);
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--gold);
+  opacity: 0.15;
+  letter-spacing: 0.2em;
 }
 
 /* ══════════════════════════════════════════════════════
