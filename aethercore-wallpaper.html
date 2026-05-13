@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AetherCore — Sand Dune Wallpaper</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0e0c09;
+  }
+
+  /* ── LAYER STACK ───────────────────────────────── */
+  #scene {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  /* Canvas: the dune curves + lighting */
+  #dune-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* SVG grain — the CRITICAL layer that makes it look like sand */
+  #grain-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    opacity: 0.55;
+  }
+
+  /* Second grain pass — finer, sharper (stacked for density) */
+  #grain-layer-2 {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.12;
+  }
+
+  /* Subtle vignette */
+  #vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 100% 100% at 50% 50%,
+      transparent 40%,
+      rgba(0,0,0,0.55) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Hidden SVG filter defs */
+  #svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+</style>
+</head>
+<body>
+
+<!-- SVG filter definitions (hidden) -->
+<svg id="svg-defs" aria-hidden="true">
+  <defs>
+    <!-- PRIMARY GRAIN: high frequency, fine sharp dots -->
+    <filter id="grain-sharp" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="linearRGB">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.72 0.72"
+        numOctaves="4"
+        seed="2"
+        stitchTiles="stitch"
+        result="noise"
+      />
+      <feColorMatrix
+        type="saturate"
+        values="0"
+        in="noise"
+        result="grayNoise"
+      />
+      <feComponentTransfer in="grayNoise" result="boosted">
+        <feFuncR type="linear" slope="3.5" intercept="-1.2"/>
+        <feFuncG type="linear" slope="3.5" intercept="-1.2"/>
+        <feFuncB type="linear" slope="3.5" intercept="-1.2"/>
+      </feComponentTransfer>
+    </filter>
+
+    <!-- SECONDARY GRAIN: slightly coarser, adds depth -->
+    <filter id="grain-coarse" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="linearRGB">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.38 0.38"
+        numOctaves="6"
+        seed="17"
+        stitchTiles="stitch"
+        result="noise2"
+      />
+      <feColorMatrix type="saturate" values="0" in="noise2" result="gray2"/>
+      <feComponentTransfer in="gray2">
+        <feFuncR type="linear" slope="2" intercept="-0.6"/>
+        <feFuncG type="linear" slope="2" intercept="-0.6"/>
+        <feFuncB type="linear" slope="2" intercept="-0.6"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+</svg>
+
+<div id="scene">
+  <!-- Layer 1: Canvas dunes -->
+  <canvas id="dune-canvas"></canvas>
+
+  <!-- Layer 2: Sharp grain overlay (primary) -->
+  <svg id="grain-layer" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100%" height="100%" filter="url(#grain-sharp)" opacity="1"/>
+  </svg>
+
+  <!-- Layer 3: Coarser grain (depth) -->
+  <svg id="grain-layer-2" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100%" height="100%" filter="url(#grain-coarse)" opacity="1"/>
+  </svg>
+
+  <!-- Layer 4: Vignette -->
+  <div id="vignette"></div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────
+//  DUNE CANVAS RENDERER
+//  Draws flowing S-curve dune ridges with raking-light shading
+// ─────────────────────────────────────────────────────────────
+
+const canvas = document.getElementById('dune-canvas');
+const ctx    = canvas.getContext('2d');
+
+function resize() {
+  canvas.width  = window.innerWidth  * window.devicePixelRatio;
+  canvas.height = window.innerHeight * window.devicePixelRatio;
+  canvas.style.width  = window.innerWidth  + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  draw();
+}
+
+// ── COLOR PALETTE ──────────────────────────────────────────
+// Base: near-black with warm undertone (like titanium dark)
+// Highlight: warm champagne/bronze — just like the Apple wallpaper
+const PALETTE = {
+  bg:          '#0c0b08',
+  shadow_deep: '#080705',
+  shadow_mid:  '#131109',
+  shadow_rim:  '#1f1c14',
+  crest_dim:   '#2e2818',
+  crest_mid:   '#4a3e28',
+  crest_warm:  '#7a6540',
+  crest_light: '#b8976a',
+  crest_glow:  '#d4b07c',
+  crest_peak:  '#e8cfa0',
+  crest_spec:  '#f5e8c8',
+};
+
+// ── DRAW ──────────────────────────────────────────────────
+function draw() {
+  const W = window.innerWidth;
+  const H = window.innerHeight;
+
+  // ── Background fill
+  ctx.fillStyle = PALETTE.bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // ── Deep ambient gradient (warm from bottom-left, cold top-right)
+  const ambientGrad = ctx.createRadialGradient(
+    W * 0.15, H * 0.85, 0,
+    W * 0.15, H * 0.85, W * 0.9
+  );
+  ambientGrad.addColorStop(0,   'rgba(60,45,20,0.35)');
+  ambientGrad.addColorStop(0.5, 'rgba(30,22,10,0.15)');
+  ambientGrad.addColorStop(1,   'rgba(0,0,0,0)');
+  ctx.fillStyle = ambientGrad;
+  ctx.fillRect(0, 0, W, H);
+
+  // ── Draw dune ridges (the flowing S-curves)
+  //    Each ridge = dark valley (shadow) + bright crest (lit edge)
+  //    We draw from back to front (painter's algorithm)
+
+  const ridges = buildRidges(W, H);
+
+  ridges.forEach(ridge => drawRidge(ctx, ridge, W, H));
+
+  // ── Top specular veil (the blurred bright band near crests)
+  drawSpecularVeil(ctx, W, H);
+}
+
+// ─────────────────────────────────────────────────────────
+//  BUILD RIDGE DEFINITIONS
+//  Returns array of ridge objects with control points
+// ─────────────────────────────────────────────────────────
+function buildRidges(W, H) {
+  // Each ridge defines:
+  //   path: array of bezier segments for the crest line
+  //   yOffset: how far down the page
+  //   intensity: brightness 0..1
+  //   width: falloff width of the lit strip
+
+  return [
+    // Dune 1 — far background, faint
+    {
+      crest: sCurve(W, H, 0.08, 0.62, 0.38, -0.12, 0.72, 0.28, 1.05, 0.60),
+      fill:  sCurve(W, H, 0.08, 1.00, 0.38, 0.30, 0.72, 0.65, 1.05, 1.00),
+      intensity: 0.25,
+      thickness: H * 0.04,
+      shadowW: H * 0.35,
+    },
+    // Dune 2 — mid
+    {
+      crest: sCurve(W, H, -0.05, 0.80, 0.25, 0.18, 0.60, 0.52, 1.08, 0.76),
+      fill:  sCurve(W, H, -0.05, 1.00, 0.25, 0.55, 0.60, 0.80, 1.08, 1.00),
+      intensity: 0.45,
+      thickness: H * 0.055,
+      shadowW: H * 0.42,
+    },
+    // Dune 3 — the main S-curve (most prominent, like in the Apple wallpaper)
+    {
+      crest: sCurve(W, H, -0.08, 0.92, 0.22, 0.35, 0.52, 0.65, 1.06, 0.42),
+      fill:  sCurve(W, H, -0.08, 1.10, 0.22, 0.72, 0.52, 0.90, 1.06, 1.10),
+      intensity: 0.85,
+      thickness: H * 0.07,
+      shadowW: H * 0.55,
+    },
+    // Dune 4 — foreground bottom, partially cropped
+    {
+      crest: sCurve(W, H, -0.1, 1.12, 0.15, 0.72, 0.45, 0.95, 1.08, 0.68),
+      fill:  sCurve(W, H, -0.1, 1.40, 0.15, 1.10, 0.45, 1.30, 1.08, 1.40),
+      intensity: 0.55,
+      thickness: H * 0.06,
+      shadowW: H * 0.48,
+    },
+  ];
+}
+
+// ─────────────────────────────────────────────────────────
+//  SCURVE: create bezier S-shape path data
+//  Uses cubic beziers for smooth organic feel
+// ─────────────────────────────────────────────────────────
+function sCurve(W, H, x0, y0, x1, y1, x2, y2, x3, y3) {
+  // Compute natural cubic bezier control points for S-shape
+  const p0 = { x: x0 * W, y: y0 * H };
+  const p3 = { x: x3 * W, y: y3 * H };
+
+  const cp1 = {
+    x: x1 * W,
+    y: y1 * H
+  };
+  const cp2 = {
+    x: x2 * W,
+    y: y2 * H
+  };
+
+  return { p0, cp1, cp2, p3 };
+}
+
+// ─────────────────────────────────────────────────────────
+//  DRAW RIDGE
+// ─────────────────────────────────────────────────────────
+function drawRidge(ctx, ridge, W, H) {
+  const { crest, fill, intensity, thickness, shadowW } = ridge;
+
+  // ── 1. Shadow belly (the dark underside of the dune)
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(fill.p0.x, fill.p0.y);
+  ctx.bezierCurveTo(fill.cp1.x, fill.cp1.y, fill.cp2.x, fill.cp2.y, fill.p3.x, fill.p3.y);
+  ctx.lineTo(crest.p3.x, crest.p3.y);
+  ctx.bezierCurveTo(crest.cp2.x, crest.cp2.y, crest.cp1.x, crest.cp1.y, crest.p0.x, crest.p0.y);
+  ctx.closePath();
+
+  // Shadow fill — dark warm
+  const shadowGrad = ctx.createLinearGradient(0, 0, W * 0.3, H);
+  shadowGrad.addColorStop(0,   'rgba(10,8,4,0.95)');
+  shadowGrad.addColorStop(0.5, 'rgba(16,13,8,0.90)');
+  shadowGrad.addColorStop(1,   'rgba(8,6,3,0.95)');
+  ctx.fillStyle = shadowGrad;
+  ctx.fill();
+  ctx.restore();
+
+  // ── 2. Crest glow — the lit ridge line (the KEY visual element)
+  //    Implemented as a wide, soft strip along the bezier crest
+
+  // Approximate crest with sampled points, then draw gradient strip
+  const pts = sampleBezier(crest, 80);
+
+  pts.forEach((pt, i) => {
+    if (i === 0) return;
+    const prev = pts[i - 1];
+
+    // Perpendicular direction (normal to curve)
+    const dx = pt.x - prev.x;
+    const dy = pt.y - prev.y;
+    const len = Math.sqrt(dx * dx + dy * dy);
+    if (len < 0.001) return;
+    const nx = -dy / len;
+    const ny =  dx / len;
+
+    // Draw a small trapezoidal strip perpendicular to the crest
+    // This creates the "lit ridge" effect
+    const halfW = thickness;
+    const halfShadow = shadowW;
+
+    const x0 = pt.x   + nx * halfW;
+    const y0 = pt.y   + ny * halfW;
+    const x1 = pt.x   - nx * halfShadow;
+    const y1 = pt.y   - ny * halfShadow;
+    const x2 = prev.x - nx * halfShadow;
+    const y2 = prev.y - ny * halfShadow;
+    const x3 = prev.x + nx * halfW;
+    const y3 = prev.y + ny * halfW;
+
+    const stripGrad = ctx.createLinearGradient(x0, y0, x1, y1);
+
+    // Bright crest → dark shadow falloff
+    const a = intensity;
+    stripGrad.addColorStop(0.00, `rgba(245,232,200,${a * 0.06})`);   // specular peak
+    stripGrad.addColorStop(0.02, `rgba(230,205,160,${a * 0.18})`);   // hot crest
+    stripGrad.addColorStop(0.05, `rgba(200,168,110,${a * 0.38})`);   // warm crest
+    stripGrad.addColorStop(0.10, `rgba(160,128,72, ${a * 0.55})`);   // crest body
+    stripGrad.addColorStop(0.18, `rgba(100,80,40,  ${a * 0.50})`);   // shoulder
+    stripGrad.addColorStop(0.30, `rgba(50,38,18,   ${a * 0.35})`);   // mid shadow
+    stripGrad.addColorStop(0.55, `rgba(20,15,6,    ${a * 0.20})`);   // deep shadow
+    stripGrad.addColorStop(1.00, `rgba(0,0,0,      0)`);              // fade out
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x3, y3);
+    ctx.closePath();
+    ctx.fillStyle = stripGrad;
+    ctx.fill();
+    ctx.restore();
+  });
+
+  // ── 3. Sharp crest highlight line (the bright razor edge)
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(crest.p0.x, crest.p0.y);
+  ctx.bezierCurveTo(crest.cp1.x, crest.cp1.y, crest.cp2.x, crest.cp2.y, crest.p3.x, crest.p3.y);
+
+  ctx.strokeStyle = `rgba(245,228,185,${intensity * 0.65})`;
+  ctx.lineWidth = lerp(0.8, 2.2, intensity);
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+  ctx.restore();
+
+  // ── 4. Soft glow bloom on top of the sharp line
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(crest.p0.x, crest.p0.y);
+  ctx.bezierCurveTo(crest.cp1.x, crest.cp1.y, crest.cp2.x, crest.cp2.y, crest.p3.x, crest.p3.y);
+
+  ctx.strokeStyle = `rgba(230,200,140,${intensity * 0.18})`;
+  ctx.lineWidth = lerp(6, 18, intensity);
+  ctx.filter = `blur(${lerp(3, 8, intensity)}px)`;
+  ctx.stroke();
+  ctx.restore();
+}
+
+// ─────────────────────────────────────────────────────────
+//  SPECULAR VEIL
+//  A very diffuse bright zone around the main crest area
+// ─────────────────────────────────────────────────────────
+function drawSpecularVeil(ctx, W, H) {
+  // Soft elliptical light source simulation
+  const grad1 = ctx.createRadialGradient(
+    W * 0.28, H * 0.52, 0,
+    W * 0.28, H * 0.52, W * 0.55
+  );
+  grad1.addColorStop(0,   'rgba(180,145,80,0.07)');
+  grad1.addColorStop(0.4, 'rgba(120,90,45,0.04)');
+  grad1.addColorStop(1,   'rgba(0,0,0,0)');
+  ctx.fillStyle = grad1;
+  ctx.fillRect(0, 0, W, H);
+
+  // Secondary scattered light
+  const grad2 = ctx.createRadialGradient(
+    W * 0.55, H * 0.42, 0,
+    W * 0.55, H * 0.42, W * 0.4
+  );
+  grad2.addColorStop(0,   'rgba(140,110,60,0.05)');
+  grad2.addColorStop(1,   'rgba(0,0,0,0)');
+  ctx.fillStyle = grad2;
+  ctx.fillRect(0, 0, W, H);
+}
+
+// ─────────────────────────────────────────────────────────
+//  UTILS
+// ─────────────────────────────────────────────────────────
+function sampleBezier(b, n) {
+  const pts = [];
+  for (let i = 0; i <= n; i++) {
+    const t = i / n;
+    const mt = 1 - t;
+    pts.push({
+      x: mt*mt*mt * b.p0.x + 3*mt*mt*t * b.cp1.x + 3*mt*t*t * b.cp2.x + t*t*t * b.p3.x,
+      y: mt*mt*mt * b.p0.y + 3*mt*mt*t * b.cp1.y + 3*mt*t*t * b.cp2.y + t*t*t * b.p3.y
+    });
+  }
+  return pts;
+}
+
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+// ─────────────────────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────────────────────
+resize();
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(resize, 100);
+});
+</script>
+</body>
+</html>
