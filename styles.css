@@ -110,6 +110,12 @@ html[data-theme="offwhite"] {
       -moz-osx-font-smoothing: grayscale;
     }
 
+    @supports (overflow: clip) {
+      body {
+        overflow-x: clip;
+      }
+    }
+
     a {
       color: inherit;
       text-decoration: none;
@@ -6500,6 +6506,217 @@ section[id] {
   .btn-primary { border: 2px solid ButtonText !important; }
   .card, .glass-panel { border: 1px solid CanvasText !important; }
 }
+
+/* Request pass: centered hero, wider ticker, and scroll-driven atmosphere. */
+.hero-section .hero-content {
+  width: min(calc(100% - 2rem), 72rem) !important;
+  max-width: 72rem !important;
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+
+.hero-section .hero-headline {
+  max-width: 11.6em !important;
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+
+.hero-section .hero-copy {
+  max-width: 39rem !important;
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+
+.hero-section .hero-badges,
+.hero-section .hero-actions {
+  justify-content: center !important;
+}
+
+.hero-section .hero-actions {
+  align-items: center !important;
+}
+
+.ticker-shell.aether-scroll-carousel {
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw !important;
+  margin-right: -50vw !important;
+  padding-block: clamp(1.35rem, 2.25vw, 2.1rem) !important;
+  overflow: hidden;
+}
+
+.ticker-shell.aether-scroll-carousel::before,
+.ticker-shell.aether-scroll-carousel::after {
+  width: clamp(2rem, 4.5vw, 5.5rem) !important;
+}
+
+.ticker-shell.aether-scroll-carousel .signal-carousel-track {
+  gap: clamp(.95rem, 1.45vw, 1.45rem) !important;
+  padding-inline: 0 !important;
+}
+
+.ticker-shell.aether-scroll-carousel[data-direction="right"] .signal-carousel-track {
+  animation-duration: 108s !important;
+}
+
+.ticker-shell.aether-scroll-carousel .signal-card {
+  min-width: clamp(19rem, 23vw, 30rem) !important;
+  min-height: 6.35rem !important;
+}
+
+.ticker-shell.aether-scroll-carousel .signal-card-proof {
+  min-width: clamp(22rem, 27vw, 34rem) !important;
+}
+
+.scroll-dynamic {
+  position: relative;
+  isolation: isolate;
+}
+
+.scroll-dynamic > :not(.scroll-dynamic-glow) {
+  position: relative;
+  z-index: 1;
+}
+
+.scroll-dynamic-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--section-glow-o, 0);
+  transform: translate3d(0, var(--section-band-y, 0px), 0);
+  background:
+    radial-gradient(34rem 22rem at var(--section-glow-x, 50%) var(--section-glow-y, 45%), rgba(84,222,197,.16), transparent 72%),
+    radial-gradient(30rem 20rem at calc(100% - var(--section-glow-x, 50%)) 76%, rgba(216,189,120,.12), transparent 74%),
+    linear-gradient(100deg, transparent 0 28%, rgba(255,255,255,.035) 48%, transparent 70%);
+  mix-blend-mode: screen;
+  filter: blur(.2px) saturate(1.08);
+  transition: opacity .12s linear;
+  will-change: opacity, transform;
+  mask-image: linear-gradient(180deg, transparent, black 18%, black 82%, transparent);
+}
+
+html[data-theme="offwhite"] .scroll-dynamic-glow {
+  mix-blend-mode: multiply;
+  background:
+    radial-gradient(34rem 22rem at var(--section-glow-x, 50%) var(--section-glow-y, 45%), rgba(15,163,154,.13), transparent 72%),
+    radial-gradient(30rem 20rem at calc(100% - var(--section-glow-x, 50%)) 76%, rgba(168,113,43,.10), transparent 74%),
+    linear-gradient(100deg, transparent 0 28%, rgba(81,69,219,.055) 48%, transparent 70%);
+}
+
+.loop-diagram-shell {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(84,222,197,.22) !important;
+  background:
+    radial-gradient(44rem 30rem at var(--section-glow-x, 50%) var(--section-glow-y, 45%), rgba(84,222,197,.18), transparent 70%),
+    radial-gradient(34rem 22rem at 82% 18%, rgba(143,132,255,.14), transparent 72%),
+    radial-gradient(28rem 20rem at 18% 86%, rgba(216,189,120,.12), transparent 74%),
+    linear-gradient(145deg, rgba(8,22,34,.88), rgba(11,20,28,.66) 48%, rgba(7,13,18,.86)) !important;
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.12) !important;
+}
+
+.loop-diagram-shell::after {
+  content: "";
+  position: absolute;
+  inset: -22%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .28;
+  transform: translate3d(0, var(--section-band-y, 0px), 0) rotate(8deg);
+  background:
+    linear-gradient(110deg, transparent 0 34%, rgba(255,255,255,.16) 47%, rgba(84,222,197,.16) 53%, transparent 68%),
+    repeating-linear-gradient(90deg, rgba(241,234,219,.035) 0 1px, transparent 1px 34px);
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 0 56%, transparent 78%);
+}
+
+.loop-diagram-shell .loop-3d {
+  opacity: .42 !important;
+  mix-blend-mode: screen !important;
+}
+
+.loop-diagram-shell .ring-spin,
+.loop-diagram-shell .ring-spin-rev {
+  border-color: rgba(84,222,197,.24) !important;
+}
+
+.loop-diagram-shell .loop-arrow,
+.loop-diagram-shell .diagram-arrows path {
+  stroke: rgba(84,222,197,.56) !important;
+}
+
+.scroll-kinetic-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-kinetic-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--section-glow-o, .16);
+  background:
+    radial-gradient(18rem 12rem at var(--section-glow-x, 50%) 0%, rgba(84,222,197,.18), transparent 72%),
+    linear-gradient(105deg, transparent 0 38%, rgba(255,255,255,.10) 50%, transparent 62%);
+  mix-blend-mode: screen;
+  transform: translate3d(0, var(--section-band-y, 0px), 0);
+}
+
+.scroll-kinetic-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+@supports (animation-timeline: view()) {
+  .loop-diagram-shell::after {
+    animation: loopDiagramHighlight linear both;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+  }
+
+  .scroll-kinetic-card::after {
+    animation: kineticCardHighlight linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 72%;
+  }
+}
+
+@keyframes loopDiagramHighlight {
+  0% { opacity: .08; filter: hue-rotate(-8deg); }
+  50% { opacity: .42; filter: hue-rotate(10deg); }
+  100% { opacity: .12; filter: hue-rotate(0deg); }
+}
+
+@keyframes kineticCardHighlight {
+  0% { opacity: .04; }
+  45% { opacity: .26; }
+  100% { opacity: .08; }
+}
+
+@media (max-width: 767px) {
+  .hero-section .hero-content {
+    width: min(calc(100% - 1.5rem), 42rem) !important;
+  }
+
+  .ticker-shell.aether-scroll-carousel .signal-card {
+    min-width: min(78vw, 22rem) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-dynamic-glow,
+  .loop-diagram-shell::after,
+  .scroll-kinetic-card::after {
+    animation: none !important;
+    opacity: .08 !important;
+    transform: none !important;
+  }
+}
  
 /* ══════════════════════════════════════════════════════
    34. DESIGN POLISH — STRUCTURAL FIXES
@@ -6659,5 +6876,407 @@ section[id] {
 
   .timeline-item.mb-14 {
     margin-bottom: 1.5rem !important;
+  }
+}
+
+/* Final request overrides: keep hero readable and make the signal rail full-bleed. */
+.hero-section .word-mask {
+  overflow: visible !important;
+}
+
+.hero-section .word-inner,
+.hero-section .hero-fade {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.ticker-shell.aether-scroll-carousel {
+  left: auto !important;
+  right: auto !important;
+  width: 100vw !important;
+  max-width: none !important;
+  margin-top: 1.2rem !important;
+  margin-bottom: 1.2rem !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  border-radius: 0 !important;
+  padding-top: clamp(1.25rem, 2vw, 1.9rem) !important;
+  padding-bottom: clamp(1.25rem, 2vw, 1.9rem) !important;
+}
+
+.ticker-shell.aether-scroll-carousel .signal-carousel-track {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.hero-section > .hero-content > .hero-copy.text-mid {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+.hero-section .hero-content .hero-metrics {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+#hero .hero-copy.hero-fade {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+#hero .hero-content {
+  text-align: center !important;
+}
+
+#hero .hero-metrics {
+  display: grid !important;
+  width: fit-content !important;
+  max-width: min(100%, 52rem) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   35. COMPREHENSIVE DESIGN CONSISTENCY FIX
+   - Softens sharp reflection lines on cards & glass-panels
+   - Fixes section dividers for both light & dark themes
+   - Improves dark-mode card rendering
+   - Smooths ::before pseudo-element shine
+══════════════════════════════════════════════════════ */
+
+/* ── 35a. Soften card & glass-panel top border reflection ──
+   The old `border-top: 1px solid rgba(216,189,120,.12)` creates a
+   razor-sharp horizontal line. Replace with a radial gradient pseudo
+   that fades at the edges for a natural glass-like sheen. */
+
+.card,
+.glass-panel,
+.philosophy-card,
+.trust-chip,
+.product-step,
+.terminal-card,
+.aether-case-card,
+.aether-violet-card {
+  border-top-color: transparent !important;
+}
+
+/* Soft top-edge sheen via ::after (only when not hovered — hover already has its own ::after) */
+.card::before,
+.glass-panel::before,
+.philosophy-card::before,
+.terminal-card::before,
+.aether-case-card .aether-card-bg {
+  background:
+    radial-gradient(ellipse 72% 18% at 50% 0%, rgba(255,255,255,.14), transparent) !important;
+  mix-blend-mode: screen !important;
+  opacity: .48 !important;
+  filter: blur(0.5px) !important;
+}
+
+/* Navy dark mode: slightly brighter sheen since background is darker */
+html[data-theme="navy"] .card::before,
+html[data-theme="navy"] .glass-panel::before,
+html[data-theme="navy"] .philosophy-card::before,
+html[data-theme="navy"] .terminal-card::before,
+html[data-theme="navy"] .aether-case-card .aether-card-bg {
+  background:
+    radial-gradient(ellipse 68% 16% at 50% 0%, rgba(206,224,239,.12), transparent) !important;
+  opacity: .36 !important;
+}
+
+/* ── 35b. Card inset glow: replace sharp top-border with soft inner shadow ── */
+.card,
+.glass-panel,
+.philosophy-card,
+.terminal-card,
+.aether-case-card,
+.trust-chip {
+  box-shadow:
+    var(--shadow-card),
+    inset 0 1px 0 rgba(255,255,255,.24) !important;
+}
+
+html[data-theme="navy"] .card,
+html[data-theme="navy"] .glass-panel,
+html[data-theme="navy"] .philosophy-card,
+html[data-theme="navy"] .terminal-card,
+html[data-theme="navy"] .aether-case-card,
+html[data-theme="navy"] .trust-chip {
+  box-shadow:
+    var(--shadow-card),
+    inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+
+/* ── 35c. Section divider diamond: fix for both themes ── */
+.section-border::after {
+  background: var(--paper, #f7f2e6) !important;
+  border: 1px solid color-mix(in srgb, var(--gold) 36%, transparent) !important;
+  box-shadow:
+    0 0 8px color-mix(in srgb, var(--gold) 14%, transparent),
+    0 0 24px color-mix(in srgb, var(--gold) 6%, transparent) !important;
+  border-radius: 1.5px !important;
+}
+
+html[data-theme="navy"] .section-border::after {
+  background: var(--surface2, #10243a) !important;
+  border-color: rgba(215,180,108,.32) !important;
+  box-shadow:
+    0 0 10px rgba(215,180,108,.16),
+    0 0 30px rgba(215,180,108,.06) !important;
+}
+
+/* ── 35d. Section divider line: soften for both themes ── */
+.section-border::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--gold) 14%, transparent) 20%,
+    color-mix(in srgb, var(--teal) 10%, transparent) 50%,
+    color-mix(in srgb, var(--gold) 14%, transparent) 80%,
+    transparent 100%
+  ) !important;
+  opacity: .7 !important;
+}
+
+/* ── 35e. Card hover: smoother lift + softer glow ── */
+.card:hover,
+.glass-panel:hover,
+.philosophy-card:hover,
+.trust-chip:hover {
+  box-shadow:
+    var(--shadow-hover),
+    inset 0 1px 0 rgba(255,255,255,.32) !important;
+}
+
+html[data-theme="navy"] .card:hover,
+html[data-theme="navy"] .glass-panel:hover,
+html[data-theme="navy"] .philosophy-card:hover,
+html[data-theme="navy"] .trust-chip:hover {
+  box-shadow:
+    var(--shadow-hover),
+    inset 0 1px 0 rgba(255,255,255,.09) !important;
+}
+
+/* ── 35f. Light-mode card text contrast fix ── */
+.card p,
+.glass-panel p,
+.trust-chip p,
+.philosophy-card p,
+.product-step p,
+.aether-case-card p {
+  color: var(--text-mid) !important;
+}
+
+.card .text-mid,
+.glass-panel .text-mid,
+.product-step .text-mid {
+  color: var(--text-mid) !important;
+}
+
+/* ── 35g. Eyebrow badges: softer border in light mode ── */
+.eyebrow {
+  border-color: var(--border) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.42), 0 4px 12px rgba(43,57,96,.06) !important;
+}
+
+html[data-theme="navy"] .eyebrow {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 4px 12px rgba(0,0,0,.14) !important;
+}
+
+/* ── 35h. Hero metrics box: ensure soft edges in both modes ── */
+.hero-metrics {
+  border-color: var(--border) !important;
+  box-shadow: 0 16px 48px rgba(43,57,96,.08), inset 0 1px 0 rgba(255,255,255,.28) !important;
+}
+
+html[data-theme="navy"] .hero-metrics {
+  box-shadow: 0 16px 48px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+
+/* ── 35i. Signal carousel cards: softer reflection ── */
+.signal-card {
+  border-top-color: transparent !important;
+  box-shadow: 0 8px 24px rgba(43,57,96,.06), inset 0 1px 0 rgba(255,255,255,.18) !important;
+}
+
+html[data-theme="navy"] .signal-card {
+  box-shadow: 0 8px 24px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.04) !important;
+}
+
+/* ── 35j. Architecture carousel cards: soften sheen ── */
+.aether-case-card {
+  border-top-color: transparent !important;
+}
+
+.aether-card-border {
+  opacity: .5 !important;
+}
+
+/* ── 35k. Loop node inner: softer glass ── */
+.loop-node-inner {
+  border-top-color: transparent !important;
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,.22) !important;
+}
+
+html[data-theme="navy"] .loop-node-inner {
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,.06) !important;
+}
+
+/* ── 35l. Footer: dark mode text visibility ── */
+html[data-theme="navy"] .footer-shell .footer-link {
+  color: var(--text-mid) !important;
+}
+
+html[data-theme="navy"] .footer-shell .footer-link:hover {
+  color: var(--text) !important;
+}
+
+/* ── 35m. Terminal card: softer top sheen ── */
+.terminal-card {
+  border-top-color: transparent !important;
+}
+
+.terminal-bar {
+  border-bottom: 1px solid var(--border) !important;
+}
+
+/* ── 35n. Proof cells: soften top edge ── */
+.proof-cell {
+  border-top-color: transparent !important;
+  box-shadow: 0 12px 36px rgba(43,57,96,.08), inset 0 1px 0 rgba(255,255,255,.18) !important;
+}
+
+html[data-theme="navy"] .proof-cell {
+  box-shadow: 0 12px 36px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.05) !important;
+}
+
+/* ── 35o. Mobile menu: theme-aware background ── */
+html[data-theme="navy"] .mobile-menu {
+  background: rgba(8,21,38,.96) !important;
+  border-color: rgba(206,224,239,.14) !important;
+}
+
+/* ── 35p. Loader: theme-aware ── */
+html[data-theme="navy"] #ac-loader {
+  background: rgba(8,21,38,.92) !important;
+}
+
+html[data-theme="navy"] .ac-loader-label {
+  color: rgba(238,246,251,.45) !important;
+}
+
+/* ── 35q. Philosophy cards: consistent styling ── */
+.philosophy-card {
+  border-top-color: transparent !important;
+  overflow: hidden;
+}
+
+/* ── 35r. Product step cards: soft top ── */
+.product-step {
+  border-top-color: transparent !important;
+}
+
+/* ── 35s. Spec rows: softer borders ── */
+.spec-row,
+.spec-stack {
+  border-top-color: transparent !important;
+}
+
+/* ── 35t. Vision field: fix dark-mode background ── */
+html[data-theme="navy"] .vision-field {
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 50%,
+    rgba(88,213,203,.08),
+    rgba(145,136,255,.05) 40%,
+    transparent 70%
+  ) !important;
+}
+
+/* ── 35u. Architecture node: softer reflection ── */
+.architecture-node {
+  border-top-color: transparent !important;
+}
+
+/* ── 35v. CTA rings: theme-aware ── */
+html[data-theme="navy"] .cta-ring {
+  border-color: rgba(206,224,239,.06) !important;
+}
+
+/* ── 35w. Ticker hover on dark mode: fix background shift ── */
+html[data-theme="navy"] .ticker-shell:hover::before {
+  background: radial-gradient(ellipse at 50% 50%, rgba(215,180,108,.04), transparent 70%) !important;
+}
+
+/* ── 35x. Signup input: theme-aware placeholder ── */
+html[data-theme="navy"] .signup-input::placeholder {
+  color: rgba(238,246,251,.36) !important;
+}
+
+.signup-input::placeholder {
+  color: var(--text-dim) !important;
+}
+
+/* ── 35y. Architecture carousel fade edges: theme-aware ── */
+html[data-theme="navy"] .architecture-carousel-wrap::before {
+  background: linear-gradient(90deg, rgba(8,21,38,.96), rgba(8,21,38,.42) 44%, transparent) !important;
+}
+
+html[data-theme="navy"] .architecture-carousel-wrap::after {
+  background: linear-gradient(270deg, rgba(8,21,38,.96), rgba(8,21,38,.42) 44%, transparent) !important;
+}
+
+/* ── 35z. Scroll-driven section: dark-mode fixes ── */
+html[data-theme="navy"] .ac-sda-console {
+  background: rgba(13,29,49,.88) !important;
+  border-color: rgba(206,224,239,.12) !important;
+}
+
+html[data-theme="navy"] .ac-sda-card {
+  background: var(--elevated-bg) !important;
+  border-color: var(--elevated-border) !important;
+}
+
+html[data-theme="navy"] .ac-sda-slide {
+  background: var(--elevated-bg) !important;
+  border-color: var(--elevated-border) !important;
+}
+
+/* ── 35aa. Timeline dots: theme-aware ── */
+html[data-theme="navy"] .timeline-dot {
+  background: var(--gold) !important;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--gold) 28%, transparent) !important;
+}
+
+html[data-theme="navy"] .timeline-dot-muted {
+  background: var(--gold-dim) !important;
+  opacity: .5 !important;
+}
+
+html[data-theme="navy"] .timeline-dot-faint {
+  background: var(--text-dim) !important;
+  opacity: .3 !important;
+}
+
+/* ── 35ab. Compare cards: theme-aware borders ── */
+html[data-theme="navy"] .compare-old {
+  border-style: dashed !important;
+  border-color: rgba(206,224,239,.12) !important;
+}
+
+/* ── 35ac. Bento hero/wide gradient overlays: transparent top in light mode ── */
+.bento-hero::after,
+.bento-wide::after {
+  border-radius: inherit !important;
+}
+
+/* ── 35ad. Reduced motion: skip card sheen animations ── */
+@media (prefers-reduced-motion: reduce) {
+  .card::before,
+  .glass-panel::before {
+    filter: none !important;
+    animation: none !important;
   }
 }

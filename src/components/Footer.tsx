@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="footer-shell relative z-10 bg-opacity-0">
+    <footer className="footer-shell fade-up relative z-10 bg-opacity-0">
       <h2 className="sr-only">Footer</h2>
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">

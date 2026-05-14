@@ -62,28 +62,6 @@ export const initMain = () => {
           document.body.classList.remove('using-keyboard');
         }, { passive: true });
 
-        // High-performance GSAP batch reveals
-        if (!prefersReducedMotion) {
-          const revealTargets = gsap.utils.toArray('.card, .glass-panel, .philosophy-card, .trust-chip, .terminal-card, .timeline-item, .bento-hero, .bento-wide, .bento-sm-1, .bento-sm-2, .bento-third, .fade-up');
-          
-          gsap.set(revealTargets, { y: 30, opacity: 0 });
-          
-          ScrollTrigger.batch(revealTargets, {
-            start: 'top 88%',
-            onEnter: (elements) => {
-              gsap.to(elements, {
-                y: 0,
-                opacity: 1,
-                duration: 0.85,
-                stagger: 0.08,
-                ease: 'power3.out',
-                overwrite: true
-              });
-            },
-            once: true
-          });
-        }
-
         let activeIndex = 0;
         let loopTimer = null;
         let loopResumeTimer = null;
@@ -194,12 +172,9 @@ export const initMain = () => {
             ['Theme', 'Tema'],
             ['Use off-white theme', 'Usar tema off-white'],
             ['Use navy theme', 'Usar tema navy'],
-            ['Open navigation menu', 'Abrir menu de navegaÃ§Ã£o'],
-            ['Close navigation menu', 'Fechar menu de navegaÃ§Ã£o'],
-            ['AetherCore home', 'InÃ­cio do AetherCore'],
-            ['Open navigation menu', 'Abrir menu de navegacao'],
-            ['Close navigation menu', 'Fechar menu de navegacao'],
-            ['AetherCore home', 'Inicio do AetherCore'],
+            ['Open navigation menu', 'Abrir menu de navegação'],
+            ['Close navigation menu', 'Fechar menu de navegação'],
+            ['AetherCore home', 'Início do AetherCore'],
             ['Primary navigation', 'Navegacao principal'],
             ['AetherCore architecture and current build carousel', 'Carrossel de arquitetura e build atual do AetherCore'],
             ['Go to What it is section', 'Ir para secao O que e'],
@@ -695,54 +670,91 @@ export const initMain = () => {
           const hero = document.getElementById('hero');
           if (!hero || prefersReducedMotion) return;
 
-          let current = 0;
-          let target = 0;
           let frame = 0;
-          let lastY = window.scrollY;
           const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
-          const isHeroRelevant = () => window.scrollY < hero.offsetTop + hero.offsetHeight + window.innerHeight * 0.35;
 
-          const write = (value) => {
-            hero.style.setProperty('--hero-drift-y', `${value.toFixed(2)}px`);
-            hero.style.setProperty('--hero-drift-bg', `${(value * 0.42).toFixed(2)}px`);
-            hero.style.setProperty('--hero-drift-field', `${(value * 0.58).toFixed(2)}px`);
-            hero.style.setProperty('--hero-drift-scale', (1 + Math.abs(value) * 0.0009).toFixed(4));
-          };
+          const write = () => {
+            frame = 0;
+            const rect = hero.getBoundingClientRect();
+            const vh = window.innerHeight || document.documentElement.clientHeight || 1;
+            const progress = clamp(-rect.top / Math.max(1, Math.min(rect.height, vh * 1.15)), 0, 1);
+            const ease = progress * progress * (3 - 2 * progress);
 
-          const tick = () => {
-            current += (target - current) * 0.19;
-            target *= 0.86;
-            write(current);
+            hero.style.setProperty('--hero-scroll-p', ease.toFixed(4));
+            hero.style.setProperty('--hero-drift-y', `${(-26 * ease).toFixed(2)}px`);
+            hero.style.setProperty('--hero-drift-bg', `${(18 * ease).toFixed(2)}px`);
+            hero.style.setProperty('--hero-drift-field', `${(34 * ease).toFixed(2)}px`);
+            hero.style.setProperty('--hero-drift-scale', (1 + ease * 0.014).toFixed(4));
 
-            if (Math.abs(current) < 0.05 && Math.abs(target) < 0.05) {
-              current = 0;
-              target = 0;
-              write(0);
-              frame = 0;
+            if (progress > 0.08) {
+              hero.dataset.scrollIntent = 'down';
+            } else {
               hero.removeAttribute('data-scroll-intent');
-              return;
             }
-
-            frame = window.requestAnimationFrame(tick);
           };
 
-          const push = (delta) => {
-            if (!delta || !isHeroRelevant()) return;
-            target = clamp(target + delta * 0.11, -42, 54);
-            hero.dataset.scrollIntent = delta > 0 ? 'down' : 'up';
-            if (!frame) frame = window.requestAnimationFrame(tick);
+          const schedule = () => {
+            if (!frame) frame = window.requestAnimationFrame(write);
           };
 
-          window.addEventListener('wheel', (event) => {
-            push(event.deltaY);
-          }, { passive: true });
+          schedule();
+          window.addEventListener('scroll', schedule, { passive: true });
+          window.addEventListener('resize', schedule, { passive: true });
+        };
 
-          window.addEventListener('scroll', () => {
-            const nextY = window.scrollY;
-            const delta = nextY - lastY;
-            lastY = nextY;
-            if (Math.abs(delta) > 1) push(delta);
-          }, { passive: true });
+        const initScrollDynamicLayers = () => {
+          const sections = Array.from(document.querySelectorAll('main > section[id]:not(#hero):not(#scroll-driven-top-tier), .ticker-shell'))
+            .filter((section) => section instanceof HTMLElement);
+
+          if (!sections.length) return;
+
+          sections.forEach((section) => {
+            section.classList.add('scroll-dynamic');
+            const hasLayer = Array.from(section.children).some((child) => child.classList?.contains('scroll-dynamic-glow'));
+            if (!hasLayer) {
+              const layer = document.createElement('span');
+              layer.className = 'scroll-dynamic-glow';
+              layer.setAttribute('aria-hidden', 'true');
+              section.insertBefore(layer, section.firstElementChild);
+            }
+          });
+
+          if (prefersReducedMotion) {
+            sections.forEach((section) => {
+              section.style.setProperty('--section-p', '1');
+              section.style.setProperty('--section-glow-o', '.10');
+            });
+            return;
+          }
+
+          let frame = 0;
+          const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+          const update = () => {
+            frame = 0;
+            const vh = window.innerHeight || document.documentElement.clientHeight || 1;
+
+            sections.forEach((section) => {
+              const rect = section.getBoundingClientRect();
+              const progressValue = clamp((vh - rect.top) / Math.max(1, vh + rect.height), 0, 1);
+              const wave = Math.sin(progressValue * Math.PI);
+              const visible = rect.bottom > 0 && rect.top < vh;
+
+              section.style.setProperty('--section-p', progressValue.toFixed(4));
+              section.style.setProperty('--section-glow-x', `${(8 + progressValue * 84).toFixed(2)}%`);
+              section.style.setProperty('--section-glow-y', `${(22 + wave * 44).toFixed(2)}%`);
+              section.style.setProperty('--section-band-y', `${((progressValue - 0.5) * 46).toFixed(2)}px`);
+              section.style.setProperty('--section-glow-o', visible ? (0.06 + wave * 0.22).toFixed(4) : '0');
+            });
+          };
+
+          const schedule = () => {
+            if (!frame) frame = window.requestAnimationFrame(update);
+          };
+
+          schedule();
+          window.addEventListener('scroll', schedule, { passive: true });
+          window.addEventListener('resize', schedule, { passive: true });
         };
 
         const setMobileMenu = (isOpen) => {
@@ -802,6 +814,7 @@ export const initMain = () => {
 
         setNavState();
         initHeroScrollDrift();
+        initScrollDynamicLayers();
         window.addEventListener('scroll', requestNavState, { passive: true });
         window.addEventListener('resize', () => {
           measureScrollBounds();

@@ -4,7 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' ws: http://localhost:* http://127.0.0.1:*;">
+  <!--
+    CSP:
+    1. Added https://fonts.googleapis.com to style-src (animation section loads Google Fonts)
+    2. Added https://fonts.gstatic.com to font-src (font files served from gstatic)
+    3. Added https: to img-src (allows any HTTPS image, needed for OG previews & external assets)
+    4. Added wss: to connect-src (WebSocket secure, needed for production hot-reload / WS APIs)
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' ws: wss: http://localhost:* http://127.0.0.1:*;">
 
   <!-- Primary Meta -->
   <meta name="description" content="AetherCore is a local-first, cloud-optional cognitive operating system powered by Trinity Architecture: Cofre Local, Agent, and Uplink.">
@@ -39,7 +46,14 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 
+  <!-- Google Fonts preconnect (required for animation section) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <!-- Fonts are bundled locally via vendor/fonts/fonts.css -->
+
+  <!-- Hub animation section CSS -->
+  <link rel="stylesheet" href="/assets/aether-hub.css">
 
   <!-- Schema.org -->
   <script type="application/ld+json">

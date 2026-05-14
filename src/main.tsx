@@ -4,6 +4,7 @@ import App from './App';
 import '../vendor/fonts/fonts.css';
 import '../styles.css';
 import '../tailwind.css';
+import './scroll-driven-runtime.css';
 import './i18n';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

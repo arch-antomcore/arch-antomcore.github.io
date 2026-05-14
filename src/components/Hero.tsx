@@ -5,8 +5,8 @@ export default function Hero() {
       <div className="hero-grid" aria-hidden="true"></div>
       <div className="hero-vignette" aria-hidden="true"></div>
 
-      <div className="relative z-10 mx-auto max-w-5xl text-center">
-        <div className="hero-fade fade-in mb-6 flex flex-wrap justify-center gap-3">
+      <div className="hero-content relative z-10 mx-auto max-w-5xl text-center">
+        <div className="hero-badges hero-fade fade-in mb-6 flex flex-wrap justify-center gap-3">
           <div className="eyebrow inline-flex items-center gap-3 rounded-full px-4 py-2">
             <i className="bi bi-stars text-teal" aria-hidden="true"></i>
             <span className="font-mono text-xs text-gold">0.1.0-pre — Founder Beta</span>
@@ -26,11 +26,11 @@ export default function Hero() {
           <span className="word-mask"><span className="word-inner text-gold">It executes.<span className="cursor" aria-hidden="true"></span></span></span>
         </h1>
 
-        <p className="hero-fade fade-up mx-auto mb-6 max-w-2xl text-[1.15rem] font-light leading-relaxed text-mid">
+        <p className="hero-copy hero-fade fade-up mx-auto mb-6 max-w-2xl text-[1.15rem] font-light leading-relaxed text-mid">
           AetherCore is a local-first AI workspace that plans, acts, and executes real tasks beside your files. It uses local engines by default, exposes cloud Uplink as an explicit choice, and routes sensitive actions through ARL approval gates.
         </p>
 
-        <div className="hero-fade fade-up flex flex-col items-center justify-center gap-6 sm:flex-row sm:items-start">
+        <div className="hero-actions hero-fade fade-up flex flex-col items-center justify-center gap-6 sm:flex-row sm:items-start">
           <div className="flex flex-col items-center gap-3">
             <a href="#cta" className="btn-primary" aria-label="Request founder beta access in Curitiba">
               <i className="bi bi-stars" aria-hidden="true"></i>

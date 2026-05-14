@@ -18,14 +18,14 @@ const signalCarouselItems = [
 export default function SignalTicker() {
   return (
     <section
-      className="ticker-shell aether-scroll-carousel"
+      className="ticker-shell aether-scroll-carousel fade-in"
       data-aether-carousel
       data-direction="right"
-      data-repeats="4"
+      data-repeats="6"
       aria-label="AetherCore capability highlights"
     >
       <div className="aether-carousel-track signal-carousel-track" data-carousel-track>
-        {repeatCarousel(signalCarouselItems).map(({ item, loop, index }) => (
+        {repeatCarousel(signalCarouselItems, 6).map(({ item, loop, index }) => (
           <article
             key={`signal-${loop}-${index}`}
             className={`signal-card signal-card-${item.type} signal-tone-${item.tone}`}

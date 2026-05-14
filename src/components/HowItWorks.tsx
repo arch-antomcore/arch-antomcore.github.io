@@ -1,8 +1,8 @@
 export default function HowItWorks() {
   return (
-    <section id="how" className="section-border relative overflow-hidden px-6 py-24" aria-labelledby="how-title">
+    <section id="how" className="loop-section section-border relative overflow-hidden px-6 py-24" aria-labelledby="how-title">
       <div className="mx-auto max-w-7xl">
-        <div className="fade-up glass-panel mb-12 text-center">
+        <div className="scroll-kinetic-card fade-up glass-panel mb-12 text-center">
           <div className="mb-4 flex items-center justify-center">
             <span className="gold-line" aria-hidden="true"></span>
             <span className="label-kicker">04 — HOW IT WORKS</span>
@@ -14,7 +14,7 @@ export default function HowItWorks() {
         </div>
 
         <div className="grid items-center gap-16 lg:grid-cols-2">
-          <div className="diagram-frame fade-in relative flex items-center justify-center" aria-label="Interactive cognitive loop diagram">
+          <div className="loop-diagram-shell diagram-frame fade-in relative flex items-center justify-center" aria-label="Interactive cognitive loop diagram">
             <div id="loop-3d" className="loop-3d" aria-hidden="true"></div>
             <div className="ring-spin" aria-hidden="true"></div>
             <div className="ring-spin-rev" aria-hidden="true"></div>
@@ -60,7 +60,7 @@ export default function HowItWorks() {
           </div>
 
           <div className="cascade space-y-5">
-            <article id="detail-planner" className="card p-6 transition-all duration-300" role="region" aria-labelledby="node-planner">
+            <article id="detail-planner" className="scroll-kinetic-card card p-6 transition-all duration-300" role="region" aria-labelledby="node-planner">
               <div className="flex items-start gap-4">
                 <div className="cap-icon" aria-hidden="true"><i className="bi bi-diagram-3"></i></div>
                 <div>
@@ -73,7 +73,7 @@ export default function HowItWorks() {
               </div>
             </article>
 
-            <article id="detail-executor" className="card p-6 transition-all duration-300" role="region" aria-labelledby="node-executor">
+            <article id="detail-executor" className="scroll-kinetic-card card p-6 transition-all duration-300" role="region" aria-labelledby="node-executor">
               <div className="flex items-start gap-4">
                 <div className="cap-icon" aria-hidden="true"><i className="bi bi-terminal"></i></div>
                 <div>
@@ -86,7 +86,7 @@ export default function HowItWorks() {
               </div>
             </article>
 
-            <article id="detail-critic" className="card p-6 transition-all duration-300" role="region" aria-labelledby="node-critic">
+            <article id="detail-critic" className="scroll-kinetic-card card p-6 transition-all duration-300" role="region" aria-labelledby="node-critic">
               <div className="flex items-start gap-4">
                 <div className="cap-icon" aria-hidden="true"><i className="bi bi-search"></i></div>
                 <div>

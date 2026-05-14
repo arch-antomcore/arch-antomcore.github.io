@@ -12,8 +12,10 @@ import Audience from './components/Audience';
 import Philosophy from './components/Philosophy';
 import InterfaceDemo from './components/InterfaceDemo';
 import Vision from './components/Vision';
+import ScrollDrivenRuntime from './components/ScrollDrivenRuntime';
 import CallToAction from './components/CallToAction';
 import Footer from './components/Footer';
+import AetherHub from './components/AetherHub';
 
 export default function App() {
   useEffect(() => {
@@ -60,7 +62,7 @@ export default function App() {
 
       <Navbar />
 
-      <main id="main-content" className="overflow-x-hidden">
+      <main id="main-content">
         <Hero />
         <SignalTicker />
         <ProductProof />
@@ -73,10 +75,12 @@ export default function App() {
         <Philosophy />
         <InterfaceDemo />
         <Vision />
+        <ScrollDrivenRuntime />
         <CallToAction />
       </main>
 
       <Footer />
+      <AetherHub />
     </>
   );
 }
