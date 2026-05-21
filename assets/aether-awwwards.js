@@ -77,16 +77,18 @@ function initMatrixCanvas() {
     const dt = Math.min(2.2, (now - lastTime) / 16.6667 || 1);
     lastTime = now;
 
-    const deltaScroll = clamp(scrollY - lastScroll, -50, 50);
+    const deltaScroll = clamp(scrollY - lastScroll, -30, 30);
     lastScroll = scrollY;
     velocity = lerp(velocity, deltaScroll, 0.045);
+    velocity = clamp(velocity, -40, 40);
 
     pointer.x = lerp(pointer.x, pointer.tx, 0.055);
     pointer.y = lerp(pointer.y, pointer.ty, 0.055);
     pointer.nx = (pointer.x / Math.max(1, innerWidth) - 0.5) * 2;
     pointer.ny = (pointer.y / Math.max(1, innerHeight) - 0.5) * 2;
 
-    ctx.fillStyle = 'rgba(5, 7, 13, 0.075)';
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = 'rgba(5, 7, 13, 0.18)';
     ctx.fillRect(0, 0, width, height);
     ctx.globalCompositeOperation = 'screen';
 

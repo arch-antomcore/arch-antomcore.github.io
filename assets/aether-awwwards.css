@@ -139,6 +139,7 @@ button, input { font: inherit; }
   background: rgba(5, 9, 16, .58);
   backdrop-filter: blur(18px);
   box-shadow: 0 26px 80px rgba(0,0,0,.44);
+  overflow: hidden;
 }
 .nav::before {
   content: "";
@@ -156,10 +157,10 @@ button, input { font: inherit; }
 .brand { display: flex; align-items: center; gap: 12px; min-width: 190px; }
 .brand__logo {
   display: block;
-  width: 46px;
-  height: 46px;
+  width: 42px;
+  height: 42px;
   object-fit: contain;
-  filter: drop-shadow(0 0 18px rgba(139,92,246,.58)) drop-shadow(0 0 20px rgba(86,245,212,.12));
+  filter: drop-shadow(0 0 8px rgba(139,92,246,.40)) drop-shadow(0 0 6px rgba(86,245,212,.10));
 }
 .brand__copy { display: grid; line-height: 1.05; }
 .brand__copy b { font-size: 14px; letter-spacing: -.02em; }
@@ -553,20 +554,20 @@ button, input { font: inherit; }
   transform-origin: center;
 }
 .brand__logo {
-  width: 58px;
-  height: 58px;
-  margin-left: -6px;
+  width: 42px;
+  height: 42px;
+  margin-left: 0;
   transition: filter .35s ease, opacity .35s ease;
   filter:
-    drop-shadow(0 0 16px rgba(139,92,246,.78))
-    drop-shadow(0 0 18px rgba(86,245,212,.16));
+    drop-shadow(0 0 8px rgba(139,92,246,.40))
+    drop-shadow(0 0 6px rgba(86,245,212,.10));
 }
 .brand:hover .brand__logo {
   filter:
-    drop-shadow(0 0 22px rgba(139,92,246,.88))
-    drop-shadow(0 0 24px rgba(86,245,212,.22));
+    drop-shadow(0 0 12px rgba(139,92,246,.55))
+    drop-shadow(0 0 10px rgba(86,245,212,.16));
 }
-.brand__copy { margin-left: -2px; }
+.brand__copy { margin-left: 0; }
 
 .processor-visual {
   min-height: 690px;
