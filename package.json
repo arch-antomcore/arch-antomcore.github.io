@@ -1,0 +1,16 @@
+{
+  "name": "aether-awwwards-build-02",
+  "version": "0.11.0",
+  "private": true,
+  "description": "AetherCore Awwwards Build 02: static preview + full Vite source project.",
+  "scripts": {
+    "preview:static": "python -m http.server 3001",
+    "preview:static:py": "py -m http.server 3001",
+    "source:dev": "cd source && npm run dev",
+    "source:build": "cd source && npm run build"
+  },
+  "stack": {
+    "staticPreview": "HTML/CSS/JS with local GSAP/ScrollTrigger/Physics2D and Three-compatible WebGL module",
+    "sourceProject": "Vite source with Three.js, GSAP, Lenis, SplitType, simplex-noise, React/R3F/drei/postprocessing ready"
+  }
+}

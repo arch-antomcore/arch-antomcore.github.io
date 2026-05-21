@@ -1,0 +1,29 @@
+{
+  "name": "aethercore-awwwards-source",
+  "version": "0.11.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173"
+  },
+  "dependencies": {
+    "@react-three/drei": "latest",
+    "@react-three/fiber": "latest",
+    "framer-motion": "latest",
+    "gsap": "latest",
+    "lenis": "latest",
+    "maath": "latest",
+    "postprocessing": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "simplex-noise": "latest",
+    "split-type": "latest",
+    "three": "latest"
+  },
+  "devDependencies": {
+    "vite": "latest",
+    "typescript": "latest"
+  }
+}
