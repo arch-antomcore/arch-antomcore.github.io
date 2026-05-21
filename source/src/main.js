@@ -1,15 +1,6 @@
-import './styles.css';
-import * as THREE from 'three';
-import Lenis from 'lenis';
-import SplitType from 'split-type';
-import { createNoise3D } from 'simplex-noise';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Physics2DPlugin } from 'gsap/Physics2DPlugin';
+import * as THREE from './vendor/three.module.min.js';
 
-
-
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const prefersReduced = false; // window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
@@ -20,30 +11,27 @@ setTimeout(() => $('#boot')?.classList.add('is-hidden'), 2200);
 
 function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 function lerp(a, b, t) { return a + (b - a) * t; }
-
-function initSmoothScroll() {
-  if (prefersReduced || !Lenis) return;
-  const lenis = new Lenis({
-    duration: 1.18,
-    smoothWheel: true,
-    wheelMultiplier: 0.92,
-    touchMultiplier: 1.15,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-  });
-  lenis.on('scroll', () => ScrollTrigger?.update?.());
-  gsap.ticker.add((time) => lenis.raf(time * 1000));
-  gsap.ticker.lagSmoothing(0);
+function debounce(fn, ms) {
+  let timer;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), ms);
+  };
 }
+
+const globalCursor = { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 };
+window.addEventListener('pointermove', (e) => {
+  globalCursor.x = e.clientX;
+  globalCursor.y = e.clientY;
+}, { passive: true });
 
 function initCursorOrb() {
   const orb = $('.cursor-orb');
-  if (!orb || prefersReduced) return;
+  if (!orb || prefersReduced || orb.style.display === 'none' || getComputedStyle(orb).display === 'none') return;
   let x = innerWidth * 0.5, y = innerHeight * 0.5;
-  let tx = x, ty = y;
-  window.addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
   const tick = () => {
-    x = lerp(x, tx, 0.09);
-    y = lerp(y, ty, 0.09);
+    x = lerp(x, globalCursor.x, 0.09);
+    y = lerp(y, globalCursor.y, 0.09);
     orb.style.transform = `translate3d(${x - 140}px, ${y - 140}px, 0)`;
     requestAnimationFrame(tick);
   };
@@ -59,6 +47,9 @@ function initMatrixCanvas() {
   const dpr = Math.min(devicePixelRatio || 1, 1.8);
   const pointer = { x: innerWidth * 0.5, y: innerHeight * 0.5, tx: innerWidth * 0.5, ty: innerHeight * 0.5, nx: 0, ny: 0 };
   let width = 0, height = 0, baseSize = 16, columns = [], velocity = 0, lastScroll = scrollY, lastTime = performance.now();
+
+  let isVisible = true;
+  let lastGlowX = -9999, lastGlowY = -9999, cachedGlow = null;
 
   function randomChar() {
     return chars[(Math.random() * chars.length) | 0];
@@ -97,29 +88,39 @@ function initMatrixCanvas() {
   }
 
   function draw(now) {
+    if (!isVisible) return;
     const dt = Math.min(2.2, (now - lastTime) / 16.6667 || 1);
     lastTime = now;
 
-    const deltaScroll = scrollY - lastScroll;
+    const deltaScroll = clamp(scrollY - lastScroll, -30, 30);
     lastScroll = scrollY;
     velocity = lerp(velocity, deltaScroll, 0.045);
+    velocity = clamp(velocity, -40, 40);
+
+    pointer.tx = globalCursor.x;
+    pointer.ty = globalCursor.y;
 
     pointer.x = lerp(pointer.x, pointer.tx, 0.055);
     pointer.y = lerp(pointer.y, pointer.ty, 0.055);
     pointer.nx = (pointer.x / Math.max(1, innerWidth) - 0.5) * 2;
     pointer.ny = (pointer.y / Math.max(1, innerHeight) - 0.5) * 2;
 
-    ctx.fillStyle = 'rgba(5, 7, 13, 0.075)';
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = 'rgba(5, 7, 13, 0.18)';
     ctx.fillRect(0, 0, width, height);
     ctx.globalCompositeOperation = 'screen';
 
     const glowX = pointer.x * dpr;
     const glowY = pointer.y * dpr;
-    const glow = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, Math.min(width, height) * 0.24);
-    glow.addColorStop(0, 'rgba(96,255,192,0.075)');
-    glow.addColorStop(0.42, 'rgba(86,245,212,0.032)');
-    glow.addColorStop(1, 'rgba(5,7,13,0)');
-    ctx.fillStyle = glow;
+    if (Math.abs(glowX - lastGlowX) > 0.5 || Math.abs(glowY - lastGlowY) > 0.5 || !cachedGlow) {
+      lastGlowX = glowX;
+      lastGlowY = glowY;
+      cachedGlow = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, Math.min(width, height) * 0.24);
+      cachedGlow.addColorStop(0, 'rgba(96,255,192,0.075)');
+      cachedGlow.addColorStop(0.42, 'rgba(86,245,212,0.032)');
+      cachedGlow.addColorStop(1, 'rgba(5,7,13,0)');
+    }
+    ctx.fillStyle = cachedGlow;
     ctx.fillRect(0, 0, width, height);
 
     columns.forEach((col) => {
@@ -161,16 +162,26 @@ function initMatrixCanvas() {
       }
     });
 
-    requestAnimationFrame(draw);
+    if (isVisible) {
+      requestAnimationFrame(draw);
+    }
   }
 
-  addEventListener('pointermove', (event) => {
-    pointer.tx = event.clientX;
-    pointer.ty = event.clientY;
-  }, { passive: true });
-
   resize();
-  addEventListener('resize', resize, { passive: true });
+  addEventListener('resize', debounce(resize, 150), { passive: true });
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries[0].isIntersecting;
+    if (visible && !isVisible) {
+      isVisible = true;
+      lastTime = performance.now();
+      requestAnimationFrame(draw);
+    } else {
+      isVisible = visible;
+    }
+  }, { threshold: 0 });
+  observer.observe(canvas);
+
   draw(performance.now());
 }
 
@@ -240,10 +251,7 @@ function initWebGL() {
   group.add(torusB);
 
   let mouseX = 0, mouseY = 0;
-  addEventListener('pointermove', (event) => {
-    mouseX = (event.clientX / innerWidth - 0.5) * 2;
-    mouseY = (event.clientY / innerHeight - 0.5) * 2;
-  }, { passive: true });
+  let isVisible = true;
 
   function resize() {
     const w = innerWidth, h = innerHeight;
@@ -251,12 +259,14 @@ function initWebGL() {
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
   }
-  addEventListener('resize', resize, { passive: true });
+  addEventListener('resize', debounce(resize, 150), { passive: true });
   resize();
 
-  const noise3D = createNoise3D();
   const clock = new THREE.Clock();
   function tick() {
+    if (!isVisible) return;
+    mouseX = (globalCursor.x / innerWidth - 0.5) * 2;
+    mouseY = (globalCursor.y / innerHeight - 0.5) * 2;
     const t = clock.getElapsedTime();
     const maxScroll = Math.max(1, document.documentElement.scrollHeight - innerHeight);
     const progress = scrollY / maxScroll;
@@ -274,16 +284,30 @@ function initWebGL() {
     for (let i = 0; i < particles; i++) {
       const k = i * 3;
       const ox = original[k], oy = original[k + 1], oz = original[k + 2];
-      const n = noise3D(ox * 0.08, oy * 0.08, t * 0.08 + progress);
-      const swirl = (Math.sin(t * 0.42 + i * 0.027 + phase) + n) * 0.12;
+      const swirl = Math.sin(t * 0.42 + i * 0.027 + phase) * 0.15;
       arr[k] = ox + Math.cos(t * 0.18 + i) * 0.035 + swirl * (oy * .09);
       arr[k + 1] = oy + Math.sin(t * 0.25 + i * 0.31) * 0.035 - progress * 0.35;
       arr[k + 2] = oz + Math.cos(t * 0.2 + i * 0.02) * 0.06;
     }
     particleGeo.attributes.position.needsUpdate = true;
     renderer.render(scene, camera);
-    requestAnimationFrame(tick);
+    if (isVisible) {
+      requestAnimationFrame(tick);
+    }
   }
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries[0].isIntersecting;
+    if (visible && !isVisible) {
+      isVisible = true;
+      clock.getDelta(); // reset clock delta to avoid large jump
+      requestAnimationFrame(tick);
+    } else {
+      isVisible = visible;
+    }
+  }, { threshold: 0 });
+  observer.observe(canvas);
+
   tick();
 }
 
@@ -408,17 +432,26 @@ function initProcessorCanvas() {
   core.addEventListener('pointermove', onPointerMove, { passive: true });
   core.addEventListener('pointerleave', onPointerLeave, { passive: true });
 
+  let lastCx = -9999, lastCy = -9999, lastRadius = -9999, lastGlowVal = -9999, cachedGlow = null;
+
   function drawBackdrop(ctx, t) {
     const cx = width * (0.5 + pointer.x * 0.03);
     const cy = height * (0.5 + pointer.y * 0.038) - scrollVelocity * 0.35;
     const radius = Math.min(width, height) * 0.36;
+    const glowVal = pointer.glow;
 
-    const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-    glow.addColorStop(0, `rgba(92,255,176,${0.055 + pointer.glow * 0.018})`);
-    glow.addColorStop(0.30, 'rgba(86,245,212,0.035)');
-    glow.addColorStop(0.60, 'rgba(22,163,74,0.026)');
-    glow.addColorStop(1, 'rgba(5,7,13,0)');
-    ctx.fillStyle = glow;
+    if (Math.abs(cx - lastCx) > 0.5 || Math.abs(cy - lastCy) > 0.5 || Math.abs(radius - lastRadius) > 0.5 || Math.abs(glowVal - lastGlowVal) > 0.02 || !cachedGlow) {
+      lastCx = cx;
+      lastCy = cy;
+      lastRadius = radius;
+      lastGlowVal = glowVal;
+      cachedGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+      cachedGlow.addColorStop(0, `rgba(92,255,176,${0.055 + glowVal * 0.018})`);
+      cachedGlow.addColorStop(0.30, 'rgba(86,245,212,0.035)');
+      cachedGlow.addColorStop(0.60, 'rgba(22,163,74,0.026)');
+      cachedGlow.addColorStop(1, 'rgba(5,7,13,0)');
+    }
+    ctx.fillStyle = cachedGlow;
     ctx.beginPath();
     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
     ctx.fill();
@@ -491,6 +524,8 @@ function initProcessorCanvas() {
     });
   }
 
+  let isVisible = true;
+
   function animateLogo(now) {
     if (!logo) return;
     logoMotion.x = lerp(logoMotion.x, pointer.tx, 0.075);
@@ -503,9 +538,10 @@ function initProcessorCanvas() {
   }
 
   function draw(now) {
+    if (!isVisible) return;
     const dt = Math.min(2.2, (now - lastTime) / 16.6667 || 1);
     lastTime = now;
-    const deltaScroll = scrollY - lastScroll;
+    const deltaScroll = clamp(scrollY - lastScroll, -50, 50);
     lastScroll = scrollY;
     scrollVelocity = lerp(scrollVelocity, deltaScroll, 0.08);
     pointer.x = lerp(pointer.x, pointer.tx, 0.08);
@@ -515,15 +551,32 @@ function initProcessorCanvas() {
     drawLayer(backCtx, layers.back, 'back', now * 0.001, dt);
     drawLayer(frontCtx, layers.front, 'front', now * 0.00145, dt);
     animateLogo(now);
-    requestAnimationFrame(draw);
+    if (isVisible) {
+      requestAnimationFrame(draw);
+    }
   }
 
   resize();
-  addEventListener('resize', resize, { passive: true });
+  addEventListener('resize', debounce(resize, 150), { passive: true });
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries[0].isIntersecting;
+    if (visible && !isVisible) {
+      isVisible = true;
+      lastTime = performance.now();
+      requestAnimationFrame(draw);
+    } else {
+      isVisible = visible;
+    }
+  }, { threshold: 0 });
+  observer.observe(core);
+
   draw(performance.now());
 }
 
 function initGSAP() {
+  const gsap = window.gsap;
+  const ScrollTrigger = window.ScrollTrigger;
   if (!gsap || !ScrollTrigger || prefersReduced) {
     $$('.reveal').forEach((el) => { el.style.opacity = 1; el.style.transform = 'none'; });
     $$('.stage-card').forEach((el) => { el.style.position = 'relative'; el.style.opacity = 1; el.style.visibility = 'visible'; el.style.marginBottom = '16px'; });
@@ -682,7 +735,8 @@ function initGSAP() {
           end: 'bottom bottom',
           scrub: 1.1,
           onUpdate: (self) => {
-            gsap.to('.progress-rail span', { width: `${self.progress * 100}%`, duration: .18, overwrite: true });
+            const progressRailSpan = document.querySelector('.progress-rail span');
+            if (progressRailSpan) progressRailSpan.style.width = `${self.progress * 100}%`;
             setActive(clamp(Math.round(self.progress * (cards.length - 1)), 0, cards.length - 1));
           }
         }
@@ -797,6 +851,8 @@ function initGSAP() {
 function initTiltCards() {
   if (prefersReduced) return;
   $$('.tilt-card').forEach((card) => {
+    if (card.closest('.hero__machine')) return;
+
     let rect;
     card.addEventListener('pointerenter', () => { rect = card.getBoundingClientRect(); });
     card.addEventListener('pointermove', (e) => {
@@ -813,6 +869,56 @@ function initTiltCards() {
       card.style.transform = '';
     });
   });
+}
+
+function initHeroMachineMagnet() {
+  const machine = $('.hero__machine');
+  if (!machine || prefersReduced) return;
+
+  let rect = machine.getBoundingClientRect();
+  let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+  let active = false;
+
+  const updateRect = () => { rect = machine.getBoundingClientRect(); };
+
+  machine.addEventListener('pointerenter', () => {
+    active = true;
+    updateRect();
+    machine.classList.add('is-magnetic');
+  });
+
+  machine.addEventListener('pointermove', (e) => {
+    const x = (e.clientX - (rect.left + rect.width * 0.5)) / Math.max(1, rect.width * 0.5);
+    const y = (e.clientY - (rect.top + rect.height * 0.5)) / Math.max(1, rect.height * 0.5);
+    targetX = clamp(x, -1, 1);
+    targetY = clamp(y, -1, 1);
+  }, { passive: true });
+
+  machine.addEventListener('pointerleave', () => {
+    active = false;
+    targetX = 0;
+    targetY = 0;
+    machine.classList.remove('is-magnetic');
+  });
+
+  addEventListener('resize', debounce(updateRect, 150), { passive: true });
+  addEventListener('scroll', updateRect, { passive: true });
+
+  const tick = () => {
+    currentX = lerp(currentX, targetX, active ? 0.1 : 0.075);
+    currentY = lerp(currentY, targetY, active ? 0.1 : 0.075);
+
+    machine.style.setProperty('--machine-x', `${currentX * 14}px`);
+    machine.style.setProperty('--machine-y', `${currentY * 10}px`);
+    machine.style.setProperty('--machine-rx', `${currentY * -2.2}deg`);
+    machine.style.setProperty('--machine-ry', `${currentX * 3.4}deg`);
+    machine.style.setProperty('--terminal-x', `${currentX * -9}px`);
+    machine.style.setProperty('--terminal-y', `${currentY * -6}px`);
+
+    requestAnimationFrame(tick);
+  };
+
+  tick();
 }
 
 function initMagnetic() {
@@ -911,6 +1017,8 @@ function initAetherSlider() {
 
 
 function initSparks() {
+  const gsap = window.gsap;
+  const Physics2DPlugin = window.Physics2DPlugin;
   if (!gsap || prefersReduced) return;
   if (Physics2DPlugin) gsap.registerPlugin(Physics2DPlugin);
   $$('[data-sparks]').forEach((btn) => {
@@ -950,15 +1058,165 @@ function initForm() {
   });
 }
 
-initSmoothScroll();
 initCursorOrb();
 initMatrixCanvas();
 initWebGL();
 initProcessorCanvas();
 initMarqueeSafety();
 initTiltCards();
+initHeroMachineMagnet();
 initMagnetic();
 initAetherSlider();
 initSparks();
 initForm();
 initGSAP();
+
+// ============================================
+// ENGINE — ProximityHacker
+// ============================================
+const HACK_RADIUS = 30;
+const HACK_CHARS = '!<>-_\/[]{}—=+*^?#________@$%&01';
+const SCRAMBLE_MIN = 5;
+const SCRAMBLE_MAX = 12;
+const SCRAMBLE_SPEED = 40;
+
+class ProximityHacker {
+    constructor(element) {
+        this.element = element;
+        this.originalText = element.textContent || element.innerText || '';
+        this.chars = [];
+        this.isInViewport = false;
+        this.init();
+        this.observe();
+    }
+    init() {
+        this.chars = [];
+        const textNodes = [];
+        const walker = document.createTreeWalker(this.element, NodeFilter.SHOW_TEXT);
+        let node;
+
+        while ((node = walker.nextNode())) {
+            if (node.nodeValue && node.nodeValue.trim()) textNodes.push(node);
+        }
+
+        textNodes.forEach((textNode) => this.wrapTextNode(textNode));
+        this.updatePositions();
+        window.addEventListener('resize', debounce(() => this.updatePositions(), 150), { passive: true });
+    }
+    createChar(char) {
+        const span = document.createElement('span');
+        span.className = 'hack-char';
+        span.textContent = char;
+        span.setAttribute('data-char', char);
+        this.chars.push({ span, original: char, isHacked: false, x: 0, y: 0, width: 0, height: 0 });
+        return span;
+    }
+    wrapTextNode(textNode) {
+        const fragment = document.createDocumentFragment();
+        const tokens = textNode.nodeValue.split(/(\s+)/);
+
+        tokens.forEach((token) => {
+            if (!token) return;
+            if (/^\s+$/.test(token)) {
+                fragment.appendChild(document.createTextNode(token));
+                return;
+            }
+
+            const word = document.createElement('span');
+            word.className = 'hack-word';
+            Array.from(token).forEach((char) => word.appendChild(this.createChar(char)));
+            fragment.appendChild(word);
+        });
+
+        textNode.parentNode.replaceChild(fragment, textNode);
+    }
+    observe() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => this.isInViewport = e.isIntersecting);
+        }, { threshold: 0.05 });
+        observer.observe(this.element);
+    }
+    updatePositions() {
+        const sx = window.scrollX || window.pageXOffset;
+        const sy = window.scrollY || window.pageYOffset;
+        this.chars.forEach((c) => {
+            const r = c.span.getBoundingClientRect();
+            c.x = r.left + r.width / 2 + sx;
+            c.y = r.top + r.height / 2 + sy;
+            c.width = r.width;
+            c.height = r.height;
+        });
+    }
+    update(cursorX, cursorY, isMoving) {
+        if (!this.isInViewport) return;
+        const sx = window.scrollX || window.pageXOffset;
+        const sy = window.scrollY || window.pageYOffset;
+        const cx = cursorX + sx;
+        const cy = cursorY + sy;
+        this.chars.forEach((c) => {
+            const dx = cx - c.x;
+            const dy = cy - c.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < HACK_RADIUS && isMoving) {
+                if (!c.isHacked) {
+                    c.isHacked = true;
+                    c.span.classList.add('hacked');
+                    this.scramble(c);
+                }
+            } else {
+                if (c.isHacked) {
+                    c.isHacked = false;
+                    c.span.classList.remove('hacked');
+                    c.span.textContent = c.original;
+                    if (Math.random() < 0.1) {
+                        setTimeout(() => { if (!c.isHacked) c.span.textContent = c.original; }, 100);
+                    }
+                }
+            }
+        });
+    }
+    scramble(c) {
+        let i = 0;
+        const max = SCRAMBLE_MIN + Math.floor(Math.random() * (SCRAMBLE_MAX - SCRAMBLE_MIN));
+        const interval = setInterval(() => {
+            if (!c.isHacked) { clearInterval(interval); c.span.textContent = c.original; return; }
+            if (i >= max) {
+                clearInterval(interval);
+                c.span.textContent = (Math.random() < 0.3) ? HACK_CHARS[Math.floor(Math.random() * HACK_CHARS.length)] : c.original;
+                return;
+            }
+            c.span.textContent = HACK_CHARS[Math.floor(Math.random() * HACK_CHARS.length)];
+            i++;
+        }, SCRAMBLE_SPEED + Math.random() * 30);
+    }
+}
+
+function initProximityHacker() {
+    if (prefersReduced) return;
+    const hackers = [];
+    let cursorX = 0, cursorY = 0, isMoving = false, moveTimer;
+    let loopActive = false;
+    document.querySelectorAll('.hack-text').forEach(el => hackers.push(new ProximityHacker(el)));
+    
+    function loop() {
+        hackers.forEach(h => h.update(cursorX, cursorY, isMoving));
+        if (isMoving) {
+            requestAnimationFrame(loop);
+        } else {
+            loopActive = false;
+        }
+    }
+    
+    document.addEventListener('mousemove', (e) => {
+        cursorX = e.clientX; cursorY = e.clientY; isMoving = true;
+        clearTimeout(moveTimer); 
+        moveTimer = setTimeout(() => {
+            isMoving = false;
+        }, 150);
+        if (!loopActive) {
+            loopActive = true;
+            requestAnimationFrame(loop);
+        }
+    }, { passive: true });
+}
+initProximityHacker();

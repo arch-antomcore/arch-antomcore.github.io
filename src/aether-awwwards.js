@@ -1,6 +1,6 @@
 import * as THREE from './vendor/three.module.min.js';
 
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const prefersReduced = false; // window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
@@ -11,16 +11,27 @@ setTimeout(() => $('#boot')?.classList.add('is-hidden'), 2200);
 
 function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 function lerp(a, b, t) { return a + (b - a) * t; }
+function debounce(fn, ms) {
+  let timer;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), ms);
+  };
+}
+
+const globalCursor = { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 };
+window.addEventListener('pointermove', (e) => {
+  globalCursor.x = e.clientX;
+  globalCursor.y = e.clientY;
+}, { passive: true });
 
 function initCursorOrb() {
   const orb = $('.cursor-orb');
-  if (!orb || prefersReduced) return;
+  if (!orb || prefersReduced || orb.style.display === 'none' || getComputedStyle(orb).display === 'none') return;
   let x = innerWidth * 0.5, y = innerHeight * 0.5;
-  let tx = x, ty = y;
-  window.addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
   const tick = () => {
-    x = lerp(x, tx, 0.09);
-    y = lerp(y, ty, 0.09);
+    x = lerp(x, globalCursor.x, 0.09);
+    y = lerp(y, globalCursor.y, 0.09);
     orb.style.transform = `translate3d(${x - 140}px, ${y - 140}px, 0)`;
     requestAnimationFrame(tick);
   };
@@ -36,6 +47,9 @@ function initMatrixCanvas() {
   const dpr = Math.min(devicePixelRatio || 1, 1.8);
   const pointer = { x: innerWidth * 0.5, y: innerHeight * 0.5, tx: innerWidth * 0.5, ty: innerHeight * 0.5, nx: 0, ny: 0 };
   let width = 0, height = 0, baseSize = 16, columns = [], velocity = 0, lastScroll = scrollY, lastTime = performance.now();
+
+  let isVisible = true;
+  let lastGlowX = -9999, lastGlowY = -9999, cachedGlow = null;
 
   function randomChar() {
     return chars[(Math.random() * chars.length) | 0];
@@ -74,29 +88,39 @@ function initMatrixCanvas() {
   }
 
   function draw(now) {
+    if (!isVisible) return;
     const dt = Math.min(2.2, (now - lastTime) / 16.6667 || 1);
     lastTime = now;
 
-    const deltaScroll = scrollY - lastScroll;
+    const deltaScroll = clamp(scrollY - lastScroll, -30, 30);
     lastScroll = scrollY;
     velocity = lerp(velocity, deltaScroll, 0.045);
+    velocity = clamp(velocity, -40, 40);
+
+    pointer.tx = globalCursor.x;
+    pointer.ty = globalCursor.y;
 
     pointer.x = lerp(pointer.x, pointer.tx, 0.055);
     pointer.y = lerp(pointer.y, pointer.ty, 0.055);
     pointer.nx = (pointer.x / Math.max(1, innerWidth) - 0.5) * 2;
     pointer.ny = (pointer.y / Math.max(1, innerHeight) - 0.5) * 2;
 
-    ctx.fillStyle = 'rgba(5, 7, 13, 0.075)';
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.fillStyle = 'rgba(5, 7, 13, 0.18)';
     ctx.fillRect(0, 0, width, height);
     ctx.globalCompositeOperation = 'screen';
 
     const glowX = pointer.x * dpr;
     const glowY = pointer.y * dpr;
-    const glow = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, Math.min(width, height) * 0.24);
-    glow.addColorStop(0, 'rgba(96,255,192,0.075)');
-    glow.addColorStop(0.42, 'rgba(86,245,212,0.032)');
-    glow.addColorStop(1, 'rgba(5,7,13,0)');
-    ctx.fillStyle = glow;
+    if (Math.abs(glowX - lastGlowX) > 0.5 || Math.abs(glowY - lastGlowY) > 0.5 || !cachedGlow) {
+      lastGlowX = glowX;
+      lastGlowY = glowY;
+      cachedGlow = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, Math.min(width, height) * 0.24);
+      cachedGlow.addColorStop(0, 'rgba(96,255,192,0.075)');
+      cachedGlow.addColorStop(0.42, 'rgba(86,245,212,0.032)');
+      cachedGlow.addColorStop(1, 'rgba(5,7,13,0)');
+    }
+    ctx.fillStyle = cachedGlow;
     ctx.fillRect(0, 0, width, height);
 
     columns.forEach((col) => {
@@ -138,16 +162,26 @@ function initMatrixCanvas() {
       }
     });
 
-    requestAnimationFrame(draw);
+    if (isVisible) {
+      requestAnimationFrame(draw);
+    }
   }
 
-  addEventListener('pointermove', (event) => {
-    pointer.tx = event.clientX;
-    pointer.ty = event.clientY;
-  }, { passive: true });
-
   resize();
-  addEventListener('resize', resize, { passive: true });
+  addEventListener('resize', debounce(resize, 150), { passive: true });
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries[0].isIntersecting;
+    if (visible && !isVisible) {
+      isVisible = true;
+      lastTime = performance.now();
+      requestAnimationFrame(draw);
+    } else {
+      isVisible = visible;
+    }
+  }, { threshold: 0 });
+  observer.observe(canvas);
+
   draw(performance.now());
 }
 
@@ -217,10 +251,7 @@ function initWebGL() {
   group.add(torusB);
 
   let mouseX = 0, mouseY = 0;
-  addEventListener('pointermove', (event) => {
-    mouseX = (event.clientX / innerWidth - 0.5) * 2;
-    mouseY = (event.clientY / innerHeight - 0.5) * 2;
-  }, { passive: true });
+  let isVisible = true;
 
   function resize() {
     const w = innerWidth, h = innerHeight;
@@ -228,11 +259,14 @@ function initWebGL() {
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
   }
-  addEventListener('resize', resize, { passive: true });
+  addEventListener('resize', debounce(resize, 150), { passive: true });
   resize();
 
   const clock = new THREE.Clock();
   function tick() {
+    if (!isVisible) return;
+    mouseX = (globalCursor.x / innerWidth - 0.5) * 2;
+    mouseY = (globalCursor.y / innerHeight - 0.5) * 2;
     const t = clock.getElapsedTime();
     const maxScroll = Math.max(1, document.documentElement.scrollHeight - innerHeight);
     const progress = scrollY / maxScroll;
@@ -257,8 +291,23 @@ function initWebGL() {
     }
     particleGeo.attributes.position.needsUpdate = true;
     renderer.render(scene, camera);
-    requestAnimationFrame(tick);
+    if (isVisible) {
+      requestAnimationFrame(tick);
+    }
   }
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries[0].isIntersecting;
+    if (visible && !isVisible) {
+      isVisible = true;
+      clock.getDelta(); // reset clock delta to avoid large jump
+      requestAnimationFrame(tick);
+    } else {
+      isVisible = visible;
+    }
+  }, { threshold: 0 });
+  observer.observe(canvas);
+
   tick();
 }
 
@@ -383,17 +432,26 @@ function initProcessorCanvas() {
   core.addEventListener('pointermove', onPointerMove, { passive: true });
   core.addEventListener('pointerleave', onPointerLeave, { passive: true });
 
+  let lastCx = -9999, lastCy = -9999, lastRadius = -9999, lastGlowVal = -9999, cachedGlow = null;
+
   function drawBackdrop(ctx, t) {
     const cx = width * (0.5 + pointer.x * 0.03);
     const cy = height * (0.5 + pointer.y * 0.038) - scrollVelocity * 0.35;
     const radius = Math.min(width, height) * 0.36;
+    const glowVal = pointer.glow;
 
-    const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
-    glow.addColorStop(0, `rgba(92,255,176,${0.055 + pointer.glow * 0.018})`);
-    glow.addColorStop(0.30, 'rgba(86,245,212,0.035)');
-    glow.addColorStop(0.60, 'rgba(22,163,74,0.026)');
-    glow.addColorStop(1, 'rgba(5,7,13,0)');
-    ctx.fillStyle = glow;
+    if (Math.abs(cx - lastCx) > 0.5 || Math.abs(cy - lastCy) > 0.5 || Math.abs(radius - lastRadius) > 0.5 || Math.abs(glowVal - lastGlowVal) > 0.02 || !cachedGlow) {
+      lastCx = cx;
+      lastCy = cy;
+      lastRadius = radius;
+      lastGlowVal = glowVal;
+      cachedGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+      cachedGlow.addColorStop(0, `rgba(92,255,176,${0.055 + glowVal * 0.018})`);
+      cachedGlow.addColorStop(0.30, 'rgba(86,245,212,0.035)');
+      cachedGlow.addColorStop(0.60, 'rgba(22,163,74,0.026)');
+      cachedGlow.addColorStop(1, 'rgba(5,7,13,0)');
+    }
+    ctx.fillStyle = cachedGlow;
     ctx.beginPath();
     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
     ctx.fill();
@@ -466,6 +524,8 @@ function initProcessorCanvas() {
     });
   }
 
+  let isVisible = true;
+
   function animateLogo(now) {
     if (!logo) return;
     logoMotion.x = lerp(logoMotion.x, pointer.tx, 0.075);
@@ -478,9 +538,10 @@ function initProcessorCanvas() {
   }
 
   function draw(now) {
+    if (!isVisible) return;
     const dt = Math.min(2.2, (now - lastTime) / 16.6667 || 1);
     lastTime = now;
-    const deltaScroll = scrollY - lastScroll;
+    const deltaScroll = clamp(scrollY - lastScroll, -50, 50);
     lastScroll = scrollY;
     scrollVelocity = lerp(scrollVelocity, deltaScroll, 0.08);
     pointer.x = lerp(pointer.x, pointer.tx, 0.08);
@@ -490,11 +551,26 @@ function initProcessorCanvas() {
     drawLayer(backCtx, layers.back, 'back', now * 0.001, dt);
     drawLayer(frontCtx, layers.front, 'front', now * 0.00145, dt);
     animateLogo(now);
-    requestAnimationFrame(draw);
+    if (isVisible) {
+      requestAnimationFrame(draw);
+    }
   }
 
   resize();
-  addEventListener('resize', resize, { passive: true });
+  addEventListener('resize', debounce(resize, 150), { passive: true });
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries[0].isIntersecting;
+    if (visible && !isVisible) {
+      isVisible = true;
+      lastTime = performance.now();
+      requestAnimationFrame(draw);
+    } else {
+      isVisible = visible;
+    }
+  }, { threshold: 0 });
+  observer.observe(core);
+
   draw(performance.now());
 }
 
@@ -659,7 +735,8 @@ function initGSAP() {
           end: 'bottom bottom',
           scrub: 1.1,
           onUpdate: (self) => {
-            gsap.to('.progress-rail span', { width: `${self.progress * 100}%`, duration: .18, overwrite: true });
+            const progressRailSpan = document.querySelector('.progress-rail span');
+            if (progressRailSpan) progressRailSpan.style.width = `${self.progress * 100}%`;
             setActive(clamp(Math.round(self.progress * (cards.length - 1)), 0, cards.length - 1));
           }
         }
@@ -824,7 +901,7 @@ function initHeroMachineMagnet() {
     machine.classList.remove('is-magnetic');
   });
 
-  addEventListener('resize', updateRect, { passive: true });
+  addEventListener('resize', debounce(updateRect, 150), { passive: true });
   addEventListener('scroll', updateRect, { passive: true });
 
   const tick = () => {
@@ -1024,8 +1101,7 @@ class ProximityHacker {
 
         textNodes.forEach((textNode) => this.wrapTextNode(textNode));
         this.updatePositions();
-        window.addEventListener('resize', () => this.updatePositions());
-        window.addEventListener('scroll', () => this.updatePositions(), { passive: true });
+        window.addEventListener('resize', debounce(() => this.updatePositions(), 150), { passive: true });
     }
     createChar(char) {
         const span = document.createElement('span');
@@ -1061,19 +1137,25 @@ class ProximityHacker {
         observer.observe(this.element);
     }
     updatePositions() {
+        const sx = window.scrollX || window.pageXOffset;
+        const sy = window.scrollY || window.pageYOffset;
         this.chars.forEach((c) => {
             const r = c.span.getBoundingClientRect();
-            c.x = r.left + r.width / 2;
-            c.y = r.top + r.height / 2;
+            c.x = r.left + r.width / 2 + sx;
+            c.y = r.top + r.height / 2 + sy;
             c.width = r.width;
             c.height = r.height;
         });
     }
     update(cursorX, cursorY, isMoving) {
         if (!this.isInViewport) return;
+        const sx = window.scrollX || window.pageXOffset;
+        const sy = window.scrollY || window.pageYOffset;
+        const cx = cursorX + sx;
+        const cy = cursorY + sy;
         this.chars.forEach((c) => {
-            const dx = cursorX - c.x;
-            const dy = cursorY - c.y;
+            const dx = cx - c.x;
+            const dy = cy - c.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < HACK_RADIUS && isMoving) {
                 if (!c.isHacked) {
@@ -1113,13 +1195,28 @@ function initProximityHacker() {
     if (prefersReduced) return;
     const hackers = [];
     let cursorX = 0, cursorY = 0, isMoving = false, moveTimer;
+    let loopActive = false;
     document.querySelectorAll('.hack-text').forEach(el => hackers.push(new ProximityHacker(el)));
+    
+    function loop() {
+        hackers.forEach(h => h.update(cursorX, cursorY, isMoving));
+        if (isMoving) {
+            requestAnimationFrame(loop);
+        } else {
+            loopActive = false;
+        }
+    }
+    
     document.addEventListener('mousemove', (e) => {
         cursorX = e.clientX; cursorY = e.clientY; isMoving = true;
-        clearTimeout(moveTimer); moveTimer = setTimeout(() => isMoving = false, 100);
+        clearTimeout(moveTimer); 
+        moveTimer = setTimeout(() => {
+            isMoving = false;
+        }, 150);
+        if (!loopActive) {
+            loopActive = true;
+            requestAnimationFrame(loop);
+        }
     }, { passive: true });
-    function loop() { hackers.forEach(h => h.update(cursorX, cursorY, isMoving)); requestAnimationFrame(loop); }
-    requestAnimationFrame(loop);
-    setInterval(() => hackers.forEach(h => h.updatePositions()), 1000);
 }
 initProximityHacker();

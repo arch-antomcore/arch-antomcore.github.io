@@ -12,5 +12,8 @@
   "stack": {
     "staticPreview": "HTML/CSS/JS with local GSAP/ScrollTrigger/Physics2D and Three-compatible WebGL module",
     "sourceProject": "Vite source with Three.js, GSAP, Lenis, SplitType, simplex-noise, React/R3F/drei/postprocessing ready"
+  },
+  "dependencies": {
+    "sharp": "^0.34.5"
   }
 }
