@@ -769,15 +769,7 @@ function initGSAP() {
     scrollTrigger: { trigger: '.marquee-section', start: 'top bottom', end: 'bottom top', scrub: 1.2 }
   });
 
-  $$('.trinity-card, .cap').forEach((card) => {
-    gsap.to(card, {
-      y: -30,
-      rotateX: 1.5,
-      ease: 'none',
-      scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: 1.15 }
-    });
-  });
-
+  // General Panel Animation
   $$('.lab-console, .cta-card, .status-note').forEach((panel) => {
     gsap.fromTo(panel, { y: 28, opacity: 0, filter: 'blur(4px)' }, {
       y: 0,
@@ -789,13 +781,329 @@ function initGSAP() {
     });
   });
 
-  gsap.fromTo('.vision-inner', { scale: .93, opacity: .34, filter: 'blur(5px)' }, {
-    scale: 1,
-    opacity: 1,
-    filter: 'blur(0px)',
-    ease: 'none',
-    scrollTrigger: { trigger: '.vision', start: 'top bottom', end: 'center center', scrub: 1.05 }
-  });
+  // Responsive Media Query helper
+  let mm = gsap.matchMedia();
+
+  // 1. Capacidades (Capabilities sticky console)
+  const capSticky = $('.capabilities-sticky');
+  const capItems = $$('.cap-item');
+  const capConsole = $('#cap-console-code');
+  if (capSticky && capItems.length && capConsole) {
+    const logs = [
+      `system: loading cef runtime...\n✔ Workspace loaded: windows native container\n✔ CEF IPC bridge initialized\n✔ Core layout rendering at 60fps local-first\n[ready] listening on local IPC channel`,
+      `system: tool registry synchronized\n✔ Registry contains 42 sandboxed actions\n✔ Contract security check: success\n✔ IPC payload verified: JSON-RPC 2.0 channel\n✔ Executing system module command: tool_registry::sync()`,
+      `system: sqlite engine online\n✔ Memory DB: :memory: mounted (sqlite3 v3.45)\n✔ FTS5 search index compiled: 1,420 nodes\n✔ RAG local context retrieved in 1.4ms\n✔ Transaction isolation level set to SERIALIZABLE`,
+      `system: checking excel engine...\n✔ read_xlsx parser initialized\n✔ dataset shape: [1200 rows x 18 cols]\n✔ audit hash: sha256::e3b0c44298fc1c149afbf4c8996\n✔ workbook preview ready in memory buffer`,
+      `[WARNING] ARL ACTION BLOCKED\naction: write::xlsx -> target: file:///C:/workspace/report.xlsx\nstatus: pending operator approval\ngate: deny-first rule activated\n[awaiting response] approve / reject...`,
+      `system: cloud uplink status...\nstatus: offline (local-first mode)\noption: manual uplink available\nconfig: encryption = TLS 1.3, routing = zero-trust\n✔ uplink disabled by operator default`
+    ];
+    let activeIdx = -1;
+
+    const setCapActive = (index) => {
+      if (index === activeIdx) return;
+      activeIdx = index;
+      capItems.forEach((item, idx) => {
+        item.classList.toggle('active', idx === index);
+      });
+      // Flash effect on console update
+      gsap.fromTo(capConsole, { opacity: 0.35 }, { opacity: 1, duration: 0.25 });
+      capConsole.textContent = logs[index];
+    };
+
+    mm.add("(min-width: 981px)", () => {
+      ScrollTrigger.create({
+        trigger: capSticky,
+        start: 'top top',
+        end: () => `+=${innerHeight * 2.5}`,
+        pin: true,
+        scrub: true,
+        onUpdate: (self) => {
+          const index = Math.min(Math.floor(self.progress * capItems.length), capItems.length - 1);
+          setCapActive(index);
+        }
+      });
+    });
+
+    capItems.forEach((item, index) => {
+      item.addEventListener('click', () => setCapActive(index));
+      item.addEventListener('mouseenter', () => setCapActive(index));
+    });
+
+    setCapActive(0);
+  }
+
+  // 2. Soberania de Dados (3D Card Stack)
+  const deckWrapper = $('.deck-wrapper');
+  const deckCards = $$('.deck-card');
+  if (deckWrapper && deckCards.length) {
+    mm.add("(min-width: 981px)", () => {
+      gsap.set(deckCards[0], { zIndex: 3, transformOrigin: "center bottom" });
+      gsap.set(deckCards[1], { zIndex: 2, scale: 0.92, y: 30, rotateX: -5, opacity: 0.8, transformOrigin: "center bottom" });
+      gsap.set(deckCards[2], { zIndex: 1, scale: 0.84, y: 60, rotateX: -10, opacity: 0.5, transformOrigin: "center bottom" });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.proof-deck-section',
+          start: 'top top',
+          end: () => `+=${innerHeight * 2}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        }
+      });
+
+      tl.to(deckCards[0], {
+        x: -150,
+        y: -80,
+        rotation: -8,
+        scale: 0.9,
+        opacity: 0,
+        ease: 'power1.inOut'
+      })
+      .to(deckCards[1], {
+        scale: 1,
+        y: 0,
+        rotateX: 0,
+        opacity: 1,
+        ease: 'power1.inOut'
+      }, 0)
+      .to(deckCards[2], {
+        scale: 0.92,
+        y: 30,
+        rotateX: -5,
+        opacity: 0.8,
+        ease: 'power1.inOut'
+      }, 0);
+
+      tl.to(deckCards[1], {
+        x: 150,
+        y: -80,
+        rotation: 8,
+        scale: 0.9,
+        opacity: 0,
+        ease: 'power1.inOut'
+      })
+      .to(deckCards[2], {
+        scale: 1,
+        y: 0,
+        rotateX: 0,
+        opacity: 1,
+        ease: 'power1.inOut'
+      }, '>');
+    });
+
+    mm.add("(max-width: 980px)", () => {
+      gsap.set(deckCards, { clearProps: 'all' });
+    });
+  }
+
+  // 3. Produto Switcher (Tabs & Terminals)
+  const switcherContainer = $('.product-switcher-container');
+  const tabs = $$('.switcher-tab');
+  const panels = $$('.switcher-panel');
+  const slider = $('.switcher-slider');
+
+  if (switcherContainer && tabs.length && panels.length && slider) {
+    const updateSlider = (activeTab) => {
+      const parentRect = activeTab.parentElement.getBoundingClientRect();
+      const rect = activeTab.getBoundingClientRect();
+      gsap.to(slider, {
+        left: rect.left - parentRect.left,
+        width: rect.width,
+        duration: 0.38,
+        ease: 'power3.out'
+      });
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        panels.forEach(p => p.classList.remove('active'));
+        const targetId = `panel-${tab.dataset.target}`;
+        const targetPanel = $(`#${targetId}`);
+        if (targetPanel) {
+          targetPanel.classList.add('active');
+          gsap.fromTo(targetPanel.querySelectorAll('.panel-info > *, .panel-preview'), 
+            { y: 15, opacity: 0 }, 
+            { y: 0, opacity: 1, duration: 0.45, stagger: 0.06, ease: 'power2.out' }
+          );
+        }
+        updateSlider(tab);
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      const activeTab = $('.switcher-tab.active');
+      if (activeTab) updateSlider(activeTab);
+    });
+
+    setTimeout(() => {
+      const activeTab = $('.switcher-tab.active');
+      if (activeTab) updateSlider(activeTab);
+    }, 200);
+  }
+
+  // 4. BI MVP (Spreadsheet Simulator)
+  const mvpSteps = $$('.mvp-step');
+  const mvpSheetTitle = $('#mvp-sheet-title');
+  const mvpSheetStatus = $('#mvp-sheet-status');
+  const mvpSheetTable = $('#mvp-sheet-table');
+  const mvpConsole = $('#mvp-console-code');
+
+  if (mvpSteps.length && mvpSheetTitle && mvpSheetStatus && mvpSheetTable && mvpConsole) {
+    const data = [
+      {
+        title: "OBJETIVOS_2026.XLSX",
+        status: "MOUNTED // RAW",
+        table: `<thead><tr><th>Objetivo</th><th>Métrica</th><th>Peso</th><th>Status</th></tr></thead>
+<tbody>
+  <tr><td>Verificação Local</td><td>Zero Vazamento</td><td>40%</td><td>Pendente</td></tr>
+  <tr><td>Paridade BI</td><td>Erro &lt; 0.1%</td><td>40%</td><td>Pendente</td></tr>
+  <tr><td>User Experience</td><td>10 Operator Test</td><td>20%</td><td>Ativo</td></tr>
+</tbody>`,
+        log: "system: mounting target workbook...\n✔ loaded file OBJETIVOS_2026.XLSX [12.4 KB]\n✔ sheets detected: ['Metadata', 'TestCases', 'Weights']\n✔ local sandbox environment sealed"
+      },
+      {
+        title: "METRICAS_BI.XLSX",
+        status: "COMPILING // ACCURACY",
+        table: `<thead><tr><th>Agente</th><th>Tempo</th><th>Precisão</th><th>Audit Status</th></tr></thead>
+<tbody>
+  <tr><td>Cloud LLM</td><td>4.2s</td><td>92.4%</td><td>Risco Alto</td></tr>
+  <tr><td>Aether Local</td><td>1.8s</td><td>99.6%</td><td>Soberano</td></tr>
+  <tr><td>Manual Test</td><td>45m</td><td>100%</td><td>Verificado</td></tr>
+</tbody>`,
+        log: "system: running accuracy suite...\n[eval] comparing Aether local vs ground-truth\n✔ precision: 99.6%\n✔ latency: 1.8s (average over 50 iterations)\n✔ no remote telemetry packages sent"
+      },
+      {
+        title: "ROTINA_TESTADORES.XLSX",
+        status: "MONITORING // 10 DAYS",
+        table: `<thead><tr><th>Operador</th><th>Empresa</th><th>Dia</th><th>Uso Diário</th></tr></thead>
+<tbody>
+  <tr><td>Fin-Lead</td><td>Série B S/A</td><td>Dia 4/10</td><td>Conciliação Bancária</td></tr>
+  <tr><td>Controller</td><td>Logística Ltda</td><td>Dia 9/10</td><td>Forecast trimestral</td></tr>
+  <tr><td>VP Finance</td><td>Varejo Corp</td><td>Dia 2/10</td><td>Custo Operacional</td></tr>
+</tbody>`,
+        log: "system: loading tester logs...\n✔ 10-day testing window: Day 6 active\n✔ zero leaks detected in local audit ledger\n✔ feedback parsed: \"excel write capabilities native in Rust reduce run times by 4x\""
+      },
+      {
+        title: "DATALAKE_LOCAL.DB",
+        status: "SCHEMING // MULTI-XLSX",
+        table: `<thead><tr><th>Planilha</th><th>Registros</th><th>Relação</th><th>Chave Primária</th></tr></thead>
+<tbody>
+  <tr><td>Vendas_2025</td><td>15,400 rows</td><td>Cliente ID</td><td>vendas_id</td></tr>
+  <tr><td>Clientes_CRM</td><td>2,200 rows</td><td>Cliente ID</td><td>crm_id</td></tr>
+  <tr><td>Metas_Anual</td><td>12 rows</td><td>Mês / Ano</td><td>meta_id</td></tr>
+</tbody>`,
+        log: "system: scheming multi-table join...\n✔ cross-referencing sales tables using local SQlite index\n✔ query planner optimized\n✔ query generated: SELECT * FROM vendas JOIN clientes ON customer_id..."
+      },
+      {
+        title: "RELATORIO_OUTPUT.XLSX",
+        status: "ARL APPROVED // SEALED",
+        table: `<thead><tr><th>Ação</th><th>Módulo</th><th>Gate ARL</th><th>Ledger Entry</th></tr></thead>
+<tbody>
+  <tr><td>ReadExcel</td><td>rust_xlsx</td><td>Bypass</td><td>READ_OK</td></tr>
+  <tr><td>WriteExcel</td><td>rust_xlsx</td><td>Approved</td><td>WRITE_SIGNED</td></tr>
+  <tr><td>ExportPDF</td><td>cef_print</td><td>Approved</td><td>PDF_SIGNED</td></tr>
+</tbody>`,
+        log: "system: checking signature state...\n✔ write_excel execution authorized by operator\n✔ output sealed with cryptographic ARL token\n✔ checksum: sha256::6f40778c1871a812df6b91176b6...\n✔ written 1.2 KB to local filesystem successfully"
+      },
+      {
+        title: "VALOR_RETORNO.XLSX",
+        status: "COMPLETED // INTACT",
+        table: `<thead><tr><th>Pilar</th><th>Risco Nuvem</th><th>Modelo Aether</th><th>Valor Final</th></tr></thead>
+<tbody>
+  <tr><td>Privacidade</td><td>Vazamento</td><td>Local-first</td><td>Zero Risco</td></tr>
+  <tr><td>Velocidade</td><td>Latência Rede</td><td>Native Rust</td><td>Instantâneo</td></tr>
+  <tr><td>Compliance</td><td>Sem controle</td><td>Ledger ARL</td><td>100% Auditável</td></tr>
+</tbody>`,
+        log: "system: task complete.\n✔ local automation loop finalized.\n✔ data sovereignty: intact\n✔ human oversight: enabled\n[session closed]"
+      }
+    ];
+
+    const activateStep = (idx) => {
+      mvpSteps.forEach((step, sIdx) => {
+        step.classList.toggle('active', sIdx === idx);
+      });
+      mvpSheetTitle.textContent = data[idx].title;
+      mvpSheetStatus.textContent = data[idx].status;
+      mvpSheetTable.innerHTML = data[idx].table;
+      mvpConsole.textContent = data[idx].log;
+
+      gsap.fromTo(mvpSheetTable.querySelectorAll('tbody tr'), 
+        { opacity: 0, x: -8 }, 
+        { opacity: 1, x: 0, duration: 0.3, stagger: 0.05, ease: 'power2.out' }
+      );
+    };
+
+    mvpSteps.forEach((step, idx) => {
+      step.addEventListener('click', () => activateStep(idx));
+      step.addEventListener('mouseenter', () => activateStep(idx));
+    });
+
+    mm.add("(min-width: 981px)", () => {
+      ScrollTrigger.create({
+        trigger: '.mvp-interactive-container',
+        start: 'top 60%',
+        end: 'bottom 40%',
+        onUpdate: (self) => {
+          const idx = Math.min(Math.floor(self.progress * mvpSteps.length), mvpSteps.length - 1);
+          activateStep(idx);
+        }
+      });
+    });
+
+    activateStep(0);
+  }
+
+  // 5. Glowing Scroll-Driven Timeline
+  const timelineContainer = $('.timeline-container');
+  const timelineItems = $$('.timeline-item');
+  const timelineGlow = $('.timeline-line-glow');
+
+  if (timelineContainer && timelineItems.length && timelineGlow) {
+    ScrollTrigger.create({
+      trigger: timelineContainer,
+      start: 'top 70%',
+      end: 'bottom 60%',
+      scrub: true,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        gsap.set(timelineGlow, { height: `${progress * 100}%` });
+        
+        const count = timelineItems.length;
+        timelineItems.forEach((item, idx) => {
+          const threshold = (idx) / (count - 1 || 1);
+          if (progress >= threshold * 0.95) {
+            item.classList.add('active');
+          } else {
+            if (idx > 0) item.classList.remove('active');
+          }
+        });
+      }
+    });
+  }
+
+  // 6. Scroll-Highlight Vision Spans
+  const visionSpans = $$('.vision-inner p span');
+  if (visionSpans.length) {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.vision',
+        start: 'top 80%',
+        end: 'bottom 50%',
+        scrub: 0.5,
+      }
+    });
+    visionSpans.forEach((span) => {
+      tl.to(span, {
+        color: '#ffffff',
+        textShadow: '0 0 15px rgba(255, 255, 255, 0.12)',
+        duration: 0.3
+      }, '+=0.05');
+    });
+  }
 
   const lifeWords = $$('.life-scroll__word');
   const lifeTrack = $('.life-scroll__track');

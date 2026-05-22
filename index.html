@@ -239,50 +239,102 @@
       </div>
     </section>
 
-    <section id="capabilities" class="capabilities panel-section" aria-labelledby="cap-title">
-      <div class="section-kicker reveal">// capacidades</div>
-      <div class="section-heading reveal">
-        <h2 id="cap-title" class="hack-text">Uma stack de TI, não um chatbot com skin.</h2>
-        <p>Infraestrutura, memória, política e execução aparecem como produto. O valor está na capacidade operacional da stack — não numa camada cosmética sobre APIs.</p>
-      </div>
-      <div class="cap-grid">
-        <article class="cap reveal tilt-card"><b>01</b><h3>CEF Desktop Runtime</h3><p>Interface desktop com superfícies web, comandos locais e sensação de workspace nativo.</p></article>
-        <article class="cap reveal tilt-card"><b>02</b><h3>Rust IPC + Tool Registry</h3><p>Ferramentas nativas acionadas por contrato, com menor atrito, melhor observabilidade e controle fino de permissão.</p></article>
-        <article class="cap reveal tilt-card"><b>03</b><h3>SQLite Memory + FTS5</h3><p>Memória local pesquisável para contexto, logs, arquivos, decisões e trilhas de execução.</p></article>
-        <article class="cap reveal tilt-card"><b>04</b><h3>Native XLSX / BI Tools</h3><p>Planilhas e relatórios deixam de ser anexos passivos e viram matéria-prima operacional.</p></article>
-        <article class="cap reveal tilt-card"><b>05</b><h3>Deny-first ARL Gates</h3><p>Ações sensíveis começam bloqueadas. A aprovação humana libera apenas o escopo necessário — nada além.</p></article>
-        <article class="cap reveal tilt-card"><b>06</b><h3>Cloud Uplink opcional</h3><p>Quando nuvem agrega capacidade, ela entra como escolha explícita, rastreável e reversível.</p></article>
+    <section id="capabilities" class="capabilities capabilities-sticky panel-section" aria-labelledby="cap-title">
+      <div class="capabilities-container">
+        <div class="capabilities-left">
+          <div class="section-kicker reveal">// capacidades</div>
+          <div class="section-heading reveal">
+            <h2 id="cap-title" class="hack-text">Uma stack de TI, não um chatbot com skin.</h2>
+            <p>Infraestrutura, memória, política e execução aparecem como produto. O valor está na capacidade operacional da stack — não numa camada cosmética sobre APIs.</p>
+          </div>
+          <div class="cap-list">
+            <div class="cap-item active" data-index="0">
+              <b>01</b>
+              <div class="cap-item-text">
+                <h3>CEF Desktop Runtime</h3>
+                <p>Interface desktop com superfícies web, comandos locais e sensação de workspace nativo.</p>
+              </div>
+            </div>
+            <div class="cap-item" data-index="1">
+              <b>02</b>
+              <div class="cap-item-text">
+                <h3>Rust IPC + Tool Registry</h3>
+                <p>Ferramentas nativas acionadas por contrato, com menor atrito, melhor observabilidade e controle fino de permissão.</p>
+              </div>
+            </div>
+            <div class="cap-item" data-index="2">
+              <b>03</b>
+              <div class="cap-item-text">
+                <h3>SQLite Memory + FTS5</h3>
+                <p>Memória local pesquisável para contexto, logs, arquivos, decisões e trilhas de execução.</p>
+              </div>
+            </div>
+            <div class="cap-item" data-index="3">
+              <b>04</b>
+              <div class="cap-item-text">
+                <h3>Native XLSX / BI Tools</h3>
+                <p>Planilhas e relatórios deixam de ser anexos passivos e viram matéria-prima operacional.</p>
+              </div>
+            </div>
+            <div class="cap-item" data-index="4">
+              <b>05</b>
+              <div class="cap-item-text">
+                <h3>Deny-first ARL Gates</h3>
+                <p>Ações sensíveis começam bloqueadas. A aprovação humana libera apenas o escopo necessário — nada além.</p>
+              </div>
+            </div>
+            <div class="cap-item" data-index="5">
+              <b>06</b>
+              <div class="cap-item-text">
+                <h3>Cloud Uplink opcional</h3>
+                <p>Quando nuvem agrega capacidade, ela entra como escolha explícita, rastreável e reversível.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="capabilities-right">
+          <div class="console-box">
+            <div class="console-box__bar">
+              <span></span><span></span><span></span>
+              <b>aether_core // system_console</b>
+            </div>
+            <div class="console-screen">
+              <pre><code id="cap-console-code">system: initializing core layers...</code></pre>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="proof panel-section" id="proof" aria-labelledby="proof-title">
-      <div class="section-kicker reveal">// soberania de dados</div>
-      <div class="section-heading reveal">
-        <h2 id="proof-title" class="hack-text">Automação autônoma sem terceirizar seus arquivos.</h2>
-        <p>O problema que originou o AetherCore é estrutural: para automatizar análise, o mercado ainda exige que dados críticos saiam da empresa. O AetherCore inverte essa lógica com um runtime local-first capaz de entender contexto de negócio, operar sobre arquivos reais e preservar compliance desde a raiz.</p>
-      </div>
-      <div class="trinity-grid">
-        <article class="trinity-card reveal tilt-card" data-index="01">
-          <div class="card-light"></div>
-          <span>01 / PROBLEMA VALIDADO</span>
-          <h3>Nuvem não é neutra.</h3>
-          <p>Para automatizar análises complexas, o mercado ainda empurra dados sigilosos para infraestrutura de terceiros. Em ambientes com LGPD, sigilo contratual e governança, isso não é detalhe técnico: é bloqueio de adoção.</p>
-          <ul><li>planilhas confidenciais</li><li>contratos</li><li>código interno</li></ul>
-        </article>
-        <article class="trinity-card reveal tilt-card" data-index="02">
-          <div class="card-light"></div>
-          <span>02 / SOLUÇÃO AETHERCORE</span>
-          <h3>Sistema operacional cognitivo.</h3>
-          <p>O AetherCore atua como uma infraestrutura em Rust para hospedar IA local-first, executar ferramentas nativas, navegar em sandbox e acionar uplinks externos apenas quando o operador decide.</p>
-          <ul><li>runtime em Rust</li><li>browser sandbox</li><li>uplink explícito</li></ul>
-        </article>
-        <article class="trinity-card reveal tilt-card" data-index="03">
-          <div class="card-light"></div>
-          <span>03 / DIFERENCIAL</span>
-          <h3>Uma IA que atua, não só responde.</h3>
-          <p>O agente planeja, lê arquivos, cruza contexto, escreve artefatos e deixa trilha verificável. O valor não está só na resposta: está no encadeamento entre decisão, execução e auditoria.</p>
-          <ul><li>ReAct agent</li><li>ARL deny-first</li><li>audit ledger</li></ul>
-        </article>
+    <section class="proof proof-deck-section panel-section" id="proof" aria-labelledby="proof-title">
+      <div class="proof-sticky-container">
+        <div class="section-kicker reveal">// soberania de dados</div>
+        <div class="section-heading reveal">
+          <h2 id="proof-title" class="hack-text">Automação autônoma sem terceirizar seus arquivos.</h2>
+          <p>O problema que originou o AetherCore é estrutural: para automatizar análise, o mercado ainda exige que dados críticos saiam da empresa. O AetherCore inverte essa lógica com um runtime local-first capaz de entender contexto de negócio, operar sobre arquivos reais e preservar compliance desde a raiz.</p>
+        </div>
+        <div class="deck-wrapper">
+          <div class="deck-cards">
+            <article class="deck-card active" data-index="01">
+              <span>01 / PROBLEMA VALIDADO</span>
+              <h3>Nuvem não é neutra.</h3>
+              <p>Para automatizar análises complexas, o mercado ainda empurra dados sigilosos para infraestrutura de terceiros. Em ambientes com LGPD, sigilo contratual e governança, isso não é detalhe técnico: é bloqueio de adoção.</p>
+              <ul><li>planilhas confidenciais</li><li>contratos</li><li>código interno</li></ul>
+            </article>
+            <article class="deck-card" data-index="02">
+              <span>02 / SOLUÇÃO AETHERCORE</span>
+              <h3>Sistema operacional cognitivo.</h3>
+              <p>O AetherCore atua como uma infraestrutura em Rust para hospedar IA local-first, executar ferramentas nativas, navegar em sandbox e acionar uplinks externos apenas quando o operador decide.</p>
+              <ul><li>runtime em Rust</li><li>browser sandbox</li><li>uplink explícito</li></ul>
+            </article>
+            <article class="deck-card" data-index="03">
+              <span>03 / DIFERENCIAL</span>
+              <h3>Uma IA que atua, não só responde.</h3>
+              <p>O agente planeja, lê arquivos, cruza contexto, escreve artefatos e deixa trilha verificável. O valor não está só na resposta: está no encadeamento entre decisão, execução e auditoria.</p>
+              <ul><li>ReAct agent</li><li>ARL deny-first</li><li>audit ledger</li></ul>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -292,28 +344,99 @@
         <h2 id="products-title" class="hack-text">Um core, dois vetores de produto.</h2>
         <p>A plataforma se desdobra em dois vetores comerciais sem perder coerência tecnológica. A mesma base local-first atende tanto o operador que quer potência prática quanto a empresa que exige sigilo, controle e implantação séria.</p>
       </div>
-      <div class="trinity-grid">
-        <article class="trinity-card reveal tilt-card" data-index="GO">
-          <div class="card-light"></div>
-          <span>AETHER GO / B2C</span>
-          <h3>Assistência operacional para uso diário.</h3>
-          <p>Voltado a usuários avançados, builders e desenvolvedores. A interface web reduz fricção de entrada; a camada premium desktop libera fluxos completos de criação e edição diretamente na máquina do usuário.</p>
-          <ul><li>web entrypoint</li><li>desktop premium</li><li>créditos e upgrade</li></ul>
-        </article>
-        <article class="trinity-card reveal tilt-card" data-index="ENT">
-          <div class="card-light"></div>
-          <span>AETHER ENTERPRISE / B2B</span>
-          <h3>On-premise para dados sensíveis.</h3>
-          <p>Licenciamento corporativo para processamento autônomo e local de dados internos, com controle granular sobre permissões, revisão humana, retenção e rastreabilidade de ponta a ponta.</p>
-          <ul><li>on-premise</li><li>compliance</li><li>soberania programável</li></ul>
-        </article>
-        <article class="trinity-card reveal tilt-card" data-index="EDGE">
-          <div class="card-light"></div>
-          <span>EDGE AI / IMPACTO</span>
-          <h3>Mais perto do hardware. Menos dependência cega da nuvem.</h3>
-          <p>Ao mover o processamento para a borda, o produto reduz exposição de dados, aproveita hardware ocioso e libera automação avançada onde terceirizar contexto crítico simplesmente não é opção.</p>
-          <ul><li>edge computing</li><li>privacidade</li><li>eficiência</li></ul>
-        </article>
+      <div class="product-switcher-container">
+        <div class="switcher-tabs">
+          <div class="switcher-slider"></div>
+          <button class="switcher-tab active" data-target="go">Aether Go</button>
+          <button class="switcher-tab" data-target="ent">Aether Enterprise</button>
+          <button class="switcher-tab" data-target="edge">Edge AI</button>
+        </div>
+        <div class="switcher-content">
+          <div class="switcher-panel active" id="panel-go">
+            <div class="panel-info">
+              <span>AETHER GO / B2C</span>
+              <h3>Assistência operacional para uso diário.</h3>
+              <p>Voltado a usuários avançados, builders e desenvolvedores. A interface web reduz fricção de entrada; a camada premium desktop libera fluxos completos de criação e edição diretamente na máquina do usuário.</p>
+              <ul>
+                <li>web entrypoint</li>
+                <li>desktop premium</li>
+                <li>créditos e upgrade</li>
+              </ul>
+            </div>
+            <div class="panel-preview">
+              <div class="preview-terminal">
+                <div class="terminal-bar">
+                  <span></span><span></span><span></span>
+                  <b>aether_go ~ user@local</b>
+                </div>
+                <div class="terminal-body">
+                  <div class="line"><span class="t-dim">$</span> aether init --mode=go</div>
+                  <div class="line"><span class="t-green">✔</span> Connected to local runtime engine [v0.1.0-pre]</div>
+                  <div class="line"><span class="t-dim">$</span> aether run "summarize logs/audit.jsonl"</div>
+                  <div class="line"><span class="t-cyan">Running...</span> Reading logs/audit.jsonl (14.2 KB)</div>
+                  <div class="line"><span class="t-green">Success.</span> Generated summary artifact in <span class="t-gold">./artifacts/summary.md</span></div>
+                  <div class="line"><span class="t-dim">$</span> <span class="cursor">█</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="switcher-panel" id="panel-ent">
+            <div class="panel-info">
+              <span>AETHER ENTERPRISE / B2B</span>
+              <h3>On-premise para dados sensíveis.</h3>
+              <p>Licenciamento corporativo para processamento autônomo e local de dados internos, com controle granular sobre permissões, revisão humana, retenção e rastreabilidade de ponta a ponta.</p>
+              <ul>
+                <li>on-premise</li>
+                <li>compliance</li>
+                <li>soberania programável</li>
+              </ul>
+            </div>
+            <div class="panel-preview">
+              <div class="preview-terminal">
+                <div class="terminal-bar">
+                  <span></span><span></span><span></span>
+                  <b>aether_ent ~ admin@corp-net</b>
+                </div>
+                <div class="terminal-body">
+                  <div class="line"><span class="t-dim">$</span> aether deploy --cluster=on-premise</div>
+                  <div class="line"><span class="t-green">✔</span> Enforcing strict ARL deny-first policies...</div>
+                  <div class="line"><span class="t-green">✔</span> Audit ledger isolated: database/audit.db</div>
+                  <div class="line"><span class="t-green">✔</span> Human-in-the-loop gate active on ports [8080/tcp]</div>
+                  <div class="line"><span class="t-green">✔</span> Enterprise RBAC synced with Active Directory</div>
+                  <div class="line"><span class="t-dim">$</span> <span class="cursor">█</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="switcher-panel" id="panel-edge">
+            <div class="panel-info">
+              <span>EDGE AI / IMPACTO</span>
+              <h3>Mais perto do hardware. Menos dependência cega da nuvem.</h3>
+              <p>Ao mover o processamento para a borda, o produto reduz exposição de dados, aproveita hardware ocioso e libera automação avançada onde terceirizar contexto crítico simplesmente não é opção.</p>
+              <ul>
+                <li>edge computing</li>
+                <li>privacidade</li>
+                <li>eficiência</li>
+              </ul>
+            </div>
+            <div class="panel-preview">
+              <div class="preview-terminal">
+                <div class="terminal-bar">
+                  <span></span><span></span><span></span>
+                  <b>aether_edge ~ core@edge-device</b>
+                </div>
+                <div class="terminal-body">
+                  <div class="line"><span class="t-dim">$</span> aether edge --device=/dev/npu0</div>
+                  <div class="line"><span class="t-green">✔</span> NPU context initialized. Memory: 16GB LPDDR5</div>
+                  <div class="line"><span class="t-green">✔</span> Running local quantized model [Llama-3-8B-Q4_K_M]</div>
+                  <div class="line"><span class="t-green">✔</span> Direct tool execution without internet connection</div>
+                  <div class="line"><span class="t-cyan">Latency:</span> 24 tokens/sec | <span class="t-gold">Power:</span> 12.5W</div>
+                  <div class="line"><span class="t-dim">$</span> <span class="cursor">█</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -323,16 +446,97 @@
         <h2 id="mvp-title" class="hack-text">O MVP atual começa em BI local.</h2>
         <p>O recorte mais claro do produto é transformar planilhas complexas em insight estratégico sem expor dados. O usuário envia um XLSX, define um objetivo de negócio e recebe uma análise pronta dentro de um fluxo local, governado e operacional.</p>
       </div>
-      <div class="cap-grid">
-        <article class="cap reveal tilt-card"><b>01</b><h3>Objetivo do MVP</h3><p>Provar que o usuário consegue extrair relatórios e insights estratégicos de XLSX complexos com privacidade integral, evitando o risco estrutural das ferramentas online.</p></article>
-        <article class="cap reveal tilt-card"><b>02</b><h3>Medição de sucesso</h3><p>Precisão na leitura dos dados, comparada à análise manual ou a agentes online, somada à velocidade na produção de relatórios gráficos e estatísticos.</p></article>
-        <article class="cap reveal tilt-card"><b>03</b><h3>Público dos testes</h3><p>Analistas financeiros e controladores de empresas médias e grandes, usando o sistema por 10 dias em rotinas como conciliação, forecast e análise de custo.</p></article>
-        <article class="cap reveal tilt-card"><b>04</b><h3>Próximo passo</h3><p>Expandir o agente para cruzar múltiplas planilhas simultaneamente, evoluindo o fluxo para um “data lake local” simplificado e acionável.</p></article>
-        <article class="cap reveal tilt-card"><b>05</b><h3>Ferramenta entregue</h3><p>Leitura e escrita nativa de XLSX já fazem parte do runtime Rust, com escrita tratada como ação sensível e protegida por permissão e aprovação humana.</p></article>
-        <article class="cap reveal tilt-card"><b>06</b><h3>Por que isso importa</h3><p>Segurança e modelo proprietário sustentam a base; o valor percebido pelo usuário final aparece na análise útil, acionável e pronta para decisão.</p></article>
+      <div class="mvp-interactive-container">
+        <div class="mvp-steps">
+          <div class="mvp-step active" data-index="0">
+            <b>01</b>
+            <div class="mvp-step-text">
+              <h3>Objetivo do MVP</h3>
+              <p>Provar que o usuário consegue extrair relatórios e insights estratégicos de XLSX complexos com privacidade integral, evitando o risco estrutural das ferramentas online.</p>
+            </div>
+          </div>
+          <div class="mvp-step" data-index="1">
+            <b>02</b>
+            <div class="mvp-step-text">
+              <h3>Medição de sucesso</h3>
+              <p>Precisão na leitura dos dados, comparada à análise manual ou a agentes online, somada à velocidade na produção de relatórios gráficos e estatísticos.</p>
+            </div>
+          </div>
+          <div class="mvp-step" data-index="2">
+            <b>03</b>
+            <div class="mvp-step-text">
+              <h3>Público dos testes</h3>
+              <p>Analistas financeiros e controladores de empresas médias e grandes, usando o sistema por 10 dias em rotinas como conciliação, forecast e análise de custo.</p>
+            </div>
+          </div>
+          <div class="mvp-step" data-index="3">
+            <b>04</b>
+            <div class="mvp-step-text">
+              <h3>Próximo passo</h3>
+              <p>Expandir o agente para cruzar múltiplas planilhas simultaneamente, evoluindo o fluxo para um “data lake local” simplificado e acionável.</p>
+            </div>
+          </div>
+          <div class="mvp-step" data-index="4">
+            <b>05</b>
+            <div class="mvp-step-text">
+              <h3>Ferramenta entregue</h3>
+              <p>Leitura e escrita nativa de XLSX já fazem parte do runtime Rust, com escrita tratada como ação sensível e protegida por permissão e aprovação humana.</p>
+            </div>
+          </div>
+          <div class="mvp-step" data-index="5">
+            <b>06</b>
+            <div class="mvp-step-text">
+              <h3>Por que isso importa</h3>
+              <p>Segurança e modelo proprietário sustentam a base; o valor percebido pelo usuário final aparece na análise útil, acionável e pronta para decisão.</p>
+            </div>
+          </div>
+        </div>
+        <div class="mvp-preview">
+          <div class="preview-sheet-box">
+            <div class="sheet-header">
+              <span class="sheet-title" id="mvp-sheet-title">DADOS_FINANCEIROS.XLSX</span>
+              <span class="sheet-status" id="mvp-sheet-status">READY // LOCAL</span>
+            </div>
+            <div class="sheet-table-wrapper">
+              <table class="sheet-table" id="mvp-sheet-table">
+                <thead>
+                  <tr>
+                    <th>Mês</th>
+                    <th>Receita</th>
+                    <th>Despesas</th>
+                    <th>Margem</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Jan</td>
+                    <td>R$ 145.000</td>
+                    <td>R$ 98.000</td>
+                    <td>32.4%</td>
+                  </tr>
+                  <tr>
+                    <td>Fev</td>
+                    <td>R$ 160.000</td>
+                    <td>R$ 102.000</td>
+                    <td>36.2%</td>
+                  </tr>
+                  <tr>
+                    <td>Mar</td>
+                    <td>R$ 155.000</td>
+                    <td>R$ 99.500</td>
+                    <td>35.8%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="sheet-terminal">
+              <div class="sheet-terminal-title">Aether Exec Ledger</div>
+              <pre><code id="mvp-console-code">system: waiting for interaction...</code></pre>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-
 
     <section class="status-section panel-section" id="status" aria-labelledby="status-title">
       <div class="section-kicker reveal">// status + release notes</div>
@@ -340,27 +544,89 @@
         <h2 id="status-title" class="hack-text">0.1.0-pre com trilha de entrega real.</h2>
         <p>Em beta interno, o AetherCore já opera como workspace desktop local-first com workspaces, sessões, documentos, Aether Agent, ARL, uplinks explícitos e ferramentas nativas de BI. O foco é avançar com estabilidade: entregar o que já existe, marcar o que está em beta e endurecer cada camada antes de ampliar escopo.</p>
       </div>
-      <div class="cap-grid status-grid">
-        <article class="cap reveal tilt-card"><b>2025-12</b><h3>Workspaces + RAG local</h3><p>Workspaces, sessões, documentos, vault e busca local passaram a estruturar a memória operacional do produto.</p></article>
-        <article class="cap reveal tilt-card"><b>2026-03</b><h3>Ferramentas, permissões e sandbox</h3><p>Registry de ferramentas, modos de acesso, browser sandbox, shell, skills e agentes foram conectados a uma política de execução coerente.</p></article>
-        <article class="cap reveal tilt-card"><b>2026-04</b><h3>Aether Reliability Layer</h3><p>ARL consolidou deny-first, aprovação humana, trilhas JSONL, redaction de segredos e retenção configurável como camada de confiança do runtime.</p></article>
-        <article class="cap reveal tilt-card"><b>2026-05-10</b><h3>CEF como runtime padrão</h3><p>O desktop passou a carregar o frontend localmente via CEF, eliminando dependência de localhost e do WebView do Edge.</p></article>
-        <article class="cap reveal tilt-card"><b>2026-05-11</b><h3>XLSX nativo no Rust</h3><p>ReadExcel e WriteExcel colocaram BI diretamente no fluxo do agente, com governança sobre escrita e alteração de artefatos.</p></article>
-        <article class="cap reveal tilt-card"><b>Próximas janelas</b><h3>Hardening com mensagem clara.</h3><p>Hardening do ARL, beta privado assistido e empacotamento público conservador entram como próximos passos — não como promessas infladas.</p></article>
+      <div class="timeline-container">
+        <div class="timeline-line">
+          <div class="timeline-line-glow"></div>
+        </div>
+        <div class="timeline-items">
+          <div class="timeline-item active">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2025-12</div>
+              <div class="timeline-version">v0.0.1</div>
+              <h3>Workspaces + RAG local</h3>
+              <p>Workspaces, sessões, documentos, vault e busca local passaram a estruturar a memória operacional do produto.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2026-03</div>
+              <div class="timeline-version">v0.0.5</div>
+              <h3>Ferramentas, permissões e sandbox</h3>
+              <p>Registry de ferramentas, modos de acesso, browser sandbox, shell, skills e agentes foram conectados a uma política de execução coerente.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2026-04</div>
+              <div class="timeline-version">v0.0.8</div>
+              <h3>Aether Reliability Layer</h3>
+              <p>ARL consolidou deny-first, aprovação humana, trilhas JSONL, redaction de segredos e retenção configurável como camada de confiança do runtime.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2026-05-10</div>
+              <div class="timeline-version">v0.0.9</div>
+              <h3>CEF como runtime padrão</h3>
+              <p>O desktop passou a carregar o frontend localmente via CEF, eliminando dependência de localhost e do WebView do Edge.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2026-05-11</div>
+              <div class="timeline-version">v0.1.0-pre</div>
+              <h3>XLSX nativo no Rust</h3>
+              <p>ReadExcel e WriteExcel colocaram BI diretamente no fluxo do agente, com governança sobre escrita e alteração de artefatos.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-date">Próximas janelas</div>
+              <div class="timeline-version">Roadmap</div>
+              <h3>Hardening com mensagem clara.</h3>
+              <p>Hardening do ARL, beta privado assistido e empacotamento público conservador entram como próximos passos — não como promessas infladas.</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="status-note reveal">
         <p><b>Roadmap:</b> OCR avançado, reranking, RBAC enterprise, assinatura de artefatos e suites adversariais maiores entram como próximas camadas — somente depois de validação técnica e hardening.</p>
       </div>
     </section>
 
-
     <section id="vision" class="vision" aria-labelledby="vision-title">
       <div class="vision-inner reveal">
         <div class="section-kicker">// visão</div>
         <h2 id="vision-title" class="hack-text">A próxima interface de trabalho não é uma conversa. É um runtime governado.</h2>
-        <p>AetherCore existe para converter intenção em ação verificável. Hoje, isso significa um runtime local-first com Uplink explícito e aprovação visível; amanhã, evolui para uma infraestrutura híbrida em que operações podem permanecer locais, subir para servidores dedicados da própria AetherCore ou usar modelos externos — tudo dentro de um fluxo cognitivo contínuo, auditável e soberano.</p>
+        <p>
+          <span>AetherCore existe para converter intenção em ação verificável. </span>
+          <span>Hoje, isso significa um runtime local-first com Uplink explícito e aprovação visível; </span>
+          <span>amanhã, evolui para uma infraestrutura híbrida </span>
+          <span>em que operações podem permanecer locais, </span>
+          <span>subir para servidores dedicados da própria AetherCore </span>
+          <span>ou usar modelos externos — </span>
+          <span>tudo dentro de um fluxo cognitivo contínuo, auditável e soberano.</span>
+        </p>
       </div>
     </section>
+
+
 
 
     <section class="interface-gallery panel-section" id="interfaces" aria-labelledby="interfaces-title">
