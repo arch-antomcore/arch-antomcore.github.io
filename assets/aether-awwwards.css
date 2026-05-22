@@ -18,7 +18,8 @@
   --radius: 32px;
   --max: 1200px;
   --mono: "SFMono-Regular", "Cascadia Code", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --display: 'Outfit', var(--sans);
 }
 
 * { box-sizing: border-box; }
@@ -117,7 +118,7 @@ button, input { font: inherit; }
   border-radius: 50%;
   pointer-events: none;
   transform: translate3d(-50%, -50%, 0);
-  opacity: .16;
+  opacity: .08;
   background: radial-gradient(circle, rgba(86,245,212,.48), rgba(139,92,246,.18) 38%, transparent 70%);
   mix-blend-mode: screen;
 }
@@ -164,9 +165,33 @@ button, input { font: inherit; }
 }
 .brand__copy { display: grid; line-height: 1.05; }
 .brand__copy b { font-size: 14px; letter-spacing: -.02em; }
-.brand__copy em { margin-top: 4px; color: var(--dim); font: 9px/1 var(--mono); text-transform: uppercase; letter-spacing: .22em; font-style: normal; }
+.brand__copy em {
+  margin-top: 4px;
+  color: var(--dim);
+  font: 9px/1 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.brand__copy em::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 8px var(--ok);
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.25); }
+}
 .nav__links { display: flex; align-items: center; justify-content: center; gap: 2px; color: rgba(239,255,251,.64); font-size: 13px; }
-.nav__links a { padding: 11px 14px; border-radius: 999px; transition: background .25s ease, color .25s ease; }
+.nav__links a { padding: 11px 14px; border-radius: 999px; transition: background .45s cubic-bezier(0.16, 1, 0.3, 1), color .3s ease; }
 .nav__links a:hover { color: #fff; background: rgba(255,255,255,.06); }
 .nav__cta, .btn, .access-form button {
   position: relative;
@@ -198,6 +223,16 @@ button, input { font: inherit; }
   transition: transform .8s ease;
 }
 .nav__cta:hover::after, .btn--primary:hover::after, .access-form button:hover::after { transform: translateX(120%) rotate(18deg); }
+.nav__cta i, .btn i, .access-form button i {
+  display: inline-block;
+  transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav__cta:hover i, .btn--ghost:hover i, .access-form button:hover i {
+  transform: translate(3px, -3px);
+}
+.btn--primary:hover i {
+  transform: translate(4px, 0);
+}
 
 .panel-section { width: min(calc(100vw - 32px), var(--max)); margin-inline: auto; }
 .hero {
@@ -241,6 +276,8 @@ button, input { font: inherit; }
   color: var(--muted);
   font-size: clamp(1.02rem, 1.7vw, 1.22rem);
   line-height: 1.78;
+  border-left: 2px dotted rgba(86, 245, 212, 0.25);
+  padding-left: 18px;
 }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 .btn {
@@ -885,6 +922,7 @@ html { scroll-padding-top: 118px; }
 .stage-card h3,
 .trinity-card h3,
 .cap h3 {
+  font-family: var(--display);
   overflow-wrap: normal;
   word-break: normal;
   hyphens: manual;
@@ -893,8 +931,8 @@ html { scroll-padding-top: 118px; }
 
 .hero-title {
   font-size: clamp(3.85rem, 7.7vw, 7rem);
-  line-height: .89;
-  letter-spacing: -.062em;
+  line-height: .95;
+  letter-spacing: -.035em;
 }
 
 .section-heading h2,
@@ -904,8 +942,8 @@ html { scroll-padding-top: 118px; }
 .cta h2,
 .lab-copy h2 {
   font-size: clamp(2.75rem, 5.3vw, 5.25rem);
-  line-height: .94;
-  letter-spacing: -.058em;
+  line-height: 1.05;
+  letter-spacing: -.025em;
 }
 
 .hack-word {
@@ -1026,7 +1064,8 @@ html { scroll-padding-top: 118px; }
   .cta h2,
   .lab-copy h2 {
     font-size: clamp(2.55rem, 9vw, 4.4rem);
-    line-height: .96;
+    line-height: 1.05;
+    letter-spacing: -.025em;
   }
 
   .processor-sticky,
@@ -1103,8 +1142,8 @@ html { scroll-padding-top: 118px; }
     margin: 20px auto 0;
     text-align: center;
     font-size: clamp(3.35rem, 15.4vw, 5rem);
-    line-height: .93;
-    letter-spacing: -.052em;
+    line-height: .95;
+    letter-spacing: -.025em;
   }
 
   .hero-title > span { text-align: center; }
@@ -1114,6 +1153,8 @@ html { scroll-padding-top: 118px; }
     text-align: center;
     font-size: 1rem;
     line-height: 1.66;
+    border-left: none;
+    padding-left: 0;
   }
 
   .hero__actions {
@@ -1498,7 +1539,8 @@ html { scroll-padding-top: 118px; }
 .lab-console:hover,
 .cta-card:hover,
 .status-note:hover {
-  box-shadow: 0 34px 120px rgba(0,0,0,.34), 0 0 0 1px rgba(86,245,212,.08) inset;
+  border-color: rgba(86, 245, 212, 0.25);
+  box-shadow: 0 38px 120px rgba(0,0,0,.45), 0 0 24px rgba(86, 245, 212, 0.08), inset 0 1px rgba(255,255,255,.12);
 }
 
 @media (max-width: 640px) {
