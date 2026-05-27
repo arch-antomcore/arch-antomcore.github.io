@@ -87,7 +87,7 @@
             "name": "AetherCore",
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "Windows, macOS, Linux",
-            "description": "IA local-first para análise de planilhas, documentos e dados sensíveis com execução auditável, aprovação humana e governança.",
+            "description": "IA local-first em formato de agente para arquivos, documentos, dados sensíveis e tarefas auditáveis com aprovação humana e governança.",
             "creator": {
               "@id": "https://exvorn.tech/#organization"
             }
@@ -228,12 +228,12 @@
             </h2>
             <p>
               O núcleo do Aether aparece como um campo vivo de execução: etapas
-              de trabalho, permissões, histórico e estados orbitam a logo
-              oficial como se o runtime respirasse em tempo real.
+              de trabalho, permissões, histórico e estados orbitam a logo como
+              um agente em operação.
             </p>
             <div class="processor-stats">
               <div><b>LOCAL</b><span>padrão de execução</span></div>
-              <div><b>ARL</b><span>aprovação humana</span></div>
+              <div><b>APROVAÇÃO</b><span>ação sensível confirmada</span></div>
               <div><b>AUDITORIA</b><span>trilha visível</span></div>
             </div>
           </div>
@@ -264,7 +264,7 @@
               ></canvas>
             </div>
             <div class="chip-hud hud-a">trilha auditável</div>
-            <div class="chip-hud hud-b">uplink explícito</div>
+            <div class="chip-hud hud-b">envio autorizado</div>
             <div class="chip-hud hud-c">salvar XLSX: pedir aprovação</div>
           </div>
         </div>
@@ -274,7 +274,7 @@
           <div class="pipeline-copy">
             <div class="section-kicker">// execution loop</div>
             <h2 class="hack-text" id="pipeline-title">
-              Do arquivo real ao ledger auditável.
+              Do arquivo real ao histórico auditável.
             </h2>
             <p>
               Do contexto ao artefato final, o fluxo é contínuo: planejar,
@@ -310,8 +310,8 @@
               <span>APROVAÇÃO</span>
               <h3>Mantenha controles visíveis.</h3>
               <p>
-                O ARL deixa risco, diff, escopo e permissões legíveis. Sem
-                aprovação, o gate interrompe a ação com elegância.
+                A camada de aprovação deixa risco, mudança, escopo e permissões
+                legíveis. Sem aprovação, a ação é interrompida com clareza.
               </p>
               <strong class="stage-card__outcome">Escrita pede aprovação</strong>
             </article>
@@ -425,7 +425,7 @@
                 <h3>Análise de XLSX</h3>
                 <p>
                   Leitura e escrita de planilhas financeiras e bases complexas
-                  de forma nativa e privada no próprio runtime.
+                  de forma nativa e privada no próprio ambiente local.
                 </p>
                 <ul>
                   <li>xlsx nativo</li>
@@ -443,16 +443,16 @@
                   começam bloqueadas e exigem aprovação explícita.
                 </p>
                 <ul>
-                  <li>deny-first ARL</li>
-                  <li>gate de segurança</li>
+                  <li>nega por padrão</li>
+                  <li>camada de segurança</li>
                 </ul>
               </div>
             </article>
             <article class="cap-card reveal" tabindex="0">
-              <div class="cap-card__index"><span>06</span><b>uplink</b></div>
+              <div class="cap-card__index"><span>06</span><b>conexão</b></div>
               <div class="cap-card__body">
                 <em>extensão governada</em>
-                <h3>Uplink opcional e controlado</h3>
+                <h3>Conexão externa opcional</h3>
                 <p>
                   Conexões à nuvem e modelos externos ocorrem sob demanda
                   específica, com governança e consentimento do operador.
@@ -509,10 +509,10 @@
           </h2>
           <p>
             Em beta interno, o AetherCore já opera como workspace desktop
-            local-first com workspaces, sessões, documentos, Aether Agent, ARL,
-            uplinks explícitos e ferramentas nativas de BI. O foco é avançar com
-            estabilidade: entregar o que já existe, marcar o que está em beta e
-            endurecer cada camada antes de ampliar escopo.
+            local-first com sessões, documentos, Aether Agent, permissões,
+            conexões externas explícitas e ferramentas nativas. O foco é avançar
+            com estabilidade: entregar o que já existe, marcar o que está em beta
+            e endurecer cada camada antes de ampliar escopo.
           </p>
         </div>
         <div class="timeline-container">
@@ -549,11 +549,11 @@
               <div class="timeline-content">
                 <div class="timeline-date">2026-04</div>
                 <div class="timeline-version">v0.0.8</div>
-                <h3>Aether Reliability Layer</h3>
+                <h3>Camada de confiabilidade</h3>
                 <p>
-                  ARL consolidou deny-first, aprovação humana, trilhas JSONL,
-                  redaction de segredos e retenção configurável como camada de
-                  confiança do runtime.
+                  A base de confiabilidade consolidou negação por padrão,
+                  aprovação humana, trilhas de execução, proteção de segredos e
+                  retenção configurável.
                 </p>
               </div>
             </div>
@@ -562,10 +562,10 @@
               <div class="timeline-content">
                 <div class="timeline-date">2026-05-10</div>
                 <div class="timeline-version">v0.0.9</div>
-                <h3>CEF como runtime padrão</h3>
+                <h3>Desktop local como padrão</h3>
                 <p>
-                  O desktop passou a carregar o frontend localmente via CEF,
-                  eliminando dependência de localhost e do WebView do Edge.
+                  O desktop passou a carregar a interface localmente, reduzindo
+                  dependências externas e preparando uso mais estável.
                 </p>
               </div>
             </div>
@@ -588,7 +588,7 @@
                 <div class="timeline-version">Roadmap</div>
                 <h3>Hardening com mensagem clara.</h3>
                 <p>
-                  Hardening do ARL, beta privado assistido e empacotamento
+                  Hardening da aprovação, beta privado assistido e empacotamento
                   público conservador entram como próximos passos — não como
                   promessas infladas.
                 </p>
@@ -608,7 +608,7 @@
         <div class="vision-inner reveal">
           <div class="section-kicker">// visão</div>
           <h2 class="hack-text" id="vision-title">
-            A próxima interface de trabalho não é uma conversa. É um runtime
+            A próxima interface de trabalho não é uma conversa. É um agente
             governado.
           </h2>
           <p>
@@ -638,7 +638,7 @@
               Use IA sem abrir mão do controle dos seus dados.
             </h2>
             <p>
-              Entre na lista de acesso antecipado para testar o AetherCore com planilhas reais, de forma auditável e sob seu controle.
+              Entre na lista de acesso antecipado para testar o AetherCore com tarefas reais, arquivos locais e aprovação humana.
             </p>
             <form action="#" class="access-form" id="leadForm" method="post">
               <label class="sr-only" for="email">Email</label>

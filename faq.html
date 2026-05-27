@@ -87,7 +87,7 @@
             "name": "AetherCore",
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "Windows, macOS, Linux",
-            "description": "IA local-first para análise de planilhas, documentos e dados sensíveis com execução auditável, aprovação humana e governança.",
+            "description": "IA local-first em formato de agente para arquivos, documentos, dados sensíveis e tarefas auditáveis com aprovação humana e governança.",
             "creator": {
               "@id": "https://exvorn.tech/#organization"
             }
@@ -119,10 +119,18 @@
               },
               {
                 "@type": "Question",
+                "name": "O AetherCore é só para planilhas?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Não. Planilhas são o primeiro caso validado porque provam leitura, escrita controlada e valor de negócio, mas o AetherCore é uma IA agente para arquivos, documentos, ferramentas, navegação permitida e tarefas sensíveis."
+                }
+              },
+              {
+                "@type": "Question",
                 "name": "Por que usar IA local para planilhas?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Planilhas frequentemente contêm dados financeiros, jurídicos, comerciais ou operacionais. A análise local reduz exposição, melhora controle e facilita auditoria."
+                  "text": "Planilhas frequentemente contêm dados financeiros, jurídicos, comerciais ou operacionais. Elas são uma porta de entrada prática para validar o agente local com menos exposição, mais controle e auditoria."
                 }
               },
               {
@@ -130,7 +138,7 @@
                 "name": "O AetherCore substitui um chatbot?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Não exatamente. Um chatbot responde perguntas; o AetherCore é pensado como runtime de IA que planeja, executa, registra e audita ações sobre arquivos reais."
+                  "text": "Ele vai além de um chatbot. O AetherCore é pensado como uma IA agente que entende objetivos, planeja, usa ferramentas, lê e escreve arquivos, registra ações e pede aprovação para operações sensíveis."
                 }
               },
               {
@@ -290,14 +298,29 @@
           </details>
           <details class="faq-item">
             <summary class="faq-question">
+              O AetherCore é só para planilhas?
+              <span aria-hidden="true" class="faq-icon">+</span>
+            </summary>
+            <div class="faq-answer">
+              <p>
+                Não. Planilhas são o primeiro caso validado porque provam
+                leitura, escrita controlada e valor de negócio, mas o AetherCore
+                é uma IA agente para arquivos, documentos, ferramentas, navegação
+                permitida e tarefas sensíveis.
+              </p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-question">
               Por que usar IA local para planilhas?
               <span aria-hidden="true" class="faq-icon">+</span>
             </summary>
             <div class="faq-answer">
               <p>
                 Porque planilhas frequentemente contêm dados financeiros,
-                comerciais, jurídicos ou operacionais sensíveis. A análise local
-                reduz exposição, melhora controle e facilita auditoria.
+                comerciais, jurídicos ou operacionais sensíveis. Elas são uma
+                porta de entrada prática para validar o agente local com menos
+                exposição, mais controle e auditoria.
               </p>
             </div>
           </details>
@@ -308,9 +331,10 @@
             </summary>
             <div class="faq-answer">
               <p>
-                Não exatamente. Um chatbot responde perguntas. O AetherCore é
-                pensado como um runtime de IA que planeja, executa, registra e
-                audita ações sobre arquivos reais.
+                Ele vai além de um chatbot. O AetherCore é pensado como uma IA
+                agente que entende objetivos, planeja, usa ferramentas, lê e
+                escreve arquivos, registra ações e pede aprovação para operações
+                sensíveis.
               </p>
             </div>
           </details>
@@ -351,7 +375,7 @@
               Use IA sem abrir mão do controle dos seus dados.
             </h2>
             <p>
-              Entre na lista de acesso antecipado para testar o AetherCore com planilhas reais, de forma auditável e sob seu controle.
+              Entre na lista de acesso antecipado para testar o AetherCore com tarefas reais, arquivos locais e aprovação humana.
             </p>
             <form action="#" class="access-form" id="leadForm" method="post">
               <label class="sr-only" for="email">Email</label>
