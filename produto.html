@@ -287,10 +287,10 @@
         <div class="section-kicker reveal">// produto + negócio</div>
         <div class="section-heading reveal">
           <h2 class="hack-text" id="products-title">
-            Um core, dois vetores de produto.
+            Um core, duas ofertas e uma base local.
           </h2>
           <p>
-            A plataforma se desdobra em dois vetores comerciais sem perder
+            A plataforma se desdobra em duas ofertas comerciais sem perder
             coerência tecnológica. A mesma base local-first atende tanto o
             operador que quer potência prática quanto a empresa que exige
             sigilo, controle e implantação séria.
@@ -305,7 +305,7 @@
             <button class="switcher-tab" data-target="ent">
               Aether Enterprise
             </button>
-            <button class="switcher-tab" data-target="edge">Edge AI</button>
+            <button class="switcher-tab" data-target="edge">Base local</button>
           </div>
           <div class="switcher-content">
             <div class="switcher-panel active" id="panel-go">
@@ -409,48 +409,48 @@
             </div>
             <div class="switcher-panel" id="panel-edge">
               <div class="panel-info">
-                <span>EDGE AI / IMPACTO</span>
+                <span>BASE LOCAL / ARQUITETURA</span>
                 <h3>
-                  Mais perto do hardware. Menos dependência cega da nuvem.
+                  Execução perto dos arquivos. Uplink só quando necessário.
                 </h3>
                 <p>
-                  Ao mover o processamento para a borda, o produto reduz
-                  exposição de dados, aproveita hardware ocioso e libera
-                  automação avançada onde terceirizar contexto crítico
-                  simplesmente não é opção.
+                  Essa base não é uma terceira oferta do AetherCore. É o
+                  princípio técnico por trás das duas linhas: processar no
+                  ambiente do usuário, aproveitar hardware local e acionar
+                  integrações externas apenas com governança explícita.
                 </p>
                 <ul>
-                  <li>edge computing</li>
-                  <li>privacidade</li>
-                  <li>eficiência</li>
+                  <li>runtime local-first</li>
+                  <li>uplink governado</li>
+                  <li>hardware local</li>
                 </ul>
               </div>
               <div class="panel-preview">
                 <div class="preview-terminal">
                   <div class="terminal-bar">
                     <span></span><span></span><span></span>
-                    <b>aether_edge ~ core@edge-device</b>
+                    <b>aether_core ~ local-runtime</b>
                   </div>
                   <div class="terminal-body">
                     <div class="line">
-                      <span class="t-dim">$</span> aether edge
-                      --device=/dev/npu0
+                      <span class="t-dim">$</span> aether runtime
+                      --profile=local-first
                     </div>
                     <div class="line">
-                      <span class="t-green">✔</span> NPU context initialized.
-                      Memory: 16GB LPDDR5
+                      <span class="t-green">✔</span> Hardware profile detected:
+                      CPU/GPU/NPU when available
                     </div>
                     <div class="line">
-                      <span class="t-green">✔</span> Running local quantized
-                      model [Llama-3-8B-Q4_K_M]
+                      <span class="t-green">✔</span> Local model route ready:
+                      compatible quantized model
                     </div>
                     <div class="line">
-                      <span class="t-green">✔</span> Direct tool execution
-                      without internet connection
+                      <span class="t-green">✔</span> External uplink requires
+                      explicit approval
                     </div>
                     <div class="line">
-                      <span class="t-cyan">Latency:</span> 24 tokens/sec |
-                      <span class="t-gold">Power:</span> 12.5W
+                      <span class="t-cyan">Mode:</span> local-first |
+                      <span class="t-gold">Uplink:</span> governed
                     </div>
                     <div class="line">
                       <span class="t-dim">$</span> <span class="cursor">█</span>
