@@ -117,11 +117,11 @@
         alt=""
         width="192"
         height="192"
-        fetchpriority="high"
-       loading="lazy" />
+        fetchpriority="high" />
       <div class="boot__status"><span></span></div>
       <p>initializing governed runtime</p>
     </div>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <canvas id="webgl" aria-hidden="true"></canvas>
     <canvas id="matrix" aria-hidden="true"></canvas>
     <div class="bg-grid" aria-hidden="true"></div>
@@ -198,9 +198,8 @@
             <span>e trilha auditável.</span>
           </h1>
           <p class="lead reveal">
-            A arquitetura foi separada em página própria para descrever compute
-            core, pipeline, capacidades e status técnico sem diluir a conversão
-            da home.
+            Compute core, pipeline de execução, approval layer e as peças
+            técnicas que fazem o runtime funcionar sem nuvem externa.
           </p>
           <div class="hero__actions reveal">
             <a
@@ -700,6 +699,7 @@
         </div>
       </div>
     </footer>
+    <link rel="preload" href="assets/vendor/gsap.min.js" as="script" />
     <script defer src="assets/vendor/gsap.min.js"></script>
     <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
     <script defer src="assets/vendor/Physics2DPlugin.min.js"></script>

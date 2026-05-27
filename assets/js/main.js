@@ -10,7 +10,7 @@ window.addEventListener('load', () => {
     setTimeout(() => $('#boot')?.classList.add('is-hidden'), 150);
   });
 });
-setTimeout(() => $('#boot')?.classList.add('is-hidden'), 3500); // Fallback
+setTimeout(() => $('#boot')?.classList.add('is-hidden'), 2200); // Fallback
 
 function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 function lerp(a, b, t) { return a + (b - a) * t; }
@@ -42,8 +42,8 @@ function initCursorOrb() {
   let isVisible = true;
   const tick = () => {
     if (!isVisible) return;
-    x = lerp(x, globalCursor.x, 0.09);
-    y = lerp(y, globalCursor.y, 0.09);
+    x = lerp(x, globalCursor.x, 0.14);
+    y = lerp(y, globalCursor.y, 0.14);
     orb.style.transform = `translate3d(${x - 140}px, ${y - 140}px, 0)`;
     requestAnimationFrame(tick);
   };
@@ -97,7 +97,7 @@ function initMatrixCanvas() {
     width = canvas.width = Math.floor(innerWidth * dpr);
     height = canvas.height = Math.floor(innerHeight * dpr);
     baseSize = 14.5 * dpr;
-    const count = Math.max(36, Math.ceil(innerWidth / 18));
+    const count = Math.max(24, Math.ceil(innerWidth / 26));
     if (columns.length < count) {
       for (let i = columns.length; i < count; i++) columns.push(createColumn(i, count));
     } else if (columns.length > count) {
@@ -109,7 +109,7 @@ function initMatrixCanvas() {
     });
   }
 
-  const fpsInterval = 1000 / 30; // Cap a 30 FPS
+  const fpsInterval = 1000 / 24; // Cap a 24 FPS for perf
   let lastFrameTime = performance.now();
 
   function draw(now) {
@@ -226,19 +226,21 @@ async function initWebGL() {
   let renderer;
   try { renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' }); }
   catch (e) { console.warn('WebGL renderer init failed', e); return; }
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.6));
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.3));
 
   // Memory management
   window.addEventListener('unload', () => {
-    renderer.dispose();
-    particleGeo.dispose();
-    particleMat.dispose();
-    kernel.geometry.dispose();
-    kernel.material.dispose();
-    torusA.geometry.dispose();
-    torusA.material.dispose();
-    torusB.geometry.dispose();
-    torusB.material.dispose();
+    try {
+      renderer.dispose();
+      particleGeo.dispose();
+      particleMat.dispose();
+      kernel.geometry.dispose();
+      kernel.material.dispose();
+      torusA.geometry.dispose();
+      torusA.material.dispose();
+      torusB.geometry.dispose();
+      torusB.material.dispose();
+    } catch (e) { /* safe cleanup */ }
   }, { once: true });
 
   const scene = new THREE.Scene();
@@ -247,7 +249,7 @@ async function initWebGL() {
   const group = new THREE.Group();
   scene.add(group);
 
-  const particles = innerWidth < 700 ? 1200 : 2400;
+  const particles = innerWidth < 700 ? 800 : 1600;
   const positions = new Float32Array(particles * 3);
   const original = new Float32Array(particles * 3);
   const colors = new Float32Array(particles * 3);
@@ -311,8 +313,17 @@ async function initWebGL() {
   resize();
 
   const clock = new THREE.Clock();
+  const glFpsInterval = 1000 / 30; // Cap WebGL at 30 FPS
+  let glLastFrame = performance.now();
   function tick() {
     if (!isVisible) return;
+    const now = performance.now();
+    const elapsed = now - glLastFrame;
+    if (elapsed < glFpsInterval) {
+      requestAnimationFrame(tick);
+      return;
+    }
+    glLastFrame = now - (elapsed % glFpsInterval);
     mouseX = (globalCursor.x / innerWidth - 0.5) * 2;
     mouseY = (globalCursor.y / innerHeight - 0.5) * 2;
     const t = clock.getElapsedTime();
@@ -653,9 +664,9 @@ function initGSAP() {
       y: 0,
       opacity: 1,
       filter: 'blur(0px)',
-      duration: .72,
+      duration: .82,
       ease: 'expo.out',
-      scrollTrigger: { trigger: el, start: 'top 86%', end: 'top 68%', scrub: 0.38 }
+      scrollTrigger: { trigger: el, start: 'top 88%', end: 'top 68%', scrub: 0.32 }
     });
   });
 
@@ -663,11 +674,12 @@ function initGSAP() {
     yPercent: 112,
     opacity: 0,
     rotateX: -30,
+    filter: 'blur(6px)',
     transformOrigin: 'left bottom',
-    stagger: 0.09,
-    duration: 1.2,
+    stagger: 0.12,
+    duration: 1.4,
     ease: 'expo.out',
-    delay: 0.22
+    delay: 0.18
   });
 
   gsap.fromTo('.hero__actions .btn, .metrics > div', { y: 18, opacity: 0, filter: 'blur(3px)' }, {
@@ -1149,6 +1161,26 @@ function initGSAP() {
     requestAnimationFrame(() => ScrollTrigger.refresh());
   }, { once: true });
 
+  // Semantic Cards stagger animation
+  const semanticCards = $$('.semantic-card');
+  if (semanticCards.length) {
+    gsap.fromTo(semanticCards, { y: 32, opacity: 0, scale: 0.97 }, {
+      y: 0, opacity: 1, scale: 1,
+      duration: 0.7, stagger: 0.06, ease: 'power3.out',
+      scrollTrigger: { trigger: '.semantic-grid', start: 'top 82%', toggleActions: 'play none none reverse' }
+    });
+  }
+
+  // Validation Cards stagger animation
+  const validationCards = $$('.validation-card');
+  if (validationCards.length) {
+    gsap.fromTo(validationCards, { y: 28, opacity: 0, scale: 0.97 }, {
+      y: 0, opacity: 1, scale: 1,
+      duration: 0.7, stagger: 0.08, ease: 'power3.out',
+      scrollTrigger: { trigger: '.validation-grid', start: 'top 82%', toggleActions: 'play none none reverse' }
+    });
+  }
+
   const lifeWords = $$('.life-scroll__word');
   const lifeTrack = $('.life-scroll__track');
   const lifeFrame = $('.life-scroll__frame');
@@ -1313,7 +1345,7 @@ function initMarqueeSafety() {
 
 function initInteractivePanels() {
   if (prefersReduced) return;
-  $$('.stage-card, .lab-console, .cta-card, .vision-inner, .status-note, .life-scroll__frame').forEach((panel) => {
+  $$('.stage-card, .lab-console, .cta-card, .vision-inner, .status-note, .life-scroll__frame, .semantic-card, .validation-card').forEach((panel) => {
     let rect;
     const updateRect = () => { rect = panel.getBoundingClientRect(); };
     panel.addEventListener('pointerenter', updateRect, { passive: true });
@@ -1437,6 +1469,64 @@ function initForm() {
 }
 
 initCursorOrb();
+
+// === SCROLL PROGRESS BAR ===
+function initScrollProgress() {
+  const bar = $('.scroll-progress');
+  if (!bar) return;
+  let ticking = false;
+  const update = () => {
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const progress = window.scrollY / maxScroll;
+    bar.style.transform = `scaleX(${progress})`;
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+  update();
+}
+initScrollProgress();
+
+// === PAGE TRANSITIONS ===
+function initPageTransitions() {
+  const isInternalHref = (href) => {
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) {
+      return false;
+    }
+
+    try {
+      const url = new URL(href, window.location.href);
+      return url.origin === window.location.origin;
+    } catch {
+      return false;
+    }
+  };
+
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href]');
+    if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.defaultPrevented) return;
+
+    const href = link.getAttribute('href');
+    if (!isInternalHref(href)) return;
+
+    const url = new URL(href, window.location.href);
+    const isSamePageAnchor = url.pathname === window.location.pathname && url.search === window.location.search && url.hash;
+    if (isSamePageAnchor) return;
+
+    event.preventDefault();
+    document.body.classList.add('page-leaving');
+    setTimeout(() => {
+      window.location.href = url.href;
+    }, 320);
+  });
+}
+initPageTransitions();
+
 initMatrixCanvas();
 initWebGL();
 initProcessorCanvas();
