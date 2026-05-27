@@ -254,19 +254,30 @@
               <div class="machine-field"></div>
             </div>
             <div class="machine-card__grid">
-              <div><span>mode</span><b>local-first</b></div>
-              <div><span>uplink</span><b>explicit</b></div>
-              <div><span>gate</span><b>deny-first</b></div>
-              <div><span>trace</span><b>immutable</b></div>
+              <div><span>modo</span><b>local-first</b></div>
+              <div><span>uplink</span><b>explícito</b></div>
+              <div><span>gate</span><b>aprovação</b></div>
+              <div><span>trilha</span><b>auditável</b></div>
             </div>
           </div>
-          <div class="runtime-terminal" data-depth="1.4">
-            <div class="runtime-terminal__bar">~/aether/runtime</div>
-            <pre><code>$ aether run --goal "fechar relatório"
-✓ vault mounted: /workspace
-✓ planner: 7 steps generated
-⧗ waiting ARL approval: write:xlsx
-✓ ledger sealed: 0xA5F3</code></pre>
+          <div class="runtime-brief" data-depth="1.4">
+            <span class="runtime-brief__tag">tarefa assistida</span>
+            <strong class="runtime-brief__title">Fechar relatório financeiro</strong>
+            <div class="runtime-brief__flow">
+              <div class="runtime-brief__step">
+                <span>1</span><b>Ler planilha local</b>
+              </div>
+              <div class="runtime-brief__step">
+                <span>2</span><b>Encontrar inconsistências</b>
+              </div>
+              <div class="runtime-brief__step">
+                <span>3</span><b>Preparar arquivo revisado</b>
+              </div>
+            </div>
+            <div class="runtime-brief__approval">
+              <span>Aprovação necessária</span>
+              <b>Salvar novo XLSX</b>
+            </div>
           </div>
         </div>
       </section>

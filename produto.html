@@ -325,35 +325,31 @@
                 </ul>
               </div>
               <div class="panel-preview">
-                <div class="preview-terminal">
-                  <div class="terminal-bar">
-                    <span></span><span></span><span></span>
-                    <b>aether_go ~ user@local</b>
+                <div class="practical-preview">
+                  <div class="practical-preview__header">
+                    <span>Fluxo prático</span>
+                    <h4>Do arquivo ao resumo acionável</h4>
+                    <p>
+                      O usuário escolhe um arquivo, define o objetivo e recebe
+                      uma saída revisável.
+                    </p>
                   </div>
-                  <div class="terminal-body">
-                    <div class="line">
-                      <span class="t-dim">$</span> aether init --mode=go
+                  <div class="practical-flow">
+                    <div class="practical-flow__item">
+                      <span>1</span>
+                      <div><b>Arquivo selecionado</b><small>Planilha, log ou documento local.</small></div>
                     </div>
-                    <div class="line">
-                      <span class="t-green">✔</span> Connected to local runtime
-                      engine [v0.1.0-pre]
+                    <div class="practical-flow__item">
+                      <span>2</span>
+                      <div><b>Análise guiada</b><small>O Aether separa achados, riscos e próximos passos.</small></div>
                     </div>
-                    <div class="line">
-                      <span class="t-dim">$</span> aether run "summarize
-                      logs/audit.jsonl"
+                    <div class="practical-flow__item">
+                      <span>3</span>
+                      <div><b>Entrega pronta</b><small>Resumo, relatório ou arquivo revisado para aprovação.</small></div>
                     </div>
-                    <div class="line">
-                      <span class="t-cyan">Running...</span> Reading
-                      logs/audit.jsonl (14.2 KB)
-                    </div>
-                    <div class="line">
-                      <span class="t-green">Success.</span> Generated summary
-                      artifact in
-                      <span class="t-gold">./artifacts/summary.md</span>
-                    </div>
-                    <div class="line">
-                      <span class="t-dim">$</span> <span class="cursor">█</span>
-                    </div>
+                  </div>
+                  <div class="practical-preview__result">
+                    <span>Resultado</span><b>Menos atrito no trabalho diário</b>
                   </div>
                 </div>
               </div>
@@ -374,35 +370,28 @@
                 </ul>
               </div>
               <div class="panel-preview">
-                <div class="preview-terminal">
-                  <div class="terminal-bar">
-                    <span></span><span></span><span></span>
-                    <b>aether_ent ~ admin@corp-net</b>
+                <div class="practical-preview practical-preview--governance">
+                  <div class="practical-preview__header">
+                    <span>Governança visível</span>
+                    <h4>Controle antes de ações sensíveis</h4>
+                    <p>
+                      A empresa vê o que será lido, alterado ou enviado antes de
+                      autorizar.
+                    </p>
                   </div>
-                  <div class="terminal-body">
-                    <div class="line">
-                      <span class="t-dim">$</span> aether deploy
-                      --cluster=on-premise
+                  <div class="approval-list">
+                    <div class="approval-row">
+                      <span>Leitura local</span><b>permitida</b>
                     </div>
-                    <div class="line">
-                      <span class="t-green">✔</span> Enforcing strict ARL
-                      deny-first policies...
+                    <div class="approval-row">
+                      <span>Alterar XLSX</span><b>pedir aprovação</b>
                     </div>
-                    <div class="line">
-                      <span class="t-green">✔</span> Audit ledger isolated:
-                      database/audit.db
+                    <div class="approval-row">
+                      <span>Integração externa</span><b>bloqueada até consentir</b>
                     </div>
-                    <div class="line">
-                      <span class="t-green">✔</span> Human-in-the-loop gate
-                      active on ports [8080/tcp]
-                    </div>
-                    <div class="line">
-                      <span class="t-green">✔</span> Enterprise RBAC synced with
-                      Active Directory
-                    </div>
-                    <div class="line">
-                      <span class="t-dim">$</span> <span class="cursor">█</span>
-                    </div>
+                  </div>
+                  <div class="practical-preview__result">
+                    <span>Visão do gestor</span><b>Quem aprovou, quando e por quê</b>
                   </div>
                 </div>
               </div>
@@ -426,35 +415,23 @@
                 </ul>
               </div>
               <div class="panel-preview">
-                <div class="preview-terminal">
-                  <div class="terminal-bar">
-                    <span></span><span></span><span></span>
-                    <b>aether_core ~ local-runtime</b>
+                <div class="practical-preview practical-preview--base">
+                  <div class="practical-preview__header">
+                    <span>Base compartilhada</span>
+                    <h4>O mesmo motor por trás das duas ofertas</h4>
+                    <p>
+                      Arquivos ficam perto do usuário; conexões externas entram
+                      como exceção governada.
+                    </p>
                   </div>
-                  <div class="terminal-body">
-                    <div class="line">
-                      <span class="t-dim">$</span> aether runtime
-                      --profile=local-first
-                    </div>
-                    <div class="line">
-                      <span class="t-green">✔</span> Hardware profile detected:
-                      CPU/GPU/NPU when available
-                    </div>
-                    <div class="line">
-                      <span class="t-green">✔</span> Local model route ready:
-                      compatible quantized model
-                    </div>
-                    <div class="line">
-                      <span class="t-green">✔</span> External uplink requires
-                      explicit approval
-                    </div>
-                    <div class="line">
-                      <span class="t-cyan">Mode:</span> local-first |
-                      <span class="t-gold">Uplink:</span> governed
-                    </div>
-                    <div class="line">
-                      <span class="t-dim">$</span> <span class="cursor">█</span>
-                    </div>
+                  <div class="practical-grid">
+                    <div><span>Arquivos</span><b>workspace local</b></div>
+                    <div><span>Modelo</span><b>rota local quando disponível</b></div>
+                    <div><span>Uplink</span><b>explícito</b></div>
+                    <div><span>Histórico</span><b>trilha auditável</b></div>
+                  </div>
+                  <div class="practical-preview__result">
+                    <span>Ideia central</span><b>Produtividade com fronteiras claras</b>
                   </div>
                 </div>
               </div>
@@ -590,9 +567,19 @@
                   </tbody>
                 </table>
               </div>
-              <div class="sheet-terminal">
-                <div class="sheet-terminal-title">Aether Exec Ledger</div>
-                <pre><code id="mvp-console-code">system: waiting for interaction...</code></pre>
+              <div class="sheet-insight-panel">
+                <div class="sheet-insight-title" id="mvp-insight-title">
+                  Leitura inicial
+                </div>
+                <p id="mvp-insight-summary">
+                  O Aether prepara a planilha para análise local e destaca o que
+                  precisa de revisão.
+                </p>
+                <div class="sheet-insight-list" id="mvp-insight-list">
+                  <span>Arquivo reconhecido</span>
+                  <span>Abas mapeadas</span>
+                  <span>Próximo passo sugerido</span>
+                </div>
               </div>
             </div>
           </div>

@@ -227,14 +227,14 @@
               Um processador visual para uma IA que opera de verdade.
             </h2>
             <p>
-              O núcleo do Aether aparece como um campo vivo de execução: trilhas
-              de dados, gates, hashes, streams e estados orbitam a logo oficial
-              como se o runtime respirasse em tempo real.
+              O núcleo do Aether aparece como um campo vivo de execução: etapas
+              de trabalho, permissões, histórico e estados orbitam a logo
+              oficial como se o runtime respirasse em tempo real.
             </p>
             <div class="processor-stats">
-              <div><b>LOCAL</b><span>default execution</span></div>
-              <div><b>ARL</b><span>human approval</span></div>
-              <div><b>LEDGER</b><span>sealed evidence</span></div>
+              <div><b>LOCAL</b><span>padrão de execução</span></div>
+              <div><b>ARL</b><span>aprovação humana</span></div>
+              <div><b>AUDITORIA</b><span>trilha visível</span></div>
             </div>
           </div>
           <div class="processor-visual reveal" data-processor="">
@@ -263,9 +263,9 @@
                 id="processorRainFront"
               ></canvas>
             </div>
-            <div class="chip-hud hud-a">0xA5F3 / ledger sealed</div>
-            <div class="chip-hud hud-b">uplink: explicit</div>
-            <div class="chip-hud hud-c">write:xlsx waiting</div>
+            <div class="chip-hud hud-a">trilha auditável</div>
+            <div class="chip-hud hud-b">uplink explícito</div>
+            <div class="chip-hud hud-c">salvar XLSX: pedir aprovação</div>
           </div>
         </div>
       </section>
@@ -287,42 +287,42 @@
             <div aria-hidden="true" class="pipeline-orbit">
               <span></span><span></span><span></span>
             </div>
-            <article class="stage-card" data-step="CONNECT">
-              <span>CONNECT</span>
+            <article class="stage-card" data-step="ARQUIVOS">
+              <span>ARQUIVOS</span>
               <h3>Traga arquivos reais.</h3>
               <p>
                 Monte um vault com PDFs, planilhas, código e notas. Antes de
                 agir, o agente lê estrutura, contexto e dependências
                 operacionais.
               </p>
-              <code>vault.mount('/workspace')</code>
+              <strong class="stage-card__outcome">Workspace preparado</strong>
             </article>
-            <article class="stage-card" data-step="PLAN">
-              <span>PLAN</span>
+            <article class="stage-card" data-step="PLANO">
+              <span>PLANO</span>
               <h3>Transforme objetivo em plano.</h3>
               <p>
                 O Planner expõe passos, ferramentas, dependências e possíveis
                 efeitos colaterais antes que qualquer mudança aconteça.
               </p>
-              <code>agent.plan(goal).explain()</code>
+              <strong class="stage-card__outcome">Plano explicado antes da execução</strong>
             </article>
-            <article class="stage-card" data-step="APPROVE">
-              <span>APPROVE</span>
+            <article class="stage-card" data-step="APROVAÇÃO">
+              <span>APROVAÇÃO</span>
               <h3>Mantenha controles visíveis.</h3>
               <p>
                 O ARL deixa risco, diff, escopo e permissões legíveis. Sem
                 aprovação, o gate interrompe a ação com elegância.
               </p>
-              <code>arl.require('write:xlsx')</code>
+              <strong class="stage-card__outcome">Escrita pede aprovação</strong>
             </article>
-            <article class="stage-card" data-step="EXECUTE">
-              <span>EXECUTE</span>
+            <article class="stage-card" data-step="EXECUÇÃO">
+              <span>EXECUÇÃO</span>
               <h3>Execute local, registre tudo.</h3>
               <p>
                 Ferramentas em Rust e IPC tipado executam a tarefa, produzem
-                artefatos e selam evidência verificável no ledger.
+                artefatos e registram evidências na trilha auditável.
               </p>
-              <code>tool.run() → ledger.seal()</code>
+              <strong class="stage-card__outcome">Artefato gerado + trilha auditável</strong>
             </article>
           </div>
         </div>
@@ -365,11 +365,11 @@
               <i></i>
               <span>auditoria</span>
             </div>
-            <div aria-hidden="true" class="cap-system__terminal">
-              <code>runtime.mode = local_first</code>
-              <code>approval.policy = deny_first</code>
-              <code>memory.index = searchable</code>
-              <code>uplink.state = optional</code>
+            <div aria-hidden="true" class="cap-system__status">
+              <div><span>Modo de trabalho</span><b>local-first</b></div>
+              <div><span>Ações sensíveis</span><b>pedem aprovação</b></div>
+              <div><span>Memória</span><b>pesquisável no workspace</b></div>
+              <div><span>Uplink externo</span><b>opcional e governado</b></div>
             </div>
           </aside>
           <div class="cap-system__layers">
@@ -395,11 +395,11 @@
                 <h3>Execução auditável</h3>
                 <p>
                   Mantenha rastreabilidade consistente de arquivos lidos ou
-                  alterados por meio de trilhas locais e ledger selado.
+                  alterados por meio de trilhas locais e registro auditável.
                 </p>
                 <ul>
                   <li>trilha de execução</li>
-                  <li>ledger selado</li>
+                  <li>registro auditável</li>
                 </ul>
               </div>
             </article>
@@ -625,8 +625,8 @@
             <span>subir para servidores dedicados da própria AetherCore </span>
             <span>ou usar modelos externos — </span>
             <span
-              >tudo dentro de um fluxo cognitivo contínuo, auditável e
-              soberano.</span
+              >tudo dentro de um fluxo cognitivo contínuo, auditável e sob
+              controle do operador.</span
             >
           </p>
         </div>

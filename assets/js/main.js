@@ -690,7 +690,7 @@ function initGSAP() {
     ease: 'none',
     scrollTrigger: { trigger: '.hero:not(.page-hero)', start: 'top top', end: 'bottom top', scrub: 1.15 }
   });
-  gsap.to('.hero:not(.page-hero) .runtime-terminal', {
+  gsap.to('.hero:not(.page-hero) .runtime-brief', {
     y: -18,
     rotate: -2.4,
     ease: 'none',
@@ -924,7 +924,7 @@ function initGSAP() {
     });
   }
 
-  // 3. Produto Switcher (Tabs & Terminals)
+  // 3. Produto Switcher (Tabs & Previews)
   const switcherContainer = $('.product-switcher-container');
   const tabs = $$('.switcher-tab');
   const panels = $$('.switcher-panel');
@@ -977,75 +977,89 @@ function initGSAP() {
   const mvpSheetTitle = $('#mvp-sheet-title');
   const mvpSheetStatus = $('#mvp-sheet-status');
   const mvpSheetTable = $('#mvp-sheet-table');
-  const mvpConsole = $('#mvp-console-code');
+  const mvpInsightTitle = $('#mvp-insight-title');
+  const mvpInsightSummary = $('#mvp-insight-summary');
+  const mvpInsightList = $('#mvp-insight-list');
 
-  if (mvpSteps.length && mvpSheetTitle && mvpSheetStatus && mvpSheetTable && mvpConsole) {
+  if (mvpSteps.length && mvpSheetTitle && mvpSheetStatus && mvpSheetTable && mvpInsightTitle && mvpInsightSummary && mvpInsightList) {
     const data = [
       {
         title: "OBJETIVOS_2026.XLSX",
-        status: "MOUNTED // RAW",
-        table: `<thead><tr><th>Objetivo</th><th>Métrica</th><th>Peso</th><th>Status</th></tr></thead>
+        status: "PRONTO // LOCAL",
+        table: `<thead><tr><th>Objetivo</th><th>Como medir</th><th>Peso</th><th>Status</th></tr></thead>
 <tbody>
-  <tr><td>Verificação Local</td><td>Zero Vazamento</td><td>40%</td><td>Pendente</td></tr>
-  <tr><td>Paridade BI</td><td>Erro &lt; 0.1%</td><td>40%</td><td>Pendente</td></tr>
-  <tr><td>User Experience</td><td>10 Operator Test</td><td>20%</td><td>Ativo</td></tr>
+  <tr><td>Leitura local</td><td>Arquivo aberto sem upload automático</td><td>40%</td><td>Em teste</td></tr>
+  <tr><td>Paridade BI</td><td>Comparar totais com revisão manual</td><td>40%</td><td>Em teste</td></tr>
+  <tr><td>Experiência</td><td>10 dias com operadores reais</td><td>20%</td><td>Ativo</td></tr>
 </tbody>`,
-        log: "system: mounting target workbook...\n✔ loaded file OBJETIVOS_2026.XLSX [12.4 KB]\n✔ sheets detected: ['Metadata', 'TestCases', 'Weights']\n✔ local sandbox environment sealed"
+        insightTitle: "Arquivo recebido",
+        insight: "A planilha entra no workspace local e o Aether mostra o que será analisado antes de gerar qualquer saída.",
+        points: ["Abas reconhecidas", "Objetivos claros", "Riscos de envio reduzidos"]
       },
       {
         title: "METRICAS_BI.XLSX",
-        status: "COMPILING // ACCURACY",
-        table: `<thead><tr><th>Agente</th><th>Tempo</th><th>Precisão</th><th>Audit Status</th></tr></thead>
+        status: "MEDINDO // QUALIDADE",
+        table: `<thead><tr><th>Método</th><th>Tempo</th><th>Precisão</th><th>Revisão</th></tr></thead>
 <tbody>
-  <tr><td>Cloud LLM</td><td>4.2s</td><td>92.4%</td><td>Risco Alto</td></tr>
-  <tr><td>Aether Local</td><td>1.8s</td><td>99.6%</td><td>Soberano</td></tr>
-  <tr><td>Manual Test</td><td>45m</td><td>100%</td><td>Verificado</td></tr>
+  <tr><td>Revisão manual</td><td>45m</td><td>Referência</td><td>Verificada</td></tr>
+  <tr><td>Aether local</td><td>1.8s</td><td>99.6%</td><td>Comparada</td></tr>
+  <tr><td>Ajuste humano</td><td>2m</td><td>Final</td><td>Aprovada</td></tr>
 </tbody>`,
-        log: "system: running accuracy suite...\n[eval] comparing Aether local vs ground-truth\n✔ precision: 99.6%\n✔ latency: 1.8s (average over 50 iterations)\n✔ no remote telemetry packages sent"
+        insightTitle: "Medição legível",
+        insight: "O preview mostra tempo economizado, diferença contra revisão manual e onde o operador ainda precisa validar.",
+        points: ["Precisão comparada", "Tempo reduzido", "Revisão humana preservada"]
       },
       {
         title: "ROTINA_TESTADORES.XLSX",
-        status: "MONITORING // 10 DAYS",
-        table: `<thead><tr><th>Operador</th><th>Empresa</th><th>Dia</th><th>Uso Diário</th></tr></thead>
+        status: "PILOTO // 10 DIAS",
+        table: `<thead><tr><th>Perfil</th><th>Empresa</th><th>Dia</th><th>Rotina</th></tr></thead>
 <tbody>
-  <tr><td>Fin-Lead</td><td>Série B S/A</td><td>Dia 4/10</td><td>Conciliação Bancária</td></tr>
-  <tr><td>Controller</td><td>Logística Ltda</td><td>Dia 9/10</td><td>Forecast trimestral</td></tr>
-  <tr><td>VP Finance</td><td>Varejo Corp</td><td>Dia 2/10</td><td>Custo Operacional</td></tr>
+  <tr><td>Financeiro</td><td>Série B S/A</td><td>4/10</td><td>Conciliação bancária</td></tr>
+  <tr><td>Controladoria</td><td>Logística Ltda</td><td>9/10</td><td>Forecast trimestral</td></tr>
+  <tr><td>Diretoria</td><td>Varejo Corp</td><td>2/10</td><td>Custo operacional</td></tr>
 </tbody>`,
-        log: "system: loading tester logs...\n✔ 10-day testing window: Day 6 active\n✔ zero leaks detected in local audit ledger\n✔ feedback parsed: \"excel write capabilities native in Rust reduce run times by 4x\""
+        insightTitle: "Uso no mundo real",
+        insight: "A validação acompanha tarefas de rotina e registra onde a análise ajuda mais sem esconder aprovação e revisão.",
+        points: ["Cenários reais", "Feedback por perfil", "Adoção medida por tarefa"]
       },
       {
         title: "DATALAKE_LOCAL.DB",
-        status: "SCHEMING // MULTI-XLSX",
-        table: `<thead><tr><th>Planilha</th><th>Registros</th><th>Relação</th><th>Chave Primária</th></tr></thead>
+        status: "CRUZANDO // MULTI-XLSX",
+        table: `<thead><tr><th>Planilha</th><th>Registros</th><th>Relação</th><th>Chave</th></tr></thead>
 <tbody>
-  <tr><td>Vendas_2025</td><td>15,400 rows</td><td>Cliente ID</td><td>vendas_id</td></tr>
-  <tr><td>Clientes_CRM</td><td>2,200 rows</td><td>Cliente ID</td><td>crm_id</td></tr>
-  <tr><td>Metas_Anual</td><td>12 rows</td><td>Mês / Ano</td><td>meta_id</td></tr>
+  <tr><td>Vendas_2025</td><td>15.400 linhas</td><td>Cliente</td><td>vendas_id</td></tr>
+  <tr><td>Clientes_CRM</td><td>2.200 linhas</td><td>Cliente</td><td>crm_id</td></tr>
+  <tr><td>Metas_Anual</td><td>12 linhas</td><td>Mês/Ano</td><td>meta_id</td></tr>
 </tbody>`,
-        log: "system: scheming multi-table join...\n✔ cross-referencing sales tables using local SQLite index\n✔ query planner optimized\n✔ query generated: SELECT * FROM vendas JOIN clientes ON customer_id..."
+        insightTitle: "Relações encontradas",
+        insight: "Em vez de mostrar consulta técnica, o painel explica quais planilhas conversam entre si e qual relatório pode sair dali.",
+        points: ["Cliente liga vendas ao CRM", "Metas entram por mês", "Relatório consolidado sugerido"]
       },
       {
         title: "RELATORIO_OUTPUT.XLSX",
-        status: "ARL APPROVED // SEALED",
-        table: `<thead><tr><th>Ação</th><th>Módulo</th><th>Gate ARL</th><th>Ledger Entry</th></tr></thead>
+        status: "APROVADO // SAÍDA",
+        table: `<thead><tr><th>Ação</th><th>O que muda</th><th>Aprovação</th><th>Status</th></tr></thead>
 <tbody>
-  <tr><td>ReadExcel</td><td>rust_xlsx</td><td>Bypass</td><td>READ_OK</td></tr>
-  <tr><td>WriteExcel</td><td>rust_xlsx</td><td>Approved</td><td>WRITE_SIGNED</td></tr>
-  <tr><td>ExportPDF</td><td>cef_print</td><td>Approved</td><td>PDF_SIGNED</td></tr>
+  <tr><td>Ler arquivo</td><td>Sem alteração</td><td>Permitida</td><td>Concluído</td></tr>
+  <tr><td>Salvar XLSX</td><td>Novo relatório</td><td>Operador aprovou</td><td>Pronto</td></tr>
+  <tr><td>Exportar PDF</td><td>Cópia executiva</td><td>Operador aprovou</td><td>Pronto</td></tr>
 </tbody>`,
-        log: "system: checking signature state...\n✔ write_excel execution authorized by operator\n✔ output sealed with cryptographic ARL token\n✔ checksum: sha256::6f40778c1871a812df6b91176b6...\n✔ written 1.2 KB to local filesystem successfully"
+        insightTitle: "Saída sob controle",
+        insight: "A alteração no arquivo aparece como ação sensível, com autorização visível antes da gravação.",
+        points: ["Novo XLSX criado", "PDF opcional", "Trilha de aprovação registrada"]
       },
       {
         title: "VALOR_RETORNO.XLSX",
-        status: "COMPLETED // INTACT",
-        table: `<thead><tr><th>Pilar</th><th>Risco Nuvem</th><th>Modelo Aether</th><th>Valor Final</th></tr></thead>
+        status: "CONCLUÍDO // DECISÃO",
+        table: `<thead><tr><th>Pilar</th><th>Antes</th><th>Com Aether</th><th>Valor final</th></tr></thead>
 <tbody>
-  <tr><td>Privacidade</td><td>Vazamento</td><td>Local-first</td><td>Risco Reduzido</td></tr>
-  <tr><td>Velocidade</td><td>Latência Rede</td><td>Native Rust</td><td>Instantâneo</td></tr>
-  <tr><td>Compliance</td><td>Sem controle</td><td>Ledger ARL</td><td>Trilha Auditável</td></tr>
+  <tr><td>Privacidade</td><td>Envio difícil de governar</td><td>Local-first</td><td>Exposição reduzida</td></tr>
+  <tr><td>Velocidade</td><td>Rotina manual</td><td>Automação assistida</td><td>Tempo recuperado</td></tr>
+  <tr><td>Governança</td><td>Aprovação dispersa</td><td>Gate explícito</td><td>Trilha auditável</td></tr>
 </tbody>`,
-        log: "system: task complete.\n✔ local automation loop finalized.\n✔ data sovereignty: intact\n✔ human oversight: enabled\n[session closed]"
+        insightTitle: "Decisão mais clara",
+        insight: "O resultado final fala a língua do negócio: o que mudou, que risco foi reduzido e qual decisão ficou mais fácil.",
+        points: ["Resumo executivo", "Anexos prontos", "Próxima ação destacada"]
       }
     ];
 
@@ -1056,11 +1070,17 @@ function initGSAP() {
       mvpSheetTitle.textContent = data[idx].title;
       mvpSheetStatus.textContent = data[idx].status;
       mvpSheetTable.innerHTML = data[idx].table;
-      mvpConsole.textContent = data[idx].log;
+      mvpInsightTitle.textContent = data[idx].insightTitle;
+      mvpInsightSummary.textContent = data[idx].insight;
+      mvpInsightList.innerHTML = data[idx].points.map((point) => `<span>${point}</span>`).join('');
 
       gsap.fromTo(mvpSheetTable.querySelectorAll('tbody tr'), 
         { opacity: 0, x: -8 }, 
         { opacity: 1, x: 0, duration: 0.3, stagger: 0.05, ease: 'power2.out' }
+      );
+      gsap.fromTo(mvpInsightList.querySelectorAll('span'),
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.28, stagger: 0.045, ease: 'power2.out' }
       );
     };
 
@@ -1336,8 +1356,8 @@ function initHeroMachineMagnet() {
     machine.style.setProperty('--machine-y', `${currentY * 10}px`);
     machine.style.setProperty('--machine-rx', `${currentY * -2.2}deg`);
     machine.style.setProperty('--machine-ry', `${currentX * 3.4}deg`);
-    machine.style.setProperty('--terminal-x', `${currentX * -9}px`);
-    machine.style.setProperty('--terminal-y', `${currentY * -6}px`);
+    machine.style.setProperty('--brief-x', `${currentX * -9}px`);
+    machine.style.setProperty('--brief-y', `${currentY * -6}px`);
 
     requestAnimationFrame(tick);
   };
