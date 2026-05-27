@@ -35,25 +35,6 @@ window.addEventListener('pointermove', (e) => {
   }
 }, { passive: true });
 
-function initCursorOrb() {
-  const orb = $('.cursor-orb');
-  if (!orb || prefersReduced || orb.style.display === 'none') return;
-  let x = innerWidth * 0.5, y = innerHeight * 0.5;
-  let isVisible = true;
-  const tick = () => {
-    if (!isVisible) return;
-    x = lerp(x, globalCursor.x, 0.14);
-    y = lerp(y, globalCursor.y, 0.14);
-    orb.style.transform = `translate3d(${x - 140}px, ${y - 140}px, 0)`;
-    requestAnimationFrame(tick);
-  };
-  const observer = new IntersectionObserver((entries) => {
-    isVisible = entries[0].isIntersecting;
-    if (isVisible) requestAnimationFrame(tick);
-  }, { rootMargin: '50px' });
-  observer.observe(orb);
-}
-
 function initMatrixCanvas() {
   const canvas = $('#matrix');
   if (!canvas || prefersReduced) return;
@@ -656,14 +637,13 @@ function initGSAP() {
 
   $$('.reveal').forEach((el) => {
     if (el.closest('.hero')) {
-      gsap.set(el, { y: 0, opacity: 1, filter: 'blur(0px)' });
+      gsap.set(el, { y: 0, opacity: 1 });
       return;
     }
 
-    gsap.fromTo(el, { y: 36, opacity: 0, filter: 'blur(4px)' }, {
+    gsap.fromTo(el, { y: 28, opacity: 0 }, {
       y: 0,
       opacity: 1,
-      filter: 'blur(0px)',
       duration: .82,
       ease: 'expo.out',
       scrollTrigger: { trigger: el, start: 'top 88%', end: 'top 68%', scrub: 0.32 }
@@ -674,7 +654,6 @@ function initGSAP() {
     yPercent: 112,
     opacity: 0,
     rotateX: -30,
-    filter: 'blur(6px)',
     transformOrigin: 'left bottom',
     stagger: 0.12,
     duration: 1.4,
@@ -682,10 +661,9 @@ function initGSAP() {
     delay: 0.18
   });
 
-  gsap.fromTo('.hero__actions .btn, .metrics > div', { y: 18, opacity: 0, filter: 'blur(3px)' }, {
+  gsap.fromTo('.hero__actions .btn, .metrics > div', { y: 18, opacity: 0 }, {
     y: 0,
     opacity: 1,
-    filter: 'blur(0px)',
     duration: 1.05,
     stagger: 0.08,
     ease: 'power3.out',
@@ -720,11 +698,10 @@ function initGSAP() {
   });
 
   // Processor rain now stays independent from scroll. Motion comes from the local cursor field only.
-  gsap.fromTo('.chip-hud', { autoAlpha: 0, y: 28, scale: .97, filter: 'blur(4px)' }, {
+  gsap.fromTo('.chip-hud', { autoAlpha: 0, y: 28, scale: .97 }, {
     autoAlpha: 1,
     y: 0,
     scale: 1,
-    filter: 'blur(0px)',
     stagger: .14,
     duration: 1.05,
     ease: 'power3.out',
@@ -823,10 +800,9 @@ function initGSAP() {
 
   // General Panel Animation
   $$('.lab-console, .cta-card, .status-note').forEach((panel) => {
-    gsap.fromTo(panel, { y: 28, opacity: 0, filter: 'blur(4px)' }, {
+    gsap.fromTo(panel, { y: 28, opacity: 0 }, {
       y: 0,
       opacity: 1,
-      filter: 'blur(0px)',
       duration: .86,
       ease: 'power3.out',
       scrollTrigger: { trigger: panel, start: 'top 78%', toggleActions: 'play none none reverse' }
@@ -839,10 +815,9 @@ function initGSAP() {
   // 1. Capacidades
   const capCards = $$('.cap-card');
   $$('.cap-system__brief, .cap-card').forEach((block, index) => {
-    gsap.fromTo(block, { y: 26, opacity: 0, filter: 'blur(4px)' }, {
+    gsap.fromTo(block, { y: 26, opacity: 0 }, {
       y: 0,
       opacity: 1,
-      filter: 'blur(0px)',
       duration: 0.72,
       delay: Math.min(index * 0.035, 0.18),
       ease: 'power3.out',
@@ -1161,25 +1136,82 @@ function initGSAP() {
     requestAnimationFrame(() => ScrollTrigger.refresh());
   }, { once: true });
 
-  // Semantic Cards stagger animation
-  const semanticCards = $$('.semantic-card');
-  if (semanticCards.length) {
+  $$('.semantic-grid').forEach((grid) => {
+    const semanticCards = $$('.semantic-card', grid);
+    if (!semanticCards.length) return;
     gsap.fromTo(semanticCards, { y: 32, opacity: 0, scale: 0.97 }, {
       y: 0, opacity: 1, scale: 1,
       duration: 0.7, stagger: 0.06, ease: 'power3.out',
-      scrollTrigger: { trigger: '.semantic-grid', start: 'top 82%', toggleActions: 'play none none reverse' }
+      clearProps: 'transform',
+      scrollTrigger: { trigger: grid, start: 'top 82%', toggleActions: 'play none none none' }
     });
-  }
+  });
 
-  // Validation Cards stagger animation
-  const validationCards = $$('.validation-card');
-  if (validationCards.length) {
+  $$('.validation-grid').forEach((grid) => {
+    const validationCards = $$('.validation-card', grid);
+    if (!validationCards.length) return;
     gsap.fromTo(validationCards, { y: 28, opacity: 0, scale: 0.97 }, {
       y: 0, opacity: 1, scale: 1,
       duration: 0.7, stagger: 0.08, ease: 'power3.out',
-      scrollTrigger: { trigger: '.validation-grid', start: 'top 82%', toggleActions: 'play none none reverse' }
+      clearProps: 'transform',
+      scrollTrigger: { trigger: grid, start: 'top 82%', toggleActions: 'play none none none' }
     });
-  }
+  });
+
+  const animateMotionGroup = (rootSelector, itemSelector, options = {}) => {
+    $$(rootSelector).forEach((root) => {
+      if (root.classList.contains('reveal') && !options.allowRevealRoot) return;
+
+      const targets = $$(itemSelector, root).filter((item) => (
+        !item.dataset.motionDone
+        && !item.classList.contains('reveal')
+      ));
+      if (!targets.length) return;
+
+      targets.forEach((item) => { item.dataset.motionDone = 'true'; });
+      const motionVars = {
+        y: options.y ?? 26,
+        x: options.x ?? 0,
+        opacity: 0,
+        scale: options.scale ?? 0.985
+      };
+      const settleVars = {
+        y: 0,
+        x: 0,
+        opacity: 1,
+        scale: 1,
+        duration: options.duration ?? 0.72,
+        stagger: options.stagger ?? 0.065,
+        ease: options.ease ?? 'power3.out',
+        overwrite: 'auto',
+        scrollTrigger: {
+          trigger: root,
+          start: options.start ?? 'top 84%',
+          toggleActions: options.toggleActions ?? 'play none none none'
+        }
+      };
+      if (options.clearTransform) settleVars.clearProps = 'transform';
+      gsap.fromTo(targets, motionVars, settleVars);
+    });
+  };
+
+  [
+    ['.trinity-grid', '.trinity-card'],
+    ['.cap-grid', '.cap'],
+    ['.audiences-grid', '.audience-card'],
+    ['.runtime-stack__track', '.stack-card', { x: 20, y: 0, scale: 0.99, stagger: 0.035, start: 'top 86%', clearTransform: true }],
+    ['.compare-table tbody', 'tr', { y: 18, scale: 1, stagger: 0.045, start: 'top 88%', clearTransform: true }],
+    ['.faq-accordion-wrapper', '.faq-item', { y: 18, stagger: 0.075, allowRevealRoot: true, clearTransform: true }],
+    ['.cta-side', ':scope > div'],
+    ['.mvp-steps', '.mvp-step'],
+    ['.timeline-items', '.timeline-item', { x: -18, y: 0, stagger: 0.085 }],
+    ['.product-switcher-container', '.switcher-tab'],
+    ['.section-heading', ':scope > *', { y: 18, stagger: 0.055 }],
+    ['.validation-roadmap', '.validation-roadmap__head, .validation-steps li', { y: 18, stagger: 0.065, allowRevealRoot: true, clearTransform: true }],
+    ['.proof-grid, .status-grid', '.cap, .status-note']
+  ].forEach(([rootSelector, itemSelector, options]) => {
+    animateMotionGroup(rootSelector, itemSelector, options || {});
+  });
 
   const lifeWords = $$('.life-scroll__word');
   const lifeTrack = $('.life-scroll__track');
@@ -1211,10 +1243,9 @@ function initGSAP() {
       onLeaveBack: () => setLifeProgress(0)
     });
 
-    gsap.fromTo('.life-scroll__frame', { scale: .98, opacity: .82, filter: 'blur(3px)' }, {
+    gsap.fromTo('.life-scroll__frame', { scale: .98, opacity: .82 }, {
       scale: 1,
       opacity: 1,
-      filter: 'blur(0px)',
       ease: 'none',
       scrollTrigger: { trigger: '.life-scroll', start: 'top 78%', end: 'top 30%', scrub: .72 }
     });
@@ -1467,8 +1498,6 @@ function initForm() {
     });
   });
 }
-
-initCursorOrb();
 
 // === SCROLL PROGRESS BAR ===
 function initScrollProgress() {
@@ -1776,15 +1805,16 @@ function initFAQ() {
         const answer = $('.faq-answer', item);
         if (!summary || !answer) return;
 
-        summary.addEventListener('click', (e) => {
-            if (!item.hasAttribute('open')) {
-                if (window.gsap && !prefersReduced) {
-                    window.gsap.fromTo(answer, 
-                        { opacity: 0, y: -8 }, 
-                        { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
-                    );
-                }
-            }
+        summary.addEventListener('click', () => {
+            const willOpen = !item.open;
+            if (!willOpen || !window.gsap || prefersReduced) return;
+
+            requestAnimationFrame(() => {
+                window.gsap.fromTo(answer,
+                    { opacity: 0, y: -8, scaleY: 0.985 },
+                    { opacity: 1, y: 0, scaleY: 1, duration: 0.34, ease: 'power3.out', clearProps: 'transform' }
+                );
+            });
         });
     });
 }
