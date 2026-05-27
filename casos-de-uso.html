@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#fdf7e2" />
+    <meta
+      name="description"
+      content="Veja casos de uso do AetherCore para financeiro, contabilidade, jurídico, controladoria, auditoria, consultorias e empresas com dados sensíveis."
+    />
+    <title>Casos de uso AetherCore | IA local para áreas sensíveis</title>
+    <!-- DEPLOY_PLACEHOLDER: Substituir 'https://exvorn.tech/' pelo domínio real de produção no deploy. Cada página tem canonical próprio. -->
+    <link rel="canonical" href="https://exvorn.tech/casos-de-uso.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://exvorn.tech/casos-de-uso.html" />
+    <meta
+      property="og:title"
+      content="Casos de uso AetherCore | IA local para áreas sensíveis"
+    />
+    <meta
+      property="og:description"
+      content="Veja casos de uso do AetherCore para financeiro, contabilidade, jurídico, controladoria, auditoria, consultorias e empresas com dados sensíveis."
+    />
+    <meta
+      property="og:image"
+      content="https://exvorn.tech/assets/img/logo-96.webp"
+    />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://exvorn.tech/casos-de-uso.html" />
+    <meta
+      name="twitter:title"
+      content="Casos de uso AetherCore | IA local para áreas sensíveis"
+    />
+    <meta
+      name="twitter:description"
+      content="Veja casos de uso do AetherCore para financeiro, contabilidade, jurídico, controladoria, auditoria, consultorias e empresas com dados sensíveis."
+    />
+    <meta
+      name="twitter:image"
+      content="https://exvorn.tech/assets/img/logo-96.webp"
+    />
+    <link rel="icon" type="image/png" href="assets/img/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" href="assets/css/main.css" as="style" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://exvorn.tech/#organization",
+            "name": "AetherCore",
+            "url": "https://exvorn.tech/",
+            "logo": "https://exvorn.tech/assets/img/logo-96.webp",
+            "publishingPrinciples": "https://exvorn.tech/principios.html",
+            "privacyPolicy": "https://exvorn.tech/privacidade.html",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Curitiba",
+              "addressRegion": "PR",
+              "addressCountry": "BR"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://exvorn.tech/#website",
+            "url": "https://exvorn.tech/",
+            "name": "AetherCore",
+            "publisher": {
+              "@id": "https://exvorn.tech/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://exvorn.tech/#software",
+            "name": "AetherCore",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "description": "IA local-first para análise de planilhas, documentos e dados sensíveis com execução auditável, aprovação humana e governança.",
+            "creator": {
+              "@id": "https://exvorn.tech/#organization"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://exvorn.tech/casos-de-uso.html#webpage",
+            "url": "https://exvorn.tech/casos-de-uso.html",
+            "name": "Casos de uso AetherCore | IA local para áreas sensíveis",
+            "description": "Veja casos de uso do AetherCore para financeiro, contabilidade, jurídico, controladoria, auditoria, consultorias e empresas com dados sensíveis.",
+            "isPartOf": {
+              "@id": "https://exvorn.tech/#website"
+            },
+            "about": {
+              "@id": "https://exvorn.tech/#software"
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#top" class="skip-link">Ir para o conteúdo principal</a>
+    <div class="boot" id="boot" aria-hidden="true">
+      <img
+        src="assets/img/iconsf.webp"
+        alt=""
+        width="192"
+        height="192"
+        fetchpriority="high"
+       loading="lazy" />
+      <div class="boot__status"><span></span></div>
+      <p>initializing governed runtime</p>
+    </div>
+    <canvas id="webgl" aria-hidden="true"></canvas>
+    <canvas id="matrix" aria-hidden="true"></canvas>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="cursor-orb" aria-hidden="true"></div>
+    <header class="nav" data-nav>
+      <a class="brand" href="index.html" aria-label="AetherCore home">
+        <img
+          class="brand__logo"
+          src="assets/img/iconsf.webp"
+          alt="AetherCore"
+          width="36"
+          height="36"
+        />
+        <span class="brand__copy"
+          ><b>AetherCore</b
+          ><span class="brand__tag">local runtime / beta</span></span
+        >
+      </a>
+      <nav class="nav__links" aria-label="Navegação principal">
+        <a href="index.html">Início</a>
+        <a href="produto.html">Produto</a>
+        <a href="arquitetura.html">Arquitetura</a>
+        <a href="casos-de-uso.html" aria-current="page">Casos</a>
+        <a href="principios.html">Princípios</a>
+        <a href="validacao-centelha.html">Validação</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <div class="nav__right">
+        <a class="nav__cta magnetic" href="index.html#cta"
+          ><span>Acesso antecipado</span
+          ><span class="icon" aria-hidden="true">↗</span></a
+        >
+        <button
+          class="nav__toggle"
+          id="navToggle"
+          aria-controls="navOverlay"
+          aria-label="Abrir menu de navegação"
+          aria-expanded="false"
+        >
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+        </button>
+      </div>
+    </header>
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav-overlay__links" aria-label="Navegação móvel">
+        <a href="index.html">Início</a>
+        <a href="produto.html">Produto</a>
+        <a href="arquitetura.html">Arquitetura</a>
+        <a href="casos-de-uso.html" aria-current="page">Casos</a>
+        <a href="principios.html">Princípios</a>
+        <a href="validacao-centelha.html">Validação</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacidade.html">Privacidade</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="referencias.html">Referências</a>
+        <a class="nav-overlay__cta btn btn--primary" href="index.html#cta"
+          >Acesso antecipado <span class="icon" aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </div>
+    <main id="top">
+      <section
+        class="hero panel-section page-hero"
+        aria-labelledby="hero-title"
+      >
+        <div class="hero__content">
+          <div class="eyebrow reveal"><span></span> // casos de uso</div>
+          <h1 id="hero-title" class="hero-title split-lines hack-text">
+            <span>IA local aplicada</span>
+            <span class="gradient-text">a áreas sensíveis</span>
+            <span>com valor de negócio.</span>
+          </h1>
+          <p class="lead reveal">
+            Página dedicada a mercado, público-alvo e aplicações comerciais para
+            transformar a tecnologia em canal de venda B2B.
+          </p>
+          <div class="hero__actions reveal">
+            <a
+              class="btn btn--primary magnetic cta-hero-beta"
+              href="index.html#cta"
+              data-sparks
+              >Solicitar acesso antecipado
+              <span class="icon" aria-hidden="true">→</span></a
+            >
+            <a class="btn btn--ghost magnetic" href="#usecase-hub"
+              >Ver páginas satélites</a
+            >
+          </div>
+        </div>
+      </section>
+      <section
+        aria-labelledby="proof-title"
+        class="proof proof-deck-section panel-section"
+        id="proof"
+      >
+        <div class="proof-sticky-container">
+          <div class="section-kicker reveal">// o problema corporativo</div>
+          <div class="section-heading reveal">
+            <h2 class="hack-text" id="proof-title">
+              Empresas querem usar IA, mas não podem expor seus dados.
+            </h2>
+            <p>
+              Planilhas financeiras, contratos, relatórios internos e bases
+              operacionais carregam informações sensíveis. Ao enviar esses
+              arquivos para ferramentas online, empresas aumentam riscos de
+              vazamento, perda de controle, exposição regulatória e ausência de
+              rastreabilidade.
+            </p>
+          </div>
+          <div class="deck-wrapper">
+            <div class="deck-cards">
+              <article class="deck-card active" data-index="01">
+                <span>01 / PROBLEMA VALIDADO</span>
+                <h3>Nuvem não é neutra.</h3>
+                <p>
+                  Para automatizar análises complexas, o mercado ainda empurra
+                  dados sigilosos para infraestrutura de terceiros. Em ambientes
+                  com LGPD, sigilo contratual e governança, isso não é detalhe
+                  técnico: é bloqueio de adoção.
+                </p>
+                <ul>
+                  <li>planilhas confidenciais</li>
+                  <li>contratos</li>
+                  <li>código interno</li>
+                </ul>
+              </article>
+              <article class="deck-card" data-index="02">
+                <span>02 / SOLUÇÃO AETHERCORE</span>
+                <h3>Sistema operacional cognitivo.</h3>
+                <p>
+                  O AetherCore atua como uma infraestrutura em Rust para
+                  hospedar IA local-first, executar ferramentas nativas, navegar
+                  em sandbox e acionar uplinks externos apenas quando o operador
+                  decide.
+                </p>
+                <ul>
+                  <li>runtime em Rust</li>
+                  <li>browser sandbox</li>
+                  <li>uplink explícito</li>
+                </ul>
+              </article>
+              <article class="deck-card" data-index="03">
+                <span>03 / DIFERENCIAL</span>
+                <h3>Uma IA que atua, não só responde.</h3>
+                <p>
+                  O agente planeja, lê arquivos, cruza contexto, escreve
+                  artefatos e deixa trilha verificável. O valor não está só na
+                  resposta: está no encadeamento entre decisão, execução e
+                  auditoria.
+                </p>
+                <ul>
+                  <li>ReAct agent</li>
+                  <li>ARL deny-first</li>
+                  <li>audit ledger</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        aria-labelledby="compare-title"
+        class="compare-section panel-section"
+        id="compare"
+      >
+        <div class="section-kicker reveal">// comparativo de engenharia</div>
+        <div class="section-heading reveal">
+          <h2 class="hack-text" id="compare-title">
+            AetherCore vs chatbot comum.
+          </h2>
+          <p>
+            Entenda por que assistentes tradicionais na nuvem são insuficientes
+            e arriscados para lidar com dados sensíveis e planilhas
+            estratégicas.
+          </p>
+        </div>
+        <div class="compare-table-wrapper reveal">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>Característica</th>
+                <th>Chatbot Tradicional (Nuvem)</th>
+                <th class="highlight">AetherCore (Local-First)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Privacidade &amp; Controle</strong></td>
+                <td>
+                  Exige o envio de arquivos e bases operacionais para servidores
+                  externos.
+                </td>
+                <td class="highlight-cell">
+                  <strong>Prioriza execução local</strong>. Seus arquivos XLSX e
+                  dados não saem da máquina.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Execução Prática</strong></td>
+                <td>
+                  Apenas responde a perguntas textuais em formato de diálogo.
+                </td>
+                <td class="highlight-cell">
+                  Executa tarefas complexas em sandbox usando ferramentas
+                  nativas.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Segurança de Dados</strong></td>
+                <td>
+                  Aumenta os riscos de vazamento e exposição regulatória online.
+                </td>
+                <td class="highlight-cell">
+                  <strong>Reduz a exposição de dados</strong> operando sem
+                  dependências cegas de conexão.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Rastreabilidade</strong></td>
+                <td>Baixa transparência de ações executadas sob o capô.</td>
+                <td class="highlight-cell">
+                  Gera uma <strong>trilha auditável de execução</strong> com
+                  selo criptográfico local.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Governança</strong></td>
+                <td>
+                  Roda instruções diretamente, sem barreiras de conformidade.
+                </td>
+                <td class="highlight-cell">
+                  Garante controle rígido com
+                  <strong>aprovação humana</strong> para qualquer escrita ou
+                  uplink.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Conectividade</strong></td>
+                <td>
+                  Totalmente inoperante na ausência de conexão ativa à nuvem.
+                </td>
+                <td class="highlight-cell">
+                  Mantém <strong>uplink opcional e governado</strong> apenas sob
+                  demanda consentida.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section
+        aria-labelledby="audiences-title"
+        class="audiences-section panel-section"
+        id="audiences"
+      >
+        <div class="section-kicker reveal">// público-alvo</div>
+        <div class="section-heading reveal">
+          <h2 class="hack-text" id="audiences-title">
+            Projetado para quem lida com dados sensíveis.
+          </h2>
+          <p>
+            Ideal para setores onde vazamento de informações comerciais ou
+            violações de conformidade representam riscos severos.
+          </p>
+        </div>
+        <div class="audiences-grid reveal">
+          <article class="audience-card">
+            <div aria-hidden="true" class="audience-card__icon">📊</div>
+            <h3>Financeiro &amp; Controladoria</h3>
+            <p>
+              Audite forecastings, consolide orçamentos e cruze dados de fluxo
+              de caixa em planilhas XLSX complexas priorizando a execução local.
+            </p>
+            <a class="audience-card__link" href="ia-para-dados-sensiveis.html"
+              >Ver mais sobre dados sensíveis →</a
+            >
+          </article>
+          <article class="audience-card">
+            <div aria-hidden="true" class="audience-card__icon">💼</div>
+            <h3>Escritórios Contábeis</h3>
+            <p>
+              Execute conciliação contábil, valide notas fiscais e organize
+              dados tributários sem hospedar arquivos de clientes em nuvens
+              públicas.
+            </p>
+            <a class="audience-card__link" href="ia-para-planilhas.html"
+              >Ver mais sobre planilhas →</a
+            >
+          </article>
+          <article class="audience-card">
+            <div aria-hidden="true" class="audience-card__icon">⚖</div>
+            <h3>Setor Jurídico &amp; Compliance</h3>
+            <p>
+              Revise minutas, analise contratos confidenciais e busque termos em
+              bases jurídicas mantendo o controle do usuário e reduzindo a
+              exposição de dados.
+            </p>
+            <a class="audience-card__link" href="ia-local-para-empresas.html"
+              >Ver mais sobre empresas →</a
+            >
+          </article>
+          <article class="audience-card">
+            <div aria-hidden="true" class="audience-card__icon">⚙</div>
+            <h3>Consultorias &amp; Times de Dados</h3>
+            <p>
+              Extraia insights estratégicos de múltiplos arquivos corporativos
+              de forma veloz e offline, respeitando NDAs corporativos.
+            </p>
+            <a class="audience-card__link" href="bi-local-com-ia.html"
+              >Ver mais sobre BI local →</a
+            >
+          </article>
+        </div>
+      </section>
+      <section
+        id="usecase-hub"
+        class="semantic-map panel-section"
+        aria-labelledby="usecase-hub-title"
+      >
+        <div class="section-kicker">// páginas de intenção</div>
+        <div class="section-heading">
+          <h2 id="usecase-hub-title" class="hack-text">
+            Casos de uso indexáveis, cada um com promessa específica.
+          </h2>
+          <p>
+            As páginas satélites capturam buscas de alta intenção sem duplicar
+            conteúdo: planilhas, IA privada, dados sensíveis e BI local.
+          </p>
+        </div>
+        <div class="semantic-grid">
+          <a class="semantic-card magnetic" href="ia-para-planilhas.html"
+            ><span>// XLSX</span>
+            <h3>IA para planilhas</h3>
+            <p>
+              Conciliação, inconsistências, relatórios financeiros e análise
+              local de bases tabulares.
+            </p></a
+          >
+          <a class="semantic-card magnetic" href="ia-local-para-empresas.html"
+            ><span>// B2B</span>
+            <h3>IA local para empresas</h3>
+            <p>
+              Governança, confidencialidade operacional e adoção de IA com menor
+              exposição externa.
+            </p></a
+          >
+          <a class="semantic-card magnetic" href="ia-para-dados-sensiveis.html"
+            ><span>// compliance</span>
+            <h3>IA para dados sensíveis</h3>
+            <p>
+              Uso de IA com rastreabilidade, controle humano e redução de risco
+              em ambientes regulados.
+            </p></a
+          >
+          <a class="semantic-card magnetic" href="bi-local-com-ia.html"
+            ><span>// BI</span>
+            <h3>BI local com IA</h3>
+            <p>
+              Relatórios estruturados offline para times que precisam de
+              velocidade e controle.
+            </p></a
+          >
+        </div>
+      </section>
+      <section aria-labelledby="cta-title" class="cta panel-section" id="cta">
+        <div class="cta-card reveal">
+          <div class="cta-main">
+            <div class="section-kicker">// acesso antecipado</div>
+            <h2 class="hack-text" id="cta-title">
+              Use IA sem abrir mão do controle dos seus dados.
+            </h2>
+            <p>
+              Entre na lista de acesso antecipado para validar o runtime
+              local-first e otimizar suas planilhas XLSX de forma auditável e
+              sob seu controle.
+            </p>
+            <form action="#" class="access-form" id="leadForm" method="post">
+              <label class="sr-only" for="email">Email</label>
+              <input
+                autocomplete="email"
+                id="email"
+                name="email"
+                placeholder="founder@empresa.dev"
+                required=""
+                type="email"
+              />
+              <button
+                class="magnetic cta-final-beta"
+                id="lead-form-submit"
+                type="submit"
+              >
+                Entrar na lista beta
+                <span aria-hidden="true" class="icon">↗</span>
+              </button>
+            </form>
+          </div>
+          <div class="cta-side">
+            <div><span>batch</span><b>invite only</b></div>
+            <div><span>region</span><b>Curitiba / remote</b></div>
+            <div><span>mode</span><b>local-first</b></div>
+            <div><span>guardrail</span><b>ARL approval</b></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <img
+            alt="AetherCore"
+            height="28"
+            loading="lazy"
+            src="assets/img/iconsf.webp"
+            width="28"
+          />
+          <span>AetherCore</span>
+        </div>
+        <p class="site-footer__copy">
+          © 2026 AetherCore. Runtime local-first. Curitiba, Brasil.
+        </p>
+        <nav class="site-footer__links" aria-label="Links institucionais">
+          <a href="principios.html">Princípios</a>
+          <a href="privacidade.html">Privacidade</a>
+          <a href="roadmap.html">Roadmap</a>
+          <a href="referencias.html">Referências</a>
+          <a href="dossie-inovacao.html">Dossiê</a>
+        </nav>
+        <div class="site-footer__meta">
+          <span>v0.1.0-pre</span>
+          <span>founder beta</span>
+        </div>
+      </div>
+    </footer>
+    <script defer src="assets/vendor/gsap.min.js"></script>
+    <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
+    <script defer src="assets/vendor/Physics2DPlugin.min.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#fdf7e2" />
+    <meta
+      name="description"
+      content="Dossiê de inovação do AetherCore: problema, solução, diferencial, mercado, impacto, evidências e roadmap de validação em 12 meses."
+    />
+    <title>Dossiê de Inovação e Validação | AetherCore</title>
+    <!-- DEPLOY_PLACEHOLDER: Substituir 'https://exvorn.tech/' pelo domínio real de produção no deploy. Cada página tem canonical próprio. -->
+    <link rel="canonical" href="https://exvorn.tech/dossie-inovacao.html" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://exvorn.tech/dossie-inovacao.html"
+    />
+    <meta
+      property="og:title"
+      content="Dossiê de Inovação e Validação | AetherCore"
+    />
+    <meta
+      property="og:description"
+      content="Problema, solução, diferencial, mercado, impacto e plano de execução do AetherCore para validação de inovação."
+    />
+    <meta
+      property="og:image"
+      content="https://exvorn.tech/assets/img/logo-96.webp"
+    />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:url"
+      content="https://exvorn.tech/dossie-inovacao.html"
+    />
+    <meta
+      name="twitter:title"
+      content="Dossiê de Inovação e Validação | AetherCore"
+    />
+    <meta
+      name="twitter:description"
+      content="Resumo estruturado para avaliadores, parceiros e clientes beta: problema, solução, mercado, impacto e roadmap."
+    />
+    <meta
+      name="twitter:image"
+      content="https://exvorn.tech/assets/img/logo-96.webp"
+    />
+    <link rel="icon" type="image/png" href="assets/img/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" href="assets/css/main.css" as="style" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://exvorn.tech/#organization",
+            "name": "AetherCore",
+            "url": "https://exvorn.tech/",
+            "logo": "https://exvorn.tech/assets/img/logo-96.webp",
+            "publishingPrinciples": "https://exvorn.tech/principios.html",
+            "privacyPolicy": "https://exvorn.tech/privacidade.html",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Curitiba",
+              "addressRegion": "PR",
+              "addressCountry": "BR"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://exvorn.tech/#website",
+            "url": "https://exvorn.tech/",
+            "name": "AetherCore",
+            "publisher": {
+              "@id": "https://exvorn.tech/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://exvorn.tech/#software",
+            "name": "AetherCore",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "description": "IA local-first para análise de planilhas, documentos e dados sensíveis com execução auditável, aprovação humana e governança.",
+            "creator": {
+              "@id": "https://exvorn.tech/#organization"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://exvorn.tech/dossie-inovacao.html#webpage",
+            "url": "https://exvorn.tech/dossie-inovacao.html",
+            "name": "Dossiê de Inovação e Validação | AetherCore",
+            "description": "Dossiê de inovação do AetherCore: problema, solução, diferencial, mercado, impacto, evidências e roadmap de validação em 12 meses.",
+            "isPartOf": {
+              "@id": "https://exvorn.tech/#website"
+            },
+            "about": {
+              "@id": "https://exvorn.tech/#software"
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#top" class="skip-link">Ir para o conteúdo principal</a>
+    <div class="boot" id="boot" aria-hidden="true">
+      <img
+        src="assets/img/iconsf.webp"
+        alt=""
+        width="192"
+        height="192"
+        fetchpriority="high"
+       loading="lazy" />
+      <div class="boot__status"><span></span></div>
+      <p>initializing governed runtime</p>
+    </div>
+    <canvas id="webgl" aria-hidden="true"></canvas>
+    <canvas id="matrix" aria-hidden="true"></canvas>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="cursor-orb" aria-hidden="true"></div>
+    <header class="nav" data-nav>
+      <a class="brand" href="index.html" aria-label="AetherCore home">
+        <img
+          class="brand__logo"
+          src="assets/img/iconsf.webp"
+          alt="AetherCore"
+          width="36"
+          height="36"
+        />
+        <span class="brand__copy"
+          ><b>AetherCore</b
+          ><span class="brand__tag">local runtime / beta</span></span
+        >
+      </a>
+      <nav class="nav__links" aria-label="Navegação principal">
+        <a href="index.html">Início</a>
+        <a href="produto.html">Produto</a>
+        <a href="arquitetura.html">Arquitetura</a>
+        <a href="casos-de-uso.html">Casos</a>
+        <a href="principios.html">Princípios</a>
+        <a href="validacao-centelha.html">Validação</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <div class="nav__right">
+        <a class="nav__cta magnetic" href="index.html#cta"
+          ><span>Acesso antecipado</span
+          ><span class="icon" aria-hidden="true">↗</span></a
+        >
+        <button
+          class="nav__toggle"
+          id="navToggle"
+          aria-controls="navOverlay"
+          aria-label="Abrir menu de navegação"
+          aria-expanded="false"
+        >
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+        </button>
+      </div>
+    </header>
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav-overlay__links" aria-label="Navegação móvel">
+        <a href="index.html">Início</a>
+        <a href="produto.html">Produto</a>
+        <a href="arquitetura.html">Arquitetura</a>
+        <a href="casos-de-uso.html">Casos</a>
+        <a href="principios.html">Princípios</a>
+        <a href="validacao-centelha.html">Validação</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacidade.html">Privacidade</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="referencias.html">Referências</a>
+        <a class="nav-overlay__cta btn btn--primary" href="index.html#cta"
+          >Acesso antecipado <span class="icon" aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </div>
+    <main id="top">
+      <section
+        class="hero panel-section page-hero"
+        aria-labelledby="hero-title"
+      >
+        <div class="hero__content">
+          <div class="eyebrow reveal"><span></span> // dossiê de inovação</div>
+          <h1 id="hero-title" class="hero-title split-lines hack-text">
+            <span>AetherCore: problema, solução,</span>
+            <span class="gradient-text">mercado e validação</span>
+            <span>em 12 meses.</span>
+          </h1>
+          <p class="lead reveal">
+            Esta página organiza o AetherCore como proposta de inovação
+            aplicável a editais, parceiros e clientes beta. O foco é mostrar
+            execução realista: IA local-first para planilhas, documentos e dados
+            sensíveis com governança.
+          </p>
+          <div class="hero__actions reveal">
+            <a
+              class="btn btn--primary magnetic cta-hero-beta"
+              href="index.html#cta"
+              data-sparks
+              >Solicitar acesso antecipado
+              <span class="icon" aria-hidden="true">→</span></a
+            >
+            <a class="btn btn--ghost magnetic" href="validacao-centelha.html"
+              >Ver validação</a
+            >
+          </div>
+        </div>
+      </section>
+      <section
+        aria-labelledby="brief-core-title"
+        class="validation-section panel-section"
+        id="brief-core"
+      >
+        <div class="section-kicker reveal">// resumo executivo</div>
+        <div class="section-heading reveal">
+          <h2 class="hack-text" id="brief-core-title">
+            A tese de produto em seis blocos.
+          </h2>
+        </div>
+        <div class="validation-grid reveal">
+          <article class="validation-card">
+            <span class="validation-card__tag">problema</span>
+            <h3>Dados sensíveis travam a adoção de IA.</h3>
+            <p>
+              Empresas precisam analisar planilhas, contratos e relatórios, mas
+              não querem enviar arquivos críticos para ferramentas externas sem
+              controle suficiente.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">solução</span>
+            <h3>IA local-first para arquivos reais.</h3>
+            <p>
+              O AetherCore executa análises no ambiente do usuário, priorizando
+              XLSX, permissões explícitas, logs e relatórios auditáveis.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">inovação</span>
+            <h3>Runtime governado, não apenas chat.</h3>
+            <p>
+              O diferencial combina agente executor, cofre local, aprovação
+              humana, trilha auditável e uplink opcional para reduzir exposição
+              e aumentar controle.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">mercado</span>
+            <h3>Entrada por B2B sensível.</h3>
+            <p>
+              O recorte inicial prioriza financeiro, controladoria,
+              contabilidade, jurídico, auditoria, consultorias e PMEs com dados
+              estratégicos em planilhas.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">impacto</span>
+            <h3>Digitalização segura e ODS 9.</h3>
+            <p>
+              O projeto apoia infraestrutura tecnológica, inovação produtiva e
+              adoção responsável de IA por organizações que precisam preservar
+              sigilo e rastreabilidade.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">evidência</span>
+            <h3>Demonstração deve provar execução.</h3>
+            <p>
+              O material de validação deve mostrar importação de XLSX, objetivo
+              do usuário, relatório gerado, log, aprovação e exportação do
+              resultado.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section
+        aria-labelledby="roadmap-title"
+        class="validation-section panel-section"
+        id="dossie-roadmap"
+      >
+        <div class="section-kicker reveal">// plano de 12 meses</div>
+        <div class="validation-roadmap reveal">
+          <div class="validation-roadmap__head">
+            <h2 class="hack-text" id="roadmap-title">
+              Roadmap físico de execução.
+            </h2>
+          </div>
+          <ol class="validation-steps">
+            <li>
+              <strong>Mês 1–3:</strong> hardening do MVP XLSX, coleta de
+              evidências, logs e fluxo de aprovação para ações sensíveis.
+            </li>
+            <li>
+              <strong>Mês 4–6:</strong> pilotos com usuários beta em financeiro,
+              contabilidade e jurídico; coleta de métricas de tempo economizado
+              e qualidade dos relatórios.
+            </li>
+            <li>
+              <strong>Mês 7–9:</strong> melhoria da camada de governança,
+              exportação de artefatos, documentação técnica e rotinas de
+              mitigação de risco.
+            </li>
+            <li>
+              <strong>Mês 10–12:</strong> empacotamento comercial, landing de
+              conversão, canal LinkedIn/prospecção B2B e preparação para versão
+              1.0.
+            </li>
+          </ol>
+        </div>
+      </section>
+      <section
+        aria-labelledby="metrics-title"
+        class="validation-section panel-section"
+        id="dossie-metrics"
+      >
+        <div class="section-kicker reveal">// indicadores de validação</div>
+        <div class="section-heading reveal">
+          <h2 class="hack-text" id="metrics-title">
+            Métricas que tornam a proposta verificável.
+          </h2>
+          <p>
+            Para fomento e mercado, a narrativa precisa sair da promessa. Estes
+            indicadores ajudam a demonstrar maturidade progressiva.
+          </p>
+        </div>
+        <div class="audiences-grid reveal">
+          <article class="audience-card">
+            <h3>Tempo economizado</h3>
+            <p>
+              Comparar análise manual vs relatório gerado pelo AetherCore em
+              tarefas recorrentes sobre XLSX.
+            </p>
+          </article>
+          <article class="audience-card">
+            <h3>Qualidade do relatório</h3>
+            <p>
+              Medir consistência, completude, rastreabilidade de fontes e
+              utilidade para decisão do usuário beta.
+            </p>
+          </article>
+          <article class="audience-card">
+            <h3>Controle e segurança</h3>
+            <p>
+              Registrar quantas ações exigiram aprovação, quais foram negadas e
+              quais artefatos foram exportados.
+            </p>
+          </article>
+          <article class="audience-card">
+            <h3>Tração comercial</h3>
+            <p>
+              Acompanhar leads, reuniões, pilotos, feedbacks, intenção de
+              pagamento e setores com maior aderência.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section aria-labelledby="cta-title" class="cta panel-section" id="cta">
+        <div class="cta-card reveal">
+          <div class="cta-main">
+            <div class="section-kicker">// próximo passo</div>
+            <h2 class="hack-text" id="cta-title">
+              Transforme a prova técnica em validação de mercado.
+            </h2>
+            <p>
+              Use este dossiê como base para pitch, formulário de fomento,
+              página institucional e conversas com clientes beta.
+            </p>
+            <form action="#" class="access-form" id="leadForm" method="post">
+              <label class="sr-only" for="email">Email</label>
+              <input
+                autocomplete="email"
+                id="email"
+                name="email"
+                placeholder="founder@empresa.dev"
+                required=""
+                type="email"
+              />
+              <button
+                class="magnetic cta-final-beta"
+                id="lead-form-submit"
+                type="submit"
+              >
+                Entrar na lista beta
+                <span aria-hidden="true" class="icon">↗</span>
+              </button>
+            </form>
+          </div>
+          <div class="cta-side">
+            <div><span>fase</span><b>MVP</b></div>
+            <div><span>entrada</span><b>XLSX</b></div>
+            <div><span>impacto</span><b>ODS 9</b></div>
+            <div><span>praça</span><b>Curitiba/PR</b></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <img
+            alt="AetherCore"
+            height="28"
+            loading="lazy"
+            src="assets/img/iconsf.webp"
+            width="28"
+          />
+          <span>AetherCore</span>
+        </div>
+        <p class="site-footer__copy">
+          © 2026 AetherCore. Runtime local-first. Curitiba, Brasil.
+        </p>
+        <nav class="site-footer__links" aria-label="Links institucionais">
+          <a href="principios.html">Princípios</a>
+          <a href="privacidade.html">Privacidade</a>
+          <a href="roadmap.html">Roadmap</a>
+          <a href="referencias.html">Referências</a>
+          <a href="dossie-inovacao.html">Dossiê</a>
+        </nav>
+        <div class="site-footer__meta">
+          <span>v0.1.0-pre</span>
+          <span>founder beta</span>
+        </div>
+      </div>
+    </footer>
+    <script defer src="assets/vendor/gsap.min.js"></script>
+    <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
+    <script defer src="assets/vendor/Physics2DPlugin.min.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>

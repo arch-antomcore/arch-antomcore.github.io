@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#fdf7e2" />
+    <meta
+      name="description"
+      content="Como o AetherCore estrutura privacidade, execução local, governança, logs e uplink explícito para arquivos sensíveis em ambiente beta."
+    />
+    <title>Privacidade AetherCore | Governança de IA local-first</title>
+    <link rel="canonical" href="https://exvorn.tech/privacidade.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://exvorn.tech/privacidade.html" />
+    <meta
+      property="og:title"
+      content="Privacidade AetherCore | Governança de IA local-first"
+    />
+    <meta
+      property="og:description"
+      content="Como o AetherCore estrutura privacidade, execução local, governança, logs e uplink explícito para arquivos sensíveis em ambiente beta."
+    />
+    <meta
+      property="og:image"
+      content="https://exvorn.tech/assets/img/logo-96.webp"
+    />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://exvorn.tech/privacidade.html" />
+    <meta
+      name="twitter:title"
+      content="Privacidade AetherCore | Governança de IA local-first"
+    />
+    <meta
+      name="twitter:description"
+      content="Como o AetherCore estrutura privacidade, execução local, governança, logs e uplink explícito para arquivos sensíveis em ambiente beta."
+    />
+    <meta
+      name="twitter:image"
+      content="https://exvorn.tech/assets/img/logo-96.webp"
+    />
+    <link rel="icon" type="image/png" href="assets/img/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" href="assets/css/main.css" as="style" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://exvorn.tech/#organization",
+            "name": "AetherCore",
+            "url": "https://exvorn.tech/",
+            "logo": "https://exvorn.tech/assets/img/logo-96.webp",
+            "publishingPrinciples": "https://exvorn.tech/principios.html",
+            "privacyPolicy": "https://exvorn.tech/privacidade.html",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Curitiba",
+              "addressRegion": "PR",
+              "addressCountry": "BR"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://exvorn.tech/#website",
+            "url": "https://exvorn.tech/",
+            "name": "AetherCore",
+            "publisher": {
+              "@id": "https://exvorn.tech/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://exvorn.tech/#software",
+            "name": "AetherCore",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "description": "IA local-first para análise de planilhas, documentos e dados sensíveis com execução auditável, aprovação humana e governança.",
+            "creator": {
+              "@id": "https://exvorn.tech/#organization"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://exvorn.tech/privacidade.html#webpage",
+            "url": "https://exvorn.tech/privacidade.html",
+            "name": "Privacidade AetherCore | Governança de IA local-first",
+            "description": "Como o AetherCore estrutura privacidade, execução local, governança, logs e uplink explícito para arquivos sensíveis em ambiente beta.",
+            "isPartOf": {
+              "@id": "https://exvorn.tech/#website"
+            },
+            "about": {
+              "@id": "https://exvorn.tech/#software"
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#top" class="skip-link">Ir para o conteúdo principal</a>
+    <div class="boot" id="boot" aria-hidden="true">
+      <img
+        src="assets/img/iconsf.webp"
+        alt=""
+        width="192"
+        height="192"
+        fetchpriority="high"
+       loading="lazy" />
+      <div class="boot__status"><span></span></div>
+      <p>initializing governed runtime</p>
+    </div>
+    <canvas id="webgl" aria-hidden="true"></canvas>
+    <canvas id="matrix" aria-hidden="true"></canvas>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="cursor-orb" aria-hidden="true"></div>
+    <header class="nav" data-nav>
+      <a class="brand" href="index.html" aria-label="AetherCore home">
+        <img
+          class="brand__logo"
+          src="assets/img/iconsf.webp"
+          alt="AetherCore"
+          width="36"
+          height="36"
+        />
+        <span class="brand__copy"
+          ><b>AetherCore</b
+          ><span class="brand__tag">local runtime / beta</span></span
+        >
+      </a>
+      <nav class="nav__links" aria-label="Navegação principal">
+        <a href="index.html">Início</a>
+        <a href="produto.html">Produto</a>
+        <a href="arquitetura.html">Arquitetura</a>
+        <a href="casos-de-uso.html">Casos</a>
+        <a href="principios.html">Princípios</a>
+        <a href="validacao-centelha.html">Validação</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <div class="nav__right">
+        <a class="nav__cta magnetic" href="index.html#cta"
+          ><span>Acesso antecipado</span
+          ><span class="icon" aria-hidden="true">↗</span></a
+        >
+        <button
+          class="nav__toggle"
+          id="navToggle"
+          aria-controls="navOverlay"
+          aria-label="Abrir menu de navegação"
+          aria-expanded="false"
+        >
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+        </button>
+      </div>
+    </header>
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav-overlay__links" aria-label="Navegação móvel">
+        <a href="index.html">Início</a>
+        <a href="produto.html">Produto</a>
+        <a href="arquitetura.html">Arquitetura</a>
+        <a href="casos-de-uso.html">Casos</a>
+        <a href="principios.html">Princípios</a>
+        <a href="validacao-centelha.html">Validação</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacidade.html">Privacidade</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="referencias.html">Referências</a>
+        <a class="nav-overlay__cta btn btn--primary" href="index.html#cta"
+          >Acesso antecipado <span class="icon" aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </div>
+    <main id="top">
+      <section
+        class="hero panel-section page-hero"
+        aria-labelledby="hero-title"
+      >
+        <div class="hero__content">
+          <div class="eyebrow reveal"><span></span> // trust center</div>
+          <h1 id="hero-title" class="hero-title split-lines hack-text">
+            <span>Privacidade,</span
+            ><span class="gradient-text">governança</span
+            ><span>e execução local.</span>
+          </h1>
+          <p class="lead reveal">
+            Uma visão clara de como o AetherCore pretende tratar arquivos
+            sensíveis: com escopo, consentimento, registros e processamento
+            local por padrão.
+          </p>
+          <div class="hero__actions reveal">
+            <a
+              class="btn btn--primary magnetic"
+              href="index.html#cta"
+              data-sparks
+              >Entrar na lista beta
+              <span class="icon" aria-hidden="true">→</span></a
+            ><a class="btn btn--ghost magnetic" href="principios.html"
+              >Ver princípios</a
+            >
+          </div>
+        </div>
+      </section>
+      <section
+        class="validation-section panel-section"
+        aria-labelledby="privacy-title"
+      >
+        <div class="section-kicker reveal">// política de engenharia</div>
+        <div class="section-heading reveal">
+          <h2 id="privacy-title" class="hack-text">
+            O design reduz exposição antes de prometer segurança.
+          </h2>
+          <p>
+            Esta página não substitui uma política jurídica formal. Ela descreve
+            princípios técnicos atuais do produto em beta e deve ser
+            sincronizada com a implementação real antes de uso comercial.
+          </p>
+        </div>
+        <div class="validation-grid reveal">
+          <article class="validation-card">
+            <span class="validation-card__tag">local-first</span>
+            <h3>Processar perto dos arquivos</h3>
+            <p>
+              O recorte central é análise local de XLSX e documentos, reduzindo
+              a necessidade de enviar bases sensíveis para serviços externos.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">approval</span>
+            <h3>Ações sensíveis exigem revisão</h3>
+            <p>
+              Escrita em arquivos, uplinks e alterações relevantes devem passar
+              por uma camada de aprovação humana com escopo e justificativa.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">logs</span>
+            <h3>Auditoria sem espetáculo</h3>
+            <p>
+              O sistema registra eventos operacionais suficientes para
+              depuração, prestação de contas e rastreabilidade, respeitando
+              minimização.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">segredos</span>
+            <h3>Redação e retenção</h3>
+            <p>
+              Segredos, tokens e credenciais não devem aparecer em relatórios ou
+              logs legíveis. Retenção deve ser configurável e proporcional ao
+              uso.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">transparência</span>
+            <h3>Uplink explícito</h3>
+            <p>
+              Quando houver integração externa, o usuário deve saber para onde,
+              por quê e com quais dados a comunicação ocorrerá.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">limite</span>
+            <h3>Beta sem promessas absolutas</h3>
+            <p>
+              AetherCore prioriza controle local e redução de exposição. Não
+              promete privacidade total, segurança absoluta ou imunidade contra
+              falhas.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <img
+            alt="AetherCore"
+            height="28"
+            loading="lazy"
+            src="assets/img/iconsf.webp"
+            width="28"
+          /><span>AetherCore</span>
+        </div>
+        <p class="site-footer__copy">
+          © 2026 AetherCore. Runtime local-first. Curitiba, Brasil.
+        </p>
+        <nav class="site-footer__links" aria-label="Links institucionais">
+          <a href="principios.html">Princípios</a
+          ><a href="privacidade.html">Privacidade</a
+          ><a href="roadmap.html">Roadmap</a
+          ><a href="referencias.html">Referências</a
+          ><a href="dossie-inovacao.html">Dossiê</a>
+        </nav>
+        <div class="site-footer__meta">
+          <span>v0.1.0-pre</span><span>founder beta</span>
+        </div>
+      </div>
+    </footer>
+    <script defer src="assets/vendor/gsap.min.js"></script>
+    <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
+    <script defer src="assets/vendor/Physics2DPlugin.min.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>

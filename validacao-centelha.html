@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#fdf7e2" />
+    <meta
+      name="description"
+      content="Dossiê de validação do AetherCore para fomento: problema, solução, inovação, mercado, impacto, roadmap de 12 meses e evidências técnicas."
+    />
+    <title>
+      Validação AetherCore para Centelha | Inovação, mercado e execução
+    </title>
+    <!-- DEPLOY_PLACEHOLDER: Substituir 'https://exvorn.tech/' pelo domínio real de produção no deploy. Cada página tem canonical próprio. -->
+    <link rel="canonical" href="https://exvorn.tech/validacao-centelha.html" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://exvorn.tech/validacao-centelha.html"
+    />
+    <meta
+      property="og:title"
+      content="Validação AetherCore para Centelha | Inovação, mercado e execução"
+    />
+    <meta
+      property="og:description"
+      content="Dossiê de validação do AetherCore para fomento: problema, solução, inovação, mercado, impacto, roadmap de 12 meses e evidências técnicas."
+    />
+    <meta
+      property="og:image"
+      content="https://exvorn.tech/assets/img/logo-96.webp"
+    />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:url"
+      content="https://exvorn.tech/validacao-centelha.html"
+    />
+    <meta
+      name="twitter:title"
+      content="Validação AetherCore para Centelha | Inovação, mercado e execução"
+    />
+    <meta
+      name="twitter:description"
+      content="Dossiê de validação do AetherCore para fomento: problema, solução, inovação, mercado, impacto, roadmap de 12 meses e evidências técnicas."
+    />
+    <meta
+      name="twitter:image"
+      content="https://exvorn.tech/assets/img/logo-96.webp"
+    />
+    <link rel="icon" type="image/png" href="assets/img/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" href="assets/css/main.css" as="style" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://exvorn.tech/#organization",
+            "name": "AetherCore",
+            "url": "https://exvorn.tech/",
+            "logo": "https://exvorn.tech/assets/img/logo-96.webp",
+            "publishingPrinciples": "https://exvorn.tech/principios.html",
+            "privacyPolicy": "https://exvorn.tech/privacidade.html",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Curitiba",
+              "addressRegion": "PR",
+              "addressCountry": "BR"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://exvorn.tech/#website",
+            "url": "https://exvorn.tech/",
+            "name": "AetherCore",
+            "publisher": {
+              "@id": "https://exvorn.tech/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://exvorn.tech/#software",
+            "name": "AetherCore",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "description": "IA local-first para análise de planilhas, documentos e dados sensíveis com execução auditável, aprovação humana e governança.",
+            "creator": {
+              "@id": "https://exvorn.tech/#organization"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://exvorn.tech/validacao-centelha.html#webpage",
+            "url": "https://exvorn.tech/validacao-centelha.html",
+            "name": "Validação AetherCore para Centelha | Inovação, mercado e execução",
+            "description": "Dossiê de validação do AetherCore para fomento: problema, solução, inovação, mercado, impacto, roadmap de 12 meses e evidências técnicas.",
+            "isPartOf": {
+              "@id": "https://exvorn.tech/#website"
+            },
+            "about": {
+              "@id": "https://exvorn.tech/#software"
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#top" class="skip-link">Ir para o conteúdo principal</a>
+    <div class="boot" id="boot" aria-hidden="true">
+      <img
+        src="assets/img/iconsf.webp"
+        alt=""
+        width="192"
+        height="192"
+        fetchpriority="high"
+       loading="lazy" />
+      <div class="boot__status"><span></span></div>
+      <p>initializing governed runtime</p>
+    </div>
+    <canvas id="webgl" aria-hidden="true"></canvas>
+    <canvas id="matrix" aria-hidden="true"></canvas>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="cursor-orb" aria-hidden="true"></div>
+    <header class="nav" data-nav>
+      <a class="brand" href="index.html" aria-label="AetherCore home">
+        <img
+          class="brand__logo"
+          src="assets/img/iconsf.webp"
+          alt="AetherCore"
+          width="36"
+          height="36"
+        />
+        <span class="brand__copy"
+          ><b>AetherCore</b
+          ><span class="brand__tag">local runtime / beta</span></span
+        >
+      </a>
+      <nav class="nav__links" aria-label="Navegação principal">
+        <a href="index.html">Início</a>
+        <a href="produto.html">Produto</a>
+        <a href="arquitetura.html">Arquitetura</a>
+        <a href="casos-de-uso.html">Casos</a>
+        <a href="principios.html">Princípios</a>
+        <a href="validacao-centelha.html" aria-current="page">Validação</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <div class="nav__right">
+        <a class="nav__cta magnetic" href="index.html#cta"
+          ><span>Acesso antecipado</span
+          ><span class="icon" aria-hidden="true">↗</span></a
+        >
+        <button
+          class="nav__toggle"
+          id="navToggle"
+          aria-controls="navOverlay"
+          aria-label="Abrir menu de navegação"
+          aria-expanded="false"
+        >
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+        </button>
+      </div>
+    </header>
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav-overlay__links" aria-label="Navegação móvel">
+        <a href="index.html">Início</a>
+        <a href="produto.html">Produto</a>
+        <a href="arquitetura.html">Arquitetura</a>
+        <a href="casos-de-uso.html">Casos</a>
+        <a href="principios.html">Princípios</a>
+        <a href="validacao-centelha.html" aria-current="page">Validação</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacidade.html">Privacidade</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="referencias.html">Referências</a>
+        <a class="nav-overlay__cta btn btn--primary" href="index.html#cta"
+          >Acesso antecipado <span class="icon" aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </div>
+    <main id="top">
+      <section
+        class="hero panel-section page-hero"
+        aria-labelledby="hero-title"
+      >
+        <div class="hero__content">
+          <div class="eyebrow reveal"><span></span> // validação & fomento</div>
+          <h1 id="hero-title" class="hero-title split-lines hack-text">
+            <span>AetherCore estruturado</span>
+            <span class="gradient-text">para avaliação técnica</span>
+            <span>e entrada no Centelha.</span>
+          </h1>
+          <p class="lead reveal">
+            Uma página semântica para transformar a narrativa do produto em
+            evidência de inovação, mercado, impacto e execução.
+          </p>
+          <div class="hero__actions reveal">
+            <a
+              class="btn btn--primary magnetic cta-hero-beta"
+              href="index.html#cta"
+              data-sparks
+              >Solicitar acesso antecipado
+              <span class="icon" aria-hidden="true">→</span></a
+            >
+            <a class="btn btn--ghost magnetic" href="dossie-inovacao.html"
+              >Abrir dossiê</a
+            >
+          </div>
+        </div>
+      </section>
+      <section
+        aria-labelledby="validation-title"
+        class="validation-section panel-section"
+        id="validation"
+      >
+        <div class="section-kicker reveal">// inovação, mercado e execução</div>
+        <div class="section-heading reveal">
+          <h2 class="hack-text" id="validation-title">
+            Construído para virar produto, não apenas demonstração.
+          </h2>
+          <p>
+            O AetherCore foi organizado em torno dos pontos que importam para
+            validação de inovação: problema claro, solução técnica, diferencial
+            defensável, mercado inicial, impacto e plano de execução em 12
+            meses.
+          </p>
+        </div>
+        <div class="validation-grid reveal">
+          <article class="validation-card">
+            <span class="validation-card__tag">01 · problema</span>
+            <h3>IA empresarial ainda exige confiança cega na nuvem.</h3>
+            <p>
+              Times financeiros, jurídicos e contábeis querem usar IA, mas lidam
+              com planilhas, contratos e relatórios que não podem circular sem
+              controle. A dor é produtividade travada por risco de exposição.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">02 · solução</span>
+            <h3>Runtime local-first para arquivos reais.</h3>
+            <p>
+              O AetherCore prioriza execução local, leitura de XLSX, agentes com
+              permissões explícitas e trilha auditável para transformar arquivos
+              sensíveis em análises acionáveis.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">03 · inovação</span>
+            <h3>Mais que chatbot: agente governado.</h3>
+            <p>
+              A proposta combina cofre local, aprovação humana, memória
+              pesquisável, execução em sandbox, registro de ações e uplink
+              opcional. O diferencial está na governança da execução, não só na
+              conversa.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">04 · mercado</span>
+            <h3>Entrada B2B por planilhas e dados sensíveis.</h3>
+            <p>
+              O primeiro recorte comercial mira controladoria, contabilidade,
+              jurídico, consultorias e PMEs que operam sobre XLSX, relatórios e
+              documentos internos sob sigilo.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">05 · impacto</span>
+            <h3>ODS 9: inovação, infraestrutura e produtividade.</h3>
+            <p>
+              A solução contribui para digitalização segura de empresas, adoção
+              responsável de IA e fortalecimento de infraestrutura tecnológica
+              local em Curitiba/PR.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">06 · evidências</span>
+            <h3>O que deve ser demonstrado no pitch.</h3>
+            <p>
+              Leitura real de XLSX, geração de relatório, log de execução,
+              aprovação antes de escrita e comparação antes/depois devem formar
+              o pacote mínimo de prova do MVP.
+            </p>
+          </article>
+        </div>
+        <div
+          aria-label="Roadmap de validação em 12 meses"
+          class="validation-roadmap reveal"
+        >
+          <div class="validation-roadmap__head">
+            <h3>Roadmap de validação em 12 meses</h3>
+            <a class="audience-card__link" href="dossie-inovacao.html"
+              >Abrir dossiê de inovação →</a
+            >
+          </div>
+          <ol class="validation-steps">
+            <li>
+              <strong>0–3 meses:</strong> estabilizar leitura XLSX, fluxo local,
+              logs e demonstração controlada.
+            </li>
+            <li>
+              <strong>4–6 meses:</strong> validar com usuários beta em
+              financeiro, contabilidade e jurídico.
+            </li>
+            <li>
+              <strong>7–9 meses:</strong> evoluir governança, exportação de
+              relatórios e métricas de produtividade.
+            </li>
+            <li>
+              <strong>10–12 meses:</strong> consolidar versão comercial,
+              documentação técnica e canais de venda.
+            </li>
+          </ol>
+        </div>
+      </section>
+      <section
+        id="centelha-fit"
+        class="validation-section panel-section"
+        aria-labelledby="centelha-fit-title"
+      >
+        <div class="section-kicker">// leitura para edital</div>
+        <div class="section-heading">
+          <h2 id="centelha-fit-title" class="hack-text">
+            Estrutura pronta para problema, solução, inovação, mercado, impacto
+            e execução.
+          </h2>
+          <p>
+            Esta página traduz o AetherCore para linguagem de avaliação: dor
+            mensurável, diferencial tecnológico, público inicial, ODS 9,
+            evidências, cronograma e metas de validação.
+          </p>
+        </div>
+        <div class="validation-grid">
+          <article class="validation-card">
+            <span class="validation-card__tag">fase 1</span>
+            <h3>Ideia inovadora</h3>
+            <p>
+              Mostra problema, solução, estágio atual, inovação, impacto
+              socioambiental e equipe em blocos facilmente reutilizáveis no
+              formulário.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">fase 2</span>
+            <h3>Projeto de fomento</h3>
+            <p>
+              Prepara cronograma físico de 12 meses, orçamento orientado a MVP,
+              métricas e evidências técnicas para contratação.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">prova</span>
+            <h3>Dossiê de inovação</h3>
+            <p>
+              Use a página de dossiê como material de apoio para pitch,
+              avaliadores, parceiros, pilotos e primeiros clientes.
+            </p>
+          </article>
+        </div>
+        <div class="hero__actions reveal mt-32">
+          <a class="btn btn--primary magnetic" href="dossie-inovacao.html"
+            >Abrir dossiê de inovação
+            <span class="icon" aria-hidden="true">→</span></a
+          ><a class="btn btn--ghost magnetic" href="produto.html">Ver MVP</a>
+        </div>
+      </section>
+
+      <section
+        id="matriz-centelha"
+        class="validation-section panel-section"
+        aria-labelledby="matriz-centelha-title"
+      >
+        <div class="section-kicker">// critérios de avaliação</div>
+        <div class="section-heading">
+          <h2 id="matriz-centelha-title" class="hack-text">
+            Matriz natural de aderência aos critérios de avaliação.
+          </h2>
+          <p>
+            Sem parecer forçado, o AetherCore apresenta os elementos que
+            avaliadores procuram: solução inovadora, mercado claro, impacto
+            positivo, equipe capaz e consistência de execução.
+          </p>
+        </div>
+        <div class="validation-grid">
+          <article class="validation-card">
+            <span class="validation-card__tag">solução</span>
+            <h3>Grau de inovação verificável</h3>
+            <p>
+              IA local-first + XLSX + approval layer + audit ledger criam
+              diferenciação concreta contra chatbots genéricos e BI tradicional.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">mercado</span>
+            <h3>Dor B2B de alta intenção</h3>
+            <p>
+              Financeiro, contabilidade, jurídico e controladoria lidam com
+              dados sensíveis e trabalho repetitivo em planilhas.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">impacto</span>
+            <h3>Produtividade com menor exposição</h3>
+            <p>
+              O produto contribui para digitalização segura, governança de IA e
+              infraestrutura tecnológica local, com vínculo natural ao ODS 9.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">equipe</span>
+            <h3>Execução demonstrável</h3>
+            <p>
+              A narrativa deve ser acompanhada por vídeo, prints, logs,
+              protótipo, documentação técnica e papéis claros da equipe.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">consistência</span>
+            <h3>Cronograma e orçamento coerentes</h3>
+            <p>
+              A versão de fomento deve concentrar recursos em produto,
+              validação, documentação, infraestrutura e comercialização
+              pioneira.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">prova</span>
+            <h3>Submeter antes, melhorar até o prazo</h3>
+            <p>
+              O material público ajuda a acelerar pitch, PDF de apoio,
+              demonstração e respostas do formulário.
+            </p>
+          </article>
+        </div>
+        <div class="hero__actions reveal mt-32">
+          <a class="btn btn--primary magnetic" href="roadmap.html"
+            >Ver roadmap de execução
+            <span class="icon" aria-hidden="true">→</span></a
+          ><a class="btn btn--ghost magnetic" href="principios.html"
+            >Ver princípios</a
+          >
+        </div>
+      </section>
+      <section
+        aria-labelledby="status-title"
+        class="status-section panel-section"
+        id="status"
+      >
+        <div class="section-kicker reveal">// status + release notes</div>
+        <div class="section-heading reveal">
+          <h2 class="hack-text" id="status-title">
+            0.1.0-pre com trilha de entrega real.
+          </h2>
+          <p>
+            Em beta interno, o AetherCore já opera como workspace desktop
+            local-first com workspaces, sessões, documentos, Aether Agent, ARL,
+            uplinks explícitos e ferramentas nativas de BI. O foco é avançar com
+            estabilidade: entregar o que já existe, marcar o que está em beta e
+            endurecer cada camada antes de ampliar escopo.
+          </p>
+        </div>
+        <div class="timeline-container">
+          <div class="timeline-line">
+            <div class="timeline-line-glow"></div>
+          </div>
+          <div class="timeline-items">
+            <div class="timeline-item active">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">2025-12</div>
+                <div class="timeline-version">v0.0.1</div>
+                <h3>Workspaces + RAG local</h3>
+                <p>
+                  Workspaces, sessões, documentos, vault e busca local passaram
+                  a estruturar a memória operacional do produto.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">2026-03</div>
+                <div class="timeline-version">v0.0.5</div>
+                <h3>Ferramentas, permissões e sandbox</h3>
+                <p>
+                  Registry de ferramentas, modos de acesso, browser sandbox,
+                  shell, skills e agentes foram conectados a uma política de
+                  execução coerente.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">2026-04</div>
+                <div class="timeline-version">v0.0.8</div>
+                <h3>Aether Reliability Layer</h3>
+                <p>
+                  ARL consolidou deny-first, aprovação humana, trilhas JSONL,
+                  redaction de segredos e retenção configurável como camada de
+                  confiança do runtime.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">2026-05-10</div>
+                <div class="timeline-version">v0.0.9</div>
+                <h3>CEF como runtime padrão</h3>
+                <p>
+                  O desktop passou a carregar o frontend localmente via CEF,
+                  eliminando dependência de localhost e do WebView do Edge.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">2026-05-11</div>
+                <div class="timeline-version">v0.1.0-pre</div>
+                <h3>XLSX nativo no Rust</h3>
+                <p>
+                  ReadExcel e WriteExcel colocaram BI diretamente no fluxo do
+                  agente, com governança sobre escrita e alteração de artefatos.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">Próximas janelas</div>
+                <div class="timeline-version">Roadmap</div>
+                <h3>Hardening com mensagem clara.</h3>
+                <p>
+                  Hardening do ARL, beta privado assistido e empacotamento
+                  público conservador entram como próximos passos — não como
+                  promessas infladas.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="status-note reveal">
+          <p>
+            <b>Roadmap:</b> OCR avançado, reranking, RBAC enterprise, assinatura
+            de artefatos e suites adversariais maiores entram como próximas
+            camadas — somente depois de validação técnica e hardening.
+          </p>
+        </div>
+      </section>
+      <section aria-labelledby="cta-title" class="cta panel-section" id="cta">
+        <div class="cta-card reveal">
+          <div class="cta-main">
+            <div class="section-kicker">// acesso antecipado</div>
+            <h2 class="hack-text" id="cta-title">
+              Use IA sem abrir mão do controle dos seus dados.
+            </h2>
+            <p>
+              Entre na lista de acesso antecipado para validar o runtime
+              local-first e otimizar suas planilhas XLSX de forma auditável e
+              sob seu controle.
+            </p>
+            <form action="#" class="access-form" id="leadForm" method="post">
+              <label class="sr-only" for="email">Email</label>
+              <input
+                autocomplete="email"
+                id="email"
+                name="email"
+                placeholder="founder@empresa.dev"
+                required=""
+                type="email"
+              />
+              <button
+                class="magnetic cta-final-beta"
+                id="lead-form-submit"
+                type="submit"
+              >
+                Entrar na lista beta
+                <span aria-hidden="true" class="icon">↗</span>
+              </button>
+            </form>
+          </div>
+          <div class="cta-side">
+            <div><span>batch</span><b>invite only</b></div>
+            <div><span>region</span><b>Curitiba / remote</b></div>
+            <div><span>mode</span><b>local-first</b></div>
+            <div><span>guardrail</span><b>ARL approval</b></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <img
+            alt="AetherCore"
+            height="28"
+            loading="lazy"
+            src="assets/img/iconsf.webp"
+            width="28"
+          />
+          <span>AetherCore</span>
+        </div>
+        <p class="site-footer__copy">
+          © 2026 AetherCore. Runtime local-first. Curitiba, Brasil.
+        </p>
+        <nav class="site-footer__links" aria-label="Links institucionais">
+          <a href="principios.html">Princípios</a>
+          <a href="privacidade.html">Privacidade</a>
+          <a href="roadmap.html">Roadmap</a>
+          <a href="referencias.html">Referências</a>
+          <a href="dossie-inovacao.html">Dossiê</a>
+        </nav>
+        <div class="site-footer__meta">
+          <span>v0.1.0-pre</span>
+          <span>founder beta</span>
+        </div>
+      </div>
+    </footer>
+    <script defer src="assets/vendor/gsap.min.js"></script>
+    <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
+    <script defer src="assets/vendor/Physics2DPlugin.min.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+# AetherCore / Exvorn
+
+> AetherCore é um runtime local-first de IA para análise de planilhas XLSX, documentos e dados sensíveis com governança, aprovação humana e trilha auditável.
+
+Canonical domain: https://exvorn.tech/
+
+## Core pages
+- https://exvorn.tech/ — hub principal
+- https://exvorn.tech/produto.html — produto e MVP XLSX
+- https://exvorn.tech/arquitetura.html — runtime governado e pipeline
+- https://exvorn.tech/casos-de-uso.html — segmentos e aplicações B2B
+- https://exvorn.tech/principios.html — princípios de privacidade e autonomia
+- https://exvorn.tech/privacidade.html — privacidade e governança
+- https://exvorn.tech/validacao-centelha.html — aderência a edital e validação
+- https://exvorn.tech/roadmap.html — cronograma físico de 12 meses
+- https://exvorn.tech/faq.html — perguntas frequentes
+- https://exvorn.tech/referencias.html — fontes públicas de SEO, IA e privacidade
+- https://exvorn.tech/dossie-inovacao.html — dossiê de inovação
+
+## SEO articles
+- https://exvorn.tech/ia-para-planilhas.html — IA para análise de planilhas
+- https://exvorn.tech/ia-local-para-empresas.html — IA privada para empresas
+- https://exvorn.tech/ia-para-dados-sensiveis.html — proteção de dados sensíveis
+- https://exvorn.tech/bi-local-com-ia.html — BI local com IA
+
+## Positioning
+IA local-first para analisar planilhas e dados sensíveis sem expor arquivos na nuvem por padrão.
+
+## Crawler policy
+OAI-SearchBot é permitido para descoberta em busca. GPTBot e Google-Extended são bloqueados no robots.txt para reduzir uso em treinamento.

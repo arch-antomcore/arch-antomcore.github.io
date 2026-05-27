@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#fdf7e2" />
+    <meta
+      name="description"
+      content="Roadmap de 12 meses para o AetherCore: MVP XLSX, usuários beta, governança, métricas, documentação e versão comercial."
+    />
+    <title>Roadmap AetherCore | 12 meses de validação e produto</title>
+    <link rel="canonical" href="https://exvorn.tech/roadmap.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://exvorn.tech/roadmap.html" />
+    <meta
+      property="og:title"
+      content="Roadmap AetherCore | 12 meses de validação e produto"
+    />
+    <meta
+      property="og:description"
+      content="Roadmap de 12 meses para o AetherCore: MVP XLSX, usuários beta, governança, métricas, documentação e versão comercial."
+    />
+    <meta
+      property="og:image"
+      content="https://exvorn.tech/assets/img/logo-96.webp"
+    />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://exvorn.tech/roadmap.html" />
+    <meta
+      name="twitter:title"
+      content="Roadmap AetherCore | 12 meses de validação e produto"
+    />
+    <meta
+      name="twitter:description"
+      content="Roadmap de 12 meses para o AetherCore: MVP XLSX, usuários beta, governança, métricas, documentação e versão comercial."
+    />
+    <meta
+      name="twitter:image"
+      content="https://exvorn.tech/assets/img/logo-96.webp"
+    />
+    <link rel="icon" type="image/png" href="assets/img/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" href="assets/css/main.css" as="style" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://exvorn.tech/#organization",
+            "name": "AetherCore",
+            "url": "https://exvorn.tech/",
+            "logo": "https://exvorn.tech/assets/img/logo-96.webp",
+            "publishingPrinciples": "https://exvorn.tech/principios.html",
+            "privacyPolicy": "https://exvorn.tech/privacidade.html",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Curitiba",
+              "addressRegion": "PR",
+              "addressCountry": "BR"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://exvorn.tech/#website",
+            "url": "https://exvorn.tech/",
+            "name": "AetherCore",
+            "publisher": {
+              "@id": "https://exvorn.tech/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://exvorn.tech/#software",
+            "name": "AetherCore",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "description": "IA local-first para análise de planilhas, documentos e dados sensíveis com execução auditável, aprovação humana e governança.",
+            "creator": {
+              "@id": "https://exvorn.tech/#organization"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://exvorn.tech/roadmap.html#webpage",
+            "url": "https://exvorn.tech/roadmap.html",
+            "name": "Roadmap AetherCore | 12 meses de validação e produto",
+            "description": "Roadmap de 12 meses para o AetherCore: MVP XLSX, usuários beta, governança, métricas, documentação e versão comercial.",
+            "isPartOf": {
+              "@id": "https://exvorn.tech/#website"
+            },
+            "about": {
+              "@id": "https://exvorn.tech/#software"
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#top" class="skip-link">Ir para o conteúdo principal</a>
+    <div class="boot" id="boot" aria-hidden="true">
+      <img
+        src="assets/img/iconsf.webp"
+        alt=""
+        width="192"
+        height="192"
+        fetchpriority="high"
+       loading="lazy" />
+      <div class="boot__status"><span></span></div>
+      <p>initializing governed runtime</p>
+    </div>
+    <canvas id="webgl" aria-hidden="true"></canvas>
+    <canvas id="matrix" aria-hidden="true"></canvas>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="cursor-orb" aria-hidden="true"></div>
+    <header class="nav" data-nav>
+      <a class="brand" href="index.html" aria-label="AetherCore home">
+        <img
+          class="brand__logo"
+          src="assets/img/iconsf.webp"
+          alt="AetherCore"
+          width="36"
+          height="36"
+        />
+        <span class="brand__copy"
+          ><b>AetherCore</b
+          ><span class="brand__tag">local runtime / beta</span></span
+        >
+      </a>
+      <nav class="nav__links" aria-label="Navegação principal">
+        <a href="index.html">Início</a>
+        <a href="produto.html">Produto</a>
+        <a href="arquitetura.html">Arquitetura</a>
+        <a href="casos-de-uso.html">Casos</a>
+        <a href="principios.html">Princípios</a>
+        <a href="validacao-centelha.html">Validação</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <div class="nav__right">
+        <a class="nav__cta magnetic" href="index.html#cta"
+          ><span>Acesso antecipado</span
+          ><span class="icon" aria-hidden="true">↗</span></a
+        >
+        <button
+          class="nav__toggle"
+          id="navToggle"
+          aria-controls="navOverlay"
+          aria-label="Abrir menu de navegação"
+          aria-expanded="false"
+        >
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+        </button>
+      </div>
+    </header>
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav-overlay__links" aria-label="Navegação móvel">
+        <a href="index.html">Início</a>
+        <a href="produto.html">Produto</a>
+        <a href="arquitetura.html">Arquitetura</a>
+        <a href="casos-de-uso.html">Casos</a>
+        <a href="principios.html">Princípios</a>
+        <a href="validacao-centelha.html">Validação</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacidade.html">Privacidade</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="referencias.html">Referências</a>
+        <a class="nav-overlay__cta btn btn--primary" href="index.html#cta"
+          >Acesso antecipado <span class="icon" aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </div>
+    <main id="top">
+      <section
+        class="hero panel-section page-hero"
+        aria-labelledby="hero-title"
+      >
+        <div class="hero__content">
+          <div class="eyebrow reveal">
+            <span></span> // execução em 12 meses
+          </div>
+          <h1 id="hero-title" class="hero-title split-lines hack-text">
+            <span>Roadmap</span><span class="gradient-text">de produto</span
+            ><span>para validação real.</span>
+          </h1>
+          <p class="lead reveal">
+            Um plano físico de desenvolvimento para transformar o MVP de BI
+            local em produto testável, mensurável e comercialmente defensável.
+          </p>
+          <div class="hero__actions reveal">
+            <a
+              class="btn btn--primary magnetic"
+              href="validacao-centelha.html"
+              data-sparks
+              >Ver validação <span class="icon" aria-hidden="true">→</span></a
+            ><a class="btn btn--ghost magnetic" href="dossie-inovacao.html"
+              >Abrir dossiê</a
+            >
+          </div>
+        </div>
+      </section>
+      <section
+        class="validation-section panel-section"
+        aria-labelledby="roadmap-title"
+      >
+        <div class="section-kicker reveal">// cronograma físico</div>
+        <div class="section-heading reveal">
+          <h2 id="roadmap-title" class="hack-text">
+            Cada trimestre entrega evidência, não apenas desenvolvimento
+            interno.
+          </h2>
+          <p>
+            O plano foi estruturado para dialogar naturalmente com critérios de
+            solução, mercado, equipe, impacto e consistência da proposta.
+          </p>
+        </div>
+        <div class="validation-roadmap reveal">
+          <ol class="validation-steps">
+            <li>
+              <strong>Meses 1–3:</strong> estabilizar leitura XLSX, parser de
+              metadados, fluxo de análise local, logs e primeira demonstração
+              controlada.
+            </li>
+            <li>
+              <strong>Meses 4–6:</strong> testar com usuários beta em
+              financeiro, contabilidade e jurídico; coletar tempo economizado,
+              erros encontrados e qualidade dos relatórios.
+            </li>
+            <li>
+              <strong>Meses 7–9:</strong> amadurecer governança: aprovação
+              humana, políticas deny-first, exportação de relatórios, redaction
+              e documentação técnica.
+            </li>
+            <li>
+              <strong>Meses 10–12:</strong> consolidar versão comercial,
+              onboarding, materiais de venda, página pública de evidências e
+              plano de sustentabilidade financeira.
+            </li>
+          </ol>
+        </div>
+      </section>
+      <section
+        class="validation-section panel-section"
+        aria-labelledby="metrics-title"
+      >
+        <div class="section-kicker">// métricas de validação</div>
+        <div class="section-heading">
+          <h2 id="metrics-title" class="hack-text">
+            Métricas que tornam a inovação verificável.
+          </h2>
+          <p>
+            O AetherCore deve provar redução de tempo, redução de exposição,
+            rastreabilidade de ações, qualidade de análise e intenção de
+            pagamento.
+          </p>
+        </div>
+        <div class="validation-grid">
+          <article class="validation-card">
+            <span class="validation-card__tag">produtividade</span>
+            <h3>Tempo por relatório</h3>
+            <p>
+              Comparar análise manual versus fluxo assistido por AetherCore em
+              planilhas reais ou anonimizadas.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">mercado</span>
+            <h3>Beta qualificado</h3>
+            <p>
+              Medir reuniões, pilotos, uso recorrente, objeções e disposição de
+              pagamento por segmento.
+            </p>
+          </article>
+          <article class="validation-card">
+            <span class="validation-card__tag">técnico</span>
+            <h3>Taxa de execução rastreável</h3>
+            <p>
+              Mensurar ações executadas com logs, aprovações, artefatos gerados
+              e ausência de uplink quando não autorizado.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <img
+            alt="AetherCore"
+            height="28"
+            loading="lazy"
+            src="assets/img/iconsf.webp"
+            width="28"
+          /><span>AetherCore</span>
+        </div>
+        <p class="site-footer__copy">
+          © 2026 AetherCore. Runtime local-first. Curitiba, Brasil.
+        </p>
+        <nav class="site-footer__links" aria-label="Links institucionais">
+          <a href="principios.html">Princípios</a
+          ><a href="privacidade.html">Privacidade</a
+          ><a href="roadmap.html">Roadmap</a
+          ><a href="referencias.html">Referências</a
+          ><a href="dossie-inovacao.html">Dossiê</a>
+        </nav>
+        <div class="site-footer__meta">
+          <span>v0.1.0-pre</span><span>founder beta</span>
+        </div>
+      </div>
+    </footer>
+    <script defer src="assets/vendor/gsap.min.js"></script>
+    <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
+    <script defer src="assets/vendor/Physics2DPlugin.min.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>

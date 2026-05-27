@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#fdf7e2" />
+    <meta
+      name="description"
+      content="Entenda a arquitetura do AetherCore: compute core, pipeline, ferramentas nativas, approval layer, memória local, ledger e governança para IA corporativa."
+    />
+    <title>Arquitetura AetherCore | Runtime local-first governado</title>
+    <!-- DEPLOY_PLACEHOLDER: Substituir 'https://exvorn.tech/' pelo domínio real de produção no deploy. Cada página tem canonical próprio. -->
+    <link rel="canonical" href="https://exvorn.tech/arquitetura.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://exvorn.tech/arquitetura.html" />
+    <meta
+      property="og:title"
+      content="Arquitetura AetherCore | Runtime local-first governado"
+    />
+    <meta
+      property="og:description"
+      content="Entenda a arquitetura do AetherCore: compute core, pipeline, ferramentas nativas, approval layer, memória local, ledger e governança para IA corporativa."
+    />
+    <meta
+      property="og:image"
+      content="https://exvorn.tech/assets/img/logo-96.webp"
+    />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://exvorn.tech/arquitetura.html" />
+    <meta
+      name="twitter:title"
+      content="Arquitetura AetherCore | Runtime local-first governado"
+    />
+    <meta
+      name="twitter:description"
+      content="Entenda a arquitetura do AetherCore: compute core, pipeline, ferramentas nativas, approval layer, memória local, ledger e governança para IA corporativa."
+    />
+    <meta
+      name="twitter:image"
+      content="https://exvorn.tech/assets/img/logo-96.webp"
+    />
+    <link rel="icon" type="image/png" href="assets/img/favicon-32.png" />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" href="assets/css/main.css" as="style" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://exvorn.tech/#organization",
+            "name": "AetherCore",
+            "url": "https://exvorn.tech/",
+            "logo": "https://exvorn.tech/assets/img/logo-96.webp",
+            "publishingPrinciples": "https://exvorn.tech/principios.html",
+            "privacyPolicy": "https://exvorn.tech/privacidade.html",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Curitiba",
+              "addressRegion": "PR",
+              "addressCountry": "BR"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://exvorn.tech/#website",
+            "url": "https://exvorn.tech/",
+            "name": "AetherCore",
+            "publisher": {
+              "@id": "https://exvorn.tech/#organization"
+            }
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://exvorn.tech/#software",
+            "name": "AetherCore",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Windows, macOS, Linux",
+            "description": "IA local-first para análise de planilhas, documentos e dados sensíveis com execução auditável, aprovação humana e governança.",
+            "creator": {
+              "@id": "https://exvorn.tech/#organization"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://exvorn.tech/arquitetura.html#webpage",
+            "url": "https://exvorn.tech/arquitetura.html",
+            "name": "Arquitetura AetherCore | Runtime local-first governado",
+            "description": "Entenda a arquitetura do AetherCore: compute core, pipeline, ferramentas nativas, approval layer, memória local, ledger e governança para IA corporativa.",
+            "isPartOf": {
+              "@id": "https://exvorn.tech/#website"
+            },
+            "about": {
+              "@id": "https://exvorn.tech/#software"
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a href="#top" class="skip-link">Ir para o conteúdo principal</a>
+    <div class="boot" id="boot" aria-hidden="true">
+      <img
+        src="assets/img/iconsf.webp"
+        alt=""
+        width="192"
+        height="192"
+        fetchpriority="high"
+       loading="lazy" />
+      <div class="boot__status"><span></span></div>
+      <p>initializing governed runtime</p>
+    </div>
+    <canvas id="webgl" aria-hidden="true"></canvas>
+    <canvas id="matrix" aria-hidden="true"></canvas>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="cursor-orb" aria-hidden="true"></div>
+    <header class="nav" data-nav>
+      <a class="brand" href="index.html" aria-label="AetherCore home">
+        <img
+          class="brand__logo"
+          src="assets/img/iconsf.webp"
+          alt="AetherCore"
+          width="36"
+          height="36"
+        />
+        <span class="brand__copy"
+          ><b>AetherCore</b
+          ><span class="brand__tag">local runtime / beta</span></span
+        >
+      </a>
+      <nav class="nav__links" aria-label="Navegação principal">
+        <a href="index.html">Início</a>
+        <a href="produto.html">Produto</a>
+        <a href="arquitetura.html" aria-current="page">Arquitetura</a>
+        <a href="casos-de-uso.html">Casos</a>
+        <a href="principios.html">Princípios</a>
+        <a href="validacao-centelha.html">Validação</a>
+        <a href="faq.html">FAQ</a>
+      </nav>
+      <div class="nav__right">
+        <a class="nav__cta magnetic" href="index.html#cta"
+          ><span>Acesso antecipado</span
+          ><span class="icon" aria-hidden="true">↗</span></a
+        >
+        <button
+          class="nav__toggle"
+          id="navToggle"
+          aria-controls="navOverlay"
+          aria-label="Abrir menu de navegação"
+          aria-expanded="false"
+        >
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+          <span class="nav__toggle-line"></span>
+        </button>
+      </div>
+    </header>
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true">
+      <nav class="nav-overlay__links" aria-label="Navegação móvel">
+        <a href="index.html">Início</a>
+        <a href="produto.html">Produto</a>
+        <a href="arquitetura.html" aria-current="page">Arquitetura</a>
+        <a href="casos-de-uso.html">Casos</a>
+        <a href="principios.html">Princípios</a>
+        <a href="validacao-centelha.html">Validação</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacidade.html">Privacidade</a>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="referencias.html">Referências</a>
+        <a class="nav-overlay__cta btn btn--primary" href="index.html#cta"
+          >Acesso antecipado <span class="icon" aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </div>
+    <main id="top">
+      <section
+        class="hero panel-section page-hero"
+        aria-labelledby="hero-title"
+      >
+        <div class="hero__content">
+          <div class="eyebrow reveal"><span></span> // arquitetura</div>
+          <h1 id="hero-title" class="hero-title split-lines hack-text">
+            <span>Runtime local-first</span>
+            <span class="gradient-text">com execução governada</span>
+            <span>e trilha auditável.</span>
+          </h1>
+          <p class="lead reveal">
+            A arquitetura foi separada em página própria para descrever compute
+            core, pipeline, capacidades e status técnico sem diluir a conversão
+            da home.
+          </p>
+          <div class="hero__actions reveal">
+            <a
+              class="btn btn--primary magnetic cta-hero-beta"
+              href="index.html#cta"
+              data-sparks
+              >Solicitar acesso antecipado
+              <span class="icon" aria-hidden="true">→</span></a
+            >
+            <a class="btn btn--ghost magnetic" href="produto.html"
+              >Ver produto</a
+            >
+          </div>
+        </div>
+      </section>
+      <section
+        aria-labelledby="processor-title"
+        class="processor-section"
+        id="processor"
+      >
+        <div class="processor-sticky">
+          <div class="processor-copy">
+            <div class="section-kicker">// compute core</div>
+            <h2 class="hack-text" id="processor-title">
+              Um processador visual para uma IA que opera de verdade.
+            </h2>
+            <p>
+              O núcleo do Aether aparece como um campo vivo de execução: trilhas
+              de dados, gates, hashes, streams e estados orbitam a logo oficial
+              como se o runtime respirasse em tempo real.
+            </p>
+            <div class="processor-stats">
+              <div><b>LOCAL</b><span>default execution</span></div>
+              <div><b>ARL</b><span>human approval</span></div>
+              <div><b>LEDGER</b><span>sealed evidence</span></div>
+            </div>
+          </div>
+          <div class="processor-visual reveal" data-processor="">
+            <div
+              aria-hidden="true"
+              class="processor-core processor-core--rain"
+              id="processorCore"
+            >
+              <canvas
+                class="processor-rain processor-rain--back"
+                id="processorRainBack"
+              ></canvas>
+              <div class="processor-rain-glow"></div>
+              <span class="processor-logo-aura processor-logo-aura--a"></span>
+              <span class="processor-logo-aura processor-logo-aura--b"></span>
+              <img
+                alt=""
+                class="processor-center-logo"
+                height="96"
+                id="processorCenterLogo"
+                src="assets/img/logo-96.webp"
+                width="96"
+              />
+              <canvas
+                class="processor-rain processor-rain--front"
+                id="processorRainFront"
+              ></canvas>
+            </div>
+            <div class="chip-hud hud-a">0xA5F3 / ledger sealed</div>
+            <div class="chip-hud hud-b">uplink: explicit</div>
+            <div class="chip-hud hud-c">write:xlsx waiting</div>
+          </div>
+        </div>
+      </section>
+      <section aria-labelledby="pipeline-title" class="pipeline" id="pipeline">
+        <div class="pipeline-sticky">
+          <div class="pipeline-copy">
+            <div class="section-kicker">// execution loop</div>
+            <h2 class="hack-text" id="pipeline-title">
+              Do arquivo real ao ledger auditável.
+            </h2>
+            <p>
+              Do contexto ao artefato final, o fluxo é contínuo: planejar,
+              validar, executar e auditar acontecem na mesma superfície, com
+              feedback visual e governança em cada transição.
+            </p>
+            <div class="progress-rail"><span></span></div>
+          </div>
+          <div class="pipeline-cards" data-pipeline-cards="">
+            <div aria-hidden="true" class="pipeline-orbit">
+              <span></span><span></span><span></span>
+            </div>
+            <article class="stage-card" data-step="CONNECT">
+              <span>CONNECT</span>
+              <h3>Traga arquivos reais.</h3>
+              <p>
+                Monte um vault com PDFs, planilhas, código e notas. Antes de
+                agir, o agente lê estrutura, contexto e dependências
+                operacionais.
+              </p>
+              <code>vault.mount('/workspace')</code>
+            </article>
+            <article class="stage-card" data-step="PLAN">
+              <span>PLAN</span>
+              <h3>Transforme objetivo em plano.</h3>
+              <p>
+                O Planner expõe passos, ferramentas, dependências e possíveis
+                efeitos colaterais antes que qualquer mudança aconteça.
+              </p>
+              <code>agent.plan(goal).explain()</code>
+            </article>
+            <article class="stage-card" data-step="APPROVE">
+              <span>APPROVE</span>
+              <h3>Mantenha controles visíveis.</h3>
+              <p>
+                O ARL deixa risco, diff, escopo e permissões legíveis. Sem
+                aprovação, o gate interrompe a ação com elegância.
+              </p>
+              <code>arl.require('write:xlsx')</code>
+            </article>
+            <article class="stage-card" data-step="EXECUTE">
+              <span>EXECUTE</span>
+              <h3>Execute local, registre tudo.</h3>
+              <p>
+                Ferramentas em Rust e IPC tipado executam a tarefa, produzem
+                artefatos e selam evidência verificável no ledger.
+              </p>
+              <code>tool.run() → ledger.seal()</code>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section
+        aria-labelledby="cap-title"
+        class="capabilities cap-system panel-section"
+        id="capabilities"
+      >
+        <div class="section-kicker reveal">// capacidades</div>
+        <div class="section-heading cap-system__heading reveal">
+          <h2 class="hack-text" id="cap-title">
+            Capacidades que operam como stack.
+          </h2>
+          <p>
+            Seis camadas conectam runtime local, ferramentas nativas, memória,
+            dados, aprovação e uplink sem transformar a interface em vitrine de
+            promessas.
+          </p>
+        </div>
+        <div
+          aria-label="Mapa operacional das capacidades do AetherCore"
+          class="cap-system__shell"
+        >
+          <aside class="cap-system__brief reveal">
+            <span class="cap-system__label">operational stack</span>
+            <h3>Contexto entra. Ação sai. Evidência fica.</h3>
+            <p>
+              O AetherCore aproxima a intenção do operador dos arquivos reais,
+              mantendo cada decisão rastreável antes, durante e depois da
+              execução.
+            </p>
+            <div
+              aria-label="Fluxo base: contexto, execução e auditoria"
+              class="cap-system__flow"
+            >
+              <span>contexto</span>
+              <i></i>
+              <span>execução</span>
+              <i></i>
+              <span>auditoria</span>
+            </div>
+            <div aria-hidden="true" class="cap-system__terminal">
+              <code>runtime.mode = local_first</code>
+              <code>approval.policy = deny_first</code>
+              <code>memory.index = searchable</code>
+              <code>uplink.state = optional</code>
+            </div>
+          </aside>
+          <div class="cap-system__layers">
+            <article class="cap-card is-active reveal" tabindex="0">
+              <div class="cap-card__index"><span>01</span><b>local</b></div>
+              <div class="cap-card__body">
+                <em>runtime local</em>
+                <h3>IA local-first</h3>
+                <p>
+                  Workspace desktop que prioriza execução local de modelos e
+                  tarefas operacionais diretamente no dispositivo.
+                </p>
+                <ul>
+                  <li>execução privada</li>
+                  <li>shell local</li>
+                </ul>
+              </div>
+            </article>
+            <article class="cap-card reveal" tabindex="0">
+              <div class="cap-card__index"><span>02</span><b>audit</b></div>
+              <div class="cap-card__body">
+                <em>trilha de auditoria</em>
+                <h3>Execução auditável</h3>
+                <p>
+                  Mantenha rastreabilidade absoluta de cada arquivo lido ou
+                  alterado através de um ledger imutável.
+                </p>
+                <ul>
+                  <li>trilha de execução</li>
+                  <li>ledger selado</li>
+                </ul>
+              </div>
+            </article>
+            <article class="cap-card reveal" tabindex="0">
+              <div class="cap-card__index"><span>03</span><b>govern</b></div>
+              <div class="cap-card__body">
+                <em>governança de dados</em>
+                <h3>Governança de dados</h3>
+                <p>
+                  Controle de contexto local em SQLite com governança estrita
+                  sobre quais diretórios o agente de IA pode acessar.
+                </p>
+                <ul>
+                  <li>workspace isolado</li>
+                  <li>controle de escopo</li>
+                </ul>
+              </div>
+            </article>
+            <article class="cap-card reveal" tabindex="0">
+              <div class="cap-card__index"><span>04</span><b>xlsx</b></div>
+              <div class="cap-card__body">
+                <em>data ops</em>
+                <h3>Análise de XLSX</h3>
+                <p>
+                  Leitura e escrita de planilhas financeiras e bases complexas
+                  de forma nativa e privada no próprio runtime.
+                </p>
+                <ul>
+                  <li>xlsx nativo</li>
+                  <li>leitura estruturada</li>
+                </ul>
+              </div>
+            </article>
+            <article class="cap-card reveal" tabindex="0">
+              <div class="cap-card__index"><span>05</span><b>human</b></div>
+              <div class="cap-card__body">
+                <em>revisão humana</em>
+                <h3>Aprovação humana</h3>
+                <p>
+                  Ações sensíveis (como escrita de arquivos e conexões externas)
+                  começam bloqueadas e exigem aprovação explícita.
+                </p>
+                <ul>
+                  <li>deny-first ARL</li>
+                  <li>gate de segurança</li>
+                </ul>
+              </div>
+            </article>
+            <article class="cap-card reveal" tabindex="0">
+              <div class="cap-card__index"><span>06</span><b>uplink</b></div>
+              <div class="cap-card__body">
+                <em>extensão governada</em>
+                <h3>Uplink opcional e controlado</h3>
+                <p>
+                  Conexões à nuvem e modelos externos ocorrem sob demanda
+                  específica, com governança e consentimento do operador.
+                </p>
+                <ul>
+                  <li>conexão explícita</li>
+                  <li>segurança híbrida</li>
+                </ul>
+              </div>
+            </article>
+            <article class="cap-card reveal" tabindex="0">
+              <div class="cap-card__index"><span>07</span><b>security</b></div>
+              <div class="cap-card__body">
+                <em>segurança local</em>
+                <h3>Proteção de dados sensíveis</h3>
+                <p>
+                  Mecanismos locais de criptografia e sandbox que reduzem a
+                  exposição de relatórios e dados corporativos.
+                </p>
+                <ul>
+                  <li>segurança na borda</li>
+                  <li>dados confidenciais</li>
+                </ul>
+              </div>
+            </article>
+            <article class="cap-card reveal" tabindex="0">
+              <div class="cap-card__index"><span>08</span><b>insights</b></div>
+              <div class="cap-card__body">
+                <em>inteligência de negócios</em>
+                <h3>Relatórios inteligentes</h3>
+                <p>
+                  Tradução automática de planilhas complexas em visões
+                  estratégicas e sínteses executivas estruturadas.
+                </p>
+                <ul>
+                  <li>insights de negócio</li>
+                  <li>BI local</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section
+        aria-labelledby="status-title"
+        class="status-section panel-section"
+        id="status"
+      >
+        <div class="section-kicker reveal">// status + release notes</div>
+        <div class="section-heading reveal">
+          <h2 class="hack-text" id="status-title">
+            0.1.0-pre com trilha de entrega real.
+          </h2>
+          <p>
+            Em beta interno, o AetherCore já opera como workspace desktop
+            local-first com workspaces, sessões, documentos, Aether Agent, ARL,
+            uplinks explícitos e ferramentas nativas de BI. O foco é avançar com
+            estabilidade: entregar o que já existe, marcar o que está em beta e
+            endurecer cada camada antes de ampliar escopo.
+          </p>
+        </div>
+        <div class="timeline-container">
+          <div class="timeline-line">
+            <div class="timeline-line-glow"></div>
+          </div>
+          <div class="timeline-items">
+            <div class="timeline-item active">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">2025-12</div>
+                <div class="timeline-version">v0.0.1</div>
+                <h3>Workspaces + RAG local</h3>
+                <p>
+                  Workspaces, sessões, documentos, vault e busca local passaram
+                  a estruturar a memória operacional do produto.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">2026-03</div>
+                <div class="timeline-version">v0.0.5</div>
+                <h3>Ferramentas, permissões e sandbox</h3>
+                <p>
+                  Registry de ferramentas, modos de acesso, browser sandbox,
+                  shell, skills e agentes foram conectados a uma política de
+                  execução coerente.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">2026-04</div>
+                <div class="timeline-version">v0.0.8</div>
+                <h3>Aether Reliability Layer</h3>
+                <p>
+                  ARL consolidou deny-first, aprovação humana, trilhas JSONL,
+                  redaction de segredos e retenção configurável como camada de
+                  confiança do runtime.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">2026-05-10</div>
+                <div class="timeline-version">v0.0.9</div>
+                <h3>CEF como runtime padrão</h3>
+                <p>
+                  O desktop passou a carregar o frontend localmente via CEF,
+                  eliminando dependência de localhost e do WebView do Edge.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">2026-05-11</div>
+                <div class="timeline-version">v0.1.0-pre</div>
+                <h3>XLSX nativo no Rust</h3>
+                <p>
+                  ReadExcel e WriteExcel colocaram BI diretamente no fluxo do
+                  agente, com governança sobre escrita e alteração de artefatos.
+                </p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">Próximas janelas</div>
+                <div class="timeline-version">Roadmap</div>
+                <h3>Hardening com mensagem clara.</h3>
+                <p>
+                  Hardening do ARL, beta privado assistido e empacotamento
+                  público conservador entram como próximos passos — não como
+                  promessas infladas.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="status-note reveal">
+          <p>
+            <b>Roadmap:</b> OCR avançado, reranking, RBAC enterprise, assinatura
+            de artefatos e suites adversariais maiores entram como próximas
+            camadas — somente depois de validação técnica e hardening.
+          </p>
+        </div>
+      </section>
+      <section aria-labelledby="vision-title" class="vision" id="vision">
+        <div class="vision-inner reveal">
+          <div class="section-kicker">// visão</div>
+          <h2 class="hack-text" id="vision-title">
+            A próxima interface de trabalho não é uma conversa. É um runtime
+            governado.
+          </h2>
+          <p>
+            <span
+              >AetherCore existe para converter intenção em ação verificável.
+            </span>
+            <span
+              >Hoje, isso significa um runtime local-first com Uplink explícito
+              e aprovação visível;
+            </span>
+            <span>amanhã, evolui para uma infraestrutura híbrida </span>
+            <span>em que operações podem permanecer locais, </span>
+            <span>subir para servidores dedicados da própria AetherCore </span>
+            <span>ou usar modelos externos — </span>
+            <span
+              >tudo dentro de um fluxo cognitivo contínuo, auditável e
+              soberano.</span
+            >
+          </p>
+        </div>
+      </section>
+      <section aria-labelledby="cta-title" class="cta panel-section" id="cta">
+        <div class="cta-card reveal">
+          <div class="cta-main">
+            <div class="section-kicker">// acesso antecipado</div>
+            <h2 class="hack-text" id="cta-title">
+              Use IA sem abrir mão do controle dos seus dados.
+            </h2>
+            <p>
+              Entre na lista de acesso antecipado para validar o runtime
+              local-first e otimizar suas planilhas XLSX de forma auditável e
+              sob seu controle.
+            </p>
+            <form action="#" class="access-form" id="leadForm" method="post">
+              <label class="sr-only" for="email">Email</label>
+              <input
+                autocomplete="email"
+                id="email"
+                name="email"
+                placeholder="founder@empresa.dev"
+                required=""
+                type="email"
+              />
+              <button
+                class="magnetic cta-final-beta"
+                id="lead-form-submit"
+                type="submit"
+              >
+                Entrar na lista beta
+                <span aria-hidden="true" class="icon">↗</span>
+              </button>
+            </form>
+          </div>
+          <div class="cta-side">
+            <div><span>batch</span><b>invite only</b></div>
+            <div><span>region</span><b>Curitiba / remote</b></div>
+            <div><span>mode</span><b>local-first</b></div>
+            <div><span>guardrail</span><b>ARL approval</b></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer" role="contentinfo">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <img
+            alt="AetherCore"
+            height="28"
+            loading="lazy"
+            src="assets/img/iconsf.webp"
+            width="28"
+          />
+          <span>AetherCore</span>
+        </div>
+        <p class="site-footer__copy">
+          © 2026 AetherCore. Runtime local-first. Curitiba, Brasil.
+        </p>
+        <nav class="site-footer__links" aria-label="Links institucionais">
+          <a href="principios.html">Princípios</a>
+          <a href="privacidade.html">Privacidade</a>
+          <a href="roadmap.html">Roadmap</a>
+          <a href="referencias.html">Referências</a>
+          <a href="dossie-inovacao.html">Dossiê</a>
+        </nav>
+        <div class="site-footer__meta">
+          <span>v0.1.0-pre</span>
+          <span>founder beta</span>
+        </div>
+      </div>
+    </footer>
+    <script defer src="assets/vendor/gsap.min.js"></script>
+    <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
+    <script defer src="assets/vendor/Physics2DPlugin.min.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>
