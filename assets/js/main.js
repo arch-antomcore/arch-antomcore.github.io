@@ -972,113 +972,105 @@ function initGSAP() {
     }, 200);
   }
 
-  // 4. BI MVP (Spreadsheet Simulator)
+  // 4. BI MVP (Practical explainer)
   const mvpSteps = $$('.mvp-step');
-  const mvpSheetTitle = $('#mvp-sheet-title');
-  const mvpSheetStatus = $('#mvp-sheet-status');
-  const mvpSheetTable = $('#mvp-sheet-table');
-  const mvpInsightTitle = $('#mvp-insight-title');
-  const mvpInsightSummary = $('#mvp-insight-summary');
-  const mvpInsightList = $('#mvp-insight-list');
+  const mvpPreviewEyebrow = $('#mvp-preview-eyebrow');
+  const mvpPreviewTitle = $('#mvp-preview-title');
+  const mvpPreviewSummary = $('#mvp-preview-summary');
+  const mvpPreviewInput = $('#mvp-preview-input');
+  const mvpPreviewAction = $('#mvp-preview-action');
+  const mvpPreviewOutput = $('#mvp-preview-output');
+  const mvpPreviewPoints = $('#mvp-preview-points');
+  const mvpPreviewItems = $$('.mvp-explainer__item');
 
-  if (mvpSteps.length && mvpSheetTitle && mvpSheetStatus && mvpSheetTable && mvpInsightTitle && mvpInsightSummary && mvpInsightList) {
+  if (
+    mvpSteps.length &&
+    mvpPreviewEyebrow &&
+    mvpPreviewTitle &&
+    mvpPreviewSummary &&
+    mvpPreviewInput &&
+    mvpPreviewAction &&
+    mvpPreviewOutput &&
+    mvpPreviewPoints
+  ) {
     const data = [
       {
-        title: "OBJETIVOS_2026.XLSX",
-        status: "PRONTO // LOCAL",
-        table: `<thead><tr><th>Objetivo</th><th>Como medir</th><th>Peso</th><th>Status</th></tr></thead>
-<tbody>
-  <tr><td>Leitura local</td><td>Arquivo aberto sem upload automático</td><td>40%</td><td>Em teste</td></tr>
-  <tr><td>Paridade BI</td><td>Comparar totais com revisão manual</td><td>40%</td><td>Em teste</td></tr>
-  <tr><td>Experiência</td><td>10 dias com operadores reais</td><td>20%</td><td>Ativo</td></tr>
-</tbody>`,
-        insightTitle: "Arquivo recebido",
-        insight: "A planilha entra no workspace local e o Aether mostra o que será analisado antes de gerar qualquer saída.",
-        points: ["Abas reconhecidas", "Objetivos claros", "Riscos de envio reduzidos"]
+        eyebrow: 'Objetivo do MVP',
+        title: 'Definir o que será validado',
+        summary: 'A primeira etapa transforma a planilha em um objetivo claro, com limites de segurança visíveis desde o início.',
+        input: 'Planilhas reais e uma pergunta de negócio, como conciliação, forecast ou análise de custos.',
+        action: 'O Aether lê a estrutura no ambiente local e mostra quais dados consegue usar antes de produzir qualquer saída.',
+        output: 'Um plano simples do que será analisado, onde há risco e qual resultado pode ser entregue.',
+        points: ['Objetivo claro', 'Leitura local', 'Riscos visíveis']
       },
       {
-        title: "METRICAS_BI.XLSX",
-        status: "MEDINDO // QUALIDADE",
-        table: `<thead><tr><th>Método</th><th>Tempo</th><th>Precisão</th><th>Revisão</th></tr></thead>
-<tbody>
-  <tr><td>Revisão manual</td><td>45m</td><td>Referência</td><td>Verificada</td></tr>
-  <tr><td>Aether local</td><td>1.8s</td><td>99.6%</td><td>Comparada</td></tr>
-  <tr><td>Ajuste humano</td><td>2m</td><td>Final</td><td>Aprovada</td></tr>
-</tbody>`,
-        insightTitle: "Medição legível",
-        insight: "O preview mostra tempo economizado, diferença contra revisão manual e onde o operador ainda precisa validar.",
-        points: ["Precisão comparada", "Tempo reduzido", "Revisão humana preservada"]
+        eyebrow: 'Medição de sucesso',
+        title: 'Comparar com a rotina atual',
+        summary: 'O resultado fica entendido em termos de tempo, confiança e pontos que continuam pedindo revisão humana.',
+        input: 'Um exemplo feito do jeito atual, para servir como referência de comparação.',
+        action: 'O Aether executa a mesma leitura localmente e destaca diferenças que precisam ser conferidas.',
+        output: 'Uma visão prática do tempo economizado, da precisão percebida e do que ainda depende do operador.',
+        points: ['Tempo recuperado', 'Revisão preservada', 'Diferenças explicadas']
       },
       {
-        title: "ROTINA_TESTADORES.XLSX",
-        status: "PILOTO // 10 DIAS",
-        table: `<thead><tr><th>Perfil</th><th>Empresa</th><th>Dia</th><th>Rotina</th></tr></thead>
-<tbody>
-  <tr><td>Financeiro</td><td>Série B S/A</td><td>4/10</td><td>Conciliação bancária</td></tr>
-  <tr><td>Controladoria</td><td>Logística Ltda</td><td>9/10</td><td>Forecast trimestral</td></tr>
-  <tr><td>Diretoria</td><td>Varejo Corp</td><td>2/10</td><td>Custo operacional</td></tr>
-</tbody>`,
-        insightTitle: "Uso no mundo real",
-        insight: "A validação acompanha tarefas de rotina e registra onde a análise ajuda mais sem esconder aprovação e revisão.",
-        points: ["Cenários reais", "Feedback por perfil", "Adoção medida por tarefa"]
+        eyebrow: 'Público dos testes',
+        title: 'Testar em tarefas reais',
+        summary: 'O piloto deixa de parecer tabela de controle e passa a explicar onde o Aether ajuda no trabalho de cada pessoa.',
+        input: 'Rotinas reais de financeiro, controladoria ou direção, feitas por quem já lida com esses arquivos.',
+        action: 'O Aether acompanha onde existe atrito, quais perguntas se repetem e quais respostas viram valor.',
+        output: 'Feedback por perfil, adoção por tipo de tarefa e ajustes claros para a próxima versão.',
+        points: ['Cenários reais', 'Dor do usuário', 'Adoção compreensível']
       },
       {
-        title: "DATALAKE_LOCAL.DB",
-        status: "CRUZANDO // MULTI-XLSX",
-        table: `<thead><tr><th>Planilha</th><th>Registros</th><th>Relação</th><th>Chave</th></tr></thead>
-<tbody>
-  <tr><td>Vendas_2025</td><td>15.400 linhas</td><td>Cliente</td><td>vendas_id</td></tr>
-  <tr><td>Clientes_CRM</td><td>2.200 linhas</td><td>Cliente</td><td>crm_id</td></tr>
-  <tr><td>Metas_Anual</td><td>12 linhas</td><td>Mês/Ano</td><td>meta_id</td></tr>
-</tbody>`,
-        insightTitle: "Relações encontradas",
-        insight: "Em vez de mostrar consulta técnica, o painel explica quais planilhas conversam entre si e qual relatório pode sair dali.",
-        points: ["Cliente liga vendas ao CRM", "Metas entram por mês", "Relatório consolidado sugerido"]
+        eyebrow: 'Próximo passo',
+        title: 'Cruzar mais de uma planilha',
+        summary: 'A expansão é apresentada como uma relação entre informações, não como banco, consulta ou linguagem técnica.',
+        input: 'Planilhas que se completam, como vendas, clientes, metas e custos.',
+        action: 'O Aether identifica quais campos se conectam e explica qual história os dados podem contar juntos.',
+        output: 'Um relatório consolidado, com relações importantes e lacunas que precisam ser revisadas.',
+        points: ['Planilhas conectadas', 'Lacunas apontadas', 'Relatório sugerido']
       },
       {
-        title: "RELATORIO_OUTPUT.XLSX",
-        status: "APROVADO // SAÍDA",
-        table: `<thead><tr><th>Ação</th><th>O que muda</th><th>Aprovação</th><th>Status</th></tr></thead>
-<tbody>
-  <tr><td>Ler arquivo</td><td>Sem alteração</td><td>Permitida</td><td>Concluído</td></tr>
-  <tr><td>Salvar XLSX</td><td>Novo relatório</td><td>Operador aprovou</td><td>Pronto</td></tr>
-  <tr><td>Exportar PDF</td><td>Cópia executiva</td><td>Operador aprovou</td><td>Pronto</td></tr>
-</tbody>`,
-        insightTitle: "Saída sob controle",
-        insight: "A alteração no arquivo aparece como ação sensível, com autorização visível antes da gravação.",
-        points: ["Novo XLSX criado", "PDF opcional", "Trilha de aprovação registrada"]
+        eyebrow: 'Ferramenta entregue',
+        title: 'Gerar uma saída revisável',
+        summary: 'A entrega mostra claramente o que será criado ou alterado antes de qualquer gravação.',
+        input: 'Um arquivo que precisa virar resumo, relatório ou versão organizada.',
+        action: 'O Aether prepara a saída e pede aprovação humana quando a ação puder alterar ou salvar algo.',
+        output: 'Um arquivo ou relatório pronto para revisão, com o registro do que foi aprovado.',
+        points: ['Saída revisável', 'Aprovação antes de salvar', 'Histórico claro']
       },
       {
-        title: "VALOR_RETORNO.XLSX",
-        status: "CONCLUÍDO // DECISÃO",
-        table: `<thead><tr><th>Pilar</th><th>Antes</th><th>Com Aether</th><th>Valor final</th></tr></thead>
-<tbody>
-  <tr><td>Privacidade</td><td>Envio difícil de governar</td><td>Local-first</td><td>Exposição reduzida</td></tr>
-  <tr><td>Velocidade</td><td>Rotina manual</td><td>Automação assistida</td><td>Tempo recuperado</td></tr>
-  <tr><td>Governança</td><td>Aprovação dispersa</td><td>Gate explícito</td><td>Trilha auditável</td></tr>
-</tbody>`,
-        insightTitle: "Decisão mais clara",
-        insight: "O resultado final fala a língua do negócio: o que mudou, que risco foi reduzido e qual decisão ficou mais fácil.",
-        points: ["Resumo executivo", "Anexos prontos", "Próxima ação destacada"]
+        eyebrow: 'Por que isso importa',
+        title: 'Decidir com menos ruído',
+        summary: 'A proposta final fala de valor percebido: menos exposição, menos repetição manual e mais clareza operacional.',
+        input: 'Uma rotina recorrente em que tempo, privacidade e revisão importam.',
+        action: 'O Aether reduz trabalho repetitivo sem esconder limites, aprovações e pontos de atenção.',
+        output: 'Uma decisão mais clara sobre o que automatizar, o que manter manual e o que evoluir depois.',
+        points: ['Menos exposição', 'Menos repetição', 'Próxima ação destacada']
       }
     ];
 
     const activateStep = (idx) => {
+      const item = data[idx];
       mvpSteps.forEach((step, sIdx) => {
         step.classList.toggle('active', sIdx === idx);
       });
-      mvpSheetTitle.textContent = data[idx].title;
-      mvpSheetStatus.textContent = data[idx].status;
-      mvpSheetTable.innerHTML = data[idx].table;
-      mvpInsightTitle.textContent = data[idx].insightTitle;
-      mvpInsightSummary.textContent = data[idx].insight;
-      mvpInsightList.innerHTML = data[idx].points.map((point) => `<span>${point}</span>`).join('');
 
-      gsap.fromTo(mvpSheetTable.querySelectorAll('tbody tr'), 
-        { opacity: 0, x: -8 }, 
-        { opacity: 1, x: 0, duration: 0.3, stagger: 0.05, ease: 'power2.out' }
+      mvpPreviewEyebrow.textContent = item.eyebrow;
+      mvpPreviewTitle.textContent = item.title;
+      mvpPreviewSummary.textContent = item.summary;
+      mvpPreviewInput.textContent = item.input;
+      mvpPreviewAction.textContent = item.action;
+      mvpPreviewOutput.textContent = item.output;
+      mvpPreviewPoints.innerHTML = item.points.map((point) => `<span>${point}</span>`).join('');
+
+      gsap.fromTo(
+        [mvpPreviewEyebrow, mvpPreviewTitle, mvpPreviewSummary, ...mvpPreviewItems],
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.34, stagger: 0.04, ease: 'power2.out' }
       );
-      gsap.fromTo(mvpInsightList.querySelectorAll('span'),
+      gsap.fromTo(
+        mvpPreviewPoints.querySelectorAll('span'),
         { opacity: 0, y: 8 },
         { opacity: 1, y: 0, duration: 0.28, stagger: 0.045, ease: 'power2.out' }
       );
