@@ -24,7 +24,7 @@ Canonical domain: https://exvorn.tech/
 - https://exvorn.tech/bi-local-com-ia.html — BI local com IA
 
 ## Positioning
-IA local-first para analisar planilhas e dados sensíveis sem expor arquivos na nuvem por padrão.
+IA local-first para analisar planilhas e dados sensíveis sem upload automático para a nuvem por padrão.
 
 ## Crawler policy
 OAI-SearchBot é permitido para descoberta em busca. GPTBot e Google-Extended são bloqueados no robots.txt para reduzir uso em treinamento.

@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#fdf7e2" />
     <meta
       name="description"
-      content="Automatize rotinas internas de auditoria e compliance com processamento local, sandboxing e restrição de conexões externas."
+      content="Automatize rotinas internas de auditoria e compliance com processamento local, governança e controle de conexões externas."
     />
     <title>IA para Dados Sensíveis e Proteção de Informação | AetherCore</title>
     <!-- DEPLOY_PLACEHOLDER: Substituir 'https://exvorn.tech/' pelo domínio real de produção no deploy. Cada página tem canonical próprio. -->
@@ -28,7 +28,7 @@
     />
     <meta
       property="og:description"
-      content="Automatize rotinas internas de auditoria e compliance com processamento local, sandboxing e restrição de conexões externas."
+      content="Automatize rotinas internas de auditoria e compliance com processamento local, governança e controle de conexões externas."
     />
     <meta
       property="og:image"
@@ -46,7 +46,7 @@
     />
     <meta
       name="twitter:description"
-      content="Automatize rotinas internas de auditoria e compliance com processamento local, sandboxing e restrição de conexões externas."
+      content="Automatize rotinas internas de auditoria e compliance com processamento local, governança e controle de conexões externas."
     />
     <meta
       name="twitter:image"
@@ -106,7 +106,7 @@
             "@id": "https://exvorn.tech/ia-para-dados-sensiveis.html#webpage",
             "url": "https://exvorn.tech/ia-para-dados-sensiveis.html",
             "name": "IA para Dados Sensíveis e Proteção de Informação | AetherCore",
-            "description": "Automatize rotinas internas de auditoria e compliance com processamento local, sandboxing e restrição de conexões externas.",
+            "description": "Automatize rotinas internas de auditoria e compliance com processamento local, governança e controle de conexões externas.",
             "isPartOf": {
               "@id": "https://exvorn.tech/#website"
             },
@@ -128,7 +128,7 @@
               },
               {
                 "@type": "Question",
-                "name": "O AetherCore elimina riscos de compliance?",
+                "name": "O AetherCore reduz riscos de compliance?",
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "Nenhuma ferramenta elimina riscos sozinha. O AetherCore reduz exposição e cria mecanismos de governança que ajudam a operar com mais controle."
@@ -239,9 +239,9 @@
           </h1>
           <p class="lead reveal">
             Evite que informações críticas de clientes, dados pessoais
-            identificáveis (PII) ou segredos comerciais sejam transmitidos para
-            a nuvem. O AetherCore executa todas as rotinas de limpeza, triagem e
-            análise de forma local e hermética.
+            identificáveis (PII) ou segredos comerciais circulem sem controle em
+            serviços externos. O AetherCore prioriza rotinas de limpeza, triagem
+            e análise no ambiente local.
           </p>
           <div class="hero__actions reveal">
             <a
@@ -275,8 +275,8 @@
         <div class="trinity-grid">
           <article class="trinity-card reveal tilt-card">
             <div class="card-light"></div>
-            <span>01 / ISOLAMENTO</span>
-            <h3>Isolamento Físico</h3>
+            <span>01 / FRONTEIRA</span>
+            <h3>Fronteira Local Governada</h3>
             <p>
               Seus dados sensíveis permanecem sob a infraestrutura autorizada. O
               AetherCore reduz a exposição de dados bloqueando acessos não
@@ -298,9 +298,9 @@
             <span>03 / HYBRID</span>
             <h3>Segurança Híbrida</h3>
             <p>
-              Sempre que o agente precisar interagir com modelos baseados em
-              nuvem, ele requer aprovação explícita e realiza ofuscação prévia
-              dos metadados sensíveis.
+              Quando o agente precisar interagir com modelos baseados em nuvem,
+              o Uplink Gate exige aprovação explícita e aplica ofuscação antes
+              do envio autorizado.
             </p>
           </article>
         </div>
@@ -331,8 +331,8 @@
             2. A IA executa uma rotina local que detecta e substitui e-mails,
             tokens e hashes de senhas por identificadores anônimos
             (`REDACTED`).<br />
-            3. O runtime gera o arquivo limpo `CLEAN_ERROR.LOG` de forma
-            totalmente offline.<br />
+            3. O runtime gera o arquivo limpo `CLEAN_ERROR.LOG` no ambiente
+            local governado.<br />
             4. O ARL (Approval Layer) registra a operação no ledger de
             conformidade, fornecendo uma trilha auditável de execução da
             higienização.
@@ -362,9 +362,9 @@
             <div class="faq-answer">
               <p>
                 O processamento é feito local-first. As bibliotecas internas em
-                Rust varrem os arquivos antes de qualquer inferência de modelo,
-                garantindo que o controle da informação permaneça no próprio
-                dispositivo do usuário.
+                Rust varrem os arquivos antes de inferências de modelo para
+                manter o controle da informação no dispositivo do usuário sempre
+                que o fluxo puder ser resolvido localmente.
               </p>
             </div>
           </details>

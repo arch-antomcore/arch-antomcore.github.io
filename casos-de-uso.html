@@ -256,12 +256,12 @@
                 <p>
                   O AetherCore atua como uma infraestrutura em Rust para
                   hospedar IA local-first, executar ferramentas nativas, navegar
-                  em sandbox e acionar uplinks externos apenas quando o operador
-                  decide.
+                  em ambiente controlado e acionar uplinks externos apenas
+                  quando o operador decide.
                 </p>
                 <ul>
                   <li>runtime em Rust</li>
-                  <li>browser sandbox</li>
+                  <li>browser governado</li>
                   <li>uplink explícito</li>
                 </ul>
               </article>
@@ -327,8 +327,7 @@
                   Apenas responde a perguntas textuais em formato de diálogo.
                 </td>
                 <td class="highlight-cell">
-                  Executa tarefas complexas em sandbox usando ferramentas
-                  nativas.
+                  Executa tarefas complexas com ferramentas nativas governadas.
                 </td>
               </tr>
               <tr>
@@ -346,24 +345,25 @@
                 <td>Baixa transparência de ações executadas sob o capô.</td>
                 <td class="highlight-cell">
                   Gera uma <strong>trilha auditável de execução</strong> com
-                  selo criptográfico local.
+                  registro local de auditoria.
                 </td>
               </tr>
               <tr>
                 <td><strong>Governança</strong></td>
                 <td>
-                  Roda instruções diretamente, sem barreiras de conformidade.
+                  Roda instruções diretamente, sem camada visível de aprovação.
                 </td>
                 <td class="highlight-cell">
-                  Garante controle rígido com
-                  <strong>aprovação humana</strong> para qualquer escrita ou
-                  uplink.
+                  Opera com controle explícito e
+                  <strong>aprovação humana</strong> para escritas, alterações
+                  relevantes e uplinks.
                 </td>
               </tr>
               <tr>
                 <td><strong>Conectividade</strong></td>
                 <td>
-                  Totalmente inoperante na ausência de conexão ativa à nuvem.
+                  Pode depender de conexão ativa à nuvem para manter a
+                  experiência.
                 </td>
                 <td class="highlight-cell">
                   Mantém <strong>uplink opcional e governado</strong> apenas sob
@@ -430,7 +430,8 @@
             <h3>Consultorias &amp; Times de Dados</h3>
             <p>
               Extraia insights estratégicos de múltiplos arquivos corporativos
-              de forma veloz e offline, respeitando NDAs corporativos.
+              com execução local-first e trilha auditável, respeitando NDAs
+              corporativos.
             </p>
             <a class="audience-card__link" href="bi-local-com-ia.html"
               >Ver mais sobre BI local →</a
@@ -482,8 +483,8 @@
             ><span>// BI</span>
             <h3>BI local com IA</h3>
             <p>
-              Relatórios estruturados offline para times que precisam de
-              velocidade e controle.
+              Relatórios locais governados para times que precisam de velocidade
+              e controle.
             </p></a
           >
         </div>
