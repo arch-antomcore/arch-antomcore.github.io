@@ -2414,10 +2414,11 @@ html { scroll-padding-top: 118px; }
   .stack-card { width: 188px; min-height: 134px; }
   .stack-card img { height: 42px; }
   .aether-slider--photos .aether-slide { min-height: 310px; }
-  .dev-stack__grid { padding: 28px 16px; gap: 18px; border-radius: 24px; }
-  .dev-stack__row { gap: 14px 20px; }
+  .dev-stack__carousel { gap: 12px; }
+  .dev-stack__viewport { padding: 6px 0; }
+  .dev-stack__group { gap: 12px; }
   .dev-stack__item { padding: 8px 14px; gap: 8px; border-radius: 10px; }
-  .dev-stack__item img { width: 28px; height: 28px; }
+  .dev-stack__item img { width: 24px; height: 24px; }
   .dev-stack__item span { font-size: 11px; }
   .dev-stack__credit { text-align: left; font-size: 9px; }
   .dev-stack { padding-bottom: 48px; }
