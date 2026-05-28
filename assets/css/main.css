@@ -2250,6 +2250,73 @@ html { scroll-padding-top: 118px; }
   to { transform: translateX(-50%); }
 }
 
+/* === DEV STACK — technology grid (arquitetura.html) === */
+.dev-stack {
+  padding-bottom: 80px;
+}
+.dev-stack .section-heading {
+  margin-bottom: 48px;
+}
+.dev-stack__grid {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 48px 32px;
+  background: var(--panel-strong);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.dev-stack__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px 48px;
+}
+.dev-stack__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid var(--line);
+  transition: transform var(--motion-fast), box-shadow var(--motion-fast), border-color var(--motion-fast);
+  cursor: default;
+}
+.dev-stack__item:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(42,37,27,.08), 0 2px 6px rgba(124,58,237,.06);
+  border-color: var(--line-2);
+}
+.dev-stack__item img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+.dev-stack__item span {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: .04em;
+  color: var(--text);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.dev-stack__credit {
+  max-width: 760px;
+  margin: 28px auto 0;
+  color: var(--dim);
+  font: 10px/1.7 var(--mono);
+  letter-spacing: .08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .interface-gallery .section-heading p { max-width: 780px; }
 .aether-slider--photos {
   min-height: 640px;
@@ -2347,6 +2414,13 @@ html { scroll-padding-top: 118px; }
   .stack-card { width: 188px; min-height: 134px; }
   .stack-card img { height: 42px; }
   .aether-slider--photos .aether-slide { min-height: 310px; }
+  .dev-stack__grid { padding: 28px 16px; gap: 18px; border-radius: 24px; }
+  .dev-stack__row { gap: 14px 20px; }
+  .dev-stack__item { padding: 8px 14px; gap: 8px; border-radius: 10px; }
+  .dev-stack__item img { width: 28px; height: 28px; }
+  .dev-stack__item span { font-size: 11px; }
+  .dev-stack__credit { text-align: left; font-size: 9px; }
+  .dev-stack { padding-bottom: 48px; }
 }
 
 /* BUILD 10 — copy cleanup + responsive guardrails */
