@@ -28,5 +28,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add frontend/public/data/leak-stats.json build/data/leak-stats.json docs/data/leak-stats.json
-          git commit -m "chore(data): auto-update global leak stats from HIBP" || echo "No changes to commit"
+          git commit -m "chore(data): auto-update global leak stats from HIBP [skip ci]" || echo "No changes to commit"
           git push
