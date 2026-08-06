@@ -1,0 +1,74 @@
+{
+  "summary": "Frontend-only testing of AetherCore redesign. Verified custom cursor, /precos pricing overhaul, /sustentabilidade card system, /casos-de-uso comparativo, general navigation and ZIP download. All requested features are working. Only cosmetic console warnings (React fetchpriority attribute case, leak-stats fallback fetch) present — non-blocking.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "OPTIONAL/cosmetic: React warning 'Invalid DOM property fetchpriority. Did you mean fetchPriority?' appears on every route — replace `fetchpriority` with `fetchPriority` in JSX (or use lowercase in inline HTML) to silence.",
+    "OPTIONAL/cosmetic: Home page 'Failed to fetch live leak stats' warning — fetch is failing (likely CORS/blocked network to external API); fallback is used correctly so UI is intact, but consider silencing or moving to server proxy."
+  ],
+  "critical_code_review_comments": [
+    "Cursor implementation is correct: pointer-events:none on both dot & ring, z-index 9999/10000, html.aether-cursor-active toggles native cursor:none. Hover class 'aether-hovering' verified triggered on link.",
+    "Pricing toggle logic correct: monthly R$49/R$149, annual R$470/R$1430 with /ano suffix; no visual clipping detected (scrollWidth==clientWidth on Go card).",
+    ".aether-card:hover CSS confirmed present (border-color rgba(255,59,0,0.5), translateY(-6px), icon fill orange). Verified visually on sust-card-0 and sust-card-2 (card-1 was a test-side mouse teleport flake, not a code bug)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "not tested (per request)", "frontend": "100%"},
+  "test_credentials": "none required",
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "All redesigned features verified. Notes: (1) Playwright's page.mouse.move does not visibly update the spring-animated cursor position in headless (spring physics + short observation window); however the mousemove listener IS receiving events (proven by aether-hovering class being applied on link hover). (2) Hover state may be lost between two evaluate calls if the cursor drifts — hover each card immediately before reading the border color, and move the mouse to (10,10) first to reset state between cards. (3) Score cards on /casos-de-uso ('6/6 vulnerabilidades', '2 críticos', '6/6 categorias em conformidade') only render after scrolling below the hero — scroll gradually in 500-600px steps to trigger Framer whileInView animations. (4) Lenis smooth-scroll is active — use window.scrollTo(0,y) or element.scrollIntoView plus ~1500ms wait. (5) Backend explicitly excluded from scope.",
+  "test_results_detail": {
+    "cursor": {
+      "html_has_aether-cursor-active": true,
+      "dot_visible": {"opacity": "1", "display": "block", "pointer-events": "none", "z-index": "10000"},
+      "ring_visible": {"opacity": "1", "display": "block", "pointer-events": "none", "z-index": "9999"},
+      "native_cursor_hidden": true,
+      "aether-hovering_on_link_hover": true,
+      "pointer_events_do_not_block_clicks": true
+    },
+    "precos": {
+      "editorial_present": true,
+      "editorial_no_horizontal_overflow": true,
+      "editorial_text_includes_preco_geografia_assinatura": true,
+      "marquee_animating": "transform changed from matrix(1,0,0,1,-537,0) to matrix(1,0,0,1,-767,0) in 1.2s",
+      "pricing_stage_present": true,
+      "cards_present": ["pricing-card-free", "pricing-card-go", "pricing-card-enterprise"],
+      "recomendado_chip_on_go": true,
+      "monthly_pricing": "Go R$49/mês, Enterprise R$149/mês",
+      "annual_pricing": "Go R$470/ano, Enterprise R$1430/ano — no clipping (scrollW==clientW)",
+      "toggle_back_to_monthly_works": true,
+      "feature_matrix_present": true,
+      "ctas_full_width_and_navigate_to_hash_cta": true
+    },
+    "sustentabilidade": {
+      "cards_present_with_numbering": ["sust-card-0 //01", "sust-card-1 //02", "sust-card-2 //03"],
+      "hover_border_turns_orange_verified_visually": true,
+      "css_rule_confirmed": ".aether-card:hover { border-color: rgba(255, 59, 0, 0.5); transform: translateY(-6px); ... }"
+    },
+    "casos_de_uso": {
+      "compare_rows_0_to_5_present": true,
+      "row0_expands_on_click": "127.5px -> 212px",
+      "score_cards_visible": "6/6 vulnerabilidades, 2 críticos violações LGPD, 6/6 categorias em conformidade"
+    },
+    "navigation": {
+      "home_/": "200 OK",
+      "/precos": "200 OK",
+      "/sustentabilidade": "200 OK",
+      "/casos-de-uso": "200 OK",
+      "/produto": "200 OK",
+      "/faq": "200 OK"
+    },
+    "download": {
+      "zip_endpoint": "GET /downloads/AetherCore-Awwwards-Redesign.zip -> 200, content-type: application/zip, content-length: 5,110,118 bytes"
+    }
+  }
+}

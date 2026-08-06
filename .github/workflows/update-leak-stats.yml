@@ -1,0 +1,32 @@
+name: Update Leak Stats
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Every hour
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Fetch and update leak stats
+        run: node frontend/scripts/update-leak-stats.js
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add frontend/public/data/leak-stats.json build/data/leak-stats.json docs/data/leak-stats.json
+          git commit -m "chore(data): auto-update global leak stats from HIBP" || echo "No changes to commit"
+          git push

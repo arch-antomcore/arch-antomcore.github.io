@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#181512" media="(prefers-color-scheme: dark)" />
+        <meta name="description" content="AetherCore — IA local-first em formato de agente para arquivos e tarefas sensíveis. Execução governada, aprovação humana e trilha auditável." />
+        
+        <!-- SEO OpenGraph Meta Tags -->
+        <meta name="title" content="AetherCore | IA local agente para arquivos e tarefas sensíveis" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://aethercore.com" />
+        <meta property="og:title" content="AetherCore | IA local agente para arquivos e tarefas sensíveis" />
+        <meta property="og:description" content="AetherCore — IA local-first em formato de agente para arquivos e tarefas sensíveis. Execução governada, aprovação humana e trilha auditável." />
+        <meta property="og:image" content="https://aethercore.com/logo-aether.png" />
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:title" content="AetherCore | IA local agente para arquivos e tarefas sensíveis" />
+        <meta property="twitter:description" content="AetherCore — IA local-first em formato de agente para arquivos e tarefas sensíveis. Execução governada, aprovação humana e trilha auditável." />
+        <meta property="twitter:image" content="https://aethercore.com/logo-aether.png" />
+
+        <!-- Resource Hints and Prefetches -->
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="https://api.fontshare.com" />
+        
+        <!-- Dynamic High-Contrast Browser Window Favicons -->
+        <link rel="icon" id="dynamic-favicon" type="image/png" href="%PUBLIC_URL%/favicon-32.png" />
+        <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-light.png" media="(prefers-color-scheme: dark)" />
+        <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-32.png" media="(prefers-color-scheme: light)" />
+        <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
+        <script>
+            (function() {
+                function updateFavicon() {
+                    var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    var favicon = document.getElementById('dynamic-favicon');
+                    if (favicon) {
+                        favicon.href = isDark ? '%PUBLIC_URL%/favicon-light.png' : '%PUBLIC_URL%/favicon-32.png';
+                    }
+                }
+                updateFavicon();
+                if (window.matchMedia) {
+                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
+                }
+            })();
+        </script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+        <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+        <!--
+        manifest.json provides metadata used when your web app is installed on a
+        user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+        -->
+        <!--
+        Notice the use of %PUBLIC_URL% in the tags above.
+        It will be replaced with the URL of the `public` folder during the build.
+        Only files inside the `public` folder can be referenced from the HTML.
+
+        Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+        work correctly both with client-side routing and a non-root public URL.
+        Learn how to configure a non-root public URL by running `npm run build`.
+        -->
+        <title>AetherCore | IA local agente para arquivos e tarefas sensíveis</title>
+        <script>
+            window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);
+        </script>
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root"></div>
+        <script>
+            // Global crash catcher — shows the error instead of a blank screen
+            (function(){
+                var shown = false;
+                function showCrash(msg) {
+                    if (shown) return;
+                    shown = true;
+                    var root = document.getElementById('root');
+                    if (root && !root.innerHTML.trim()) {
+                        root.innerHTML =
+                            '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f1e8;padding:2rem">' +
+                            '<div style="max-width:480px;text-align:center;font-family:system-ui,sans-serif">' +
+                            '<h1 style="font-size:1.5rem;color:#211d18;margin-bottom:1rem">Ops — algo deu errado</h1>' +
+                            '<p style="color:#666;margin-bottom:1.5rem;font-size:0.875rem">Se você usa o <strong>Brave</strong>, desative o Brave Shields para este site clicando no ícone do leão na barra de endereço.</p>' +
+                            '<pre style="background:#211d18;color:#f87171;padding:1rem;border-radius:12px;font-size:0.75rem;text-align:left;overflow:auto;max-height:200px">' + msg + '</pre>' +
+                            '<button onclick="location.reload()" style="margin-top:1.5rem;padding:0.6rem 1.5rem;border-radius:999px;border:1px solid #211d18;background:#211d18;color:#f4f1e8;cursor:pointer;font-size:0.875rem">Recarregar</button>' +
+                            '</div></div>';
+                    }
+                }
+                window.addEventListener('error', function(e) {
+                    if (e.error && e.error instanceof DOMException && e.error.name === 'DataCloneError') return;
+                    setTimeout(function(){ showCrash(e.message || 'Unknown error'); }, 500);
+                });
+                window.addEventListener('unhandledrejection', function(e) {
+                    var msg = e.reason ? (e.reason.message || String(e.reason)) : 'Chunk load failed';
+                    setTimeout(function(){ showCrash(msg); }, 500);
+                });
+            })();
+        </script>
+        <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+        
+        <script>
+            // Analytics loads after first paint/idle and is skipped on data-saver connections.
+            (function () {
+                var saveData = navigator.connection && navigator.connection.saveData;
+                if (saveData) return;
+                var loadAnalytics = function () {
+                    !(function (t, e) {
+                        var o, n, p, r;
+                        e.__SV ||
+                            ((window.posthog = e),
+                            (e._i = []),
+                            (e.init = function (i, s, a) {
+                                function g(t, e) {
+                                    var o = e.split(".");
+                                    2 == o.length && ((t = t[o[0]]), (e = o[1])),
+                                        (t[e] = function () {
+                                            t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
+                                        });
+                                }
+                                ((p = t.createElement("script")).type = "text/javascript"),
+                                    (p.crossOrigin = "anonymous"),
+                                    (p.async = !0),
+                                    (p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js"),
+                                    (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r);
+                                var u = e;
+                                for (
+                                    void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
+                                        u.people = u.people || [],
+                                        u.toString = function (t) {
+                                            var e = "posthog";
+                                            return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e;
+                                        },
+                                        u.people.toString = function () {
+                                            return u.toString(1) + ".people (stub)";
+                                        },
+                                        o = "init capture identify reset opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_distinct_id".split(" "),
+                                        n = 0;
+                                    n < o.length;
+                                    n++
+                                )
+                                    g(u, o[n]);
+                                e._i.push([i, s, a]);
+                            }),
+                            (e.__SV = 1));
+                    })(document, window.posthog || []);
+                    posthog.init("phc_xAvL2Iq4tFmANRE7kzbKwaSqp1HJjN7x48s3vr0CMjs", {
+                        api_host: "https://us.i.posthog.com",
+                        person_profiles: "identified_only",
+                        session_recording: false,
+                        capture_pageview: true,
+                    });
+                };
+                if ("requestIdleCallback" in window) {
+                    requestIdleCallback(loadAnalytics, { timeout: 3500 });
+                } else {
+                    setTimeout(loadAnalytics, 2500);
+                }
+            })();
+        </script>
+    </body>
+</html>

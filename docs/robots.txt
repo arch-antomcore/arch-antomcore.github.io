@@ -1,0 +1,10 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Exclude private build/chunks and logs
+Disallow: /static/
+Disallow: /build/
+
+# Sitemap
+Sitemap: https://aethercore.com/sitemap.xml
