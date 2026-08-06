@@ -44,7 +44,7 @@ const ComparisonRow = ({ row, index, language }) => {
         </div>
 
         {/* Cloud Column */}
-        <div className="md:col-span-4.5 md:col-start-4.5 pr-0 md:pr-4">
+        <div className="md:col-span-4 md:col-start-4 pr-0 md:pr-4">
           <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#211d18]/35 block mb-1.5">
             // {language === "en" ? "CLOUD CHATBOT" : "CHATBOT NA NUVEM"}
           </span>
@@ -55,7 +55,7 @@ const ComparisonRow = ({ row, index, language }) => {
         </div>
 
         {/* AetherCore Column */}
-        <div className="md:col-span-5 md:col-start-9 pl-0 md:pl-4">
+        <div className="md:col-span-5 md:col-start-8 pl-0 md:pl-4">
           <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#A34A33]/80 block mb-1.5 font-semibold">
             // {language === "en" ? "AETHERCORE LOCAL-FIRST" : "AETHERCORE LOCAL-FIRST"}
           </span>
@@ -149,12 +149,12 @@ const ComparisonLegend = ({ language }) => (
           {language === "en" ? "Category" : "Categoria"}
         </span>
       </div>
-      <div className="md:col-span-4.5 md:col-start-4.5">
+      <div className="md:col-span-4 md:col-start-4">
         <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#211d18]/40 font-semibold">
           {language === "en" ? "Cloud Chatbots" : "Chatbots Comuns na Nuvem"}
         </span>
       </div>
-      <div className="md:col-span-5 md:col-start-9 pl-4">
+      <div className="md:col-span-5 md:col-start-8 pl-4">
         <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#A34A33] font-bold">
           AetherCore Local-First
         </span>
