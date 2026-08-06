@@ -8,7 +8,7 @@ export const BLOG_POSTS = [
     version: "v0.6.0",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "15 de Julho de 2026",
     dateEn: "July 15, 2026",
@@ -58,7 +58,7 @@ AetherCore Hub acts as your control cockpit, while Quintessence serves as your h
     version: "v0.5.4",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "15 de Julho de 2026",
     dateEn: "July 15, 2026",
@@ -106,7 +106,7 @@ All audit logs now record cryptographic hashes of file states before and after e
     version: "v0.5.3",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "07 de Julho de 2026",
     dateEn: "July 7, 2026",
@@ -148,7 +148,7 @@ Not all actions require the overhead of a large language model. We introduced de
     version: "v0.5.2",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "07 de Julho de 2026",
     dateEn: "July 7, 2026",
@@ -186,7 +186,7 @@ We have submitted our project to the **Centelha 3 SP Innovation Program** (partn
     version: "v0.5.1",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "06 de Julho de 2026",
     dateEn: "July 6, 2026",
@@ -260,7 +260,7 @@ In alignment with our privacy pillars, we implemented a clear interruption polic
     version: "v0.5.0",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "05 de Julho de 2026",
     dateEn: "July 5, 2026",
@@ -318,7 +318,7 @@ Released the **Memory Kernel**, moving past basic file attachments to implement 
     version: "v0.4.9",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "04 de Julho de 2026",
     dateEn: "July 4, 2026",
@@ -360,7 +360,7 @@ Executed a deep architectural refactoring in the core workspace package (\`turn_
     version: "v0.4.8",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "03 de Julho de 2026",
     dateEn: "July 3, 2026",
@@ -404,7 +404,7 @@ Executed a deep architectural refactoring in the core workspace package (\`turn_
     version: "v0.4.7",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "02 de Julho de 2026",
     dateEn: "July 2, 2026",
@@ -448,7 +448,7 @@ Ran end-to-end smoke checks on active LLMs:
     version: "v0.4.5",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "29 de Junho de 2026",
     dateEn: "June 29, 2026",
@@ -478,7 +478,7 @@ In this release, we optimized the startup speed of AetherCore on local machines:
     version: "v0.4.4",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "28 de Junho de 2026",
     dateEn: "June 28, 2026",
@@ -518,7 +518,7 @@ We executed a logical audit on the agent task reporting channel:
     version: "v0.4.3",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "27 de Junho de 2026",
     dateEn: "June 27, 2026",
@@ -558,7 +558,7 @@ We centralized desktop tool permissions inside the Rust Kernel at \`rust/crates/
     version: "v0.4.2",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "26 de Junho de 2026",
     dateEn: "June 26, 2026",
@@ -592,7 +592,7 @@ Integrated the **IBM Granite 3.3 8B** (\`granite3.3:8b\`) model as the local **A
     version: "v0.4.1",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "25 de Junho de 2026",
     dateEn: "June 25, 2026",
@@ -628,7 +628,7 @@ Officially designated the low-level Rust execution engine as the **Aether Runtim
     version: "v0.4.0",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "17 de Junho de 2026",
     dateEn: "June 17, 2026",
@@ -696,7 +696,7 @@ We polished the entire interface copy to present a cohesive localized demonstrat
     version: "v0.3.9",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "30 de Maio de 2026",
     dateEn: "May 30, 2026",
@@ -738,7 +738,7 @@ The new interface keeps the premium direction while becoming more operational: l
     version: "v0.3.8",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "08 de Maio de 2026",
     dateEn: "May 8, 2026",
@@ -780,7 +780,7 @@ This step brings AetherCore closer to the core product idea: local models such a
     version: "v0.3.7",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "15 de Abril de 2026",
     dateEn: "April 15, 2026",
@@ -822,7 +822,7 @@ Desktop tools are centralized in \`rust/crates/tools/src/lib.rs\`, including fil
     version: "v0.3.6",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "20 de Março de 2026",
     dateEn: "March 20, 2026",
@@ -864,7 +864,7 @@ This cleanup does not block future models. It simply freezes the current path in
     version: "v0.3.5",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "28 de Fevereiro de 2026",
     dateEn: "February 28, 2026",
@@ -906,7 +906,7 @@ This release does not replace the main AetherCore interface. It improves the aux
     version: "v0.3.2",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "05 de Fevereiro de 2026",
     dateEn: "February 5, 2026",
@@ -958,7 +958,7 @@ We restored and guaranteed the integrity of the interactive home menu ("hub") de
     version: "v0.3.1",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "10 de Janeiro de 2026",
     dateEn: "January 10, 2026",
@@ -1002,7 +1002,7 @@ This workflow prevents configuration drift in future releases and maintains full
     version: "v0.3.0-beta",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "18 de Dezembro de 2025",
     dateEn: "December 18, 2025",
@@ -1046,7 +1046,7 @@ This optimization accelerated local inference speed by over 10x by running entir
     version: "v0.3.0",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "28 de Novembro de 2025",
     dateEn: "November 28, 2025",
@@ -1110,7 +1110,7 @@ Status queries are now instantaneous and deeply integrated:
     version: "v0.2.1",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "05 de Novembro de 2025",
     readTime: "3 min read",
@@ -1129,7 +1129,7 @@ Para garantir que informações confidenciais corporativas e metadados de projet
     version: "v0.2.0",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "12 de Outubro de 2025",
     readTime: "2 min read",
@@ -1148,7 +1148,7 @@ Aprimoramos o armazenamento e a consistência no carregamento de modelos de inte
     version: "v0.1.8",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "20 de Setembro de 2025",
     readTime: "4 min read",
@@ -1166,7 +1166,7 @@ O módulo de planejamento do agente Aether foi evoluído para suportar uma estru
     version: "v0.1.7",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "30 de Agosto de 2025",
     readTime: "3 min read",
@@ -1192,7 +1192,7 @@ Refinamos a capacidade do agente de lidar com planilhas corporativas complexas s
     version: "v0.1.6",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "15 de Agosto de 2025",
     readTime: "3 min read",
@@ -1211,7 +1211,7 @@ Incorporamos motores de altíssima performance para planilhas locais diretamente
     version: "v0.1.5",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "25 de Julho de 2025",
     readTime: "3 min read",
@@ -1229,7 +1229,7 @@ Promovemos o Chromium Embedded Framework (CEF) a WebView padrão para visualiza�
     version: "v0.1.4",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "05 de Julho de 2025",
     readTime: "2 min read",
@@ -1247,7 +1247,7 @@ Polimos o site de divulgação e a interface nativa para refletir a nova direç�
     version: "v0.1.3",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "18 de Junho de 2025",
     readTime: "3 min read",
@@ -1265,7 +1265,7 @@ Desenvolvemos um módulo nativo standalone para interações seguras através de
     version: "v0.1.2",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "30 de Maio de 2025",
     readTime: "3 min read",
@@ -1283,7 +1283,7 @@ Consolidamos o primeiro ciclo estável do AetherCore agregando o WebView isolado
     version: "v0.1.1",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "12 de Maio de 2025",
     readTime: "4 min read",
@@ -1302,7 +1302,7 @@ Desenvolvemos a Aether Reliability Layer (ARL), responsável por proteger o usu�
     version: "v0.1.0",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "25 de Abril de 2025",
     readTime: "3 min read",
@@ -1321,7 +1321,7 @@ Aplicamos regras rígidas de segurança para blindar o ambiente local contra ace
     version: "v0.0.9",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "08 de Abril de 2025",
     readTime: "2 min read",
@@ -1339,7 +1339,7 @@ Concluímos um catálogo completo mapeando de forma estruturada as ferramentas e
     version: "v0.0.8",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "20 de Março de 2025",
     readTime: "3 min read",
@@ -1357,7 +1357,7 @@ Rodamos uma auditoria interna com foco na segurança física dos dados locais do
     version: "v0.0.7",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "03 de Março de 2025",
     readTime: "2 min read",
@@ -1376,7 +1376,7 @@ Aprimoramos as interações do usuário com a interface gráfica do AetherCore:
     version: "v0.0.6",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "10 de Fevereiro de 2025",
     readTime: "3 min read",
@@ -1395,7 +1395,7 @@ Criamos os três principais perfis de comportamento que ditam a autonomia do age
     version: "v0.0.5",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "22 de Janeiro de 2025",
     readTime: "3 min read",
@@ -1414,7 +1414,7 @@ Introduzimos a camada de extensibilidade dinâmica que permite customizar o comp
     version: "v0.0.4",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "05 de Janeiro de 2025",
     readTime: "3 min read",
@@ -1432,7 +1432,7 @@ Habilitamos a fundação de workspaces locais para processamento governado de da
     version: "v0.0.3",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "15 de Dezembro de 2024",
     readTime: "2 min read",
@@ -1450,7 +1450,7 @@ Definimos com clareza o roteamento de processamento do assistente:
     version: "v0.0.2",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "28 de Novembro de 2024",
     readTime: "3 min read",
@@ -1468,7 +1468,7 @@ Garantimos que o fluxo de conversas e prompts não sofra vazamentos cruzados:
     version: "v0.0.1",
     author: {
       name: "Matheus Peres",
-      avatar: "/founder.jfif",
+      avatar: "/founder.jpg",
     },
     date: "10 de Novembro de 2024",
     readTime: "2 min read",

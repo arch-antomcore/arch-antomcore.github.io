@@ -161,7 +161,7 @@ const FounderMessage = () => {
               <div className="flex items-center gap-4">
                 <div className="relative">
                   <img
-                    src="/founder.jfif"
+                    src="/founder.jpg"
                     alt="Matheus Peres da Silva"
                     loading="lazy"
                     decoding="async"

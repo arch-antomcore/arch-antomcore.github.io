@@ -116,7 +116,7 @@ const CtaSection = () => {
               {/* Founder avatar + micro-bio */}
               <div className="mt-10 flex max-w-xl items-center gap-4">
                 <img
-                  src="/founder.jfif"
+                  src="/founder.jpg"
                   alt="Matheus Peres"
                   className="h-12 w-12 rounded-full border-2 border-[#f7f4ec]/20 object-cover"
                 />
