@@ -74,8 +74,8 @@ async function updateStats() {
 
     console.log(`Total PwnCount: ${totalPwnCount}`);
   } catch (error) {
-    console.error('Error updating leak stats:', error);
-    process.exit(1);
+    console.warn('Warning: Could not update leak stats from HIBP API (using cached data):', error.message || error);
+    process.exit(0);
   }
 }
 
