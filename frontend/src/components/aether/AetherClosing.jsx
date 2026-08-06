@@ -106,7 +106,7 @@ const AetherClosing = () => {
         <div className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-4 pt-8 border-t border-[#211d18]/10">
           {[
             { k: "N°", v: "00.04" },
-            { k: language === "pt" ? "REV" : "REV", v: "v0.5.1" },
+            { k: language === "pt" ? "REV" : "REV", v: "v0.6.0" },
             { k: language === "pt" ? "ANO" : "YEAR", v: "MMXXVI" },
             { k: language === "pt" ? "STATUS" : "STATUS", v: language === "pt" ? "AO VIVO" : "LIVE" },
           ].map((m) => (

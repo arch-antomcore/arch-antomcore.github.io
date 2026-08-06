@@ -1,5 +1,5 @@
 // Bilíngue (PT/EN) - Estruturado para o pitch do Programa Centelha Paraná.
-// Versão do produto atualizada para v0.5.1 em conformidade com o Blog.
+// A versão do produto definida aqui deve refletir sempre a versão mais recente anunciada na área de Blog. O Blog é a fonte da verdade.
 // Narrativa histórica de desenvolvimento ampliada para 19 meses de P&D prévio.
 
 export const STACK = [
@@ -22,7 +22,7 @@ export const STACK = [
 export const CONTENT_PT = {
   BRAND: {
     name: "AetherCore",
-    version: "v0.5.1 · beta",
+    version: "v0.6.0 · beta",
     tagline: "IA local / beta",
     copyright: "© 2026 AetherCore. IA local-first. Curitiba, Brasil.",
   },
@@ -41,11 +41,11 @@ export const CONTENT_PT = {
   ],
   FOOTER_LINKS: [],
   HOME: {
-    badge: "v0.5.1 · beta",
+    badge: "v0.6.0 · beta",
     heroStatus: "Sistema local · acesso completo",
     aether: {
       eyebrow: "Plataforma de Agentes Autônomos",
-      eyebrowRight: "EST. 2025 — v0.5.1",
+      eyebrowRight: "EST. 2025 — v0.6.0",
       headline: { l1: "Além da", l2: "Automação.", l3a: "Pura", l3b: "Cognição" },
       sub: "O AetherCore substitui fluxos rígidos por um sistema nervoso de IA local — que pensa, se adapta e executa na velocidade da sua ambição. Nada sai do seu dispositivo sem você saber.",
       consoleLabel: "Console AetherCore",
@@ -265,7 +265,7 @@ export const CONTENT_PT = {
       { n: "08", tag: "insights", t: "Relatórios automáticos", d: "Planilhas complexas viram resumos executivos e análises prontas, igual às IAs de nuvem." },
     ],
     releaseKicker: "status + release notes",
-    releaseTitle: "v0.5.1 — capability guards & resolução de modelos.",
+    releaseTitle: "v0.6.0 — capability guards & resolução de modelos.",
     releaseDesc:
       "Finalizamos a Fase 7 do Kernel de Execução: introdução de Capability Guards (validação preditiva), hierarquia rígida de resolução de modelos, e política de interrupção clara sem fallbacks silenciosos na nuvem.",
     releaseTags: ["Capability Guards", "Resolução de Modelos", "Kernel Security", "Zero Cloud Fallback"],
@@ -447,13 +447,13 @@ export const CONTENT_PT = {
       { tag: "02. solução", t: "IA de agente local por padrão", d: "O AetherCore traz o processamento de IA para perto dos arquivos corporativos. O agente lê e processa planilhas, códigos e PDFs dentro do ambiente do usuário." },
       { tag: "03. inovação", t: "Arquitetura blindada e Human-in-the-Loop", d: "Motor local nativo em Rust com comunicação segura, isolamento de processos de runtime e logs estruturados em SQLite. Toda escrita ou conexão de rede exige aprovação ativa." },
       { tag: "04. mercado", t: "Foco em B2B regulado e cooperativismo", d: "Nosso mercado inicial foca em DPOs, escritórios jurídicos, auditorias e contabilidades corporativas. O Paraná oferece um setor cooperativo gigante que necessita dessa blindagem." },
-      { tag: "05. maturidade", t: "19 meses de desenvolvimento contínuo", d: "Não somos um wrapper recente. A base tecnológica do AetherCore representa 19 meses de P&D focado em otimização de VRAM, segurança de sandboxes e IPC seguro, atingindo a robustez da v0.5.1." },
+      { tag: "05. maturidade", t: "19 meses de desenvolvimento contínuo", d: "Não somos um wrapper recente. A base tecnológica do AetherCore representa 19 meses de P&D focado em otimização de VRAM, segurança de sandboxes e IPC seguro, atingindo a robustez da v0.6.0." },
       { tag: "06. fomento", t: "Homologação e Módulo Multiusuário", d: "A subvenção do Centelha Paraná permitirá acelerar a homologação de segurança, realizar auditoria externa de código aberto e finalizar o painel corporativo do DPO." },
     ],
     planKicker: "cronograma de desenvolvimento de fomento",
     planTitle: "Roadmap e Metas Claras de Implementação (12 Meses)",
     plan: [
-      { period: "Mês 1–3 (P&D Interno)", d: "Consolidação e polimento do motor local em Rust, refinamento da sandbox e suporte nativo ao XLSX com proxy Ollama otimizado (versão v0.5.1)." },
+      { period: "Mês 1–3 (P&D Interno)", d: "Consolidação e polimento do motor local em Rust, refinamento da sandbox e suporte nativo ao XLSX com proxy Ollama otimizado (versão v0.6.0)." },
       { period: "Mês 4–6 (Validação Regional)", d: "Implementação de 5 pilotos controlados em cooperativas e escritórios no Paraná para medir ganho de tempo em auditoria de planilhas e assegurar vazamento zero." },
       { period: "Mês 7–9 (Módulo de Governança)", d: "Desenvolver o painel de auditoria do DPO, com logs locais estruturados criptografados e algoritmos locais para redação de dados sensíveis de clientes." },
       { period: "Mês 10–12 (Entrada Comercial)", d: "Preparação da embalagem comercial (AetherNode / OS), auditoria de segurança externa, captação de clientes iniciais e preparação de escala." },
@@ -588,7 +588,7 @@ export const CONTENT_PT = {
 export const CONTENT_EN = {
   BRAND: {
     name: "AetherCore",
-    version: "v0.5.1 · beta",
+    version: "v0.6.0 · beta",
     tagline: "local AI / beta",
     copyright: "© 2026 AetherCore. Local-first AI. Curitiba, Brazil.",
   },
@@ -607,11 +607,11 @@ export const CONTENT_EN = {
   ],
   FOOTER_LINKS: [],
   HOME: {
-    badge: "v0.5.1 · beta",
+    badge: "v0.6.0 · beta",
     heroStatus: "Local system · full access",
     aether: {
       eyebrow: "Autonomous Agent Platform",
-      eyebrowRight: "EST. 2025 — v0.5.1",
+      eyebrowRight: "EST. 2025 — v0.6.0",
       headline: { l1: "Beyond", l2: "Automation.", l3a: "Pure", l3b: "Cognition" },
       sub: "AetherCore replaces rigid workflows with a local AI nervous system — thinking, adapting, and executing at the speed of your ambition. Nothing leaves your device without your knowledge.",
       consoleLabel: "AetherCore Console",
@@ -831,7 +831,7 @@ export const CONTENT_EN = {
       { n: "08", tag: "insights", t: "Automated Reporting", d: "Complex spreadsheet data turns into polished executive summaries and PDF reports on-device." },
     ],
     releaseKicker: "release notes",
-    releaseTitle: "v0.5.1 — capability guards & model resolution.",
+    releaseTitle: "v0.6.0 — capability guards & model resolution.",
     releaseDesc:
       "Completed Phase 7 of the Execution Kernel: introduced Capability Guards (predictive validation), strict model resolution hierarchy, and clear abort policy with zero silent cloud fallbacks.",
     releaseTags: ["Capability Guards", "Model Resolution", "Kernel Security", "Zero Cloud Fallback"],
@@ -1013,13 +1013,13 @@ export const CONTENT_EN = {
       { tag: "02. solution", t: "Local-by-default agentic AI workspace", d: "AetherCore brings advanced AI capabilities directly to the local hardware. The agent processes complex XLSX data, PDFs, and scripts inside the local OS." },
       { tag: "03. innovation", t: "Rust Native Engine & Human-in-the-Loop", d: "Natively compiled Rust core with custom IPC communication and SQLite audit trail. Every write command or external connection is blocked until approved." },
       { tag: "04. market", t: "B2B compliance & regional cooperatives", d: "Our initial target covers DPOs, legal councils, and financial audits. Paraná offers a massive cooperative and agribusiness market requiring strict compliance." },
-      { tag: "05. maturity", t: "19 months of active R&D foundation", d: "This is not a simple cloud wrapper. AetherCore represents 19 months of deep R&D in local VRAM management, secure sandboxing, and native IPC communication, reaching v0.5.1." },
+      { tag: "05. maturity", t: "19 months of active R&D foundation", d: "This is not a simple cloud wrapper. AetherCore represents 19 months of deep R&D in local VRAM management, secure sandboxing, and native IPC communication, reaching v0.6.0." },
       { tag: "06. grant target", t: "DPO Suite & Enterprise Expansion", d: "The Centelha Paraná grant will accelerate safety certification, enable external open-source code audits, and complete our team governance console." },
     ],
     planKicker: "grant development timeline",
     planTitle: "Roadmap and Execution Milestones (12 Months)",
     plan: [
-      { period: "Months 1–3 (R&D)", d: "Consolidate local Rust runtime, optimize Ollama proxy for GPU/VRAM performance, and release stable XLSX local write drivers (version v0.5.1)." },
+      { period: "Months 1–3 (R&D)", d: "Consolidate local Rust runtime, optimize Ollama proxy for GPU/VRAM performance, and release stable XLSX local write drivers (version v0.6.0)." },
       { period: "Months 4–6 (Validation)", d: "Deploy 5 pilot runs in agricultural cooperatives and law offices in Paraná to measure audit time savings and ensure zero cloud data leakage." },
       { period: "Months 7–9 (DPO Panel)", d: "Develop the DPO dashboard, incorporating local encrypted audit logs and local PII data masking algorithms." },
       { period: "Months 10–12 (Commercial)", d: "Package the enterprise bundle (AetherNode hardware appliance), complete external code security audits, and sign first commercial accounts." },

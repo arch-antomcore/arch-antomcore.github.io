@@ -163,7 +163,7 @@ export const Preloader = ({ onComplete }) => {
       </div>
       {/* Tiny Version Stamp */}
       <span className="absolute bottom-10 font-mono text-[8px] uppercase tracking-widest text-[#211d18]/30">
-        AetherCore v0.5.1 · Security Kernel
+        AetherCore v0.6.0 · Security Kernel
       </span>
     </motion.div>
   );

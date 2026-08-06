@@ -57,7 +57,7 @@ const ProductMockup = ({ labels }) => {
         <div className="absolute top-4 left-4 flex items-center gap-2 rounded-full bg-[#211d18]/80 backdrop-blur-md px-3 py-1.5 z-10">
           <span className="w-1.5 h-1.5 rounded-full bg-[#A34A33] animate-pulse" />
           <span className="text-[9px] uppercase tracking-[0.3em] font-mono text-[#f4f1e8]/90">
-            CONSOLE · LIVE · v0.5.1
+            CONSOLE · LIVE · v0.6.0
           </span>
         </div>
         <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-full bg-[#fbf9f2]/85 backdrop-blur-md px-3 py-1.5 z-10 border border-[#211d18]/10">
