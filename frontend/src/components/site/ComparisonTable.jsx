@@ -44,25 +44,25 @@ const ComparisonRow = ({ row, index, language }) => {
         </div>
 
         {/* Cloud Column */}
-        <div className="md:col-span-4 md:col-start-4 pr-0 md:pr-4">
-          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#211d18]/35 block mb-1.5">
+        <div className="md:col-span-4 md:col-start-4 pr-0 md:pr-4 min-w-0">
+          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#211d18]/40 block mb-1.5 whitespace-nowrap font-medium">
             // {language === "en" ? "CLOUD CHATBOT" : "CHATBOT NA NUVEM"}
           </span>
-          <p className="text-sm text-[#211d18]/55 leading-relaxed font-sans flex items-start gap-2">
-            <span className="text-red-500/60 font-bold shrink-0 mt-0.5" aria-hidden="true">×</span>
-            <span>{row.cloud}</span>
-          </p>
+          <div className="text-sm text-[#211d18]/60 leading-relaxed font-sans flex items-start gap-2">
+            <span className="text-red-500/70 font-bold shrink-0 mt-0.5" aria-hidden="true">×</span>
+            <span className="flex-1 min-w-0">{row.cloud}</span>
+          </div>
         </div>
 
         {/* AetherCore Column */}
-        <div className="md:col-span-5 md:col-start-8 pl-0 md:pl-4">
-          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#A34A33]/80 block mb-1.5 font-semibold">
+        <div className="md:col-span-5 md:col-start-8 pl-0 md:pl-4 min-w-0">
+          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#A34A33] block mb-1.5 font-semibold whitespace-nowrap">
             // {language === "en" ? "AETHERCORE LOCAL-FIRST" : "AETHERCORE LOCAL-FIRST"}
           </span>
-          <p className="text-sm text-[#211d18] font-medium leading-relaxed font-sans flex items-start gap-2">
+          <div className="text-sm text-[#211d18] font-medium leading-relaxed font-sans flex items-start gap-2">
             <span className="text-[#A34A33] font-bold shrink-0 mt-0.5" aria-hidden="true">✓</span>
-            <span>{row.aether}</span>
-          </p>
+            <span className="flex-1 min-w-0">{row.aether}</span>
+          </div>
         </div>
       </div>
     </Reveal>
@@ -149,13 +149,13 @@ const ComparisonLegend = ({ language }) => (
           {language === "en" ? "Category" : "Categoria"}
         </span>
       </div>
-      <div className="md:col-span-4 md:col-start-4">
-        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#211d18]/40 font-semibold">
+      <div className="md:col-span-4 md:col-start-4 min-w-0">
+        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#211d18]/40 font-semibold block whitespace-nowrap">
           {language === "en" ? "Cloud Chatbots" : "Chatbots Comuns na Nuvem"}
         </span>
       </div>
-      <div className="md:col-span-5 md:col-start-8 pl-4">
-        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#A34A33] font-bold">
+      <div className="md:col-span-5 md:col-start-8 pl-4 min-w-0">
+        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#A34A33] font-bold block whitespace-nowrap">
           AetherCore Local-First
         </span>
       </div>
