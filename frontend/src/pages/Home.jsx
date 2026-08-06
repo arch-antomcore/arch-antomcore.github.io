@@ -183,6 +183,7 @@ const SectionGroupWithStarfield = ({ children }) => {
           color2="#A34A33"
           color3="#eab308"
           trailAmount={80}
+          reverse={true}
         />
       </motion.div>
 
@@ -197,6 +198,7 @@ const SectionGroupWithStarfield = ({ children }) => {
             trail={50}
             orbitSpeed={4}
             outerRadius={70}
+            emitOutward={true}
             colors={["#ffffff", "#A34A33", "#d97706"]}
           />
         </div>

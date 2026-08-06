@@ -206,7 +206,7 @@ export const CONTENT_PT = {
         name: "Aether Enterprise",
         audience: "Para equipes",
         t: "Pra quem lida com dados que não podem vazar.",
-        d: "Workspace com até 3 usuários, logs auditáveis, permissões granulares por membro e relatórios automatizados.",
+        d: "Workspace com até 5 usuários base, logs auditáveis, permissões granulares por membro e relatórios automatizados.",
         points: ["logs auditáveis", "permissões por usuário", "governança corporativa"],
       },
       {
@@ -772,7 +772,7 @@ export const CONTENT_EN = {
         name: "Aether Enterprise",
         audience: "For teams",
         t: "For companies managing sensitive information.",
-        d: "Workspace with up to 3 users, audit trails, granular team permissions, and automated compliance reports.",
+        d: "Workspace with up to 5 base users, audit trails, granular team permissions, and automated compliance reports.",
         points: ["audit trail logs", "team permissions", "corporate governance"],
       },
       {

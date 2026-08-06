@@ -63,6 +63,7 @@ export function BlackHole(props) {
     trail: trailRaw = DEFAULTS.trail,
     orbitSpeed = DEFAULTS.orbitSpeed,
     pullSpeed: pullSpeedRaw = DEFAULTS.pullSpeed,
+    emitOutward = true,
     style,
   } = props;
 
@@ -227,16 +228,30 @@ export function BlackHole(props) {
         const localPullSpeed = pullSpeed * speedFactor * pt.speedOffset;
 
         pt.angle += localOrbitSpeed * 0.012 * dt;
-        pt.radius -= localPullSpeed * dt;
 
-        if (pt.radius < voidRadius) {
-          pt.radius =
-            voidRadius +
-            0.7 * (outerRad - voidRadius) +
-            Math.random() * 0.3 * (outerRad - voidRadius);
-          pt.angle = Math.random() * Math.PI * 2;
-          pt.height = (Math.random() - 0.5) * 16;
-          continue;
+        if (emitOutward) {
+          const expansionSpeed = 0.4 + 0.8 * (pt.radius / Math.max(outerRad, 1));
+          const outwardStep = (pullSpeed > 0 ? pullSpeed * 1.5 : 1.2) * expansionSpeed * pt.speedOffset * dt;
+          pt.radius += outwardStep;
+
+          if (pt.radius > outerRad) {
+            pt.radius = voidRadius + Math.random() * 6;
+            pt.angle = Math.random() * Math.PI * 2;
+            pt.height = (Math.random() - 0.5) * 16;
+            continue;
+          }
+        } else {
+          pt.radius -= localPullSpeed * dt;
+
+          if (pt.radius < voidRadius) {
+            pt.radius =
+              voidRadius +
+              0.7 * (outerRad - voidRadius) +
+              Math.random() * 0.3 * (outerRad - voidRadius);
+            pt.angle = Math.random() * Math.PI * 2;
+            pt.height = (Math.random() - 0.5) * 16;
+            continue;
+          }
         }
 
         const cosA = Math.cos(pt.angle);
@@ -420,6 +435,7 @@ export function BlackHole(props) {
       observer.observe(containerRef.current);
     }
 
+    const colorsKey = colors ? colors.join(",") : "";
     animRef.current = requestAnimationFrame(draw);
     return () => {
       if (animRef.current) cancelAnimationFrame(animRef.current);
@@ -433,7 +449,8 @@ export function BlackHole(props) {
     showCenter,
     particleCount,
     particleSize,
-    JSON.stringify(colors),
+    colors,
+    emitOutward,
     outerRadFromSize,
     tilt,
     tiltSideway,

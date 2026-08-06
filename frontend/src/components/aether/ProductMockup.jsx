@@ -8,6 +8,8 @@ import {
 } from "framer-motion";
 import { ArrowDown } from "@phosphor-icons/react";
 
+import UserCursor from "../ui/user-cursor";
+
 /**
  * Scroll-driven 3D parallax dashboard + cursor-tracking tangerine spotlight
  * and a rotating "scroll to explore" sticker badge.
@@ -41,13 +43,13 @@ const ProductMockup = ({ labels }) => {
       <motion.div
         style={{ scale, rotateX, y, transformStyle: "preserve-3d" }}
         className="relative w-full overflow-hidden rounded-lg border border-[#211d18]/10 shadow-2xl shadow-[#211d18]/15 bg-[#fbf9f2]"
-        data-cursor="hover"
-        data-cursor-text="Ver console"
       >
+        <UserCursor name="VER CONSOLE" color="#A34A33" textColor="#ffffff" />
+        
         <img
           src="/assets/img/mockups/console-aether.png"
           alt="Console AetherCore — orquestração local de agentes autônomos"
-          className="w-full h-auto block"
+          className="w-full h-auto block pointer-events-none"
           loading="lazy"
           data-testid="aether-product-mockup-image"
         />
