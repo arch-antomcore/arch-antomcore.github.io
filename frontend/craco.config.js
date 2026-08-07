@@ -84,6 +84,14 @@ let webpackConfig = {
       '@': path.resolve(__dirname, 'src'),
     },
     configure: (webpackConfig) => {
+      webpackConfig.resolve.extensions = Array.from(new Set([
+        '.tsx',
+        '.ts',
+        '.jsx',
+        '.js',
+        '.json',
+        ...(webpackConfig.resolve.extensions || []),
+      ]));
 
       // Add ignored patterns to reduce watched directories
         webpackConfig.watchOptions = {

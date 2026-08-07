@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, BookOpen } from "@phosphor-icons/react";
+import { ArrowUpRight, BookOpen, SelectionAll } from "@phosphor-icons/react";
 import { Magnetic } from "@/components/site/interactions";
 import { ScrambleText, AmbientBlobs } from "./AetherKit";
 import { useTranslation } from "@/hooks/useTranslation";
 import ProductMockup from "./ProductMockup";
 import { ManifestoChapters, EditorialMarquee } from "./AetherSections";
+import { PerspectiveBackground } from "@/components/originkit/ui/hero-03/perspective-background";
+import { GalleryOverlay } from "@/components/originkit/ui/hero-03/gallery-overlay";
 
 const charVariant = {
   hidden: { y: "135%" },
@@ -92,34 +94,35 @@ const KineticHeadline = ({ headline }) => {
   );
 };
 
-/* Magnetic primary + secondary CTAs — tangerine editorial style. */
-const CtaButtons = ({ primary, secondary }) => (
+/* Primary + secondary CTAs — tangerine editorial style. */
+const CtaButtons = ({ primary, secondary, onOpenGallery }) => (
   <div className="flex flex-wrap items-center gap-4" data-testid="aether-cta-group">
-    <Magnetic strength={0.3}>
-      <Link
-        to="/#cta"
-        data-testid="aether-primary-cta"
-        data-cursor="hover"
-        data-cursor-text="Deploy"
-        className="group flex items-center gap-2 bg-[#A34A33] !text-[#fbf9f2] text-xs uppercase tracking-[0.15em] font-semibold px-7 py-4 rounded-full transition-colors duration-300 hover:bg-[#211d18] shadow-[0_18px_38px_-16px_rgba(163, 74, 51,0.5)]"
-      >
-        {primary}
-        <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-      </Link>
-    </Magnetic>
+    <Link
+      to="/#cta"
+      data-testid="aether-primary-cta"
+      className="group flex items-center gap-2 bg-[#A34A33] !text-[#fbf9f2] text-xs uppercase tracking-[0.15em] font-semibold px-7 py-4 rounded-full transition-all duration-300 hover:bg-[#211d18] shadow-[0_18px_38px_-16px_rgba(163,74,51,0.5)]"
+    >
+      {primary}
+      <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+    </Link>
 
-    <Magnetic strength={0.3}>
-      <Link
-        to="/produto"
-        data-testid="aether-secondary-cta"
-        data-cursor="hover"
-        data-cursor-text="Explorar"
-        className="group flex items-center gap-2 border border-[#211d18] text-[#211d18] text-xs uppercase tracking-[0.15em] font-semibold px-7 py-4 rounded-full transition-colors duration-300 hover:bg-[#211d18] hover:!text-[#fbf9f2]"
-      >
-        <BookOpen className="w-3.5 h-3.5" />
-        {secondary}
-      </Link>
-    </Magnetic>
+    <button
+      type="button"
+      onClick={onOpenGallery}
+      data-testid="aether-secondary-cta"
+      className="group flex items-center gap-2 border border-[#211d18] text-[#211d18] text-xs uppercase tracking-[0.15em] font-semibold px-7 py-4 rounded-full transition-all duration-300 hover:bg-[#211d18] hover:!text-[#fbf9f2]"
+    >
+      <SelectionAll className="w-3.5 h-3.5" />
+      Galeria 3D
+    </button>
+
+    <Link
+      to="/produto"
+      className="group flex items-center gap-2 border border-[#211d18]/40 text-[#211d18]/80 text-xs uppercase tracking-[0.15em] font-semibold px-6 py-4 rounded-full transition-all duration-300 hover:bg-[#211d18] hover:!text-[#fbf9f2]"
+    >
+      <BookOpen className="w-3.5 h-3.5" />
+      {secondary}
+    </Link>
   </div>
 );
 
@@ -130,64 +133,72 @@ const CtaButtons = ({ primary, secondary }) => (
 const AetherHero = () => {
   const { t } = useTranslation();
   const A = t.HOME.aether;
+  const [galleryOpen, setGalleryOpen] = useState(false);
 
   return (
     <section
-      className="aether-hero-root relative w-full overflow-hidden"
+      className="aether-hero-root relative w-full"
       data-testid="aethercore-hero"
     >
-      <AmbientBlobs />
+      {/* Dedicated Hero Header Viewport with centered 3D Perspective Tunnel */}
+      <div className="relative min-h-[85vh] md:min-h-screen flex flex-col justify-between overflow-hidden pb-12 md:pb-20">
+        <PerspectiveBackground />
+        <AmbientBlobs />
 
-      <div className="relative z-10 px-6 md:px-12 pt-36 md:pt-48">
-        {/* Eyebrow bar */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.1 }}
-          className="flex items-center justify-between border-b border-[#211d18]/10 pb-5 mb-10 md:mb-14"
-          data-testid="aether-eyebrow"
-        >
-          <span className="text-[11px] uppercase tracking-[0.3em] font-semibold text-[#211d18]/60 flex items-center gap-2.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#A34A33] animate-pulse" />
-            <ScrambleText text={A.eyebrow} delay={1.2} />
-          </span>
-          <span className="hidden md:block text-[11px] uppercase tracking-[0.3em] font-semibold text-[#211d18]/40">
-            {A.eyebrowRight}
-          </span>
-        </motion.div>
-
-        <KineticHeadline headline={A.headline} />
-
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-12 md:mt-16 items-end">
-          <motion.p
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            transition={{ duration: 0.7, delay: 1.9, ease: [0.16, 1, 0.3, 1] }}
-            className="md:col-span-5 text-base lg:text-lg text-[#211d18]/60 leading-relaxed"
-            data-testid="aether-subheadline"
-          >
-            {A.sub}
-          </motion.p>
-
+        <div className="relative z-10 px-6 md:px-12 pt-32 md:pt-40 flex-1 flex flex-col justify-center">
+          {/* Eyebrow bar */}
           <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            transition={{ duration: 0.7, delay: 2.05, ease: [0.16, 1, 0.3, 1] }}
-            className="md:col-span-7 md:flex md:justify-end"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.1 }}
+            className="flex items-center justify-between border-b border-[#211d18]/10 pb-5 mb-8 md:mb-12"
+            data-testid="aether-eyebrow"
           >
-            <CtaButtons primary={t.HOME.primaryCta} secondary={t.HOME.secondaryCta} />
+            <span className="text-[11px] uppercase tracking-[0.3em] font-semibold text-[#211d18]/60 flex items-center gap-2.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A34A33] animate-pulse" />
+              <ScrambleText text={A.eyebrow} delay={1.2} />
+            </span>
+            <span className="hidden md:block text-[11px] uppercase tracking-[0.3em] font-semibold text-[#211d18]/40">
+              {A.eyebrowRight}
+            </span>
           </motion.div>
+
+          <KineticHeadline headline={A.headline} />
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-10 md:mt-14 items-end">
+            <motion.p
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              transition={{ duration: 0.7, delay: 1.9, ease: [0.16, 1, 0.3, 1] }}
+              className="md:col-span-5 text-base lg:text-lg text-[#211d18]/60 leading-relaxed"
+              data-testid="aether-subheadline"
+            >
+              {A.sub}
+            </motion.p>
+
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              transition={{ duration: 0.7, delay: 2.05, ease: [0.16, 1, 0.3, 1] }}
+              className="md:col-span-7 md:flex md:justify-end"
+            >
+              <CtaButtons primary={t.HOME.primaryCta} secondary={t.HOME.secondaryCta} onOpenGallery={() => setGalleryOpen(true)} />
+            </motion.div>
+          </div>
         </div>
       </div>
 
+      {/* Console AetherCore / Malha de Agentes and chapters follow in standard section flow */}
       <ProductMockup labels={A} />
 
       <div className="mt-24 md:mt-36">
         <ManifestoChapters chapters={A.chapters} />
         <EditorialMarquee items={A.marquee} />
       </div>
+
+      <GalleryOverlay open={galleryOpen} onClose={() => setGalleryOpen(false)} />
     </section>
   );
 };
