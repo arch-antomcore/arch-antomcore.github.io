@@ -111,6 +111,9 @@ const Footer = () => {
     { label: language === "pt" ? "Preços" : "Pricing", to: "/precos" },
     { label: language === "pt" ? "Roadmap de Lançamentos" : "Release Roadmap", to: "/roadmap" },
     { label: language === "pt" ? "Ecossistema de Plugins" : "Plugin Ecosystem", to: "/plugins" },
+    { label: language === "pt" ? "Ecossistema da Startup" : "Startup Ecosystem", to: "/#ecosystem" },
+    { label: "MonitorSmith (Telemetria) ↗", href: "https://monitorsmith.app/" },
+    { label: language === "pt" ? "Component Atlas (Em breve)" : "Component Atlas (Soon)", to: "/#ecosystem" },
   ];
 
   const exploreLinks = [

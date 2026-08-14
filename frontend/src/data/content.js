@@ -28,6 +28,7 @@ export const CONTENT_PT = {
   },
   NAV_LINKS: [
     { label: "Início", to: "/" },
+    { label: "Ecossistema", to: "/#ecosystem" },
     { label: "Sobre", to: "/sobre" },
     { label: "Produto", to: "/produto" },
     { label: "Sustentabilidade", to: "/sustentabilidade" },
@@ -594,6 +595,7 @@ export const CONTENT_EN = {
   },
   NAV_LINKS: [
     { label: "Home", to: "/" },
+    { label: "Ecosystem", to: "/#ecosystem" },
     { label: "About", to: "/sobre" },
     { label: "Product", to: "/produto" },
     { label: "Sustainability", to: "/sustentabilidade" },

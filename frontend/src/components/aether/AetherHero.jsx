@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, BookOpen, SelectionAll } from "@phosphor-icons/react";
+import { ArrowUpRight, BookOpen, SelectionAll, Desktop, Compass } from "@phosphor-icons/react";
 import { Magnetic } from "@/components/site/interactions";
 import { ScrambleText, AmbientBlobs } from "./AetherKit";
 import { useTranslation } from "@/hooks/useTranslation";

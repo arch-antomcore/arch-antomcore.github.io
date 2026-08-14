@@ -11,6 +11,7 @@ import AetherClosing from "@/components/aether/AetherClosing";
 import { IntroCurtain } from "@/components/aether/AetherKit";
 import { GlassShowcase } from "@/components/aether/GlassMedia";
 import CtaSection from "@/components/site/CtaSection";
+import EcosystemSection from "@/components/site/EcosystemSection";
 import { ZoomParallax } from "@/components/ui/zoom-parallax";
 import { BlackHole } from "@/components/ui/black-hole";
 import { GlitterWrap } from "@/components/ui/glitter-wrap";
