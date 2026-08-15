@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLenis } from "lenis/react";
 import { List as Menu, X, ArrowUpRight, House as Home, Briefcase, FileText, CurrencyDollar as DollarSign, Cpu, ShieldCheck, Heart, Question as HelpCircle, Plant as Leaf, User, PuzzlePiece as Blocks } from "@phosphor-icons/react";
 import { ScrollProgress, Magnetic } from "@/components/site/interactions";
 import { ExpandableTabs } from "@/components/ui/expandable-tabs";
-
 import { useTranslation } from "@/hooks/useTranslation";
 import { TextReveal } from "@/components/ui/cascade-text";
 
@@ -47,25 +46,23 @@ const Nav = () => {
 
   const activeIndex = translatedTabs.findIndex((t) => {
     if (t.to === "/") {
-      return location.pathname === "/";
+      return location.pathname === "/" && !location.hash;
+    }
+    if (t.to.startsWith("/#")) {
+      return location.pathname === "/" && location.hash === t.to.substring(1);
     }
     return location.pathname.startsWith(t.to);
   });
 
-  // ── Use Lenis scroll events for perfectly-synced navbar show/hide ──
-  // This replaces the native window 'scroll' listener so the navbar
-  // reacts to the interpolated Lenis position — no visual lag.
   const lenisInstanceRef = useRef(null);
 
   useLenis((lenis) => {
-    // Keep a ref to the live instance for imperative use (stop/start)
     lenisInstanceRef.current = lenis;
 
     const currentScrollY = lenis.scroll;
     const isScrolled = currentScrollY > 12;
     setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
 
-    // Hide if scrolling down (and past the very top), show if scrolling up
     if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
       setHidden((prev) => (!prev ? true : prev));
     } else if (currentScrollY < lastScrollY.current) {
@@ -75,9 +72,6 @@ const Nav = () => {
     lastScrollY.current = currentScrollY;
   });
 
-  // ── Stop/Start Lenis when mobile menu opens/closes ──
-  // Pauses smooth scroll while the fullscreen menu is open to prevent
-  // background page scrolling.
   useEffect(() => {
     const lenis = lenisInstanceRef.current;
     if (!lenis) return;
@@ -93,6 +87,28 @@ const Nav = () => {
     setOpen(false);
   }, [location.pathname]);
 
+  const handleNavigate = (to) => {
+    if (!to) return;
+    if (to.startsWith("/#") || to.startsWith("#")) {
+      const hash = to.startsWith("/#") ? to.substring(1) : to;
+      if (location.pathname !== "/") {
+        navigate(`/${hash}`);
+      } else {
+        const el = document.querySelector(hash);
+        if (el) {
+          if (lenisInstanceRef.current) {
+            lenisInstanceRef.current.scrollTo(el, { offset: -80, duration: 1.2 });
+          } else {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+          window.history.pushState(null, "", hash);
+        }
+      }
+    } else {
+      navigate(to);
+    }
+  };
+
   return (
     <>
       <ScrollProgress />
@@ -102,10 +118,8 @@ const Nav = () => {
         }`}
         data-testid="site-header"
       >
-        {/* One composited glass layer keeps the fixed header inexpensive while scrolling. */}
         <div className="nav-glass absolute inset-0 z-0 pointer-events-none" aria-hidden="true" />
 
-        {/* Original untouched content container positioned on top */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 h-16 md:h-[72px] flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 group" data-testid="brand-logo">
             <img
@@ -136,14 +150,13 @@ const Nav = () => {
               activeTab={activeIndex !== -1 ? activeIndex : null}
               onChange={(index) => {
                 if (index !== null && translatedTabs[index] && translatedTabs[index].to) {
-                  navigate(translatedTabs[index].to);
+                  handleNavigate(translatedTabs[index].to);
                 }
               }}
             />
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Language Switcher Button */}
             <button
               onClick={() => setLanguage(language === "pt" ? "en" : "pt")}
               className="font-mono text-[10px] font-bold text-zinc-400 hover:text-white px-2.5 py-1 rounded-full border border-orange-300/15 bg-orange-400/[0.035] hover:bg-orange-400/[0.08] hover:border-orange-200/30 transition-all duration-300"
@@ -153,14 +166,18 @@ const Nav = () => {
             </button>
 
             <Magnetic strength={0.4} className="hidden md:inline-block">
-              <Link
-                to="/#cta"
+              <a
+                href="#cta"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavigate("/#cta");
+                }}
                 data-testid="nav-cta"
-                className="group inline-flex items-center gap-1.5 rounded-full border border-[#211d18] bg-[#211d18] !text-[#f7f4ec] px-4 py-2 text-sm font-medium shadow-[0_14px_30px_-14px_rgba(33,29,24,0.45)] hover:bg-[#A34A33] hover:border-[#A34A33] hover:shadow-[0_18px_38px_-12px_rgba(109,40,217,0.5)] transition-all duration-300"
+                className="group inline-flex items-center gap-1.5 rounded-full border border-[#211d18] bg-[#211d18] !text-[#f7f4ec] px-4 py-2 text-sm font-medium shadow-[0_14px_30px_-14px_rgba(33,29,24,0.45)] hover:bg-[#A34A33] hover:border-[#A34A33] hover:shadow-[0_18px_38px_-12px_rgba(109,40,217,0.5)] transition-all duration-300 cursor-pointer"
               >
                 {language === "pt" ? "Acesso antecipado" : "Early access"}
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.75} />
-              </Link>
+              </a>
             </Magnetic>
             <button
               onClick={() => setOpen(true)}
@@ -204,22 +221,28 @@ const Nav = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.05 * i }}
                 >
-                  <Link
-                    to={l.to}
-                    className="block py-3 text-2xl font-medium tracking-tight text-zinc-200 hover:text-white"
+                  <button
+                    onClick={() => {
+                      setOpen(false);
+                      handleNavigate(l.to);
+                    }}
+                    className="block w-full text-left py-3 text-2xl font-medium tracking-tight text-zinc-200 hover:text-white"
                     data-testid={`mobile-nav-${l.label.toLowerCase()}`}
                   >
                     {l.label}
-                  </Link>
+                  </button>
                 </motion.div>
               ))}
-              <Link
-                to="/#cta"
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  handleNavigate("/#cta");
+                }}
                 className="mt-6 inline-flex items-center justify-center gap-1.5 rounded-full border border-[#211d18] bg-[#211d18] !text-[#f7f4ec] px-5 py-3 font-medium shadow-[0_14px_30px_-14px_rgba(33,29,24,0.45)]"
                 data-testid="mobile-nav-cta"
               >
                 {language === "pt" ? "Acesso antecipado" : "Early access"} <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
-              </Link>
+              </button>
             </div>
           </motion.div>
         )}

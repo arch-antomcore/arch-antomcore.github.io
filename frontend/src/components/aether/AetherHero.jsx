@@ -33,7 +33,7 @@ const Chars = ({ text }) => (
   <>
     {text.split("").map((c, i) => (
       <motion.span key={i} variants={charVariant} className="inline-block py-1">
-        {c === " " ? "\u00A0" : c}
+        {c === " " ? " " : c}
       </motion.span>
     ))}
   </>
@@ -131,7 +131,8 @@ const CtaButtons = ({ primary, secondary, onOpenGallery }) => (
  * Uses the site's paper palette (#f4f1e8 / #ece7da / #fbf9f2) and existing nav/liquid-glass.
  */
 const AetherHero = () => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+  const isPt = language === "pt";
   const A = t.HOME.aether;
   const [galleryOpen, setGalleryOpen] = useState(false);
 
@@ -140,7 +141,6 @@ const AetherHero = () => {
       className="aether-hero-root relative w-full"
       data-testid="aethercore-hero"
     >
-      {/* Dedicated Hero Header Viewport with centered 3D Perspective Tunnel */}
       <div className="relative min-h-[85vh] md:min-h-screen flex flex-col justify-between overflow-hidden pb-12 md:pb-20">
         <PerspectiveBackground />
         <AmbientBlobs />
@@ -187,10 +187,53 @@ const AetherHero = () => {
               <CtaButtons primary={t.HOME.primaryCta} secondary={t.HOME.secondaryCta} onOpenGallery={() => setGalleryOpen(true)} />
             </motion.div>
           </div>
+
+          {/* Startup Ecosystem Quick Access Bar */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp}
+            transition={{ duration: 0.7, delay: 2.2, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-10 pt-5 border-t border-[#211d18]/10 flex flex-wrap items-center justify-between gap-4"
+          >
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#211d18]/70 font-medium">
+              <span className="w-2 h-2 rounded-full bg-[#A34A33] animate-pulse" />
+              <span>{isPt ? "Ecossistema Exvorn · Outros Projetos:" : "Exvorn Ecosystem · Other Projects:"}</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="https://monitorsmith.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="hero-link-monitorsmith"
+                className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider px-4 py-2 rounded-full bg-[#211d18]/5 hover:bg-[#211d18] text-[#211d18] hover:text-[#fbf9f2] border border-[#211d18]/15 transition-all duration-300 shadow-sm cursor-pointer"
+              >
+                <Desktop className="w-3.5 h-3.5 text-cyan-600 group-hover:text-cyan-400" />
+                <span className="font-semibold">MonitorSmith</span>
+                <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+              <a
+                href="#ecosystem"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.querySelector("#ecosystem");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                    window.history.pushState(null, "", "#ecosystem");
+                  }
+                }}
+                data-testid="hero-link-component-atlas"
+                className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider px-4 py-2 rounded-full bg-[#211d18]/5 hover:bg-[#211d18] text-[#211d18] hover:text-[#fbf9f2] border border-[#211d18]/15 transition-all duration-300 shadow-sm cursor-pointer"
+              >
+                <Compass className="w-3.5 h-3.5 text-amber-600 group-hover:text-amber-400" />
+                <span className="font-semibold">Component Atlas</span>
+                <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-800 dark:text-amber-300 font-bold tracking-normal uppercase">{isPt ? "Em Breve" : "Soon"}</span>
+              </a>
+            </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Console AetherCore / Malha de Agentes and chapters follow in standard section flow */}
       <ProductMockup labels={A} />
 
       <div className="mt-24 md:mt-36">

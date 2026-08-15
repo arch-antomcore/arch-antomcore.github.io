@@ -112,21 +112,19 @@ const LayoutInner = () => {
         const el = document.querySelector(hash);
         if (el) {
           if (lenis) {
-            // Scroll to anchor using Lenis for a smooth, premium feel
-            lenis.scrollTo(el, { offset: -80, duration: 1.6 });
+            lenis.scrollTo(el, { offset: -80, duration: 1.2 });
           } else {
             el.scrollIntoView({ behavior: "smooth", block: "start" });
           }
-        } else if (retries < 15) {
+        } else if (retries < 30) {
           retries++;
-          requestAnimationFrame(tryScroll);
+          setTimeout(tryScroll, 100);
         }
       };
-      requestAnimationFrame(tryScroll);
+      tryScroll();
       return;
     }
 
-    // Scroll-to-top: use Lenis for an ultra-smooth reset, instant on first paint
     if (lenis) {
       lenis.scrollTo(0, { immediate: true });
     } else {
