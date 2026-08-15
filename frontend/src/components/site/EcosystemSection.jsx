@@ -22,9 +22,9 @@ const EcosystemSection = () => {
       badge: isPt ? "Carro-Chefe · IA Local" : "Flagship · Local AI",
       badgeColor: "bg-[#A34A33]/10 text-[#A34A33] border-[#A34A33]/20",
       status: isPt ? "🟢 Ativo · v0.6.0" : "🟢 Live · v0.6.0",
-      logo: "/assets/ecosystem/aethercore.webp",
-      logoAlt: "AetherCore Logo",
-      logoBorder: "border-[#A34A33]/20 bg-[#f4f1e8]",
+      logo: "/assets/ecosystem/aethercore.png",
+      logoAlt: "AetherCore Favicon",
+      logoContainer: "border-[#211d18]/15 bg-[#211d18] p-2",
       headline: isPt ? "Agentes Autônomos de IA Local-First" : "Autonomous Local-First Cognitive AI",
       desc: isPt
         ? "Plataforma de inteligência artificial executada 100% no seu hardware com motor nativo em Rust, auditoria criptográfica e governança estrita."
@@ -43,9 +43,9 @@ const EcosystemSection = () => {
       badge: isPt ? "Telemetria & Hardware" : "Telemetry & Hardware",
       badgeColor: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
       status: isPt ? "🟢 Online · Web App" : "🟢 Live · Web App",
-      logo: "/assets/ecosystem/monitorsmith.png",
-      logoAlt: "MonitorSmith Favicon",
-      logoBorder: "border-cyan-500/20 bg-zinc-950",
+      logo: "/assets/ecosystem/monitorsmith-centered.png",
+      logoAlt: "MonitorSmith Logo",
+      logoContainer: "border-cyan-500/20 bg-zinc-950 p-1.5",
       headline: isPt ? "Monitoramento & Inteligência de Sistema" : "Real-Time System & Hardware Telemetry",
       desc: isPt
         ? "Plataforma de alta precisão para telemetria em tempo real, monitoramento de performance de hardware e diagnósticos visuais."
@@ -64,9 +64,9 @@ const EcosystemSection = () => {
       badge: isPt ? "Frontend & UI Discovery" : "Frontend & UI Discovery",
       badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
       status: isPt ? "🟡 Novo · Domínio em Breve" : "🟡 New · Custom Domain Soon",
-      logo: "/assets/ecosystem/component-atlas.jpg",
-      logoAlt: "Component Atlas Favicon",
-      logoBorder: "border-amber-500/25 bg-zinc-950",
+      logo: "/assets/ecosystem/component-atlas.svg",
+      logoAlt: "Component Atlas Logo",
+      logoContainer: "border-amber-500/25 bg-zinc-950 p-1.5",
       headline: isPt ? "Catálogo Universal de Componentes UI" : "Universal Web UI Components Discovery",
       desc: isPt
         ? "Indexador visual de componentes independentes (Aceternity, Kokonut UI, 21st, shadcn, Magic UI) com busca semântica e comparador lado a lado."
@@ -111,7 +111,7 @@ const EcosystemSection = () => {
                   </div>
 
                   <div className="flex items-center gap-3.5 mb-4">
-                    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border p-1.5 overflow-hidden ${p.logoBorder}`}>
+                    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border overflow-hidden ${p.logoContainer}`}>
                       <img
                         src={p.logo}
                         alt={p.logoAlt}

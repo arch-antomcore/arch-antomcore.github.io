@@ -31,9 +31,9 @@ const Ecossistema = () => {
       number: "01",
       badge: isPt ? "Flagship · IA Local" : "Flagship · Local AI",
       badgeStyle: "bg-[#A34A33]/15 text-[#A34A33] border-[#A34A33]/30",
-      logo: "/assets/ecosystem/aethercore.webp",
-      logoAlt: "AetherCore Logo",
-      logoBorder: "border-[#A34A33]/20 bg-[#f4f1e8] shadow-sm shadow-[#A34A33]/10",
+      logo: "/assets/ecosystem/aethercore.png",
+      logoAlt: "AetherCore Favicon",
+      logoContainer: "border-[#211d18]/15 bg-[#211d18] shadow-sm shadow-[#A34A33]/15 p-2.5",
       headline: isPt ? "Inteligência Autônoma Local-First" : "Autonomous Local-First Intelligence",
       desc: isPt
         ? "Plataforma cognitiva que executa agentes de IA com segurança e governança 100% no hardware local, sem envio de dados a nuvens de terceiros."
@@ -50,9 +50,9 @@ const Ecossistema = () => {
       number: "02",
       badge: isPt ? "Telemetria · Live" : "Telemetry · Live",
       badgeStyle: "bg-cyan-500/10 text-cyan-600 border-cyan-500/25",
-      logo: "/assets/ecosystem/monitorsmith.png",
-      logoAlt: "MonitorSmith Favicon",
-      logoBorder: "border-cyan-500/20 bg-zinc-950 shadow-sm shadow-cyan-500/10",
+      logo: "/assets/ecosystem/monitorsmith-centered.png",
+      logoAlt: "MonitorSmith Logo",
+      logoContainer: "border-cyan-500/20 bg-zinc-950 shadow-sm shadow-cyan-500/15 p-2",
       headline: isPt ? "Telemetria & Diagnósticos de Sistema" : "Real-Time System & Hardware Telemetry",
       desc: isPt
         ? "Web app dedicado ao monitoramento em tempo real de hardware, CPU, GPU, consumo térmico e diagnósticos visuais de infraestrutura."
@@ -69,9 +69,9 @@ const Ecossistema = () => {
       number: "03",
       badge: isPt ? "UI Catalog · Em Breve" : "UI Catalog · Soon",
       badgeStyle: "bg-amber-500/10 text-amber-600 border-amber-500/25",
-      logo: "/assets/ecosystem/component-atlas.jpg",
-      logoAlt: "Component Atlas Favicon",
-      logoBorder: "border-amber-500/25 bg-zinc-950 shadow-sm shadow-amber-500/10",
+      logo: "/assets/ecosystem/component-atlas.svg",
+      logoAlt: "Component Atlas Logo",
+      logoContainer: "border-amber-500/25 bg-zinc-950 shadow-sm shadow-amber-500/15 p-2",
       headline: isPt ? "Catálogo Universal de Componentes UI" : "Universal Web UI Components Discovery",
       desc: isPt
         ? "Indexador visual que unifica as melhores bibliotecas independentes de componentes web (Aceternity, Kokonut, 21st, shadcn, Magic UI)."
@@ -109,7 +109,7 @@ const Ecossistema = () => {
         />
       </div>
 
-      {/* Clean 3-Card Portfolio Section with Real Favicons */}
+      {/* Clean 3-Card Portfolio Section with Perfect Centered Logos */}
       <Section id="projetos" className="liquid-divider">
         <Container>
           <SectionHeader
@@ -137,9 +137,9 @@ const Ecossistema = () => {
                       </span>
                     </div>
 
-                    {/* Real Favicon / Project Logo & Title */}
+                    {/* Official Centered Logo & Title */}
                     <div className="flex items-center gap-4 mb-4">
-                      <div className={`h-14 w-14 rounded-2xl border flex items-center justify-center p-2 shrink-0 overflow-hidden ${p.logoBorder}`}>
+                      <div className={`h-14 w-14 rounded-2xl border flex items-center justify-center shrink-0 overflow-hidden ${p.logoContainer}`}>
                         <img
                           src={p.logo}
                           alt={p.logoAlt}
