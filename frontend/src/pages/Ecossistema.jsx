@@ -33,7 +33,8 @@ const Ecossistema = () => {
       badgeStyle: "bg-[#A34A33]/15 text-[#A34A33] border-[#A34A33]/30",
       logo: "/assets/ecosystem/aethercore.png",
       logoAlt: "AetherCore Favicon",
-      logoContainer: "border-[#211d18]/15 bg-[#211d18] shadow-sm shadow-[#A34A33]/15 p-2.5",
+      logoContainer: "border-[#211d18]/10 bg-white shadow-sm shadow-[#211d18]/5 p-2",
+      logoClass: "w-full h-full object-contain",
       headline: isPt ? "Inteligência Autônoma Local-First" : "Autonomous Local-First Intelligence",
       desc: isPt
         ? "Plataforma cognitiva que executa agentes de IA com segurança e governança 100% no hardware local, sem envio de dados a nuvens de terceiros."
@@ -69,9 +70,10 @@ const Ecossistema = () => {
       number: "03",
       badge: isPt ? "UI Catalog · Em Breve" : "UI Catalog · Soon",
       badgeStyle: "bg-amber-500/10 text-amber-600 border-amber-500/25",
-      logo: "/assets/ecosystem/component-atlas.svg",
+      logo: "/assets/ecosystem/component-atlas-x.svg",
       logoAlt: "Component Atlas Logo",
-      logoContainer: "border-amber-500/25 bg-zinc-950 shadow-sm shadow-amber-500/15 p-2",
+      logoContainer: "border-red-500/20 bg-white shadow-sm shadow-red-500/5 p-2",
+      logoClass: "w-full h-full object-contain",
       headline: isPt ? "Catálogo Universal de Componentes UI" : "Universal Web UI Components Discovery",
       desc: isPt
         ? "Indexador visual que unifica as melhores bibliotecas independentes de componentes web (Aceternity, Kokonut, 21st, shadcn, Magic UI)."

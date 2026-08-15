@@ -24,7 +24,7 @@ const EcosystemSection = () => {
       status: isPt ? "🟢 Ativo · v0.6.0" : "🟢 Live · v0.6.0",
       logo: "/assets/ecosystem/aethercore.png",
       logoAlt: "AetherCore Favicon",
-      logoContainer: "border-[#211d18]/15 bg-[#211d18] p-2",
+      logoContainer: "border-[#211d18]/10 bg-white p-1.5",
       headline: isPt ? "Agentes Autônomos de IA Local-First" : "Autonomous Local-First Cognitive AI",
       desc: isPt
         ? "Plataforma de inteligência artificial executada 100% no seu hardware com motor nativo em Rust, auditoria criptográfica e governança estrita."
@@ -64,9 +64,9 @@ const EcosystemSection = () => {
       badge: isPt ? "Frontend & UI Discovery" : "Frontend & UI Discovery",
       badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
       status: isPt ? "🟡 Novo · Domínio em Breve" : "🟡 New · Custom Domain Soon",
-      logo: "/assets/ecosystem/component-atlas.svg",
+      logo: "/assets/ecosystem/component-atlas-x.svg",
       logoAlt: "Component Atlas Logo",
-      logoContainer: "border-amber-500/25 bg-zinc-950 p-1.5",
+      logoContainer: "border-red-500/20 bg-white p-1.5",
       headline: isPt ? "Catálogo Universal de Componentes UI" : "Universal Web UI Components Discovery",
       desc: isPt
         ? "Indexador visual de componentes independentes (Aceternity, Kokonut UI, 21st, shadcn, Magic UI) com busca semântica e comparador lado a lado."
