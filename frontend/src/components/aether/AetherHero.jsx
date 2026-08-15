@@ -212,23 +212,15 @@ const AetherHero = () => {
                 <span className="font-semibold">MonitorSmith</span>
                 <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
-              <a
-                href="#ecosystem"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const el = document.querySelector("#ecosystem");
-                  if (el) {
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
-                    window.history.pushState(null, "", "#ecosystem");
-                  }
-                }}
+              <Link
+                to="/ecossistema#component-atlas"
                 data-testid="hero-link-component-atlas"
                 className="group inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider px-4 py-2 rounded-full bg-[#211d18]/5 hover:bg-[#211d18] text-[#211d18] hover:text-[#fbf9f2] border border-[#211d18]/15 transition-all duration-300 shadow-sm cursor-pointer"
               >
                 <Compass className="w-3.5 h-3.5 text-amber-600 group-hover:text-amber-400" />
                 <span className="font-semibold">Component Atlas</span>
                 <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-800 dark:text-amber-300 font-bold tracking-normal uppercase">{isPt ? "Em Breve" : "Soon"}</span>
-              </a>
+              </Link>
             </div>
           </motion.div>
         </div>
