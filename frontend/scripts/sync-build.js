@@ -5,6 +5,7 @@ const source = path.resolve(__dirname, "..", "build");
 const destination = path.resolve(__dirname, "..", "..", "build");
 const docsDestination = path.resolve(__dirname, "..", "..", "docs");
 const spaRoutes = [
+  "ecossistema",
   "produto",
   "precos",
   "arquitetura",

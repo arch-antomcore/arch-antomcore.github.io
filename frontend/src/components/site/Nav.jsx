@@ -10,7 +10,7 @@ import { TextReveal } from "@/components/ui/cascade-text";
 
 const tabs = [
   { title: "Início", icon: Home, to: "/" },
-  { title: "Ecossistema", icon: Blocks, to: "/#ecosystem" },
+  { title: "Ecossistema", icon: Blocks, to: "/ecossistema" },
   { title: "Sobre", icon: User, to: "/sobre" },
   { title: "Produto", icon: Briefcase, to: "/produto" },
   { title: "Sustentabilidade", icon: Leaf, to: "/sustentabilidade" },

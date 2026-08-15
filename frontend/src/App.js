@@ -4,6 +4,7 @@ import { MotionConfig } from "framer-motion";
 import Layout from "@/components/site/Layout";
 
 const Home = React.lazy(() => import("@/pages/Home"));
+const Ecossistema = React.lazy(() => import("@/pages/Ecossistema"));
 const Produto = React.lazy(() => import("@/pages/Produto"));
 const Precos = React.lazy(() => import("@/pages/Precos"));
 const Arquitetura = React.lazy(() => import("@/pages/Arquitetura"));
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/ecossistema" element={<Ecossistema />} />
             <Route path="/produto" element={<Produto />} />
             <Route path="/precos" element={<Precos />} />
             <Route path="/arquitetura" element={<Arquitetura />} />

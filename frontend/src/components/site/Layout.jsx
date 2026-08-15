@@ -225,6 +225,7 @@ const LayoutInner = () => {
   useEffect(() => {
     const routePreloaders = {
       "/": () => import("@/pages/Home"),
+      "/ecossistema": () => import("@/pages/Ecossistema"),
       "/produto": () => import("@/pages/Produto"),
       "/precos": () => import("@/pages/Precos"),
       "/arquitetura": () => import("@/pages/Arquitetura"),
