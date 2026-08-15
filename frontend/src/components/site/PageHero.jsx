@@ -2,7 +2,7 @@ import React from "react";
 import { ArrowUpRight, ArrowRight } from "@phosphor-icons/react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Container } from "@/components/site/primitives";
-import { MagneticButton } from "@/components/site/interactions";
+import { MagneticButton, Magnetic } from "@/components/site/interactions";
 import { AmbientBlobs } from "@/components/aether/AetherKit";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -26,11 +26,15 @@ const PageHero = ({ kicker, lines, lead, primary, secondary, ghostWord }) => {
 
   const primaryObj = primary ? {
     to: typeof primary === "string" ? primary : (primary.to || "/#cta"),
+    href: typeof primary === "object" ? primary.href : undefined,
+    isExternal: typeof primary === "object" ? primary.isExternal : false,
     label: (typeof primary === "object" && primary.label) || defaultPrimaryLabel
   } : null;
 
   const secondaryObj = secondary ? {
     to: typeof secondary === "string" ? secondary : (secondary.to || "/produto"),
+    href: typeof secondary === "object" ? secondary.href : undefined,
+    isExternal: typeof secondary === "object" ? secondary.isExternal : false,
     label: (typeof secondary === "object" && secondary.label) || defaultSecondaryLabel
   } : null;
 
@@ -76,7 +80,7 @@ const PageHero = ({ kicker, lines, lead, primary, secondary, ghostWord }) => {
             <span key={i} className="block overflow-hidden py-1 -my-1">
               <motion.span
                 style={{ x: parallax[i % parallax.length] }}
-                className={`inline-block max-w-full ${i === 1 ? "aether-text-stroke" : ""}`}
+                className={"inline-block max-w-full " + (i === 1 ? "aether-text-stroke" : "")}
                 variants={lineUp}
                 initial="initial"
                 animate="animate"
@@ -107,19 +111,49 @@ const PageHero = ({ kicker, lines, lead, primary, secondary, ghostWord }) => {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.52 + lines.length * 0.08 }}
-              className={`flex flex-wrap items-center gap-4 ${lead ? "md:col-span-6 md:justify-end" : "md:col-span-12"}`}
+              className={"flex flex-wrap items-center gap-4 " + (lead ? "md:col-span-6 md:justify-end" : "md:col-span-12")}
             >
               {primaryObj && (
-                <MagneticButton to={primaryObj.to} cursorText="Deploy" data-testid="hero-primary-cta" className="!bg-[#A34A33] !border-[#A34A33] hover:!bg-[#211d18] hover:!border-[#211d18] !text-xs !uppercase !tracking-[0.15em] !font-semibold !px-7 !py-4">
-                  {primaryObj.label}
-                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.75} />
-                </MagneticButton>
+                primaryObj.isExternal && primaryObj.href ? (
+                  <Magnetic strength={0.28}>
+                    <a
+                      href={primaryObj.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid="hero-primary-cta"
+                      className="group relative inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium transition-colors duration-300 overflow-hidden border border-[#A34A33] bg-[#A34A33] !text-[#f7f4ec] shadow-[0_18px_38px_-16px_rgba(163,74,51,0.45)] hover:bg-[#211d18] hover:border-[#211d18] !text-xs !uppercase !tracking-[0.15em] !font-semibold !px-7 !py-4 cursor-pointer"
+                    >
+                      {primaryObj.label}
+                      <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.75} />
+                    </a>
+                  </Magnetic>
+                ) : (
+                  <MagneticButton to={primaryObj.to} cursorText="Deploy" data-testid="hero-primary-cta" className="!bg-[#A34A33] !border-[#A34A33] hover:!bg-[#211d18] hover:!border-[#211d18] !text-xs !uppercase !tracking-[0.15em] !font-semibold !px-7 !py-4">
+                    {primaryObj.label}
+                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.75} />
+                  </MagneticButton>
+                )
               )}
               {secondaryObj && (
-                <MagneticButton to={secondaryObj.to} variant="ghost" cursorText="Explorar" data-testid="hero-secondary-cta" className="!border-[#211d18] !text-xs !uppercase !tracking-[0.15em] !font-semibold !px-7 !py-4 hover:!bg-[#211d18] hover:!text-[#fbf9f2]">
-                  {secondaryObj.label}
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={1.75} />
-                </MagneticButton>
+                secondaryObj.isExternal && secondaryObj.href ? (
+                  <Magnetic strength={0.28}>
+                    <a
+                      href={secondaryObj.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid="hero-secondary-cta"
+                      className="group relative inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium transition-colors duration-300 overflow-hidden border border-[#211d18]/20 text-[#211d18] hover:bg-[#211d18] hover:text-[#fbf9f2] !text-xs !uppercase !tracking-[0.15em] !font-semibold !px-7 !py-4 cursor-pointer"
+                    >
+                      {secondaryObj.label}
+                      <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.75} />
+                    </a>
+                  </Magnetic>
+                ) : (
+                  <MagneticButton to={secondaryObj.to} variant="ghost" cursorText="Explorar" data-testid="hero-secondary-cta" className="!border-[#211d18] !text-xs !uppercase !tracking-[0.15em] !font-semibold !px-7 !py-4 hover:!bg-[#211d18] hover:!text-[#fbf9f2]">
+                    {secondaryObj.label}
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={1.75} />
+                  </MagneticButton>
+                )
               )}
             </motion.div>
           )}
