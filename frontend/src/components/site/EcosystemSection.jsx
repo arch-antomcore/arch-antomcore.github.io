@@ -22,7 +22,7 @@ const EcosystemSection = () => {
       badge: isPt ? "Carro-Chefe · IA Local" : "Flagship · Local AI",
       badgeColor: "bg-[#A34A33]/10 text-[#A34A33] border-[#A34A33]/20",
       status: isPt ? "🟢 Ativo · v0.6.0" : "🟢 Live · v0.6.0",
-      logo: "/assets/ecosystem/aethercore.png",
+      logo: "/assets/ecosystem/aethercore.svg",
       logoAlt: "AetherCore Favicon",
       logoContainer: "border-[#A34A33]/20 bg-white p-2",
       headline: isPt ? "Agentes Autônomos de IA Local-First" : "Autonomous Local-First Cognitive AI",

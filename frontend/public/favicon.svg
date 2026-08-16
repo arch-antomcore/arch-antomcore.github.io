@@ -1,0 +1,8 @@
+<svg width="128" height="128" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Left Pillar -->
+  <path d="M9.6 14.8V28L0 25.1V11.9L9.6 14.8Z" fill="#A34A33" fill-opacity="0.9"/>
+  <!-- Right Pillar (Tall) -->
+  <path d="M24 2.9V28L14.4 25.1V0L24 2.9Z" fill="#A34A33"/>
+  <!-- Top Bridge -->
+  <path d="M9.6 3.1V10.8L0 7.7V0L9.6 3.1Z" fill="#A34A33" fill-opacity="0.75"/>
+</svg>

@@ -31,7 +31,7 @@ const Ecossistema = () => {
       number: "01",
       badge: isPt ? "Flagship · IA Local" : "Flagship · Local AI",
       badgeStyle: "bg-[#A34A33]/15 text-[#A34A33] border-[#A34A33]/30",
-      logo: "/assets/ecosystem/aethercore.png",
+      logo: "/assets/ecosystem/aethercore.svg",
       logoAlt: "AetherCore Favicon",
       logoContainer: "border-[#A34A33]/20 bg-white shadow-sm shadow-[#A34A33]/10 p-2.5",
       logoClass: "w-full h-full object-contain",
