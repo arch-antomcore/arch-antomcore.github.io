@@ -43,7 +43,7 @@ const EcosystemSection = () => {
       badge: isPt ? "Telemetria & Hardware" : "Telemetry & Hardware",
       badgeColor: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
       status: isPt ? "🟢 Online · Web App" : "🟢 Live · Web App",
-      logo: "/assets/ecosystem/monitorsmith-centered.png",
+      logo: "/assets/ecosystem/monitorsmith.png",
       logoAlt: "MonitorSmith Logo",
       logoContainer: "border-cyan-500/20 bg-zinc-950 p-1.5",
       headline: isPt ? "Monitoramento & Inteligência de Sistema" : "Real-Time System & Hardware Telemetry",

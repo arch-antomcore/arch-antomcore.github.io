@@ -51,7 +51,7 @@ const Ecossistema = () => {
       number: "02",
       badge: isPt ? "Telemetria · Live" : "Telemetry · Live",
       badgeStyle: "bg-cyan-500/10 text-cyan-600 border-cyan-500/25",
-      logo: "/assets/ecosystem/monitorsmith-centered.png",
+      logo: "/assets/ecosystem/monitorsmith.png",
       logoAlt: "MonitorSmith Logo",
       logoContainer: "border-cyan-500/20 bg-zinc-950 shadow-sm shadow-cyan-500/15 p-2",
       headline: isPt ? "Telemetria & Diagnósticos de Sistema" : "Real-Time System & Hardware Telemetry",
