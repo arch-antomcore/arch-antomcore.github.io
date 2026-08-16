@@ -33,7 +33,7 @@ const Ecossistema = () => {
       badgeStyle: "bg-[#A34A33]/15 text-[#A34A33] border-[#A34A33]/30",
       logo: "/assets/ecosystem/aethercore.png",
       logoAlt: "AetherCore Favicon",
-      logoContainer: "border-[#211d18]/10 bg-white shadow-sm shadow-[#211d18]/5 p-2",
+      logoContainer: "border-[#A34A33]/20 bg-white shadow-sm shadow-[#A34A33]/10 p-2.5",
       logoClass: "w-full h-full object-contain",
       headline: isPt ? "Inteligência Autônoma Local-First" : "Autonomous Local-First Intelligence",
       desc: isPt
@@ -53,7 +53,8 @@ const Ecossistema = () => {
       badgeStyle: "bg-cyan-500/10 text-cyan-600 border-cyan-500/25",
       logo: "/assets/ecosystem/monitorsmith.png",
       logoAlt: "MonitorSmith Logo",
-      logoContainer: "border-cyan-500/20 bg-zinc-950 shadow-sm shadow-cyan-500/15 p-2",
+      logoContainer: "border-cyan-500/20 bg-white shadow-sm shadow-cyan-500/10 p-2",
+      logoClass: "w-full h-full object-contain",
       headline: isPt ? "Telemetria & Diagnósticos de Sistema" : "Real-Time System & Hardware Telemetry",
       desc: isPt
         ? "Web app dedicado ao monitoramento em tempo real de hardware, CPU, GPU, consumo térmico e diagnósticos visuais de infraestrutura."
@@ -72,7 +73,7 @@ const Ecossistema = () => {
       badgeStyle: "bg-amber-500/10 text-amber-600 border-amber-500/25",
       logo: "/assets/ecosystem/component-atlas-x.svg",
       logoAlt: "Component Atlas Logo",
-      logoContainer: "border-red-500/20 bg-white shadow-sm shadow-red-500/5 p-2",
+      logoContainer: "border-red-500/20 bg-white shadow-sm shadow-red-500/10 p-2",
       logoClass: "w-full h-full object-contain",
       headline: isPt ? "Catálogo Universal de Componentes UI" : "Universal Web UI Components Discovery",
       desc: isPt
@@ -111,7 +112,7 @@ const Ecossistema = () => {
         />
       </div>
 
-      {/* Clean 3-Card Portfolio Section with Perfect Centered Logos */}
+      {/* Clean 3-Card Portfolio Section with High Contrast Logos */}
       <Section id="projetos" className="liquid-divider">
         <Container>
           <SectionHeader
@@ -139,13 +140,13 @@ const Ecossistema = () => {
                       </span>
                     </div>
 
-                    {/* Official Centered Logo & Title */}
+                    {/* High-Contrast Centered Logo & Title */}
                     <div className="flex items-center gap-4 mb-4">
                       <div className={`h-14 w-14 rounded-2xl border flex items-center justify-center shrink-0 overflow-hidden ${p.logoContainer}`}>
                         <img
                           src={p.logo}
                           alt={p.logoAlt}
-                          className="w-full h-full object-contain"
+                          className={p.logoClass}
                           loading="eager"
                         />
                       </div>
