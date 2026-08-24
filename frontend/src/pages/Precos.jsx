@@ -13,7 +13,7 @@ const Precos = () => {
   const railItems = language === "pt"
     ? [
         { id: "precos-hero", label: "01 · Intro" },
-        { id: "precos-editorial", label: "02 · Preambulo" },
+        { id: "precos-editorial", label: "02 · Preâmbulo" },
         { id: "pricing", label: "03 · Planos" },
         { id: "pricing-extras", label: "04 · Hardware" },
         { id: "cta", label: "05 · Contato" },

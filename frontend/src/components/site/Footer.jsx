@@ -217,6 +217,14 @@ const Footer = () => {
                     ? "IA local-first projetada para máxima privacidade, controle e velocidade."
                     : "Local-first AI designed for maximum privacy, control, and speed."}
                 </p>
+                <a
+                  href="mailto:business@exvorn.tech"
+                  className="mt-3 inline-flex items-center gap-2 font-mono text-xs tracking-wide text-[#A34A33] hover:text-[#211d18] transition-colors duration-200 pointer-events-auto"
+                  data-testid="footer-email-link"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#A34A33]" />
+                  business@exvorn.tech
+                </a>
               </motion.div>
 
               {/* Col 2: Produto */}

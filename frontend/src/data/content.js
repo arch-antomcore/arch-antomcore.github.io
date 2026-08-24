@@ -24,7 +24,7 @@ export const CONTENT_PT = {
     name: "AetherCore",
     version: "v0.6.0 · beta",
     tagline: "IA local / beta",
-    copyright: "© 2026 AetherCore. IA local-first. Curitiba, Brasil.",
+    copyright: "© 2026 AetherCore. IA local-first. Curitiba, Brasil. Contato: business@exvorn.tech",
   },
   NAV_LINKS: [
     { label: "Início", to: "/" },
@@ -141,14 +141,14 @@ export const CONTENT_PT = {
     kicker: "acesso antecipado",
     title: "Quer testar antes de todo mundo?",
     desc:
-      "Ainda não estamos recebendo inscrições por email — o backend tá em construção. Mas se você curtiu o projeto, manda uma mensagem direto pro fundador no LinkedIn. Sem formulário, sem fila, só uma conversa real.",
-    notice: "📬 Inscrições por email em breve. Por enquanto, o papo é pelo LinkedIn.",
+      "Quer conhecer o projeto de perto? Manda um email para business@exvorn.tech ou fala direto com o fundador no LinkedIn. Sem formulário, sem fila, só uma conversa real.",
+    notice: "📬 Contato comercial: business@exvorn.tech · Ou fale conosco pelo LinkedIn.",
     linkedinButton: "Falar com o CEO no LinkedIn",
     button: "Entrar na lista beta",
     details: [
       { k: "acesso", v: "por convite" },
       { k: "região", v: "Curitiba / remoto" },
-      { k: "contato", v: "direto com o fundador" },
+      { k: "contato", v: "business@exvorn.tech" },
       { k: "segurança", v: "aprovação humana" },
     ],
   },
@@ -324,7 +324,7 @@ export const CONTENT_PT = {
       { n: "03", tag: "registro", t: "Automação sem log é caixa preta.", d: "O agente registra objetivos, permissões, ferramentas usadas, arquivos tocados e decisões relevantes." },
       { n: "04", tag: "proporcionalidade", t: "Usa o mínimo necessário.", d: "O sistema trabalha com o menor escopo possível e reduz exposição sem perder utilidade." },
       { n: "05", tag: "humano no comando", t: "IA propõe. Você aprova.", d: "A camada de aprovação protege decisões críticas. Quem usa é operador, não passageiro." },
-      { n: "06", tag: "código como defesa", t: "Privacidade precisa de código, não de promessa.", d: "Inspirado pela cultura cypherpunk: boas intenções não bastam. É preciso construir os mechanisms." },
+      { n: "06", tag: "código como defesa", t: "Privacidade precisa de código, não de promessa.", d: "Inspirado pela cultura cypherpunk: boas intenções não bastam. É preciso construir os mecanismos." },
     ],
   },
   SUSTENTABILIDADE: {
@@ -393,7 +393,7 @@ export const CONTENT_PT = {
     ],
   },
   ROADMAP: {
-    kicker: "plano de execução centelha pr",
+    kicker: "plano de execução centelha PR",
     title: "Cronograma de Consolidação e Entrada no Mercado",
     lead:
       "Planejamento de 12 meses focado em robustez tecnológica, validação regulatória regional e expansão comercial B2B pós-fomento.",
@@ -591,7 +591,7 @@ export const CONTENT_EN = {
     name: "AetherCore",
     version: "v0.6.0 · beta",
     tagline: "local AI / beta",
-    copyright: "© 2026 AetherCore. Local-first AI. Curitiba, Brazil.",
+    copyright: "© 2026 AetherCore. Local-first AI. Curitiba, Brazil. Contact: business@exvorn.tech",
   },
   NAV_LINKS: [
     { label: "Home", to: "/" },
@@ -637,7 +637,7 @@ export const CONTENT_EN = {
       { t: "Local by default", icon: "HardDrive" },
     ],
     titleLead: "Agents that",
-    titleEm: "agents.",
+    titleEm: "autonomous.",
     titleEnd: "Absolute control.",
     primaryCta: "Request early access",
     secondaryCta: "See the first XLSX case",
@@ -708,14 +708,14 @@ export const CONTENT_EN = {
     kicker: "early access",
     title: "Want to try it before everyone else?",
     desc:
-      "We're not collecting emails just yet — the backend is under construction. But if the project caught your eye, reach out directly to the founder on LinkedIn. No forms, no queues, just a real conversation.",
-    notice: "📬 Email signups coming soon. For now, let's talk on LinkedIn.",
+      "Want to get closer to the project? Send an email to business@exvorn.tech or reach out directly to the founder on LinkedIn. No forms, no queues, just a real conversation.",
+    notice: "📬 Business contact: business@exvorn.tech · Or reach us on LinkedIn.",
     linkedinButton: "Talk to the CEO on LinkedIn",
     button: "Join beta list",
     details: [
       { k: "access", v: "invite-only" },
       { k: "location", v: "Curitiba / remote" },
-      { k: "contact", v: "direct with founder" },
+      { k: "contact", v: "business@exvorn.tech" },
       { k: "security", v: "human approved" },
     ],
   },

@@ -83,7 +83,7 @@ const CtaSection = () => {
                 </div>
               </div>
 
-              {/* LinkedIn CTA button */}
+              {/* CTA buttons — LinkedIn + Email */}
               <div className="mt-8 flex max-w-xl flex-col gap-4 sm:flex-row">
                 <a
                   href={LINKEDIN_URL}
@@ -109,6 +109,31 @@ const CtaSection = () => {
                 >
                   <Linkedin className="h-4.5 w-4.5" strokeWidth={1.75} />
                   {CTA.linkedinButton}
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.75} />
+                </a>
+
+                <a
+                  href="mailto:business@exvorn.tech"
+                  data-testid="cta-email-button"
+                  data-cursor="hover"
+                  data-cursor-text="Email"
+                  className="group inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-full px-8 py-4 text-sm font-medium transition-all duration-300"
+                  style={{
+                    background: "linear-gradient(135deg, #A34A33 0%, #7a3526 100%)",
+                    color: "#fff",
+                    boxShadow: "0 0 20px rgba(163, 74, 51, 0.25), 0 4px 12px rgba(0,0,0,0.15)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = "0 0 30px rgba(163, 74, 51, 0.45), 0 6px 20px rgba(0,0,0,0.2)";
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = "0 0 20px rgba(163, 74, 51, 0.25), 0 4px 12px rgba(0,0,0,0.15)";
+                    e.currentTarget.style.transform = "translateY(0)";
+                  }}
+                >
+                  <MessageCircle className="h-4.5 w-4.5" strokeWidth={1.75} />
+                  {language === "en" ? "Email us" : "Enviar email"}
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.75} />
                 </a>
               </div>
