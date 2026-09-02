@@ -603,7 +603,6 @@ export const CONTENT_PT = {
       origin: "Origens e governança estratégica italiana",
       linkedinUrl: "https://www.linkedin.com/company/pacific-palm-partners",
       logoUrl: "/assets/img/brand/pacific-palm-logo.png",
-      fallbackLogoUrl: "https://media.licdn.com/dms/image/v2/D4D0BAQEI5sfa3n_QZg/company-logo_200_200/company-logo_200_200/0/1696530402425?e=1790208000&v=beta&t=b_gttLyusS8mKJTrVJkcISMsDiFKOFNLvVOKBC-iTqA",
       description: "Operação financeira institucional focada em alinhar estratégia digital com objetivos de investimento global, capturando oportunidades de mercado cross-border e eficiências operacionais impulsionadas por tecnologia de ponta."
     },
     founderRole: {
@@ -1270,7 +1269,6 @@ export const CONTENT_EN = {
       origin: "Italian heritage & executive governance",
       linkedinUrl: "https://www.linkedin.com/company/pacific-palm-partners",
       logoUrl: "/assets/img/brand/pacific-palm-logo.png",
-      fallbackLogoUrl: "https://media.licdn.com/dms/image/v2/D4D0BAQEI5sfa3n_QZg/company-logo_200_200/company-logo_200_200/0/1696530402425?e=1790208000&v=beta&t=b_gttLyusS8mKJTrVJkcISMsDiFKOFNLvVOKBC-iTqA",
       description: "Institutional financial operation engaged in aligning digital strategy with global investment objectives, focusing on technology-driven efficiencies and cross-border market opportunities."
     },
     founderRole: {

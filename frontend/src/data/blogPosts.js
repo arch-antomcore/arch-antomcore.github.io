@@ -704,7 +704,7 @@ We polished the entire interface copy to present a cohesive localized demonstrat
     tags: ["Frontend", "CEF", "UX", "Rust"],
     content: `### Novo Frontend Conectado ao Runtime Real
 
-O template visual em \`C:\\Users\\Xgm\\Desktop\\app\` foi adaptado para se tornar a nova face do AetherCore dentro do runtime CEF. A mudança não foi apenas estética: a interface passou a representar estados reais do produto.
+Um template visual interno foi adaptado para se tornar a nova face do AetherCore dentro do runtime CEF. A mudança não foi apenas estética: a interface passou a representar estados reais do produto.
 
 - **Sessões e Documentos**: A sidebar e o shell passam a refletir conversas, documentos e contexto de workspace.
 - **Atividades Reais**: O drawer de atividades consome eventos do backend, incluindo \`agent_task\`, em vez de exibir uma timeline fixa.
@@ -717,7 +717,7 @@ O template visual em \`C:\\Users\\Xgm\\Desktop\\app\` foi adaptado para se torna
 O novo visual mantém o posicionamento premium, mas com linguagem mais operacional: menos tela conceitual e mais produto utilizável. O app passou a comunicar melhor o fluxo local-first, o modelo Qwen, o runtime Rust e as ferramentas disponíveis.`,
     contentEn: `### New Frontend Connected to the Real Runtime
 
-The visual template in \`C:\\Users\\Xgm\\Desktop\\app\` was adapted to become the new AetherCore interface inside the CEF runtime. This was not just a visual change: the interface now represents actual product state.
+An internal visual template was adapted to become the new AetherCore interface inside the CEF runtime. This was not just a visual change: the interface now represents actual product state.
 
 - **Sessions and Documents**: The sidebar and shell reflect conversations, documents, and workspace context.
 - **Live Activities**: The activity drawer consumes backend events, including \`agent_task\`, instead of showing a static timeline.

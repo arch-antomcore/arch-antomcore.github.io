@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import { MotionConfig } from "framer-motion";
 import Layout from "@/components/site/Layout";
 
@@ -42,7 +42,7 @@ function App() {
             <Route path="/sustentabilidade" element={<Sustentabilidade />} />
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/validacao" element={<Validacao />} />
-            <Route path="/pacific-palm" element={<Validacao />} />
+            <Route path="/pacific-palm" element={<Navigate to="/validacao" replace />} />
             <Route path="/dossie" element={<Dossie />} />
             <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/referencias" element={<Referencias />} />

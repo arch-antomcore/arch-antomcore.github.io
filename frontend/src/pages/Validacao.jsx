@@ -1,28 +1,19 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Container, Section, SectionHeader, Kicker, Reveal } from "@/components/site/primitives";
+import { Container, Section, SectionHeader, Reveal } from "@/components/site/primitives";
 import PageHero from "@/components/site/PageHero";
 import CtaSection from "@/components/site/CtaSection";
-import { SpotlightCard, Magnetic, MagneticButton } from "@/components/site/interactions";
+import { SpotlightCard, Magnetic } from "@/components/site/interactions";
 import SectionRail from "@/components/aether/SectionRail";
 import { useTranslation } from "@/hooks/useTranslation";
-import AnimateNumber from "@/components/animated-blur-number";
 import {
-  ShieldCheck,
-  TrendUp,
   Buildings,
   Globe,
-  Lock,
   ArrowUpRight,
-  TerminalWindow,
   Cpu,
   CheckCircle,
-  FileText,
   LinkedinLogo,
-  Vault,
-  Coins,
-  CurrencyDollar as DollarSign
+  Vault
 } from "@phosphor-icons/react";
 
 const Validacao = () => {
@@ -63,7 +54,7 @@ const Validacao = () => {
           ghostWord="¥45M"
           primary={{
             label: language === "en" ? "Talk to the Founder" : "Falar com o Fundador",
-            href: "https://www.linkedin.com/company/pacific-palm-partners",
+            href: "https://www.linkedin.com/in/matheus-peres-da-silva/",
             isExternal: true
           }}
           secondary={{
@@ -118,13 +109,22 @@ const Validacao = () => {
                   {/* Company Profile Left */}
                   <div className="lg:col-span-7 flex flex-col items-start gap-6">
                     <div className="flex flex-wrap items-center gap-4">
-                      <div className="h-16 w-16 md:h-20 md:md:w-20 rounded-2xl bg-[#211d18] p-2 flex items-center justify-center shadow-lg border border-white/10 shrink-0">
-                        <img
-                          src={imgError ? VALIDACAO.partner.fallbackLogoUrl : VALIDACAO.partner.logoUrl}
-                          alt={VALIDACAO.partner.name}
-                          onError={() => setImgError(true)}
-                          className="h-full w-full object-contain rounded-xl"
-                        />
+                      <div className="h-16 w-16 md:h-20 md:w-20 rounded-2xl bg-[#211d18] p-2 flex items-center justify-center shadow-lg border border-white/10 shrink-0">
+                        {imgError ? (
+                          <span
+                            aria-label={`${VALIDACAO.partner.name} logo`}
+                            className="aether-font-display text-xl font-extrabold tracking-tight text-[#f7f4ec]"
+                          >
+                            PP
+                          </span>
+                        ) : (
+                          <img
+                            src={VALIDACAO.partner.logoUrl}
+                            alt={VALIDACAO.partner.name}
+                            onError={() => setImgError(true)}
+                            className="h-full w-full object-contain rounded-xl"
+                          />
+                        )}
                       </div>
                       <div>
                         <div className="flex items-center gap-2">

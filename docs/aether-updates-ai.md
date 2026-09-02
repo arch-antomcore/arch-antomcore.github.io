@@ -63,7 +63,7 @@ approval for sensitive actions. The current validated local model path is
 ### v0.3.9 - Dynamic Frontend And Product Design System
 
 - **Status**: implemented and packaged.
-- **Key delivery**: the frontend adapted from `C:\Users\Xgm\Desktop\app` now represents actual AetherCore states.
+- **Key delivery**: the frontend evolved from an internal visual prototype and now represents actual AetherCore states.
 - **Surface**: sessions, documents, local model state, ARL, approvals, permissions, runtime status, and agent activities.
 - **Activity source**: the drawer consumes backend `agent_task` events instead of static demo steps.
 
