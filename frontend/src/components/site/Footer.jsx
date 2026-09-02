@@ -107,6 +107,7 @@ const Footer = () => {
   const productLinks = [
     { label: language === "pt" ? "Início" : "Home", to: "/" },
     { label: language === "pt" ? "Produto" : "Product", to: "/produto" },
+    { label: language === "pt" ? "Validação Pacific Palm (¥45M)" : "Pacific Palm Validation (¥45M)", to: "/validacao" },
     { label: language === "pt" ? "Funcionamento Local" : "How it Works", to: "/produto#funcionamento" },
     { label: language === "pt" ? "Planos & Edições" : "Editions & Plans", to: "/produto#edicoes" },
     { label: language === "pt" ? "Casos de Uso" : "Use Cases", to: "/casos-de-uso" },
@@ -121,6 +122,7 @@ const Footer = () => {
 
   const exploreLinks = [
     { label: language === "pt" ? "Sobre a AetherCore" : "About AetherCore", to: "/sobre" },
+    { label: language === "pt" ? "Validação Offshore (Hedge Fund)" : "Offshore Validation (Hedge Fund)", to: "/validacao" },
     { label: language === "pt" ? "Equipe de Engenharia" : "Engineering Team", to: "/sobre#equipe" },
     { label: language === "pt" ? "Motor Duplo (Twin)" : "Symmetric Twin Engine", to: "/sobre#paradigma" },
     { label: language === "pt" ? "Blog & Novidades" : "Blog & News", to: "/blog" },

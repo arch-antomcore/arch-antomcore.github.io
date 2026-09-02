@@ -14,6 +14,7 @@ const Faq = React.lazy(() => import("@/pages/Faq"));
 const Blog = React.lazy(() => import("@/pages/Blog"));
 const Sustentabilidade = React.lazy(() => import("@/pages/Sustentabilidade"));
 const Sobre = React.lazy(() => import("@/pages/Sobre"));
+const Validacao = React.lazy(() => import("@/pages/Validacao"));
 const Dossie = React.lazy(() => import("@/pages/Dossie"));
 const Roadmap = React.lazy(() => import("@/pages/Roadmap"));
 const Referencias = React.lazy(() => import("@/pages/Referencias"));
@@ -40,6 +41,8 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/sustentabilidade" element={<Sustentabilidade />} />
             <Route path="/sobre" element={<Sobre />} />
+            <Route path="/validacao" element={<Validacao />} />
+            <Route path="/pacific-palm" element={<Validacao />} />
             <Route path="/dossie" element={<Dossie />} />
             <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/referencias" element={<Referencias />} />

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLenis } from "lenis/react";
-import { List as Menu, X, ArrowUpRight, House as Home, Briefcase, FileText, CurrencyDollar as DollarSign, Cpu, ShieldCheck, Heart, Question as HelpCircle, Plant as Leaf, User, PuzzlePiece as Blocks } from "@phosphor-icons/react";
+import { List as Menu, X, ArrowUpRight, House as Home, Briefcase, FileText, CurrencyDollar as DollarSign, Cpu, ShieldCheck, Heart, Question as HelpCircle, Plant as Leaf, User, PuzzlePiece as Blocks, TrendUp } from "@phosphor-icons/react";
 import { ScrollProgress, Magnetic } from "@/components/site/interactions";
 import { ExpandableTabs } from "@/components/ui/expandable-tabs";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -12,6 +12,7 @@ const tabs = [
   { title: "Início", icon: Home, to: "/" },
   { title: "Ecossistema", icon: Blocks, to: "/ecossistema" },
   { title: "Sobre", icon: User, to: "/sobre" },
+  { title: "Validação", icon: TrendUp, to: "/validacao" },
   { title: "Produto", icon: Briefcase, to: "/produto" },
   { title: "Sustentabilidade", icon: Leaf, to: "/sustentabilidade" },
   { title: "Blog", icon: FileText, to: "/blog" },

@@ -16,6 +16,8 @@ const spaRoutes = [
   "blog",
   "sustentabilidade",
   "sobre",
+  "validacao",
+  "pacific-palm",
   "roadmap",
   "demo-glass",
   "dossie",

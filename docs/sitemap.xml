@@ -21,6 +21,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://exvorn.tech/validacao</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://exvorn.tech/arquitetura</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
