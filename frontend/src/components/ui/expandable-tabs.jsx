@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useOnClickOutside } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 
@@ -33,7 +33,13 @@ export function ExpandableTabs({
 }) {
   const [selected, setSelected] = React.useState(activeTab ?? null);
   const [hovered, setHovered] = React.useState(null);
+  const [focused, setFocused] = React.useState(null);
   const outsideClickRef = React.useRef(null);
+  const prefersReducedMotion = useReducedMotion();
+  const isControlled = activeTab !== undefined;
+  const selectedIndex = isControlled ? activeTab : selected;
+  const interactionIndex = hovered ?? focused;
+  const motionTransition = prefersReducedMotion ? { duration: 0 } : transition;
 
   React.useEffect(() => {
     if (activeTab !== undefined) {
@@ -42,8 +48,10 @@ export function ExpandableTabs({
   }, [activeTab]);
 
   useOnClickOutside(outsideClickRef, () => {
-    setSelected(null);
-    onChange?.(null);
+    if (!isControlled) {
+      setSelected(null);
+      onChange?.(null);
+    }
   });
 
   const handleSelect = (index) => {
@@ -68,7 +76,7 @@ export function ExpandableTabs({
       ref={outsideClickRef}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative flex flex-wrap items-center gap-1 rounded-full border border-white/12 bg-zinc-950/80 p-1.5 shadow-2xl backdrop-blur-xl transition-all duration-300",
+        "relative flex flex-nowrap items-center gap-1 rounded-full border border-white/12 bg-zinc-950/80 p-1.5 shadow-2xl backdrop-blur-xl transition-all duration-300",
         className
       )}
     >
@@ -78,10 +86,10 @@ export function ExpandableTabs({
         }
 
         const Icon = tab.icon;
-        const isSelected = selected === index;
-        const isHovered = hovered === index;
-        const isExpanded = isSelected || isHovered;
-        const isHighlight = isHovered || (hovered === null && isSelected);
+        const isSelected = selectedIndex === index;
+        const isInteracting = interactionIndex === index;
+        const isExpanded = isInteracting || (interactionIndex === null && isSelected);
+        const isHighlight = isInteracting || (interactionIndex === null && isSelected);
 
         return (
           <motion.button
@@ -91,8 +99,14 @@ export function ExpandableTabs({
             animate="animate"
             custom={isExpanded}
             onMouseEnter={() => handleMouseEnter(index)}
+            onFocus={() => setFocused(index)}
+            onBlur={() => setFocused(null)}
             onClick={() => handleSelect(index)}
-            transition={transition}
+            transition={motionTransition}
+            aria-label={tab.title}
+            aria-current={isSelected ? "page" : undefined}
+            data-nav-expanded={isExpanded ? "true" : "false"}
+            title={tab.title}
             className={cn(
               "relative flex items-center rounded-full py-1.5 text-xs md:text-sm font-medium transition-colors duration-300 select-none cursor-pointer",
               isHighlight
@@ -104,7 +118,7 @@ export function ExpandableTabs({
             {isHighlight && (
               <motion.div
                 layoutId="nav-expandable-tab-glide"
-                transition={{ type: "spring", stiffness: 320, damping: 28 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 320, damping: 28 }}
                 className="absolute inset-0 rounded-full bg-white/12 border border-white/15 shadow-sm z-0 pointer-events-none"
               />
             )}
@@ -120,7 +134,7 @@ export function ExpandableTabs({
                   initial="initial"
                   animate="animate"
                   exit="exit"
-                  transition={transition}
+                  transition={motionTransition}
                   className="relative z-10 overflow-hidden select-none whitespace-nowrap pl-2 pr-0.5"
                 >
                   {tab.title}

@@ -109,7 +109,7 @@ const Validacao = () => {
                   {/* Company Profile Left */}
                   <div className="lg:col-span-7 flex flex-col items-start gap-6">
                     <div className="flex flex-wrap items-center gap-4">
-                      <div className="h-16 w-16 md:h-20 md:w-20 rounded-2xl bg-[#211d18] p-2 flex items-center justify-center shadow-lg border border-white/10 shrink-0">
+                      <div className="aether-dark-surface h-16 w-16 md:h-20 md:w-20 rounded-2xl bg-[#211d18] p-2 flex items-center justify-center shadow-lg border border-white/10 shrink-0">
                         {imgError ? (
                           <span
                             aria-label={`${VALIDACAO.partner.name} logo`}
@@ -190,11 +190,11 @@ const Validacao = () => {
 
                   {/* Financial & Volume Badge Right */}
                   <div className="lg:col-span-5 flex flex-col gap-5">
-                    <div className="p-8 rounded-[28px] bg-[#211d18] text-[#f7f4ec] shadow-2xl relative overflow-hidden border border-white/10">
+                    <div className="aether-dark-surface p-8 rounded-[28px] bg-[#211d18] text-[#f7f4ec] shadow-2xl relative overflow-hidden border border-white/10">
                       <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
                         <Vault className="h-32 w-32" />
                       </div>
-                      <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#A34A33] font-bold block mb-2">
+                      <span className="aether-dark-accent font-mono text-[10px] uppercase tracking-[0.3em] font-bold block mb-2">
                         {language === "pt" ? "Volume Transacionado Anual" : "Annual Turnover Audited"}
                       </span>
                       <div className="flex items-baseline gap-2">
@@ -338,7 +338,7 @@ const Validacao = () => {
 
           <div className="mt-12">
             <Reveal>
-              <div className="rounded-[28px] bg-[#121110] border border-white/15 p-6 md:p-8 shadow-2xl overflow-hidden text-zinc-300 font-mono text-xs md:text-sm">
+              <div className="aether-dark-surface rounded-[28px] bg-[#121110] border border-white/15 p-6 md:p-8 shadow-2xl overflow-hidden text-zinc-300 font-mono text-xs md:text-sm">
                 {/* Terminal Header */}
                 <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
                   <div className="flex items-center gap-2">
@@ -362,7 +362,7 @@ const Validacao = () => {
                       transition={{ delay: idx * 0.08, duration: 0.4 }}
                       className="flex items-start gap-3"
                     >
-                      <span className="text-[#A34A33] select-none shrink-0">&gt;</span>
+                      <span className="aether-dark-accent select-none shrink-0">&gt;</span>
                       <span className={line.includes("HARD BLOCKED") || line.includes("100% local") ? "text-emerald-400 font-semibold" : line.includes("Target Volume") ? "text-amber-300 font-semibold" : "text-zinc-300"}>
                         {line}
                       </span>
@@ -379,9 +379,9 @@ const Validacao = () => {
       <Section id="veredito" className="liquid-divider">
         <Container>
           <Reveal>
-            <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-r from-[#211d18] to-[#2c2720] text-[#f7f4ec] p-10 md:p-16 border border-white/10 shadow-2xl">
+            <div className="aether-dark-surface relative overflow-hidden rounded-[32px] bg-gradient-to-r from-[#211d18] to-[#2c2720] text-[#f7f4ec] p-10 md:p-16 border border-white/10 shadow-2xl">
               <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
-                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#A34A33] font-bold">
+                <span className="aether-dark-accent font-mono text-[10px] uppercase tracking-[0.3em] font-bold">
                   {VALIDACAO.verdict.kicker}
                 </span>
 

@@ -411,6 +411,36 @@ main [class*="to-zinc-950"] {
   color: #854d0e !important;
 }
 
+/* Deliberately dark panels inside the light editorial canvas. Keep their
+   foreground, accents and hairlines legible instead of remapping them to ink. */
+.aether-dark-surface,
+.aether-dark-surface.text-white,
+.aether-dark-surface .text-white {
+  color: #f7f4ec !important;
+}
+.aether-dark-surface.text-zinc-300,
+.aether-dark-surface :is(.text-zinc-100, .text-zinc-200, .text-zinc-300) {
+  color: #ded8cc !important;
+}
+.aether-dark-surface.text-zinc-400,
+.aether-dark-surface .text-zinc-400 {
+  color: #b8b1a5 !important;
+}
+.aether-dark-surface .aether-dark-accent {
+  color: #e58c72 !important;
+}
+.aether-dark-surface [class*="text-amber-"],
+.aether-dark-surface [class*="text-yellow-"] {
+  color: #f4c66a !important;
+}
+.aether-dark-surface[class*="border-white/"],
+.aether-dark-surface [class*="border-white/"] {
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+.aether-dark-surface [class*="bg-white/"] {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
 /* Dialog close button visibility override on the dark banner */
 [role="dialog"] button.absolute.right-4.top-4 {
   color: rgba(255, 255, 255, 0.7) !important;
@@ -1720,12 +1750,17 @@ html.lenis body {
   padding: 8px 12px;
   border-radius: 999px;
   cursor: pointer;
-  outline: none;
   color: #a0a0a0; /* Inactive color */
   transition: background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
               color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   overflow: hidden;
   gap: 0; /* Gap transitions to non-zero when active */
+}
+
+.modern-mobile-menu .menu__item:focus-visible {
+  outline: 2px solid #e58c72;
+  outline-offset: 3px;
+  border-radius: 999px;
 }
 
 .modern-mobile-menu .menu__item.active {

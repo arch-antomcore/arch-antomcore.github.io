@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { House as Home, Briefcase, Calendar, Shield, Gear as Settings } from "@phosphor-icons/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
+import { findActiveRouteIndex } from "@/lib/navigation";
 
 const defaultItems = [
     { label: 'home', title: 'Início', icon: Home, to: "/" },
@@ -27,15 +28,10 @@ const InteractiveMenu = ({ items, accentColor }) => {
   }, [items]);
 
   // Determine active index from current route
-  const activeRouteIndex = useMemo(() => {
-    const index = finalItems.findIndex(item => {
-      if (item.to === "/") {
-        return location.pathname === "/";
-      }
-      return item.to && location.pathname.startsWith(item.to);
-    });
-    return index !== -1 ? index : 0;
-  }, [location.pathname, finalItems]);
+  const activeRouteIndex = useMemo(
+    () => findActiveRouteIndex(finalItems, location.pathname),
+    [location.pathname, finalItems],
+  );
 
   const [activeIndex, setActiveIndex] = useState(activeRouteIndex);
 
@@ -44,8 +40,8 @@ const InteractiveMenu = ({ items, accentColor }) => {
   }, [activeRouteIndex]);
 
   useEffect(() => {
-      if (activeIndex >= finalItems.length) {
-          setActiveIndex(0);
+      if (activeIndex !== null && activeIndex >= finalItems.length) {
+          setActiveIndex(null);
       }
   }, [finalItems, activeIndex]);
 

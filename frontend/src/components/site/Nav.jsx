@@ -47,7 +47,7 @@ const Nav = () => {
 
   const activeIndex = translatedTabs.findIndex((t) => {
     if (t.to === "/") {
-      return location.pathname === "/" && !location.hash;
+      return location.pathname === "/";
     }
     if (t.to.startsWith("/#")) {
       return location.pathname === "/" && location.hash === t.to.substring(1);
@@ -88,6 +88,19 @@ const Nav = () => {
     setOpen(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const desktopQuery = window.matchMedia?.("(min-width: 1536px)");
+    if (!desktopQuery) return undefined;
+
+    const closeMenuAtDesktop = (event) => {
+      if (event.matches) setOpen(false);
+    };
+
+    closeMenuAtDesktop(desktopQuery);
+    desktopQuery.addEventListener?.("change", closeMenuAtDesktop);
+    return () => desktopQuery.removeEventListener?.("change", closeMenuAtDesktop);
+  }, []);
+
   const handleNavigate = (to) => {
     if (!to) return;
     if (to.startsWith("/#") || to.startsWith("#")) {
@@ -121,7 +134,7 @@ const Nav = () => {
       >
         <div className="nav-glass absolute inset-0 z-0 pointer-events-none" aria-hidden="true" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 h-16 md:h-[72px] flex items-center justify-between">
+        <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-12 h-16 md:h-[72px] flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5 group" data-testid="brand-logo">
             <img
               src="/assets/img/brand/logo-aether.png"
@@ -135,8 +148,9 @@ const Nav = () => {
                 text={BRAND.name}
                 as="span"
                 fontSize="15px"
-                className="font-medium tracking-tight text-white"
+                className="font-medium tracking-tight"
                 style={{ padding: 0 }}
+                color="#211d18"
                 hoverColor="#A34A33"
               />
               <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-500">
@@ -145,7 +159,7 @@ const Nav = () => {
             </span>
           </Link>
 
-          <div className="hidden md:block">
+          <div className="hidden 2xl:block shrink-0">
             <ExpandableTabs
               tabs={translatedTabs}
               activeTab={activeIndex !== -1 ? activeIndex : null}
@@ -166,7 +180,7 @@ const Nav = () => {
               {language === "pt" ? "EN" : "PT"}
             </button>
 
-            <Magnetic strength={0.4} className="hidden md:inline-block">
+            <Magnetic strength={0.4} className="hidden 2xl:inline-block">
               <a
                 href="#cta"
                 onClick={(e) => {
@@ -182,7 +196,7 @@ const Nav = () => {
             </Magnetic>
             <button
               onClick={() => setOpen(true)}
-              className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white"
+              className="2xl:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white"
               data-testid="menu-open"
               aria-label="Abrir menu"
             >
@@ -199,7 +213,7 @@ const Nav = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[70] bg-black/95 supports-[backdrop-filter]:backdrop-blur-lg md:hidden overflow-y-auto"
+            className="fixed inset-0 z-[70] bg-black/95 supports-[backdrop-filter]:backdrop-blur-lg 2xl:hidden overflow-y-auto"
             data-testid="mobile-menu"
             data-lenis-prevent
           >
