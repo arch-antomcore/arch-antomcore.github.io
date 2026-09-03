@@ -3,7 +3,8 @@
 
 "use client";
 
-import { useEffect, useId, type KeyboardEvent } from "react";
+import { useEffect, useId, useRef } from "react";
+import { createPortal } from "react-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import GalleryTunnel from "@/components/originkit/ui/hero-03/gallery-tunnel";
 import { useTunnelConfig } from "@/components/originkit/ui/hero-03/use-tunnel-size";
@@ -37,6 +38,7 @@ export const GalleryOverlay = ({ open, onClose }: GalleryOverlayProps) => {
   const titleId = useId();
   const reduceMotion = useReducedMotion();
   const { tunnelSize, fade, boost } = useTunnelConfig();
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -55,16 +57,20 @@ export const GalleryOverlay = ({ open, onClose }: GalleryOverlayProps) => {
     };
   }, [open, onClose]);
 
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const frame = window.requestAnimationFrame(() => closeButtonRef.current?.focus());
+    return () => {
+      window.cancelAnimationFrame(frame);
+      previouslyFocused?.focus();
+    };
+  }, [open]);
+
   if (!open) return null;
 
-  const handleBackdropKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      onClose();
-    }
-  };
-
-  return (
+  return createPortal(
     <motion.div
       role="dialog"
       aria-modal="true"
@@ -72,7 +78,7 @@ export const GalleryOverlay = ({ open, onClose }: GalleryOverlayProps) => {
       initial={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.28, ease: EASE_OUT }}
-      className="fixed inset-0 z-50 flex flex-col bg-[#f4f1e8]"
+      className="fixed inset-0 z-[100] flex flex-col bg-[#f4f1e8]"
     >
       <h2 id={titleId} className="sr-only">
         Interactive AetherCore 3D perspective gallery tunnel
@@ -83,6 +89,7 @@ export const GalleryOverlay = ({ open, onClose }: GalleryOverlayProps) => {
           Hold click to speed up · Press Esc or click Close to return
         </p>
         <button
+          ref={closeButtonRef}
           type="button"
           aria-label="Close gallery"
           onClick={onClose}
@@ -92,10 +99,7 @@ export const GalleryOverlay = ({ open, onClose }: GalleryOverlayProps) => {
         </button>
       </div>
 
-      <div
-        className="relative min-h-0 flex-1"
-        onKeyDown={handleBackdropKeyDown}
-      >
+      <div className="relative min-h-0 flex-1">
         <GalleryTunnel
           background="#f4f1e8"
           lineColor="#211d18"
@@ -111,5 +115,7 @@ export const GalleryOverlay = ({ open, onClose }: GalleryOverlayProps) => {
         />
       </div>
     </motion.div>
+    ,
+    document.body,
   );
 };

@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useId } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useLenis } from "lenis/react";
 import { List as Menu, X, ArrowUpRight, House as Home, Briefcase, FileText, CurrencyDollar as DollarSign, Cpu, ShieldCheck, Heart, Question as HelpCircle, Plant as Leaf, User, PuzzlePiece as Blocks, TrendUp } from "@phosphor-icons/react";
 import { ScrollProgress, Magnetic } from "@/components/site/interactions";
@@ -32,6 +32,9 @@ const Nav = () => {
   const navigate = useNavigate();
   const { t, language, setLanguage } = useTranslation();
   const lastScrollY = useRef(0);
+  const menuId = useId();
+  const menuCloseRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
 
   const BRAND = t.BRAND;
   const NAV_LINKS = t.NAV_LINKS;
@@ -89,6 +92,23 @@ const Nav = () => {
   }, [location.pathname]);
 
   useEffect(() => {
+    if (!open) return undefined;
+
+    const frame = window.requestAnimationFrame(() => menuCloseRef.current?.focus());
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setOpen(false);
+      }
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open]);
+
+  useEffect(() => {
     const desktopQuery = window.matchMedia?.("(min-width: 1536px)");
     if (!desktopQuery) return undefined;
 
@@ -111,9 +131,13 @@ const Nav = () => {
         const el = document.querySelector(hash);
         if (el) {
           if (lenisInstanceRef.current) {
-            lenisInstanceRef.current.scrollTo(el, { offset: -80, duration: 1.2 });
+            lenisInstanceRef.current.scrollTo(el, {
+              offset: -80,
+              duration: prefersReducedMotion ? 0 : 1.2,
+              immediate: prefersReducedMotion,
+            });
           } else {
-            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            el.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
           }
           window.history.pushState(null, "", hash);
         }
@@ -127,7 +151,7 @@ const Nav = () => {
     <>
       <ScrollProgress />
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 motion-reduce:transition-none ${
           hidden && !open ? "-translate-y-full" : "translate-y-0"
         }`}
         data-testid="site-header"
@@ -199,6 +223,8 @@ const Nav = () => {
               className="2xl:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white"
               data-testid="menu-open"
               aria-label="Abrir menu"
+              aria-expanded={open}
+              aria-controls={menuId}
             >
               <Menu className="h-5 w-5" strokeWidth={1.5} />
             </button>
@@ -212,15 +238,20 @@ const Nav = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
             className="fixed inset-0 z-[70] bg-black/95 supports-[backdrop-filter]:backdrop-blur-lg 2xl:hidden overflow-y-auto"
             data-testid="mobile-menu"
             data-lenis-prevent
+            id={menuId}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu principal"
           >
             <div className="flex items-center justify-between px-6 h-16 shrink-0">
               <span className="text-[15px] font-medium tracking-tight">{BRAND.name}</span>
               <button
                 onClick={() => setOpen(false)}
+                ref={menuCloseRef}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15"
                 data-testid="menu-close"
                 aria-label="Fechar menu"
@@ -234,7 +265,7 @@ const Nav = () => {
                   key={l.to + i}
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * i }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.05 * i }}
                 >
                   <button
                     onClick={() => {

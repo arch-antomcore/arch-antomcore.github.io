@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 import { ArrowUpRight, ChatCircle as MessageCircle, LinkedinLogo as Linkedin } from "@phosphor-icons/react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Container, Reveal } from "@/components/site/primitives";
@@ -10,9 +11,14 @@ const LINKEDIN_URL = "https://www.linkedin.com/in/matheus-peres-da-silva/";
 const VideoBackdrop = () => {
   const videoRef = useRef(null);
   const [ready, setReady] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const el = videoRef.current;
+    if (prefersReducedMotion) {
+      el?.pause();
+      return undefined;
+    }
     if (!el || !("IntersectionObserver" in window)) return;
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -26,7 +32,7 @@ const VideoBackdrop = () => {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <video
@@ -37,7 +43,7 @@ const VideoBackdrop = () => {
       preload="none"
       poster={MEDIA.networkVideo.poster}
       onCanPlay={() => setReady(true)}
-      className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+      className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 motion-reduce:transition-none ${
         ready ? "opacity-30" : "opacity-20"
       }`}
       aria-hidden="true"

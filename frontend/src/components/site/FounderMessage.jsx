@@ -30,7 +30,7 @@ const FounderMessage = () => {
 
   const renderPostText = () => {
     return (
-      <div className="space-y-4 text-zinc-850 text-[14px] md:text-[15px] leading-relaxed">
+      <div className="space-y-4 text-[#2e2921] text-[14px] md:text-[15px] leading-relaxed">
         <p>
           Não foi um rebrand para parecer maior.
         </p>
@@ -89,7 +89,7 @@ const FounderMessage = () => {
             mantém tudo sob controle. 🦀
           </li>
         </ul>
-        <p className="text-zinc-650 italic font-mono text-[13px] bg-[#211d18]/[0.03] py-1.5 px-3 rounded-lg border border-[#211d18]/5 inline-block">
+        <p className="text-[#5d564b] italic font-mono text-[13px] bg-[#211d18]/[0.03] py-1.5 px-3 rounded-lg border border-[#211d18]/5 inline-block">
           O modelo propõe. O Kernel (Proprietário) valida. Você decide.
         </p>
         <p>
@@ -175,7 +175,7 @@ const FounderMessage = () => {
                   <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-base font-semibold text-[#211d18] hover:underline decoration-[#211d18]/30 underline-offset-2">
                     Matheus Peres da silva
                   </a>
-                  <p className="text-xs text-zinc-650 truncate max-w-[260px] xs:max-w-xs md:max-w-none">
+                  <p className="text-xs text-[#5d564b] truncate max-w-[260px] xs:max-w-xs md:max-w-none">
                     Founder & Architect @ AetherCore
                   </p>
                   <p className="text-[11px] text-zinc-500 mt-0.5 font-mono">2d • editado • 🌐</p>
@@ -221,7 +221,7 @@ const FounderMessage = () => {
                     Conectar no LinkedIn
                     <ExternalLink className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                   </h4>
-                  <p className="text-xs text-zinc-650 mt-1 truncate">linkedin.com/in/matheus-peres-da-silva</p>
+                  <p className="text-xs text-[#5d564b] mt-1 truncate">linkedin.com/in/matheus-peres-da-silva</p>
                 </div>
               </div>
             </SpotlightCard>
@@ -232,7 +232,7 @@ const FounderMessage = () => {
                 onClick={handleLike}
                 className={cn(
                   "py-4 flex items-center justify-center gap-1.5 transition hover:bg-[#211d18]/5 rounded-bl-[28px]",
-                  isLiked ? "text-[#0A66C2] font-semibold" : "text-zinc-650 hover:text-zinc-800"
+                  isLiked ? "text-[#0A66C2] font-semibold" : "text-[#5d564b] hover:text-[#211d18]"
                 )}
               >
                 <ThumbsUp className={cn("w-3.5 h-3.5", isLiked && "fill-current")} />
@@ -240,14 +240,14 @@ const FounderMessage = () => {
               </button>
               <button
                 onClick={openLinkedIn}
-                className="py-4 flex items-center justify-center gap-1.5 text-zinc-650 hover:bg-[#211d18]/5 hover:text-zinc-800 transition"
+                className="py-4 flex items-center justify-center gap-1.5 text-[#5d564b] hover:bg-[#211d18]/5 hover:text-[#211d18] transition"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
                 <span>Comentar</span>
               </button>
               <button
                 onClick={openLinkedIn}
-                className="py-4 flex items-center justify-center gap-1.5 text-zinc-650 hover:bg-[#211d18]/5 hover:text-zinc-800 transition rounded-br-[28px]"
+                className="py-4 flex items-center justify-center gap-1.5 text-[#5d564b] hover:bg-[#211d18]/5 hover:text-[#211d18] transition rounded-br-[28px]"
               >
                 <Share2 className="w-3.5 h-3.5" />
                 <span>Compartilhar</span>

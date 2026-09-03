@@ -112,8 +112,9 @@ function OriginkitBaseUserCursor(props) {
         [offsetOverride?.x, offsetOverride?.y, offsetX, offsetY]
     )
 
+    const hasLabelOffsetOverride = Boolean(labelOffsetOverride)
     const resolvedLabelOffset = useMemo(() => {
-        if (labelOffsetOverride) {
+        if (hasLabelOffsetOverride) {
             return {
                 x: labelOffsetOverride.x ?? size * 0.9,
                 y: labelOffsetOverride.y ?? size * 0.2 + 6,
@@ -124,6 +125,7 @@ function OriginkitBaseUserCursor(props) {
         }
         return { x: labelOffsetX, y: labelOffsetY }
     }, [
+        hasLabelOffsetOverride,
         labelOffsetOverride?.x,
         labelOffsetOverride?.y,
         labelOffsetUseDefault,

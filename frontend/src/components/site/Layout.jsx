@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useSpring, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ReactLenis, useLenis } from "lenis/react";
 import Nav from "@/components/site/Nav";
 import Footer from "@/components/site/Footer";
@@ -81,6 +81,7 @@ const LENIS_OPTIONS = {
 const LayoutInner = () => {
   const { pathname, hash } = useLocation();
   const { language } = useTranslation();
+  const prefersReducedMotion = useReducedMotion();
   const [isPreloading, setIsPreloading] = useState(() => {
     if (typeof window !== "undefined") {
       return !sessionStorage.getItem("aether-loaded");
@@ -112,9 +113,13 @@ const LayoutInner = () => {
         const el = document.querySelector(hash);
         if (el) {
           if (lenis) {
-            lenis.scrollTo(el, { offset: -80, duration: 1.2 });
+            lenis.scrollTo(el, {
+              offset: -80,
+              duration: prefersReducedMotion ? 0 : 1.2,
+              immediate: prefersReducedMotion,
+            });
           } else {
-            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            el.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
           }
         } else if (retries < 30) {
           retries++;
@@ -130,7 +135,7 @@ const LayoutInner = () => {
     } else {
       window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
     }
-  }, [pathname, hash]);
+  }, [pathname, hash, prefersReducedMotion]);
 
   // Dynamically update the html.lang tag
   useEffect(() => {
@@ -349,8 +354,13 @@ const LayoutInner = () => {
 };
 
 const Layout = () => {
+  const prefersReducedMotion = useReducedMotion();
+  const lenisOptions = prefersReducedMotion
+    ? { ...LENIS_OPTIONS, anchors: false, lerp: 1, smoothWheel: false, touchMultiplier: 1 }
+    : LENIS_OPTIONS;
+
   return (
-    <ReactLenis root options={LENIS_OPTIONS}>
+    <ReactLenis root options={lenisOptions}>
       <LayoutInner />
     </ReactLenis>
   );
