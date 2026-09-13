@@ -23,7 +23,7 @@ const Footer = () => {
     if (typeof window === "undefined") return undefined;
 
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    const query = window.matchMedia("(min-width: 768px) and (min-height: 600px)");
+    const query = window.matchMedia("(min-width: 1024px) and (min-height: 800px)");
 
     const update = () => {
       setShouldReveal(motionEnabled && query.matches && !isSafari);

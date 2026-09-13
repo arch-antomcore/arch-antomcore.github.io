@@ -34,6 +34,7 @@ jest.mock("framer-motion", () => {
           custom,
           exit,
           initial,
+          layout,
           layoutId,
           transition,
           variants,

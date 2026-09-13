@@ -22,7 +22,8 @@ const spaRoutes = [
   "demo-glass",
   "dossie",
   "referencias",
-  "privacidade"
+  "privacidade",
+  "preview-shader"
 ];
 
 function copyDir(src, dest) {

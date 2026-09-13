@@ -109,7 +109,7 @@ const Nav = () => {
   }, [open]);
 
   useEffect(() => {
-    const desktopQuery = window.matchMedia?.("(min-width: 1536px)");
+    const desktopQuery = window.matchMedia?.("(min-width: 1280px)");
     if (!desktopQuery) return undefined;
 
     const closeMenuAtDesktop = (event) => {
@@ -183,7 +183,7 @@ const Nav = () => {
             </span>
           </Link>
 
-          <div className="hidden 2xl:block shrink-0">
+          <div className="hidden xl:block shrink-0">
             <ExpandableTabs
               tabs={translatedTabs}
               activeTab={activeIndex !== -1 ? activeIndex : null}
@@ -204,7 +204,7 @@ const Nav = () => {
               {language === "pt" ? "EN" : "PT"}
             </button>
 
-            <Magnetic strength={0.4} className="hidden 2xl:inline-block">
+            <Magnetic strength={0.4} className="hidden xl:inline-block">
               <a
                 href="#cta"
                 onClick={(e) => {
@@ -220,7 +220,7 @@ const Nav = () => {
             </Magnetic>
             <button
               onClick={() => setOpen(true)}
-              className="2xl:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white"
+              className="xl:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#211d18]/20 text-[#211d18] hover:bg-[#211d18]/5 transition-colors"
               data-testid="menu-open"
               aria-label="Abrir menu"
               aria-expanded={open}
@@ -239,7 +239,7 @@ const Nav = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
-            className="fixed inset-0 z-[70] bg-black/95 supports-[backdrop-filter]:backdrop-blur-lg 2xl:hidden overflow-y-auto"
+            className="fixed inset-0 z-[70] bg-black/95 supports-[backdrop-filter]:backdrop-blur-lg xl:hidden overflow-y-auto"
             data-testid="mobile-menu"
             data-lenis-prevent
             id={menuId}

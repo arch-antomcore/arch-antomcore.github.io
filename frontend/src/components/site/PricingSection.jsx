@@ -24,10 +24,10 @@ const BillingToggle = ({ isAnnual, setIsAnnual, text, annualLabel }) => (
   >
     <motion.div
       aria-hidden="true"
-      layout
       transition={{ type: "spring", stiffness: 380, damping: 30 }}
-      className="absolute inset-y-1.5 left-1.5 w-[calc(50%-6px)] rounded-full bg-[#A34A33] shadow-[0_4px_16px_rgba(163, 74, 51,0.4)]"
-      style={{
+      className="absolute inset-y-1.5 rounded-full bg-[#A34A33] shadow-[0_4px_16px_rgba(163, 74, 51,0.4)]"
+      style={{ width: "calc(50% - 6px)" }}
+      animate={{
         left: isAnnual ? "calc(50% + 3px)" : "6px",
       }}
     />

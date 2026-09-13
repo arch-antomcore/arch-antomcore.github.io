@@ -10,19 +10,19 @@ const buttonVariants = {
     paddingRight: "0.65rem",
   },
   animate: (isExpanded) => ({
-    paddingLeft: isExpanded ? "1.05rem" : "0.65rem",
-    paddingRight: isExpanded ? "1.05rem" : "0.65rem",
+    paddingLeft: isExpanded ? "0.95rem" : "0.65rem",
+    paddingRight: isExpanded ? "0.95rem" : "0.65rem",
   }),
 };
 
 const spanVariants = {
-  initial: { width: 0, opacity: 0, scale: 0.95 },
-  animate: { width: "auto", opacity: 1, scale: 1 },
-  exit: { width: 0, opacity: 0, scale: 0.95 },
+  initial: { width: 0, opacity: 0, paddingLeft: 0, paddingRight: 0 },
+  animate: { width: "auto", opacity: 1, paddingLeft: "0.5rem", paddingRight: "0.2rem" },
+  exit: { width: 0, opacity: 0, paddingLeft: 0, paddingRight: 0 },
 };
 
-/* Luxurious, low-mass spring for silky smooth expansion without abrupt snapping */
-const transition = { type: "spring", stiffness: 210, damping: 24, mass: 0.75 };
+/* Calibrated spring for responsive, smooth expansion without layout lag */
+const transition = { type: "spring", stiffness: 280, damping: 26, mass: 0.6 };
 
 export function ExpandableTabs({
   tabs,
@@ -94,6 +94,7 @@ export function ExpandableTabs({
         return (
           <motion.button
             key={tab.title}
+            layout
             variants={buttonVariants}
             initial={false}
             animate="animate"
@@ -118,7 +119,7 @@ export function ExpandableTabs({
             {isHighlight && (
               <motion.div
                 layoutId="nav-expandable-tab-glide"
-                transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 320, damping: 28 }}
+                transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 280, damping: 26 }}
                 className="absolute inset-0 rounded-full bg-white/12 border border-white/15 shadow-sm z-0 pointer-events-none"
               />
             )}
@@ -127,7 +128,7 @@ export function ExpandableTabs({
               <Icon size={17} strokeWidth={1.75} />
             </span>
 
-            <AnimatePresence initial={false} mode="wait">
+            <AnimatePresence initial={false}>
               {isExpanded && (
                 <motion.span
                   variants={spanVariants}
@@ -135,7 +136,7 @@ export function ExpandableTabs({
                   animate="animate"
                   exit="exit"
                   transition={motionTransition}
-                  className="relative z-10 overflow-hidden select-none whitespace-nowrap pl-2 pr-0.5"
+                  className="relative z-10 overflow-hidden select-none whitespace-nowrap"
                 >
                   {tab.title}
                 </motion.span>
