@@ -1800,3 +1800,54 @@ html.lenis body {
   width: var(--lineWidth, auto);
   opacity: 1;
 }
+
+/* ============================================================
+   LIGHT EXPERIENCE
+   The preference is deliberately scoped to the document root so the
+   cinematic profile remains unchanged. Components that own timers/WebGL
+   are not mounted in this profile; these rules cover decorative CSS only.
+   ============================================================ */
+html.aether-experience-light .noise-overlay,
+html.aether-experience-light .scroll-progress,
+html.aether-experience-light .sda-rise,
+html.aether-experience-light .sda-fade,
+html.aether-experience-light .sda-left,
+html.aether-experience-light .sda-right,
+html.aether-experience-light .sda-scale,
+html.aether-experience-light .sda-blur,
+html.aether-experience-light .sda-drift,
+html.aether-experience-light .sda-exit-fade,
+html.aether-experience-light .aether-spin-slow,
+html.aether-experience-light .aether-marquee,
+html.aether-experience-light .hero-grid,
+html.aether-experience-light .aurora-blob,
+html.aether-experience-light .hero-streak-line,
+html.aether-experience-light .hero-particle,
+html.aether-experience-light .animate-footer-breathe,
+html.aether-experience-light .animate-footer-scroll-marquee,
+html.aether-experience-light .animate-footer-heartbeat,
+html.aether-experience-light .footer-grid-plane__scan,
+html.aether-experience-light .animate-pulse,
+html.aether-experience-light .animate-ping,
+html.aether-experience-light .animate-spin {
+  animation: none !important;
+  animation-timeline: auto !important;
+  animation-range: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+html.aether-experience-light .nav-glass,
+html.aether-experience-light .liquid-glass,
+html.aether-experience-light .glass-panel,
+html.aether-experience-light .footer-glass-pill,
+html.aether-experience-light .footer-glass-surface,
+html.aether-experience-light [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+html.aether-experience-light .magnetic {
+  will-change: auto;
+}

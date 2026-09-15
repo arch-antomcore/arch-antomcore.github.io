@@ -5,10 +5,16 @@ import { ArrowUpRight, BookOpen, SelectionAll, Desktop, Compass } from "@phospho
 import { Magnetic } from "@/components/site/interactions";
 import { ScrambleText, AmbientBlobs } from "./AetherKit";
 import { useTranslation } from "@/hooks/useTranslation";
-import ProductMockup from "./ProductMockup";
 import { ManifestoChapters, EditorialMarquee } from "./AetherSections";
-import { PerspectiveBackground } from "@/components/originkit/ui/hero-03/perspective-background";
-import { GalleryOverlay } from "@/components/originkit/ui/hero-03/gallery-overlay";
+import { useExperience } from "@/context/ExperienceContext";
+
+const PerspectiveBackground = React.lazy(() =>
+  import("@/components/originkit/ui/hero-03/perspective-background").then((module) => ({ default: module.PerspectiveBackground })),
+);
+const GalleryOverlay = React.lazy(() =>
+  import("@/components/originkit/ui/hero-03/gallery-overlay").then((module) => ({ default: module.GalleryOverlay })),
+);
+const ProductMockup = React.lazy(() => import("./ProductMockup"));
 
 const charVariant = {
   hidden: { y: "135%" },
@@ -40,7 +46,7 @@ const Chars = ({ text }) => (
 );
 
 /* Massive kinetic headline — char-by-char masked reveal + scroll parallax per line. */
-const KineticHeadline = ({ headline }) => {
+const KineticHeadlineFull = ({ headline }) => {
   const { scrollY } = useScroll();
   const x1 = useTransform(scrollY, [0, 900], [0, -90]);
   const x2 = useTransform(scrollY, [0, 900], [0, 70]);
@@ -94,8 +100,30 @@ const KineticHeadline = ({ headline }) => {
   );
 };
 
+const StaticHeadline = ({ headline }) => (
+  <h1
+    className="aether-font-display font-extrabold uppercase text-[#211d18] leading-[1.1] aether-tracking-tighter text-[9.5vw] sm:text-7xl lg:text-[8.5vw]"
+    data-testid="aether-kinetic-headline"
+  >
+    <span className="block py-2">{headline.l1}</span>
+    <span className="aether-text-stroke block py-2">{headline.l2}</span>
+    <span className="flex items-center gap-4 py-2 md:gap-8">
+      <span>{headline.l3a}</span>
+      <svg viewBox="0 0 24 24" className="h-[0.55em] w-[0.55em] shrink-0 text-[#A34A33]" fill="currentColor" aria-hidden="true">
+        <path d="M12 0l2.4 8.2L22.4 6 16.8 12l5.6 6-8-2.2L12 24l-2.4-8.2L1.6 18l5.6-6-5.6-6 8 2.2L12 0z" />
+      </svg>
+      <span className="aether-font-serif italic font-normal normal-case tracking-tight">{headline.l3b}<span className="text-[#A34A33]">.</span></span>
+    </span>
+  </h1>
+);
+
+const KineticHeadline = ({ headline }) => {
+  const { isLightExperience } = useExperience();
+  return isLightExperience ? <StaticHeadline headline={headline} /> : <KineticHeadlineFull headline={headline} />;
+};
+
 /* Primary + secondary CTAs — tangerine editorial style. */
-const CtaButtons = ({ primary, secondary, onOpenGallery }) => (
+const CtaButtons = ({ primary, secondary, onOpenGallery, canOpenGallery }) => (
   <div className="flex flex-wrap items-center gap-4" data-testid="aether-cta-group">
     <Link
       to="/#cta"
@@ -106,15 +134,17 @@ const CtaButtons = ({ primary, secondary, onOpenGallery }) => (
       <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
     </Link>
 
-    <button
-      type="button"
-      onClick={onOpenGallery}
-      data-testid="aether-secondary-cta"
-      className="group flex items-center gap-2 border border-[#211d18] text-[#211d18] text-xs uppercase tracking-[0.15em] font-semibold px-7 py-4 rounded-full transition-all duration-300 hover:bg-[#211d18] hover:!text-[#fbf9f2]"
-    >
-      <SelectionAll className="w-3.5 h-3.5" />
-      Galeria 3D
-    </button>
+    {canOpenGallery && (
+      <button
+        type="button"
+        onClick={onOpenGallery}
+        data-testid="aether-secondary-cta"
+        className="group flex items-center gap-2 border border-[#211d18] text-[#211d18] text-xs uppercase tracking-[0.15em] font-semibold px-7 py-4 rounded-full transition-all duration-300 hover:bg-[#211d18] hover:!text-[#fbf9f2]"
+      >
+        <SelectionAll className="w-3.5 h-3.5" />
+        Galeria 3D
+      </button>
+    )}
 
     <Link
       to="/produto"
@@ -130,8 +160,41 @@ const CtaButtons = ({ primary, secondary, onOpenGallery }) => (
  * AetherCore — transplanted Awwwards-grade hero (Off-White Editorial, Kinetic edition).
  * Uses the site's paper palette (#f4f1e8 / #ece7da / #fbf9f2) and existing nav/liquid-glass.
  */
+const StaticHeroBackdrop = () => (
+  <div
+    className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_20%_10%,rgba(163,74,51,0.11),transparent_42%),radial-gradient(ellipse_at_85%_90%,rgba(217,119,6,0.12),transparent_45%)]"
+    aria-hidden="true"
+  />
+);
+
+const StaticProductMockup = ({ labels }) => (
+  <div
+    className="relative z-10 mx-auto mt-24 max-w-6xl px-6 md:mt-32 md:px-12"
+    data-testid="aether-product-mockup-section"
+  >
+    <div className="mb-4 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.25em] text-[#211d18]/40">
+      <span>{labels.consoleLabel}</span>
+      <span className="flex items-center gap-2 text-[#A34A33]">
+        <span className="h-1.5 w-1.5 rounded-full bg-[#A34A33]" />
+        {labels.consoleLive}
+      </span>
+    </div>
+    <div className="overflow-hidden rounded-lg border border-[#211d18]/10 bg-[#fbf9f2] shadow-2xl shadow-[#211d18]/15">
+      <img
+        src="/assets/img/mockups/console-aether.png"
+        alt="Console AetherCore — orquestração local de agentes autônomos"
+        className="block h-auto w-full"
+        loading="lazy"
+        decoding="async"
+        data-testid="aether-product-mockup-image"
+      />
+    </div>
+  </div>
+);
+
 const AetherHero = () => {
   const { t, language } = useTranslation();
+  const { isLightExperience } = useExperience();
   const isPt = language === "pt";
   const A = t.HOME.aether;
   const [galleryOpen, setGalleryOpen] = useState(false);
@@ -142,8 +205,14 @@ const AetherHero = () => {
       data-testid="aethercore-hero"
     >
       <div className="relative min-h-[85vh] md:min-h-screen flex flex-col justify-between overflow-hidden pb-12 md:pb-20">
-        <PerspectiveBackground />
-        <AmbientBlobs />
+        {isLightExperience ? (
+          <StaticHeroBackdrop />
+        ) : (
+          <React.Suspense fallback={<StaticHeroBackdrop />}>
+            <PerspectiveBackground />
+          </React.Suspense>
+        )}
+        {!isLightExperience && <AmbientBlobs />}
 
         <div className="relative z-10 px-6 md:px-12 pt-32 md:pt-40 flex-1 flex flex-col justify-center">
           {/* Eyebrow bar */}
@@ -156,7 +225,7 @@ const AetherHero = () => {
           >
             <span className="text-[11px] uppercase tracking-[0.3em] font-semibold text-[#211d18]/60 flex items-center gap-2.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#A34A33] animate-pulse" />
-              <ScrambleText text={A.eyebrow} delay={1.2} />
+              {isLightExperience ? A.eyebrow : <ScrambleText text={A.eyebrow} delay={1.2} />}
             </span>
             <span className="hidden md:block text-[11px] uppercase tracking-[0.3em] font-semibold text-[#211d18]/40">
               {A.eyebrowRight}
@@ -184,7 +253,12 @@ const AetherHero = () => {
               transition={{ duration: 0.7, delay: 2.05, ease: [0.16, 1, 0.3, 1] }}
               className="md:col-span-7 md:flex md:justify-end"
             >
-              <CtaButtons primary={t.HOME.primaryCta} secondary={t.HOME.secondaryCta} onOpenGallery={() => setGalleryOpen(true)} />
+              <CtaButtons
+                primary={t.HOME.primaryCta}
+                secondary={t.HOME.secondaryCta}
+                canOpenGallery={!isLightExperience}
+                onOpenGallery={() => setGalleryOpen(true)}
+              />
             </motion.div>
           </div>
 
@@ -226,14 +300,24 @@ const AetherHero = () => {
         </div>
       </div>
 
-      <ProductMockup labels={A} />
+      {isLightExperience ? (
+        <StaticProductMockup labels={A} />
+      ) : (
+        <React.Suspense fallback={<StaticProductMockup labels={A} />}>
+          <ProductMockup labels={A} />
+        </React.Suspense>
+      )}
 
       <div className="mt-24 md:mt-36">
         <ManifestoChapters chapters={A.chapters} />
         <EditorialMarquee items={A.marquee} />
       </div>
 
-      <GalleryOverlay open={galleryOpen} onClose={() => setGalleryOpen(false)} />
+      {!isLightExperience && galleryOpen && (
+        <React.Suspense fallback={null}>
+          <GalleryOverlay open={galleryOpen} onClose={() => setGalleryOpen(false)} />
+        </React.Suspense>
+      )}
     </section>
   );
 };

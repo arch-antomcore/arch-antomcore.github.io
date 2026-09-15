@@ -1,67 +1,44 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { motion, useScroll, useSpring, AnimatePresence, useReducedMotion } from "framer-motion";
+import { MotionConfig, useReducedMotion } from "framer-motion";
 import { ReactLenis, useLenis } from "lenis/react";
 import Nav from "@/components/site/Nav";
 import Footer from "@/components/site/Footer";
 import { GlassFilter } from "@/components/liquid-glass";
 import { useTranslation } from "@/hooks/useTranslation";
 import { initScrollAnimations } from "@/lib/scrollAnimations";
-import InteractiveDots from "@/components/ui/dots-pattern";
 import { CustomCursor } from "@/components/aether/AetherKit";
-import { Preloader } from "@/components/site/Preloader";
-import { initLenisGsapSync } from "@/lib/lenisGsapSync";
 import { InteractiveMenu } from "@/components/ui/modern-mobile-menu";
+import ExperienceSelector from "@/components/site/ExperienceSelector";
+import { ExperienceProvider, useExperience } from "@/context/ExperienceContext";
+import {
+  applyExperienceToDocument,
+  EXPERIENCE,
+  getSavedExperience,
+  saveExperience,
+} from "@/lib/experience";
 
-const ScrollProgress = () => {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 220, damping: 32, restDelta: 0.001 });
-  return (
-    <motion.div
-      aria-hidden="true"
-      data-testid="scroll-progress"
-      style={{ scaleX }}
-      className="scroll-progress fixed top-0 left-0 right-0 z-[70] h-[2px] origin-left bg-[#A34A33]"
-    />
-  );
-};
-
-const getHardwareTier = () => {
+const getHardwareTier = (experience) => {
   if (typeof window === "undefined") return "high";
 
-  // Allow query parameter or localStorage override for testing / presentation
-  const urlParams = new URLSearchParams(window.location.search);
-  const override = urlParams.get("motion") || localStorage.getItem("aether-motion-override");
+  // Preserve the existing query-string control for review and troubleshooting.
+  const override = new URLSearchParams(window.location.search).get("motion");
   if (override === "high" || override === "medium" || override === "low") {
     return override;
   }
 
-  // 1. Accessibility: Check if user prefers reduced motion
-  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-    return "low";
-  }
+  // An explicit visitor choice is more reliable than trying to infer a GPU
+  // from browser APIs (which do not expose a dependable GPU performance tier).
+  if (experience === EXPERIENCE.LIGHT) return "low";
+  if (experience === EXPERIENCE.FULL) return "high";
 
-  // 2. Hardware: Constrained CPUs (< 4 cores) get low-performance tier
-  const cores = navigator.hardwareConcurrency;
-  if (cores && cores < 4) {
-    return "low";
-  }
-
-  // 3. Viewport: Mobile devices get medium tier to conserve battery/performance
-  if (window.matchMedia?.("(max-width: 767px)").matches) {
-    return "medium";
-  }
-
+  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return "low";
+  if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) return "low";
+  if (window.matchMedia?.("(max-width: 767px)").matches) return "medium";
   return "high";
 };
 
-/* ── Premium Lenis configuration ──────────────────────────────────────
-   Calibrated for a ultra-silky, cinematic feel matching Awwwards-grade sites.
-   - lerp 0.08 → smooth exponential interpolation for buttery gliding
-   - duration 1.2 → smooth decelerating momentum
-   - wheelMultiplier 1.0 → natural 1:1 mouse wheel responsiveness
-   - touchMultiplier 1.5 → fluid flick response on touch devices
-   ──────────────────────────────────────────────────────────────────── */
+/* A single Lenis instance owns smooth scrolling in the full experience. */
 const LENIS_OPTIONS = {
   autoToggle: true,
   anchors: true,
@@ -73,83 +50,73 @@ const LENIS_OPTIONS = {
   infinite: false,
 };
 
-/**
- * Inner layout content — must be rendered inside <ReactLenis> so
- * useLenis() can access the scroll instance for route-aware scrolling
- * and GSAP synchronization.
- */
-const LayoutInner = () => {
+const SiteContent = ({ lenis = null }) => {
   const { pathname, hash } = useLocation();
   const { language } = useTranslation();
+  const { experience, isLightExperience } = useExperience();
   const prefersReducedMotion = useReducedMotion();
-  const [isPreloading, setIsPreloading] = useState(() => {
-    if (typeof window !== "undefined") {
-      return !sessionStorage.getItem("aether-loaded");
-    }
-    return true;
-  });
-
-  // ── Lenis-powered scroll-to-top / anchor navigation & GSAP sync ──
-  const lenisRef = React.useRef(null);
-  const lenis = useLenis();
+  const shouldReduceMotion = isLightExperience || prefersReducedMotion;
 
   useEffect(() => {
     if (!lenis) return undefined;
-    lenisRef.current = lenis;
-    const cleanup = initLenisGsapSync(lenis);
+    let active = true;
+    let cleanup = () => {};
+
+    import("@/lib/lenisGsapSync")
+      .then(({ initLenisGsapSync }) => {
+        if (active) cleanup = initLenisGsapSync(lenis);
+      })
+      .catch(() => {});
+
     return () => {
+      active = false;
       cleanup();
-      if (lenisRef.current === lenis) lenisRef.current = null;
     };
   }, [lenis]);
 
-  // Route-change scroll handling via Lenis API
+  // Route-change scroll handling uses Lenis only in the full experience.
   useEffect(() => {
-    const lenis = lenisRef.current;
-
     if (hash) {
       let retries = 0;
+      let retryTimer;
       const tryScroll = () => {
         const el = document.querySelector(hash);
         if (el) {
           if (lenis) {
             lenis.scrollTo(el, {
               offset: -80,
-              duration: prefersReducedMotion ? 0 : 1.2,
-              immediate: prefersReducedMotion,
+              duration: shouldReduceMotion ? 0 : 1.2,
+              immediate: shouldReduceMotion,
             });
           } else {
-            el.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+            el.scrollIntoView({ behavior: "auto", block: "start" });
           }
         } else if (retries < 30) {
-          retries++;
-          setTimeout(tryScroll, 100);
+          retries += 1;
+          retryTimer = window.setTimeout(tryScroll, 100);
         }
       };
       tryScroll();
-      return;
+      return () => window.clearTimeout(retryTimer);
     }
 
     if (lenis) {
       lenis.scrollTo(0, { immediate: true });
     } else {
-      window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+      window.scrollTo({ top: 0, behavior: "auto" });
     }
-  }, [pathname, hash, prefersReducedMotion]);
+    return undefined;
+  }, [pathname, hash, lenis, shouldReduceMotion]);
 
-  // Dynamically update the html.lang tag
   useEffect(() => {
     document.documentElement.lang = language === "pt" ? "pt-BR" : "en";
   }, [language]);
 
-  // Dynamic high-contrast favicon watcher for browser window titlebar
   useEffect(() => {
     const updateFavicon = () => {
       const isDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
       const faviconLink = document.getElementById("dynamic-favicon");
-      if (faviconLink) {
-        faviconLink.href = isDark ? "/favicon-light.png" : "/favicon-32.png";
-      }
+      if (faviconLink) faviconLink.href = isDark ? "/favicon-light.png" : "/favicon-32.png";
     };
     updateFavicon();
     const mediaQuery = window.matchMedia?.("(prefers-color-scheme: dark)");
@@ -157,15 +124,17 @@ const LayoutInner = () => {
     return () => mediaQuery?.removeEventListener?.("change", updateFavicon);
   }, []);
 
-  // Fallback engine for scroll-driven animations (non view()-timeline browsers)
-  useEffect(() => initScrollAnimations(), []);
+  // The fallback observer only exists for the animated profile. The light
+  // profile renders content directly rather than staging it off-screen.
+  useEffect(() => {
+    if (isLightExperience) return undefined;
+    return initScrollAnimations();
+  }, [isLightExperience]);
 
-  // Device-aware motion budget. High-end machines keep the richer composition;
-  // constrained hardware gets fewer infinite layers and lighter blur.
   useEffect(() => {
     const root = document.documentElement;
     const applyTier = () => {
-      const tier = getHardwareTier();
+      const tier = getHardwareTier(experience);
       root.classList.remove("motion-tier-low", "motion-tier-medium", "motion-tier-high");
       root.classList.add(`motion-tier-${tier}`);
       root.dataset.motionTier = tier;
@@ -189,11 +158,12 @@ const LayoutInner = () => {
       widthQuery?.removeEventListener?.("change", applyTier);
       document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, []);
+  }, [experience]);
 
-  // Pause long-running animation scopes when they are away from the viewport.
+  // Off-screen animation bookkeeping is not needed when effects are not
+  // mounted. Keeping it out of light mode also avoids a document-wide observer.
   useEffect(() => {
-    if (!("IntersectionObserver" in window)) return undefined;
+    if (isLightExperience || !("IntersectionObserver" in window)) return undefined;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -210,24 +180,22 @@ const LayoutInner = () => {
     };
 
     document.querySelectorAll("[data-anim-scope]").forEach((scope) => observer.observe(scope));
-
-    // Observe only newly-added subtrees instead of rescanning the whole page.
     const mutationObserver = new MutationObserver((records) => {
       records.forEach((record) => record.addedNodes.forEach(observeWithin));
     });
-    mutationObserver.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       observer.disconnect();
       mutationObserver.disconnect();
     };
-  }, [pathname]);
+  }, [pathname, isLightExperience]);
 
-  // Dynamic Route Prefetching & Idle Caching
+  // Full mode may warm likely next pages after idle time. In light mode those
+  // background requests and parse tasks are deliberately avoided.
   useEffect(() => {
+    if (isLightExperience) return undefined;
+
     const routePreloaders = {
       "/": () => import("@/pages/Home"),
       "/ecossistema": () => import("@/pages/Ecossistema"),
@@ -247,22 +215,15 @@ const LayoutInner = () => {
       "/privacidade": () => import("@/pages/Privacidade"),
       "/demo-glass": () => import("@/pages/DemoGlass"),
     };
-
     const prefetchedPaths = new Set();
-
     const prefetchRoute = (path) => {
       if (prefetchedPaths.has(path)) return;
       const loader = routePreloaders[path];
-      if (loader) {
-        prefetchedPaths.add(path);
-        loader().catch(() => {
-          prefetchedPaths.delete(path); // retry on failure
-        });
-      }
+      if (!loader) return;
+      prefetchedPaths.add(path);
+      loader().catch(() => prefetchedPaths.delete(path));
     };
 
-    // 1. Idle prefetching: parse one route per idle slot so it never lands as
-    // a four-chunk main-thread spike during the visitor's first scroll.
     let cancelled = false;
     let idleHandle;
     let delayHandle;
@@ -270,62 +231,45 @@ const LayoutInner = () => {
     const canIdlePrefetch =
       !navigator.connection?.saveData &&
       (!navigator.deviceMemory || navigator.deviceMemory >= 4);
-    const requestIdle = window.requestIdleCallback || ((cb) => window.setTimeout(cb, 120));
+    const requestIdle = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 120));
     const cancelIdle = window.cancelIdleCallback || window.clearTimeout;
     const scheduleNext = () => {
       if (cancelled || !idleQueue.length) return;
-      idleHandle = requestIdle(async () => {
+      idleHandle = requestIdle(() => {
         if (cancelled) return;
-        const nextPath = idleQueue.shift();
-        prefetchRoute(nextPath);
+        prefetchRoute(idleQueue.shift());
         scheduleNext();
       }, { timeout: 5000 });
     };
     if (canIdlePrefetch) delayHandle = window.setTimeout(scheduleNext, 2800);
 
-    // 2. Hover Pre-fetching: Preload any local path when hovering links or navigation buttons
-    const onMouseOver = (e) => {
-      if (!e.target || typeof e.target.closest !== "function") return;
-      const link = e.target.closest("a");
-      if (link) {
-        const href = link.getAttribute("href");
-        if (href && href.startsWith("/")) {
-          const cleanPath = href.split("#")[0]; // remove anchor hashes
-          prefetchRoute(cleanPath || "/");
-        }
-      }
+    const onMouseOver = (event) => {
+      if (!event.target || typeof event.target.closest !== "function") return;
+      const link = event.target.closest("a");
+      const href = link?.getAttribute("href");
+      if (href?.startsWith("/")) prefetchRoute(href.split("#")[0] || "/");
     };
-
     document.addEventListener("mouseover", onMouseOver, { passive: true });
+
     return () => {
       cancelled = true;
       window.clearTimeout(delayHandle);
       if (idleHandle !== undefined) cancelIdle(idleHandle);
       document.removeEventListener("mouseover", onMouseOver);
     };
-  }, []);
+  }, [isLightExperience]);
 
   return (
     <div className="relative min-h-screen bg-[#f4f1e8] text-[#211d18]">
-      <AnimatePresence>
-        {isPreloading && (
-          <Preloader 
-            onComplete={() => {
-              setIsPreloading(false);
-              if (typeof window !== "undefined") {
-                sessionStorage.setItem("aether-loaded", "true");
-              }
-            }} 
-          />
-        )}
-      </AnimatePresence>
-      <CustomCursor />
-      <GlassFilter />
-      <div
-        className="noise-overlay"
-        style={{ backgroundImage: "url(/assets/img/backgrounds/noise.png)" }}
-        aria-hidden="true"
-      />
+      {!isLightExperience && <CustomCursor />}
+      {!isLightExperience && <GlassFilter />}
+      {!isLightExperience && (
+        <div
+          className="noise-overlay"
+          style={{ backgroundImage: "url(/assets/img/backgrounds/noise.png)" }}
+          aria-hidden="true"
+        />
+      )}
       <Nav />
       <main className="relative z-10 bg-transparent">
         <React.Suspense
@@ -353,16 +297,50 @@ const LayoutInner = () => {
   );
 };
 
-const Layout = () => {
+const FullExperienceContent = () => {
+  const lenis = useLenis();
+  return <SiteContent lenis={lenis} />;
+};
+
+const FullExperienceRuntime = () => {
   const prefersReducedMotion = useReducedMotion();
-  const lenisOptions = prefersReducedMotion
+  const options = prefersReducedMotion
     ? { ...LENIS_OPTIONS, anchors: false, lerp: 1, smoothWheel: false, touchMultiplier: 1 }
     : LENIS_OPTIONS;
 
   return (
-    <ReactLenis root options={lenisOptions}>
-      <LayoutInner />
+    <ReactLenis root options={options}>
+      <FullExperienceContent />
     </ReactLenis>
+  );
+};
+
+const readInitialExperience = () => {
+  const saved = getSavedExperience();
+  if (saved) applyExperienceToDocument(saved);
+  return saved;
+};
+
+const Layout = () => {
+  const [experience, setExperience] = useState(readInitialExperience);
+  const chooseExperience = useCallback((nextExperience) => {
+    const saved = saveExperience(nextExperience);
+    if (!saved) return;
+    applyExperienceToDocument(saved);
+    setExperience(saved);
+  }, []);
+
+  if (!experience) {
+    return <ExperienceSelector onSelect={chooseExperience} />;
+  }
+
+  const isLightExperience = experience === EXPERIENCE.LIGHT;
+  return (
+    <ExperienceProvider experience={experience} setExperience={chooseExperience}>
+      <MotionConfig reducedMotion={isLightExperience ? "always" : "user"}>
+        {isLightExperience ? <SiteContent /> : <FullExperienceRuntime />}
+      </MotionConfig>
+    </ExperienceProvider>
   );
 };
 

@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[6599],{66599(e,n,r){r.d(n,{initLenisGsapSync:()=>l});var t=r(48270),i=r(14404);function l(e){if(!e||"undefined"===typeof window)return()=>{};t.default.registerPlugin(i.ScrollTrigger);const n=()=>i.ScrollTrigger.update();return e.on("scroll",n),t.default.ticker.lagSmoothing(0),()=>{e.off("scroll",n)}}}}]);
+//# sourceMappingURL=6599.b1187344.chunk.js.map

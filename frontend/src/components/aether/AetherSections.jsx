@@ -10,6 +10,7 @@ import {
   useVelocity,
 } from "framer-motion";
 import { ArrowUpRight } from "@phosphor-icons/react";
+import { useExperience } from "@/context/ExperienceContext";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 36 },
@@ -20,7 +21,7 @@ const fadeUp = {
  * Numbered manifesto chapters — scroll reveal + rich hover choreography:
  * number lifts, arrow slides in, tangerine underline grows.
  */
-export const ManifestoChapters = ({ chapters }) => (
+const ManifestoChaptersFull = ({ chapters }) => (
   <div
     className="relative z-10 grid grid-cols-1 md:grid-cols-3 border-t border-b border-[#211d18]/10 divide-y md:divide-y-0 md:divide-x divide-[#211d18]/10"
     data-testid="aether-manifesto-chapters"
@@ -56,6 +57,34 @@ export const ManifestoChapters = ({ chapters }) => (
   </div>
 );
 
+const ManifestoChaptersStatic = ({ chapters }) => (
+  <div
+    className="relative z-10 grid grid-cols-1 divide-y divide-[#211d18]/10 border-y border-[#211d18]/10 md:grid-cols-3 md:divide-x md:divide-y-0"
+    data-testid="aether-manifesto-chapters"
+  >
+    {chapters.map((chapter) => (
+      <article key={chapter.n} className="group relative p-8 md:p-12 lg:p-16">
+        <div className="flex items-start justify-between">
+          <span className="aether-font-serif inline-block origin-left text-2xl italic text-[#A34A33]">{chapter.n}</span>
+          <ArrowUpRight className="h-5 w-5 text-[#211d18]/45" />
+        </div>
+        <h3 className="aether-font-display mt-4 text-xl font-bold uppercase tracking-tight text-[#211d18] md:text-2xl">
+          {chapter.title}
+        </h3>
+        <span className="mb-4 mt-4 block h-[2px] w-12 bg-[#A34A33]" />
+        <p className="max-w-xs text-sm leading-relaxed text-[#211d18]/55 md:text-base">{chapter.body}</p>
+      </article>
+    ))}
+  </div>
+);
+
+export const ManifestoChapters = ({ chapters }) => {
+  const { isLightExperience } = useExperience();
+  return isLightExperience
+    ? <ManifestoChaptersStatic chapters={chapters} />
+    : <ManifestoChaptersFull chapters={chapters} />;
+};
+
 const wrapValue = (min, max, v) => {
   const range = max - min;
   return ((((v - min) % range) + range) % range) + min;
@@ -79,7 +108,7 @@ const Chunk = ({ items }) => (
  * Scroll-velocity-reactive marquee: the obsidian band's speed and direction
  * respond to how fast (and which way) the user scrolls, with a subtle skew.
  */
-export const EditorialMarquee = ({ items }) => {
+const EditorialMarqueeFull = ({ items }) => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { margin: "240px 0px" });
   const baseX = useMotionValue(0);
@@ -115,4 +144,23 @@ export const EditorialMarquee = ({ items }) => {
       </motion.div>
     </div>
   );
+};
+
+const EditorialMarqueeStatic = ({ items }) => (
+  <div
+    className="relative z-10 overflow-hidden bg-[#0A0A0A] py-6 md:py-8"
+    data-testid="aether-editorial-marquee"
+    aria-label="AetherCore highlights ticker"
+  >
+    <div className="flex whitespace-nowrap">
+      <Chunk items={items} />
+    </div>
+  </div>
+);
+
+export const EditorialMarquee = ({ items }) => {
+  const { isLightExperience } = useExperience();
+  return isLightExperience
+    ? <EditorialMarqueeStatic items={items} />
+    : <EditorialMarqueeFull items={items} />;
 };

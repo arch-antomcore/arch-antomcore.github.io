@@ -11,10 +11,14 @@ import AetherClosing from "@/components/aether/AetherClosing";
 import { IntroCurtain } from "@/components/aether/AetherKit";
 import { GlassShowcase } from "@/components/aether/GlassMedia";
 import CtaSection from "@/components/site/CtaSection";
-import EcosystemSection from "@/components/site/EcosystemSection";
-import { ZoomParallax } from "@/components/ui/zoom-parallax";
-import { BlackHole } from "@/components/ui/black-hole";
-import { GlitterWrap } from "@/components/ui/glitter-wrap";
+import { useExperience } from "@/context/ExperienceContext";
+
+// These visual systems contain the most expensive canvases and texture work on
+// the home page. They are fetched only after a visitor intentionally selects
+// the full experience.
+const ZoomParallax = React.lazy(() => import("@/components/ui/zoom-parallax").then((module) => ({ default: module.ZoomParallax })));
+const BlackHole = React.lazy(() => import("@/components/ui/black-hole").then((module) => ({ default: module.BlackHole })));
+const GlitterWrap = React.lazy(() => import("@/components/ui/glitter-wrap").then((module) => ({ default: module.GlitterWrap })));
 
 const WhatIsAetherSection = () => {
   const { t } = useTranslation();
@@ -107,7 +111,7 @@ const Synthesis = () => {
   );
 };
 
-const ScrollCinematic = ({ children, offset = ["0 1", "0.8 1"] }) => {
+const ScrollCinematicFull = ({ children, offset = ["0 1", "0.8 1"] }) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -123,6 +127,12 @@ const ScrollCinematic = ({ children, offset = ["0 1", "0.8 1"] }) => {
       {children}
     </motion.div>
   );
+};
+
+const ScrollCinematic = ({ children, offset }) => {
+  const { isLightExperience } = useExperience();
+  if (isLightExperience) return <div>{children}</div>;
+  return <ScrollCinematicFull offset={offset}>{children}</ScrollCinematicFull>;
 };
 
 const AETHER_ZOOM_IMAGES = [
@@ -156,7 +166,7 @@ const AETHER_ZOOM_IMAGES = [
   },
 ];
 
-const SectionGroupWithStarfield = ({ children }) => {
+const SectionGroupWithStarfieldFull = ({ children }) => {
   const groupRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: groupRef,
@@ -168,43 +178,47 @@ const SectionGroupWithStarfield = ({ children }) => {
   return (
     <div ref={groupRef} className="relative overflow-hidden w-full">
       {/* Background Starfield Warp Tunnel (GlitterWrap) with Parallax behind BlackHole */}
-      <motion.div
-        style={{ y: parallaxY }}
-        className="absolute inset-0 z-0 pointer-events-none opacity-[0.85] overflow-hidden"
-        aria-hidden="true"
-      >
-        <GlitterWrap
-          particleCount={550}
-          speed={4}
-          starSize={14}
-          focalDepth={14}
-          brightness={85}
-          glitterIntensity={4}
-          color1="#ffffff"
-          color2="#A34A33"
-          color3="#eab308"
-          trailAmount={80}
-          reverse={true}
-        />
-      </motion.div>
+      <React.Suspense fallback={null}>
+        <motion.div
+          style={{ y: parallaxY }}
+          className="absolute inset-0 z-0 pointer-events-none opacity-[0.85] overflow-hidden"
+          aria-hidden="true"
+        >
+          <GlitterWrap
+            particleCount={550}
+            speed={4}
+            starSize={14}
+            focalDepth={14}
+            brightness={85}
+            glitterIntensity={4}
+            color1="#ffffff"
+            color2="#A34A33"
+            color3="#eab308"
+            trailAmount={80}
+            reverse={true}
+          />
+        </motion.div>
+      </React.Suspense>
 
       {/* Interactive 3D BlackHole Background spanning 'what-is-aether' section */}
-      <div className="absolute inset-0 z-[1] opacity-[0.92] pointer-events-auto overflow-hidden" aria-hidden="true">
-        <div className="sticky top-0 h-screen w-full flex items-center justify-center">
-          <BlackHole
-            particleCount={1000}
-            particleSize={4}
-            tilt={20}
-            tiltSideway={160}
-            trail={50}
-            orbitSpeed={4}
-            outerRadius={70}
-            emitOutward={true}
-            colors={["#ffffff", "#A34A33", "#d97706"]}
-          />
+      <React.Suspense fallback={null}>
+        <div className="absolute inset-0 z-[1] opacity-[0.92] pointer-events-auto overflow-hidden" aria-hidden="true">
+          <div className="sticky top-0 h-screen w-full flex items-center justify-center">
+            <BlackHole
+              particleCount={1000}
+              particleSize={4}
+              tilt={20}
+              tiltSideway={160}
+              trail={50}
+              orbitSpeed={4}
+              outerRadius={70}
+              emitOutward={true}
+              colors={["#ffffff", "#A34A33", "#d97706"]}
+            />
+          </div>
+          {/* Clean transparent container without dark gradient masks */}
         </div>
-        {/* Clean transparent container without dark gradient masks */}
-      </div>
+      </React.Suspense>
 
       <div className="relative z-10">
         {children}
@@ -213,11 +227,49 @@ const SectionGroupWithStarfield = ({ children }) => {
   );
 };
 
-const Home = () => (
+const SectionGroupWithStarfield = ({ children }) => {
+  const { isLightExperience } = useExperience();
+  if (isLightExperience) {
+    return <div className="relative w-full">{children}</div>;
+  }
+  return <SectionGroupWithStarfieldFull>{children}</SectionGroupWithStarfieldFull>;
+};
+
+const LightGalleryPreview = () => (
+  <section className="px-6 py-16 md:px-12 md:py-24" data-testid="light-gallery-preview">
+    <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[28px] border border-[#211d18]/10 bg-white/55 shadow-[0_18px_48px_-32px_rgba(33,29,24,0.35)] md:grid-cols-[1.15fr_0.85fr]">
+      <div className="p-8 md:p-12">
+        <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.24em] text-[#A34A33]">// VISUAL ESTÁTICO</p>
+        <h2 className="aether-font-display mt-5 text-3xl font-extrabold uppercase leading-[0.98] tracking-tight md:text-5xl">O mesmo produto. Menos peso.</h2>
+        <p className="mt-5 max-w-md text-sm leading-relaxed text-[#211d18]/65 md:text-base">
+          A versão leve mantém o conteúdo e as decisões de produto, mas deixa de iniciar galerias 3D e movimentos contínuos.
+        </p>
+      </div>
+      <img
+        src="/assets/img/gallery/aether-1.png"
+        alt="AetherCore Workspace"
+        loading="lazy"
+        decoding="async"
+        className="h-full min-h-[250px] w-full object-cover"
+      />
+    </div>
+  </section>
+);
+
+const Home = () => {
+  const { isLightExperience } = useExperience();
+
+  return (
   <div data-testid="home-page">
-    <IntroCurtain />
+    {!isLightExperience && <IntroCurtain />}
     <AetherHero />
-    <ZoomParallax images={AETHER_ZOOM_IMAGES} />
+    {isLightExperience ? (
+      <LightGalleryPreview />
+    ) : (
+      <React.Suspense fallback={<LightGalleryPreview />}>
+        <ZoomParallax images={AETHER_ZOOM_IMAGES} />
+      </React.Suspense>
+    )}
     
     {/* Sections //01 ("O que o Aether Faz?") up to //03 ("Resumo Comercial") */}
     <SectionGroupWithStarfield>
@@ -248,6 +300,7 @@ const Home = () => (
 
     <CtaSection />
   </div>
-);
+  );
+};
 
 export default Home;

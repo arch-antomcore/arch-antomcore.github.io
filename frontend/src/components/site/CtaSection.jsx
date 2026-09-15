@@ -4,11 +4,12 @@ import { ArrowUpRight, ChatCircle as MessageCircle, LinkedinLogo as Linkedin } f
 import { useTranslation } from "@/hooks/useTranslation";
 import { Container, Reveal } from "@/components/site/primitives";
 import { MEDIA, MediaCredit } from "@/components/aether/GlassMedia";
+import { useExperience } from "@/context/ExperienceContext";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/matheus-peres-da-silva/";
 
 /* Video backdrop — lazy: only plays while the section is on screen */
-const VideoBackdrop = () => {
+const AnimatedVideoBackdrop = () => {
   const videoRef = useRef(null);
   const [ready, setReady] = useState(false);
   const prefersReducedMotion = useReducedMotion();
@@ -54,8 +55,22 @@ const VideoBackdrop = () => {
   );
 };
 
+const StaticVideoBackdrop = () => (
+  <div
+    className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_20%,rgba(163,74,51,0.28),transparent_42%),radial-gradient(ellipse_at_20%_80%,rgba(217,119,6,0.16),transparent_45%)]"
+    aria-hidden="true"
+    data-testid="cta-static-bg"
+  />
+);
+
+const VideoBackdrop = () => {
+  const { isLightExperience } = useExperience();
+  return isLightExperience ? <StaticVideoBackdrop /> : <AnimatedVideoBackdrop />;
+};
+
 const CtaSection = () => {
   const { t, language } = useTranslation();
+  const { isLightExperience } = useExperience();
   const CTA = t.CTA;
 
   return (
@@ -180,7 +195,9 @@ const CtaSection = () => {
           </div>
         </Container>
 
-        <MediaCredit media={MEDIA.networkVideo} type={language === "en" ? "Video" : "Vídeo"} className="absolute bottom-5 right-5 md:bottom-6 md:right-8" />
+        {!isLightExperience && (
+          <MediaCredit media={MEDIA.networkVideo} type={language === "en" ? "Video" : "Vídeo"} className="absolute bottom-5 right-5 md:bottom-6 md:right-8" />
+        )}
       </div>
     </section>
   );

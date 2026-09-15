@@ -1,22 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUp } from "@phosphor-icons/react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Magnetic, useMotionBudget } from "@/components/site/interactions";
 import { Boxes } from "@/components/ui/background-boxes";
 import { motion } from "framer-motion";
+import { EXPERIENCE } from "@/lib/experience";
+import { useExperience } from "@/context/ExperienceContext";
 
 const Footer = () => {
   const wrapperRef = useRef(null);
   const contentRef = useRef(null);
-  const motionEnabled = useMotionBudget({ allowLow: true });
+  const motionEnabled = useMotionBudget();
   const [shouldReveal, setShouldReveal] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { pathname } = location;
   const { t, language, setLanguage } = useTranslation();
+  const { isLightExperience, setExperience } = useExperience();
   const { BRAND, FOOTER_LINKS } = t;
 
   useEffect(() => {
@@ -45,42 +46,49 @@ const Footer = () => {
   }, [motionEnabled]);
 
   useEffect(() => {
-    if (!wrapperRef.current || !contentRef.current) {
-      return undefined;
-    }
+    if (!wrapperRef.current || !contentRef.current) return undefined;
 
     if (!shouldReveal) {
-      gsap.set(contentRef.current, { clearProps: "all" });
+      contentRef.current.style.removeProperty("transform");
       return undefined;
     }
 
-    gsap.registerPlugin(ScrollTrigger);
+    let active = true;
     let refreshFrame;
     let refreshTimer;
-    const ctx = gsap.context(() => {
-      gsap.set(contentRef.current, { y: 64 });
+    let revert = () => {};
 
-      const timeline = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: wrapperRef.current,
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 0.85,
-          invalidateOnRefresh: true,
-        },
-      });
+    import("gsap")
+      .then(({ default: gsap }) => import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+        if (!active || !wrapperRef.current || !contentRef.current) return;
+        gsap.registerPlugin(ScrollTrigger);
+        const ctx = gsap.context(() => {
+          gsap.set(contentRef.current, { y: 64 });
 
-      timeline.to(contentRef.current, { y: 0, duration: 1 });
+          const timeline = gsap.timeline({
+            defaults: { ease: "none" },
+            scrollTrigger: {
+              trigger: wrapperRef.current,
+              start: "top bottom",
+              end: "bottom bottom",
+              scrub: 0.85,
+              invalidateOnRefresh: true,
+            },
+          });
 
-      refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
-      refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 250);
-    }, wrapperRef);
+          timeline.to(contentRef.current, { y: 0, duration: 1 });
+          refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
+          refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 250);
+        }, wrapperRef);
+        revert = () => ctx.revert();
+      }))
+      .catch(() => {});
 
     return () => {
+      active = false;
       cancelAnimationFrame(refreshFrame);
       window.clearTimeout(refreshTimer);
-      ctx.revert();
+      revert();
     };
   }, [shouldReveal, language, pathname]);
 
@@ -171,7 +179,7 @@ const Footer = () => {
               background: "radial-gradient(circle at 50% 50%, transparent 20%, #f4f1e8 85%)",
             }}
           />
-          <Boxes />
+          {motionEnabled && <Boxes />}
         </div>
 
         <div
@@ -360,6 +368,19 @@ const Footer = () => {
                   EN
                 </button>
               </div>
+
+              <button
+                type="button"
+                onClick={() => setExperience(isLightExperience ? EXPERIENCE.FULL : EXPERIENCE.LIGHT)}
+                data-testid="experience-toggle"
+                aria-pressed={isLightExperience}
+                aria-label={language === "pt" ? "Alternar perfil de animações" : "Toggle animation profile"}
+                className="rounded-full border border-[#211d18]/10 bg-[#ece7da] px-3.5 py-1 font-mono text-[10px] tracking-wide text-[#211d18]/60 transition-colors hover:bg-[#f4f1e8] hover:text-[#211d18]"
+              >
+                {isLightExperience
+                  ? language === "pt" ? "Animações: leves" : "Animation: light"
+                  : language === "pt" ? "Animações: completas" : "Animation: full"}
+              </button>
 
               <div className="rounded-full bg-[#ece7da] border border-[#211d18]/10 px-3.5 py-1 flex items-center gap-2">
                 <span className="relative flex h-1.5 w-1.5">

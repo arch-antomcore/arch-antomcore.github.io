@@ -4,6 +4,7 @@ import { ArrowUpRight } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Magnetic } from "@/components/site/interactions";
+import { useExperience } from "@/context/ExperienceContext";
 
 /* ============================================================
    GLASS MEDIA SYSTEM — imagery + liquid glass (Awwwards kit)
@@ -176,7 +177,7 @@ const SHOWCASE = {
   },
 };
 
-export const GlassShowcase = () => {
+const GlassShowcaseFull = () => {
   const { language } = useTranslation();
   const c = SHOWCASE[language] || SHOWCASE.pt;
   const media = MEDIA.datacenter;
@@ -308,4 +309,75 @@ export const GlassShowcase = () => {
       </motion.div>
     </section>
   );
+};
+
+const GlassShowcaseStatic = () => {
+  const { language } = useTranslation();
+  const c = SHOWCASE[language] || SHOWCASE.pt;
+  const media = MEDIA.datacenter;
+
+  return (
+    <section className="relative px-4 py-6 md:px-8 md:py-10" data-testid="glass-showcase">
+      <div className="relative min-h-[72vh] overflow-hidden rounded-[24px]">
+        <img
+          src={media.src}
+          alt={media.alt}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0b0a08]/75 via-[#0b0a08]/45 to-[#0b0a08]/90" />
+        <div className="relative z-10 flex min-h-[72vh] flex-col justify-between px-7 pb-12 pt-24 md:px-16 md:pb-16 md:pt-32">
+          <div className="flex items-center justify-between border-b border-white/15 pb-5">
+            <span className="flex items-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f7f4ec]/70">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#A34A33]" />
+              {c.kicker}
+            </span>
+            <span className="hidden font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f7f4ec]/40 md:block">{c.meta}</span>
+          </div>
+          <div className="py-14 md:py-20">
+            {c.lines.map((line) => (
+              <span
+                key={line.t}
+                className={`block max-w-full leading-[1.02] tracking-tighter ${
+                  line.style === "serif"
+                    ? "aether-font-serif text-5xl italic text-[#A34A33] sm:text-6xl md:text-7xl lg:text-[5.5vw]"
+                    : line.style === "stroke"
+                    ? "aether-font-display aether-text-stroke--light text-5xl font-extrabold uppercase sm:text-6xl md:text-7xl lg:text-[5.5vw]"
+                    : "aether-font-display text-5xl font-extrabold uppercase text-[#f7f4ec] sm:text-6xl md:text-7xl lg:text-[5.5vw]"
+                }`}
+              >
+                {line.t}
+              </span>
+            ))}
+            <p className="mt-8 max-w-xl text-base leading-relaxed text-[#f7f4ec]/70 md:text-lg">{c.sub}</p>
+          </div>
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-3 md:max-w-2xl">
+              {c.stats.map((stat, index) => (
+                <div key={stat.k} className="rounded-2xl border border-white/15 bg-black/20 p-6" data-testid={`showcase-stat-${index}`}>
+                  <span className="font-display block whitespace-nowrap text-3xl font-extrabold uppercase tracking-tight text-[#f7f4ec] md:text-4xl">{stat.v}</span>
+                  <span className="mt-2 block font-mono text-[10px] uppercase tracking-[0.24em] text-[#f7f4ec]/60">{stat.k}</span>
+                </div>
+              ))}
+            </div>
+            <Link
+              to="/arquitetura"
+              data-testid="showcase-cta"
+              className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-8 py-4 text-sm font-semibold text-[#f7f4ec]"
+            >
+              {c.cta}
+              <ArrowUpRight className="h-4 w-4" strokeWidth={2} />
+            </Link>
+          </div>
+        </div>
+        <MediaCredit media={media} className="absolute right-5 top-20 md:right-8 md:top-24" />
+      </div>
+    </section>
+  );
+};
+
+export const GlassShowcase = () => {
+  const { isLightExperience } = useExperience();
+  return isLightExperience ? <GlassShowcaseStatic /> : <GlassShowcaseFull />;
 };
