@@ -490,6 +490,62 @@ main .footer-glass-pill:hover {
   100% { transform: translate3d(0, 0, 0); }
 }
 
+/* The stack carousel uses two equal groups and moves exactly one group per
+   cycle. Hover pauses the current frame instead of changing animation speed,
+   which avoids timeline resets and visible jumps when the pointer crosses a
+   logo. */
+.infinite-slider__track {
+  gap: 0;
+  animation: infinite-slider-forward var(--infinite-slider-duration) linear infinite;
+  transform: translate3d(0, 0, 0);
+}
+
+.infinite-slider__track.is-reverse {
+  animation-name: infinite-slider-reverse;
+}
+
+@keyframes infinite-slider-forward {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes infinite-slider-reverse {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+.infinite-slider__track.is-paused {
+  animation-play-state: paused;
+}
+
+.infinite-slider__group {
+  padding-right: var(--infinite-slider-gap);
+}
+
+html.aether-experience-light .infinite-slider__track {
+  animation: none !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+html.aether-experience-light .infinite-slider__group--clone {
+  display: none;
+}
+
+.infinite-slider__group--clone {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .infinite-slider__track {
+    animation: none !important;
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  .infinite-slider__group--clone {
+    display: none;
+  }
+}
+
 .aether-marquee {
   display: flex;
   width: max-content;

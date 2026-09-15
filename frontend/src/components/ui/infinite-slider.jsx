@@ -4,39 +4,32 @@ export function InfiniteSlider({
   children,
   gap = 48,
   duration = 28,
-  durationOnHover,
-  direction = 'horizontal',
   reverse = false,
   className = '',
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Compute effective animation duration on hover
-  const activeDuration = isHovered && durationOnHover ? durationOnHover : duration;
-
   return (
     <div
-      className={`overflow-hidden w-full select-none ${className}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className={`infinite-slider relative w-full overflow-hidden select-none ${className}`}
+      onPointerEnter={() => setIsHovered(true)}
+      onPointerLeave={() => setIsHovered(false)}
     >
       <div
-        className="flex w-max items-center will-change-transform"
+        className={`infinite-slider__track flex w-max items-center will-change-transform ${reverse ? 'is-reverse' : ''} ${isHovered ? 'is-paused' : ''}`}
         style={{
-          gap: `${gap}px`,
-          animation: `aether-marquee-${reverse ? 'reverse' : 'forward'} ${activeDuration}s linear infinite`,
-          transition: 'animation-duration 0.5s ease-out',
-          transform: 'translateZ(0)',
+          '--infinite-slider-gap': `${gap}px`,
+          '--infinite-slider-duration': `${duration}s`,
         }}
       >
-        {/* 3 copies are plenty for seamless looping up to ultra-wide 4K screens */}
-        <div className="flex items-center shrink-0" style={{ gap: `${gap}px` }}>
+        <div className="infinite-slider__group flex shrink-0 items-center" style={{ gap: `${gap}px` }}>
           {children}
         </div>
-        <div className="flex items-center shrink-0" style={{ gap: `${gap}px` }} aria-hidden="true">
-          {children}
-        </div>
-        <div className="flex items-center shrink-0" style={{ gap: `${gap}px` }} aria-hidden="true">
+        <div
+          className="infinite-slider__group infinite-slider__group--clone flex shrink-0 items-center"
+          style={{ gap: `${gap}px` }}
+          aria-hidden="true"
+        >
           {children}
         </div>
       </div>

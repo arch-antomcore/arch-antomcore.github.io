@@ -12,9 +12,9 @@ const Marquee = () => {
       <div className="absolute inset-y-0 left-0 w-24 md:w-48 bg-gradient-to-r from-[#f4f1e8] via-[#f4f1e8]/80 to-transparent z-20 pointer-events-none" />
       <div className="absolute inset-y-0 right-0 w-24 md:w-48 bg-gradient-to-l from-[#f4f1e8] via-[#f4f1e8]/80 to-transparent z-20 pointer-events-none" />
 
-      {/* Row 1: Free Floating Logo + Name (Smooth Slowdown on Hover) */}
+      {/* Row 1: Free Floating Logo + Name (Stable Pause on Hover) */}
       <div className="mb-6 md:mb-8">
-        <InfiniteSlider gap={48} duration={28} durationOnHover={80} className="w-full">
+        <InfiniteSlider gap={48} duration={28} className="w-full">
           {row1.map((item, idx) => (
             <div
               key={`row1-${item.name}-${idx}`}
@@ -39,9 +39,9 @@ const Marquee = () => {
         </InfiniteSlider>
       </div>
 
-      {/* Row 2: Reverse Free Floating Logo + Name (Smooth Slowdown on Hover) */}
+      {/* Row 2: Reverse Free Floating Logo + Name (Stable Pause on Hover) */}
       <div>
-        <InfiniteSlider gap={48} duration={24} durationOnHover={70} reverse className="w-full">
+        <InfiniteSlider gap={48} duration={24} reverse className="w-full">
           {row2.map((item, idx) => (
             <div
               key={`row2-${item.name}-${idx}`}

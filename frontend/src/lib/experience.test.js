@@ -2,6 +2,7 @@ import {
   EXPERIENCE,
   EXPERIENCE_STORAGE_KEY,
   LEGACY_MOTION_STORAGE_KEY,
+  getInitialExperience,
   getQueryExperience,
   getSavedExperience,
   normalizeExperience,
@@ -37,5 +38,13 @@ describe("experience preferences", () => {
   it("reads the previous low-motion preference", () => {
     localStorage.setItem(LEGACY_MOTION_STORAGE_KEY, "low");
     expect(getSavedExperience()).toBe(EXPERIENCE.LIGHT);
+  });
+
+  it("starts a new browser entry at the chooser instead of restoring storage", () => {
+    localStorage.setItem(EXPERIENCE_STORAGE_KEY, EXPERIENCE.LIGHT);
+    expect(getInitialExperience()).toBeNull();
+
+    window.history.replaceState({}, "", "/?experience=full");
+    expect(getInitialExperience()).toBe(EXPERIENCE.FULL);
   });
 });

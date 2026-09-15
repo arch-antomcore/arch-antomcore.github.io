@@ -24,6 +24,11 @@ export const getQueryExperience = () => {
   return normalizeExperience(params.get("motion") || params.get("experience"));
 };
 
+// A new browser entry deliberately ignores the previous local preference.
+// The selected profile lives in React state while the visitor moves through
+// the SPA and is asked again after a reload/direct entry.
+export const getInitialExperience = () => getQueryExperience();
+
 export const getSavedExperience = () => {
   if (!isBrowser()) return null;
 

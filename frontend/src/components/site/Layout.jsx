@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { MotionConfig, useReducedMotion } from "framer-motion";
 import { ReactLenis, useLenis } from "lenis/react";
 import Nav from "@/components/site/Nav";
@@ -14,7 +14,7 @@ import { ExperienceProvider, useExperience } from "@/context/ExperienceContext";
 import {
   applyExperienceToDocument,
   EXPERIENCE,
-  getSavedExperience,
+  getInitialExperience,
   saveExperience,
 } from "@/lib/experience";
 
@@ -316,12 +316,16 @@ const FullExperienceRuntime = () => {
 };
 
 const readInitialExperience = () => {
-  const saved = getSavedExperience();
-  if (saved) applyExperienceToDocument(saved);
-  return saved;
+  // A full browser entry intentionally starts at the chooser again. React
+  // state still carries the selection across client-side route changes, while
+  // F5/direct entries do not inherit a previous device preference.
+  const queryExperience = getInitialExperience();
+  if (queryExperience) applyExperienceToDocument(queryExperience);
+  return queryExperience;
 };
 
 const Layout = () => {
+  const { pathname } = useLocation();
   const [experience, setExperience] = useState(readInitialExperience);
   const chooseExperience = useCallback((nextExperience) => {
     const saved = saveExperience(nextExperience);
@@ -329,6 +333,13 @@ const Layout = () => {
     applyExperienceToDocument(saved);
     setExperience(saved);
   }, []);
+
+  // A deep link loaded by the browser is an entry into the site, not an
+  // in-app route change. Return it to the home chooser before rendering the
+  // selected experience. Explicit query overrides remain available for QA.
+  if (!experience && pathname !== "/" && !getInitialExperience()) {
+    return <Navigate to="/" replace />;
+  }
 
   if (!experience) {
     return <ExperienceSelector onSelect={chooseExperience} />;
