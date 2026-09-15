@@ -22,6 +22,7 @@ export function ShaderAnimation() {
     document.head.appendChild(script);
 
     let onWindowResizeRef = null;
+    let cleanup = null;
 
     const initThreeJS = () => {
       if (!containerRef.current || !window.THREE) return;
@@ -159,7 +160,7 @@ export function ShaderAnimation() {
 
       animate();
 
-      return () => {
+      cleanup = () => {
         observer.disconnect();
         if (sceneRef.current.animationId) {
           cancelAnimationFrame(sceneRef.current.animationId);
@@ -171,6 +172,12 @@ export function ShaderAnimation() {
           window.removeEventListener("resize", onWindowResizeRef);
         }
       };
+    };
+
+    return () => {
+      script.onload = null;
+      if (cleanup) cleanup();
+    };
   }, []);
 
   return (
