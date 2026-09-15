@@ -79,7 +79,7 @@ const GlobalLeakCounter = () => {
               </span>
             </div>
             
-            <h2 id="leak-counter-title" className="mt-2 font-mono text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white">
+            <h2 id="leak-counter-title" className="mt-2 font-mono text-[clamp(1.6rem,7vw,4.5rem)] font-bold tracking-tighter text-white whitespace-nowrap tabular-nums">
               {isLightExperience ? (
                 leakCount.toLocaleString("pt-BR")
               ) : (

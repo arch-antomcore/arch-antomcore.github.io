@@ -44,8 +44,20 @@ Refatoração completa do design do site AetherCore (React + FastAPI + MongoDB):
 ## Backlog / P1-P2
 - P1: SectionRail nas demais páginas (produto, arquitetura, principios, faq...)
 - P1: Regenerar ZIP após qualquer nova alteração
+- P1: `FounderMessage.jsx` existe mas não é renderizado em nenhuma página (decidir se entra na Home/Sobre)
 - P2: Contadores numéricos animados nos stats do PrecosEditorial (count-up)
 - P2: Transições de página com clip-path (PageTransition atual usa fade)
+
+## Auditoria & Apple-design pass (2026-06, sessão GitHub Pages)
+- Lint: `MessageSquare` → `Chat` (FounderMessage), `handleResize` → `resizeCanvas` (dots-pattern)
+- Deep links (/blog, /precos...) não redirecionam mais para `/`: o chooser de experiência renderiza no próprio path e a página pedida abre após a escolha
+- Mobile: heading editorial de /precos deixava de ser clipado (scrub horizontal desativado <768px, sem `w-max`); leak counter com `clamp()`; stats de /validacao com `clamp()` + overflow-wrap; footer com padding-bottom para não ficar atrás do dock mobile; dock respeita `safe-area-inset-bottom`
+- Apple-design: feedback no pointer-down (`scale: .97` em `button`/CTAs pill, via propriedade `scale` para não brigar com transforms do Motion), scroll-edge mask no `.nav-glass`, `prefers-reduced-motion` desliga essas transições
+- Tipografia/perf: removidas 7 famílias Google Fonts não usadas + Satoshi/JetBrains (fontshare) do index.html; `Syne` (nunca carregada) removida do `.aether-font-display`, que agora usa a pilha de sistema
+- Coerência de paleta: restos de violeta/ciano (footer underline, glow do logo, sombra do CTA da nav) → terracota #A34A33
+- SectionRail legível sobre o stage escuro de preços (label com backplate paper)
+- FounderMessage: rotas em minúsculas, `text-amber-800`, nome capitalizado, close do lightbox com aria-label
+- Build `yarn build` → `/docs` regenerado e publicado via push em `main` (workflow deploy.yml)
 - P2: Revisão mobile detalhada de todas as 16 rotas
 
 ## Notas técnicas

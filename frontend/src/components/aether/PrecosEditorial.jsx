@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useMediaQuery } from "usehooks-ts";
 import { useTranslation } from "@/hooks/useTranslation";
 
 /**
@@ -24,8 +25,10 @@ const stats = {
 };
 
 const HeadingLine = ({ line, index, scrollYProgress }) => {
+  const isDesktop = useMediaQuery("(min-width: 768px)", { initializeWithValue: false });
+  const amp = isDesktop ? 40 : 0;
   const dir = index % 2 === 0 ? 1 : -1;
-  const x = useTransform(scrollYProgress, [0, 1], [dir * 40, dir * -40]);
+  const x = useTransform(scrollYProgress, [0, 1], [dir * amp, dir * -amp]);
   return (
     <motion.div
       className="overflow-hidden py-2"
@@ -45,7 +48,7 @@ const HeadingLine = ({ line, index, scrollYProgress }) => {
       >
         <motion.span
           style={{ x }}
-          className={`block w-max max-w-full leading-[1.15] tracking-tighter py-1 ${
+          className={`block max-w-full leading-[1.1] tracking-tighter py-1 [overflow-wrap:anywhere] ${
             line.serif
               ? "aether-font-serif italic text-[#A34A33] text-5xl sm:text-6xl md:text-7xl lg:text-[7vw] font-normal"
               : line.stroke

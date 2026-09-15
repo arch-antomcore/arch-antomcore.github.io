@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { MotionConfig, useReducedMotion } from "framer-motion";
 import { ReactLenis, useLenis } from "lenis/react";
 import Nav from "@/components/site/Nav";
@@ -288,7 +288,10 @@ const SiteContent = ({ lenis = null }) => {
         </React.Suspense>
       </main>
       <Footer />
-      <div className="md:hidden fixed bottom-6 left-0 right-0 z-[60] px-4 pointer-events-none">
+      <div
+        className="md:hidden fixed left-0 right-0 z-[60] px-4 pointer-events-none"
+        style={{ bottom: "max(1.5rem, env(safe-area-inset-bottom, 0px))" }}
+      >
         <div className="pointer-events-auto">
           <InteractiveMenu />
         </div>
@@ -325,7 +328,6 @@ const readInitialExperience = () => {
 };
 
 const Layout = () => {
-  const { pathname } = useLocation();
   const [experience, setExperience] = useState(readInitialExperience);
   const chooseExperience = useCallback((nextExperience) => {
     const saved = saveExperience(nextExperience);
@@ -334,13 +336,8 @@ const Layout = () => {
     setExperience(saved);
   }, []);
 
-  // A deep link loaded by the browser is an entry into the site, not an
-  // in-app route change. Return it to the home chooser before rendering the
-  // selected experience. Explicit query overrides remain available for QA.
-  if (!experience && pathname !== "/" && !getInitialExperience()) {
-    return <Navigate to="/" replace />;
-  }
-
+  // Deep links keep their destination: the chooser renders in place and the
+  // requested page appears right after the visitor picks a profile.
   if (!experience) {
     return <ExperienceSelector onSelect={chooseExperience} />;
   }

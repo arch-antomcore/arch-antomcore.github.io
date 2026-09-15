@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600;700&family=Fraunces:ital,wght@1,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
 @import "./originkit-section-themes.css";
 
 @tailwind base;
@@ -1264,7 +1263,7 @@ header[data-testid="site-header"] > div.absolute div {
   height: 1px;
   bottom: -2px;
   left: 0;
-  background: linear-gradient(90deg, #8b5cf6, #67e8f9);
+  background: linear-gradient(90deg, #A34A33, rgba(163, 74, 51, 0.35));
   transform-origin: bottom right;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1294,7 +1293,7 @@ header[data-testid="site-header"] > div.absolute div {
 }
 .footer-logo-hover:hover {
   transform: rotate(20deg) scale(1.1);
-  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+  filter: drop-shadow(0 0 8px rgba(163, 74, 51, 0.45));
 }
 
 /* ============================================================
@@ -1304,7 +1303,7 @@ header[data-testid="site-header"] > div.absolute div {
    ============================================================ */
 
 .aether-font-display {
-  font-family: "Syne", var(--font-display), sans-serif;
+  font-family: var(--font-display), sans-serif;
   letter-spacing: -0.04em !important;
 }
 
@@ -1452,7 +1451,7 @@ html.aether-cursor-active [data-cursor="hidden"] * {
   border-radius: 9999px;
   background: #A34A33;
   color: #fbf9f2;
-  font-family: "Syne", var(--font-display), sans-serif;
+  font-family: var(--font-display), sans-serif;
   font-weight: 700;
   font-size: 9px;
   letter-spacing: 0.24em;
@@ -1960,6 +1959,33 @@ h4,
 .nav-glass {
   border-bottom-color: transparent !important;
   box-shadow: 0 10px 28px -24px rgba(33, 29, 24, 0.42);
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
+  mask-image: linear-gradient(to bottom, #000 72%, transparent);
+}
+
+/* Pointer-down feedback: instant, on the independent `scale` property so it
+   composes with any transform driven by Motion/GSAP instead of fighting it. */
+button,
+a[class*="rounded-full"],
+a[class*="rounded-2xl"],
+a[class*="rounded-3xl"] {
+  transition-property: scale;
+  transition-duration: 110ms;
+  transition-timing-function: ease-out;
+}
+
+button:active:not(:disabled),
+a[class*="rounded-full"]:active,
+a[class*="rounded-2xl"]:active,
+a[class*="rounded-3xl"]:active {
+  scale: 0.97;
+}
+
+/* The floating mobile dock must never trap content behind it. */
+@media (max-width: 767px) {
+  [data-testid="site-footer"] {
+    padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 .aether-nav-tab {
@@ -2104,7 +2130,11 @@ html.aether-experience-light .aether-nav-surface {
   .aether-interactive-card,
   .aether-ui-button,
   .aether-ui-select-trigger,
-  .aether-ui-tabs-trigger {
+  .aether-ui-tabs-trigger,
+  button,
+  a[class*="rounded-full"],
+  a[class*="rounded-2xl"],
+  a[class*="rounded-3xl"] {
     transition: none !important;
   }
 

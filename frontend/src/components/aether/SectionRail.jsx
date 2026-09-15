@@ -65,14 +65,14 @@ const SectionRail = ({ items }) => {
                 x: isActive ? 0 : 8,
               }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#211d18]/70"
+              className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#211d18]/80 rounded-full bg-[#f4f1e8]/90 px-2.5 py-1 shadow-[0_6px_18px_-10px_rgba(33,29,24,0.4)]"
             >
               {it.label}
             </motion.span>
             <motion.span
               animate={{
                 scale: isActive ? 1.4 : 1,
-                backgroundColor: isActive ? "#A34A33" : "rgba(33,29,24,0.25)",
+                backgroundColor: isActive ? "#A34A33" : "rgba(138,131,119,0.7)",
               }}
               transition={{ duration: 0.3 }}
               className="block h-1.5 w-1.5 rounded-full"

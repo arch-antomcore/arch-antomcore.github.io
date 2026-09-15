@@ -70,11 +70,11 @@ const Validacao = () => {
           <Reveal variant="rise">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 md:p-8 rounded-[28px] bg-[#fbf9f2] border border-[#211d18]/10 shadow-[0_20px_50px_-20px_rgba(33,29,24,0.08)]">
               {VALIDACAO.stats.map((st, i) => (
-                <div key={i} className="flex flex-col p-3 border-r last:border-r-0 border-[#211d18]/10">
+                <div key={i} className="flex flex-col p-3 min-w-0 md:border-r md:last:border-r-0 border-[#211d18]/10">
                   <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A34A33] font-semibold">
                     {st.label}
                   </span>
-                  <span className="aether-font-display text-2xl md:text-3xl font-extrabold text-[#211d18] mt-1 tracking-tight">
+                  <span className="aether-font-display text-[clamp(0.95rem,4.2vw,1.875rem)] font-extrabold text-[#211d18] mt-1 tracking-tight [overflow-wrap:anywhere]">
                     {st.k}
                   </span>
                   <span className="text-xs text-[#211d18]/60 mt-1 leading-snug">

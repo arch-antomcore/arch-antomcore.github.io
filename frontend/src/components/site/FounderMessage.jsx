@@ -46,11 +46,11 @@ const FounderMessage = () => {
             AetherCore
           </Link>{" "}
           como hub de agentes e modelos, o{" "}
-          <Link to="/Arquitetura" className="text-amber-850 hover:underline font-bold decoration-amber-850/40 underline-offset-4">
+          <Link to="/arquitetura" className="text-amber-800 hover:underline font-bold decoration-amber-800/40 underline-offset-4">
             Quintessence
           </Link>{" "}
           como IDE integrada e um{" "}
-          <Link to="/Arquitetura" className="text-emerald-800 hover:underline font-bold decoration-emerald-800/40 underline-offset-4">
+          <Link to="/arquitetura" className="text-emerald-800 hover:underline font-bold decoration-emerald-800/40 underline-offset-4">
             Kernel próprio, escrito em Rust
           </Link>
           , decidindo o que pode ou não pode acontecer por baixo de tudo.
@@ -83,7 +83,7 @@ const FounderMessage = () => {
           <li><strong className="text-[#211d18] font-semibold">GLM</strong> raciocina.</li>
           <li><strong className="text-[#211d18] font-semibold">Qwen</strong> constrói.</li>
           <li>
-            <Link to="/Arquitetura" className="text-emerald-800 hover:underline font-bold decoration-emerald-800/40 underline-offset-4">
+            <Link to="/arquitetura" className="text-emerald-800 hover:underline font-bold decoration-emerald-800/40 underline-offset-4">
               Rust
             </Link>{" "}
             mantém tudo sob controle. 🦀
@@ -97,7 +97,7 @@ const FounderMessage = () => {
         </p>
         <p>
           E não é só uma tela bonita. Na última rodada consolidada, foram{" "}
-          <Link to="/Referencias" className="text-[var(--a-terracotta)] hover:underline font-bold decoration-[var(--a-terracotta)]/40 underline-offset-4">
+          <Link to="/referencias" className="text-[var(--a-terracotta)] hover:underline font-bold decoration-[var(--a-terracotta)]/40 underline-offset-4">
             878 testes automatizados
           </Link>{" "}
           passando no stack Rust, além do build do app, do build Windows da IDE e da validação real do caminho entre os dois.
@@ -173,7 +173,7 @@ const FounderMessage = () => {
                 </div>
                 <div>
                   <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="text-base font-semibold text-[#211d18] hover:underline decoration-[#211d18]/30 underline-offset-2">
-                    Matheus Peres da silva
+                    Matheus Peres da Silva
                   </a>
                   <p className="text-xs text-[#5d564b] truncate max-w-[260px] xs:max-w-xs md:max-w-none">
                     Founder & Architect @ AetherCore
@@ -242,7 +242,7 @@ const FounderMessage = () => {
                 onClick={openLinkedIn}
                 className="py-4 flex items-center justify-center gap-1.5 text-[#5d564b] hover:bg-[#211d18]/5 hover:text-[#211d18] transition"
               >
-                <MessageSquare className="w-3.5 h-3.5" />
+                <Chat className="w-3.5 h-3.5" />
                 <span>Comentar</span>
               </button>
               <button
@@ -270,6 +270,8 @@ const FounderMessage = () => {
             <button
               className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white rounded-full p-2.5 transition"
               onClick={() => setActiveImage(null)}
+              aria-label="Fechar imagem"
+              data-testid="founder-lightbox-close"
             >
               <X className="w-6 h-6" />
             </button>
