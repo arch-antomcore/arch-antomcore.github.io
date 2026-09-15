@@ -490,62 +490,6 @@ main .footer-glass-pill:hover {
   100% { transform: translate3d(0, 0, 0); }
 }
 
-/* The stack carousel uses two equal groups and moves exactly one group per
-   cycle. Hover pauses the current frame instead of changing animation speed,
-   which avoids timeline resets and visible jumps when the pointer crosses a
-   logo. */
-.infinite-slider__track {
-  gap: 0;
-  animation: infinite-slider-forward var(--infinite-slider-duration) linear infinite;
-  transform: translate3d(0, 0, 0);
-}
-
-.infinite-slider__track.is-reverse {
-  animation-name: infinite-slider-reverse;
-}
-
-@keyframes infinite-slider-forward {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
-}
-
-@keyframes infinite-slider-reverse {
-  from { transform: translate3d(-50%, 0, 0); }
-  to { transform: translate3d(0, 0, 0); }
-}
-
-.infinite-slider__track.is-paused {
-  animation-play-state: paused;
-}
-
-.infinite-slider__group {
-  padding-right: var(--infinite-slider-gap);
-}
-
-html.aether-experience-light .infinite-slider__track {
-  animation: none !important;
-  transform: translate3d(0, 0, 0) !important;
-}
-
-html.aether-experience-light .infinite-slider__group--clone {
-  display: none;
-}
-
-.infinite-slider__group--clone {
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .infinite-slider__track {
-    animation: none !important;
-    transform: translate3d(0, 0, 0) !important;
-  }
-
-  .infinite-slider__group--clone {
-    display: none;
-  }
-}
-
 .aether-marquee {
   display: flex;
   width: max-content;
@@ -1906,4 +1850,268 @@ html.aether-experience-light [class*="backdrop-blur"] {
 
 html.aether-experience-light .magnetic {
   will-change: auto;
+}
+
+/* ============================================================
+   AETHER MATERIAL LAYER
+   Apple-inspired visual language applied through shared tokens:
+   quiet surfaces, generous geometry, restrained elevation and clear
+   interaction states. It deliberately keeps the Aether copper accent.
+   ============================================================ */
+:root {
+  --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  --aether-surface: rgba(255, 255, 255, 0.78);
+  --aether-surface-solid: #fbf9f2;
+  --aether-surface-raised: rgba(255, 255, 255, 0.9);
+  --aether-line-soft: rgba(33, 29, 24, 0.1);
+  --aether-line-strong: rgba(33, 29, 24, 0.18);
+  --aether-radius-card: 24px;
+  --aether-radius-control: 14px;
+  --aether-control-height: 44px;
+  --aether-shadow-card: 0 12px 34px -24px rgba(33, 29, 24, 0.34);
+  --aether-shadow-card-hover: 0 22px 46px -26px rgba(33, 29, 24, 0.42);
+  --aether-focus-ring: 0 0 0 4px rgba(163, 74, 51, 0.18);
+}
+
+body {
+  font-optical-sizing: auto;
+}
+
+h1,
+h2 {
+  letter-spacing: -0.02em !important;
+  font-optical-sizing: auto;
+}
+
+h3,
+h4,
+.font-display {
+  letter-spacing: -0.01em !important;
+  font-optical-sizing: auto;
+}
+
+/* Shared card geometry and elevation. Individual dark stages retain their
+   own color treatment while inheriting the same radius and focus language. */
+.aether-ui-card,
+.aether-card,
+.experience-choice,
+.aether-interactive-card {
+  border-radius: var(--aether-radius-card) !important;
+  border-color: var(--aether-line-soft);
+  box-shadow: var(--aether-shadow-card);
+  transition:
+    transform 220ms var(--ease-out-expo),
+    border-color 180ms ease,
+    box-shadow 220ms var(--ease-out-expo),
+    background-color 180ms ease;
+}
+
+.aether-ui-card:hover,
+.aether-card:hover,
+.experience-choice:hover,
+.aether-interactive-card:hover {
+  border-color: rgba(163, 74, 51, 0.34);
+  box-shadow: var(--aether-shadow-card-hover);
+}
+
+.aether-ui-card:focus-visible,
+.aether-card:focus-visible,
+.experience-choice:focus-visible,
+.aether-interactive-card:focus-visible,
+.card-glow:focus-visible {
+  outline: none;
+  box-shadow: var(--aether-shadow-card), var(--aether-focus-ring);
+}
+
+.aether-interactive-card {
+  border: 1px solid var(--aether-line-soft);
+}
+
+/* The glass treatment is a material, not a requirement: high-opacity color
+   keeps text readable and makes the page usable when blur is unavailable. */
+.liquid-glass {
+  border-radius: var(--aether-radius-card);
+  background: var(--aether-surface);
+  border-color: var(--aether-line-soft);
+  box-shadow: var(--aether-shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.76);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .liquid-glass,
+  .nav-glass,
+  .footer-glass-surface,
+  .aether-nav-surface {
+    backdrop-filter: blur(14px) saturate(115%);
+    -webkit-backdrop-filter: blur(14px) saturate(115%);
+  }
+}
+
+/* Navigation: the compact floating control and its expanded menu share one
+   material, selected state and focus ring. */
+.aether-nav-surface {
+  min-height: var(--aether-control-height);
+  border: 1px solid var(--aether-line-soft) !important;
+  background: rgba(255, 255, 255, 0.76) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 14px 34px -22px rgba(33, 29, 24, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+.nav-glass {
+  border-bottom-color: transparent !important;
+  box-shadow: 0 10px 28px -24px rgba(33, 29, 24, 0.42);
+}
+
+.aether-nav-tab {
+  min-height: 34px;
+  color: var(--ink-muted) !important;
+}
+
+.aether-nav-tab:hover,
+.aether-nav-tab:focus-visible {
+  color: var(--ink) !important;
+}
+
+.aether-nav-tab-highlight {
+  border-color: rgba(33, 29, 24, 0.12) !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  box-shadow: 0 5px 14px -10px rgba(33, 29, 24, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Shared controls used by forms, tabs and menus. */
+.aether-ui-button,
+.aether-ui-input,
+.aether-ui-textarea,
+.aether-ui-select-trigger,
+.aether-ui-tabs-list,
+.aether-ui-tabs-trigger {
+  border-radius: var(--aether-radius-control);
+}
+
+.aether-ui-button {
+  min-height: var(--aether-control-height);
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.aether-ui-button:active,
+.aether-ui-select-trigger:active,
+.aether-ui-tabs-trigger:active {
+  transform: scale(0.98);
+}
+
+.aether-ui-button:focus-visible,
+.aether-ui-input:focus-visible,
+.aether-ui-textarea:focus-visible,
+.aether-ui-select-trigger:focus-visible,
+.aether-ui-tabs-trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--aether-focus-ring);
+}
+
+.aether-ui-input,
+.aether-ui-textarea,
+.aether-ui-select-trigger {
+  min-height: var(--aether-control-height);
+  border-color: var(--aether-line-strong);
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--ink);
+}
+
+.aether-ui-input:hover,
+.aether-ui-textarea:hover,
+.aether-ui-select-trigger:hover {
+  border-color: rgba(163, 74, 51, 0.36);
+  background: var(--aether-surface-raised);
+}
+
+.aether-ui-select-content {
+  border: 1px solid var(--aether-line-soft) !important;
+  border-radius: var(--aether-radius-control) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 18px 42px -20px rgba(33, 29, 24, 0.42) !important;
+}
+
+.aether-ui-select-item {
+  min-height: 40px;
+  border-radius: 10px !important;
+}
+
+.aether-ui-select-item[data-highlighted] {
+  background: rgba(163, 74, 51, 0.1) !important;
+  color: var(--ink) !important;
+}
+
+.aether-ui-tabs-list {
+  border: 1px solid var(--aether-line-soft);
+  background: rgba(33, 29, 24, 0.05);
+}
+
+.aether-ui-tabs-trigger[data-state="active"] {
+  background: var(--aether-surface-raised);
+  color: var(--ink);
+  box-shadow: 0 5px 14px -10px rgba(33, 29, 24, 0.4);
+}
+
+/* Selector and footer toggles use the same control rhythm as the rest of the
+   site, including a non-animated fallback for the light profile. */
+.experience-choice {
+  min-height: 228px;
+  text-rendering: optimizeLegibility;
+}
+
+.experience-choice:active {
+  transform: scale(0.99);
+}
+
+html.aether-experience-light .aether-ui-card,
+html.aether-experience-light .aether-card,
+html.aether-experience-light .experience-choice,
+html.aether-experience-light .aether-interactive-card,
+html.aether-experience-light .liquid-glass,
+html.aether-experience-light .nav-glass,
+html.aether-experience-light .footer-glass-surface,
+html.aether-experience-light .aether-nav-surface {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .liquid-glass,
+  .nav-glass,
+  .footer-glass-surface,
+  .aether-nav-surface,
+  .aether-ui-input,
+  .aether-ui-textarea,
+  .aether-ui-select-trigger {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--aether-surface-solid) !important;
+  }
+
+  .aether-ui-card,
+  .aether-card,
+  .experience-choice,
+  .aether-ui-select-content {
+    border-color: var(--aether-line-strong) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aether-ui-card,
+  .aether-card,
+  .experience-choice,
+  .aether-interactive-card,
+  .aether-ui-button,
+  .aether-ui-select-trigger,
+  .aether-ui-tabs-trigger {
+    transition: none !important;
+  }
+
+  .aether-ui-card:hover,
+  .aether-card:hover,
+  .experience-choice:hover,
+  .aether-interactive-card:hover {
+    transform: none !important;
+  }
 }

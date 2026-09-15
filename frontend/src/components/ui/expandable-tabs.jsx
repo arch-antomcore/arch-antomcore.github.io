@@ -76,7 +76,7 @@ export function ExpandableTabs({
       ref={outsideClickRef}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative flex flex-nowrap items-center gap-1 rounded-full border border-white/12 bg-zinc-950/80 p-1.5 shadow-2xl backdrop-blur-xl transition-all duration-300",
+        "aether-nav-surface relative flex flex-nowrap items-center gap-1 rounded-full border border-white/12 bg-zinc-950/80 p-1.5 shadow-2xl backdrop-blur-xl transition-all duration-300",
         className
       )}
     >
@@ -109,7 +109,7 @@ export function ExpandableTabs({
             data-nav-expanded={isExpanded ? "true" : "false"}
             title={tab.title}
             className={cn(
-              "relative flex items-center rounded-full py-1.5 text-xs md:text-sm font-medium transition-colors duration-300 select-none cursor-pointer",
+              "aether-nav-tab relative flex items-center rounded-full py-1.5 text-xs md:text-sm font-medium transition-colors duration-300 select-none cursor-pointer",
               isHighlight
                 ? cn("text-white font-semibold", activeColor)
                 : "text-zinc-400 hover:text-zinc-200"
@@ -120,7 +120,7 @@ export function ExpandableTabs({
               <motion.div
                 layoutId="nav-expandable-tab-glide"
                 transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 280, damping: 26 }}
-                className="absolute inset-0 rounded-full bg-white/12 border border-white/15 shadow-sm z-0 pointer-events-none"
+                className="aether-nav-tab-highlight absolute inset-0 rounded-full bg-white/12 border border-white/15 shadow-sm z-0 pointer-events-none"
               />
             )}
 

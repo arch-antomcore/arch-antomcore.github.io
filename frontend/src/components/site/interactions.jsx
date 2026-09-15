@@ -8,6 +8,7 @@ import {
   useVelocity,
   useTransform,
 } from "framer-motion";
+import { useExperience } from "@/context/ExperienceContext";
 
 const getMotionTier = () =>
   typeof document === "undefined"
@@ -167,10 +168,13 @@ export const SpotlightCard = ({ as: Tag = "div", className = "", children, curso
   const ref = useRef(null);
   const rectRef = useRef(null);
   const raf = useRef(null);
-  const enabled = useMotionBudget({ allowLow: true });
+  const { isLightExperience } = useExperience();
+  // Light mode keeps cards fully operable without a per-pointer RAF loop or
+  // transform takeover. CSS still supplies the calm hover/focus state.
+  const enabled = useMotionBudget() && !isLightExperience;
 
   const onEnter = () => {
-    if (!ref.current) return;
+    if (!enabled || !ref.current) return;
     const r = ref.current.getBoundingClientRect();
     rectRef.current = {
       left: r.left + window.pageXOffset,
@@ -228,7 +232,7 @@ export const SpotlightCard = ({ as: Tag = "div", className = "", children, curso
       onPointerEnter={onEnter}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      className={`card-glow transition-transform duration-500 ease-out ${className}`}
+      className={`aether-interactive-card card-glow transition-[border-color,box-shadow,background-color] duration-300 ease-out ${className}`}
       style={{ transformStyle: "preserve-3d", ...rest.style }}
       {...cursorProps}
       {...rest}

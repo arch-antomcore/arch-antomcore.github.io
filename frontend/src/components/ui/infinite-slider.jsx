@@ -1,38 +1,168 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
-export function InfiniteSlider({
-  children,
-  gap = 48,
-  duration = 28,
-  reverse = false,
-  className = '',
-}) {
-  const [isHovered, setIsHovered] = useState(false);
+const CYCLE_INTERVAL = 2000;
+const COLUMN_DELAY = 200;
+
+export const shuffleArray = (array) => {
+  const shuffled = [...array];
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const replacementIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[replacementIndex]] = [
+      shuffled[replacementIndex],
+      shuffled[index],
+    ];
+  }
+
+  return shuffled;
+};
+
+export const distributeLogos = (allLogos, columnCount) => {
+  if (!allLogos.length || columnCount < 1) return [];
+
+  const shuffled = shuffleArray(allLogos);
+  const columns = Array.from({ length: columnCount }, () => []);
+
+  shuffled.forEach((logo, index) => {
+    columns[index % columnCount].push(logo);
+  });
+
+  const maxLength = Math.max(...columns.map((column) => column.length));
+  columns.forEach((column) => {
+    while (column.length < maxLength) {
+      column.push(shuffled[Math.floor(Math.random() * shuffled.length)]);
+    }
+  });
+
+  return columns;
+};
+
+export const getCurrentLogoIndex = (currentTime, columnIndex, logosLength) => {
+  if (!logosLength) return 0;
+
+  const adjustedTime = (currentTime + columnIndex * COLUMN_DELAY) % (CYCLE_INTERVAL * logosLength);
+  return Math.floor(adjustedTime / CYCLE_INTERVAL);
+};
+
+const LogoContent = ({ logo }) => (
+  <div className="absolute inset-0 flex items-center justify-center">
+    <img
+      src={logo.src}
+      alt={logo.name}
+      className="h-20 w-20 max-h-[80%] max-w-[80%] object-contain md:h-32 md:w-32"
+      decoding="async"
+      loading="lazy"
+      draggable="false"
+    />
+  </div>
+);
+
+export const LogoColumn = React.memo(({ logos, index, currentTime, isStatic }) => {
+  const currentIndex = getCurrentLogoIndex(currentTime, index, logos.length);
+  const currentLogo = useMemo(() => logos[currentIndex], [logos, currentIndex]);
+
+  if (!currentLogo) return null;
+
+  if (isStatic) {
+    return (
+      <div
+        className="relative h-14 w-24 overflow-hidden md:h-24 md:w-48"
+        data-testid="logo-carousel-column"
+      >
+        <LogoContent logo={currentLogo} />
+      </div>
+    );
+  }
+
+  return (
+    <motion.div
+      className="relative h-14 w-24 overflow-hidden md:h-24 md:w-48"
+      data-testid="logo-carousel-column"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        delay: index * 0.1,
+        duration: 0.5,
+        ease: "easeOut",
+      }}
+    >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`${currentLogo.id ?? currentLogo.name}-${currentIndex}`}
+          className="absolute inset-0 flex items-center justify-center"
+          initial={{ y: "10%", opacity: 0, filter: "blur(8px)" }}
+          animate={{
+            y: "0%",
+            opacity: 1,
+            filter: "blur(0px)",
+            transition: {
+              type: "spring",
+              stiffness: 300,
+              damping: 20,
+              mass: 1,
+              bounce: 0.2,
+              duration: 0.5,
+            },
+          }}
+          exit={{
+            y: "-20%",
+            opacity: 0,
+            filter: "blur(6px)",
+            transition: {
+              type: "tween",
+              ease: "easeIn",
+              duration: 0.3,
+            },
+          }}
+        >
+          <img
+            src={currentLogo.src}
+            alt={currentLogo.name}
+            className="h-20 w-20 max-h-[80%] max-w-[80%] object-contain md:h-32 md:w-32"
+            decoding="async"
+            loading="lazy"
+            draggable="false"
+          />
+        </motion.div>
+      </AnimatePresence>
+    </motion.div>
+  );
+});
+
+export function LogoCarousel({ columnCount = 2, logos, isStatic = false }) {
+  const prefersReducedMotion = useReducedMotion();
+  const shouldRemainStatic = isStatic || prefersReducedMotion;
+  const [currentTime, setCurrentTime] = useState(0);
+  const logoSets = useMemo(() => distributeLogos(logos, columnCount), [logos, columnCount]);
+
+  const updateTime = useCallback(() => {
+    setCurrentTime((previousTime) => previousTime + 100);
+  }, []);
+
+  useEffect(() => {
+    if (shouldRemainStatic) return undefined;
+
+    const intervalId = window.setInterval(updateTime, 100);
+    return () => window.clearInterval(intervalId);
+  }, [shouldRemainStatic, updateTime]);
 
   return (
     <div
-      className={`infinite-slider relative w-full overflow-hidden select-none ${className}`}
-      onPointerEnter={() => setIsHovered(true)}
-      onPointerLeave={() => setIsHovered(false)}
+      className="flex space-x-4"
+      data-testid="logo-carousel"
+      data-carousel-mode={shouldRemainStatic ? "static" : "animated"}
+      aria-label="Tecnologias da plataforma AetherCore"
     >
-      <div
-        className={`infinite-slider__track flex w-max items-center will-change-transform ${reverse ? 'is-reverse' : ''} ${isHovered ? 'is-paused' : ''}`}
-        style={{
-          '--infinite-slider-gap': `${gap}px`,
-          '--infinite-slider-duration': `${duration}s`,
-        }}
-      >
-        <div className="infinite-slider__group flex shrink-0 items-center" style={{ gap: `${gap}px` }}>
-          {children}
-        </div>
-        <div
-          className="infinite-slider__group infinite-slider__group--clone flex shrink-0 items-center"
-          style={{ gap: `${gap}px` }}
-          aria-hidden="true"
-        >
-          {children}
-        </div>
-      </div>
+      {logoSets.map((columnLogos, index) => (
+        <LogoColumn
+          key={index}
+          logos={columnLogos}
+          index={index}
+          currentTime={currentTime}
+          isStatic={shouldRemainStatic}
+        />
+      ))}
     </div>
   );
 }
