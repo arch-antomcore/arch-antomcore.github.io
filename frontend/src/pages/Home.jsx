@@ -235,25 +235,12 @@ const SectionGroupWithStarfield = ({ children }) => {
   return <SectionGroupWithStarfieldFull>{children}</SectionGroupWithStarfieldFull>;
 };
 
-const LightGalleryPreview = () => (
-  <section className="px-6 py-16 md:px-12 md:py-24" data-testid="light-gallery-preview">
-    <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[28px] border border-[#211d18]/10 bg-white/55 shadow-[0_18px_48px_-32px_rgba(33,29,24,0.35)] md:grid-cols-[1.15fr_0.85fr]">
-      <div className="p-8 md:p-12">
-        <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.24em] text-[#A34A33]">// VISUAL ESTÁTICO</p>
-        <h2 className="aether-font-display mt-5 text-3xl font-extrabold uppercase leading-[0.98] tracking-tight md:text-5xl">O mesmo produto. Menos peso.</h2>
-        <p className="mt-5 max-w-md text-sm leading-relaxed text-[#211d18]/65 md:text-base">
-          A versão leve mantém o conteúdo e as decisões de produto, mas deixa de iniciar galerias 3D e movimentos contínuos.
-        </p>
-      </div>
-      <img
-        src="/assets/img/gallery/aether-1.png"
-        alt="AetherCore Workspace"
-        loading="lazy"
-        decoding="async"
-        className="h-full min-h-[250px] w-full object-cover"
-      />
-    </div>
-  </section>
+const GalleryLoadingPlaceholder = () => (
+  <div
+    className="min-h-[46vh] w-full bg-[#211d18]"
+    aria-hidden="true"
+    data-testid="gallery-loading-placeholder"
+  />
 );
 
 const Home = () => {
@@ -263,10 +250,8 @@ const Home = () => {
   <div data-testid="home-page">
     {!isLightExperience && <IntroCurtain />}
     <AetherHero />
-    {isLightExperience ? (
-      <LightGalleryPreview />
-    ) : (
-      <React.Suspense fallback={<LightGalleryPreview />}>
+    {!isLightExperience && (
+      <React.Suspense fallback={<GalleryLoadingPlaceholder />}>
         <ZoomParallax images={AETHER_ZOOM_IMAGES} />
       </React.Suspense>
     )}

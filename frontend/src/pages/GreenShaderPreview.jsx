@@ -66,12 +66,12 @@ const Synthesis = () => {
     <Section id="synthesis" className="liquid-divider">
       <Container>
         <SectionHeader
-          kicker={HOME.synthesis.kicker}
-          title={HOME.synthesis.title}
-          desc={HOME.synthesis.desc}
+          kicker={HOME.synthKicker}
+          title={HOME.synthTitle}
+          desc={HOME.synthDesc}
         />
         <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {HOME.synthesis.cards.map((s, i) => {
+          {HOME.synth.map((s, i) => {
             const Icon = icons[i] || CheckCircle2;
             return (
               <Reveal key={s.t} delay={i * 0.1}>
