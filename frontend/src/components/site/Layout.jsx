@@ -50,15 +50,18 @@ const LENIS_OPTIONS = {
   infinite: false,
 };
 
+/* Light profile: same engine, gentler easing, touch stays native. */
+const LIGHT_LENIS_OPTIONS = { ...LENIS_OPTIONS, lerp: 0.16 };
+
 const SiteContent = ({ lenis = null }) => {
   const { pathname, hash } = useLocation();
   const { language } = useTranslation();
   const { experience, isLightExperience } = useExperience();
   const prefersReducedMotion = useReducedMotion();
-  const shouldReduceMotion = isLightExperience || prefersReducedMotion;
+  const shouldReduceMotion = prefersReducedMotion;
 
   useEffect(() => {
-    if (!lenis) return undefined;
+    if (!lenis || isLightExperience) return undefined;
     let active = true;
     let cleanup = () => {};
 
@@ -72,7 +75,7 @@ const SiteContent = ({ lenis = null }) => {
       active = false;
       cleanup();
     };
-  }, [lenis]);
+  }, [lenis, isLightExperience]);
 
   // Route-change scroll handling uses Lenis only in the full experience.
   useEffect(() => {
@@ -124,12 +127,9 @@ const SiteContent = ({ lenis = null }) => {
     return () => mediaQuery?.removeEventListener?.("change", updateFavicon);
   }, []);
 
-  // The fallback observer only exists for the animated profile. The light
-  // profile renders content directly rather than staging it off-screen.
-  useEffect(() => {
-    if (isLightExperience) return undefined;
-    return initScrollAnimations();
-  }, [isLightExperience]);
+  // Soft scroll reveals run in both profiles; the light profile only uses the
+  // cheap opacity/translate variant (see index.css).
+  useEffect(() => initScrollAnimations(), []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -305,11 +305,12 @@ const FullExperienceContent = () => {
   return <SiteContent lenis={lenis} />;
 };
 
-const FullExperienceRuntime = () => {
+const FullExperienceRuntime = ({ light = false }) => {
   const prefersReducedMotion = useReducedMotion();
+  const base = light ? LIGHT_LENIS_OPTIONS : LENIS_OPTIONS;
   const options = prefersReducedMotion
-    ? { ...LENIS_OPTIONS, anchors: false, lerp: 1, smoothWheel: false, touchMultiplier: 1 }
-    : LENIS_OPTIONS;
+    ? { ...base, anchors: false, lerp: 1, smoothWheel: false, touchMultiplier: 1 }
+    : base;
 
   return (
     <ReactLenis root options={options}>
@@ -345,8 +346,8 @@ const Layout = () => {
   const isLightExperience = experience === EXPERIENCE.LIGHT;
   return (
     <ExperienceProvider experience={experience} setExperience={chooseExperience}>
-      <MotionConfig reducedMotion={isLightExperience ? "always" : "user"}>
-        {isLightExperience ? <SiteContent /> : <FullExperienceRuntime />}
+      <MotionConfig reducedMotion="user">
+        <FullExperienceRuntime light={isLightExperience} />
       </MotionConfig>
     </ExperienceProvider>
   );

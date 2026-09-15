@@ -58,6 +58,14 @@ Refatoração completa do design do site AetherCore (React + FastAPI + MongoDB):
 - SectionRail legível sobre o stage escuro de preços (label com backplate paper)
 - FounderMessage: rotas em minúsculas, `text-amber-800`, nome capitalizado, close do lightbox com aria-label
 - Build `yarn build` → `/docs` regenerado e publicado via push em `main` (workflow deploy.yml)
+
+## Modo leve "vivo" (2026-06, sessão 2)
+- Versão leve agora monta Lenis com `lerp 0.16` (touch permanece nativo); GSAP sync continua só no modo completo
+- `MotionConfig reducedMotion="user"` nos dois perfis (antes "always" no leve, o que deixava tudo seco); efeitos pesados continuam desmontados via `isLightExperience`
+- SDA no leve: keyframe único `sda-rise-soft` (opacity + 24px), sem blur/scale/drift/parallax; `initScrollAnimations` roda nos dois perfis (fallback IO)
+- Hero estático com entrada escalonada CSS (`.aether-soft-enter`); delays do hero comprimidos (×0.3) no leve por não haver curtain
+- Marquees permitidos no leve (70s); scroll-progress visível; ping/aurora/partículas/grid continuam off
+- Copy do chooser atualizado ("rolagem suave e animações discretas")
 - P2: Revisão mobile detalhada de todas as 16 rotas
 
 ## Notas técnicas

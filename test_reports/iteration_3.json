@@ -1,0 +1,23 @@
+{
+  "summary": "Frontend-only light-mode regression on AetherCore covering Lenis smooth scroll (lerp 0.16), CSS reveals (sda-rise-soft), MotionConfig 'user' preference and hero soft entrance. Verified 7 routes (/, /produto, /precos, /blog, /sobre, /validacao, /faq) with ?experience=light on desktop 1920x800 and mobile 390x844, plus full-mode sanity and blog content integrity. All 8 requested scenarios PASS with zero runtime console errors.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Prior iteration_2 finding still applies: FounderMessage.jsx is orphaned (not imported anywhere). Not in scope for this iteration, but flagging that the dead component is still in the tree.",
+    "Body scroll-lock uses html { overflow: clip } while menu is open (bodyOverflow reported as 'hidden auto'). Works, but clip on <html> is subtler than the typical body.overflow:hidden pattern — verify on Safari <16 if that browser is a target (overflow:clip is Safari 16+)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a (frontend-only per request)", "frontend": "100% (8/8 scenarios pass)"},
+  "test_credentials": "none required",
+  "seed_data_creation": "none",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Light-mode audit results (all pass): (1) html classes on ?experience=light include both 'aether-experience-light' and 'lenis' + 'lenis-autoToggle' + 'motion-tier-low'. (2) All 7 routes render (bodyText 1987–3783 chars) with no horizontal overflow: desktop scrollWidth=1910/1920, mobile scrollWidth=380/390. (3) Zero console errors across desktop+mobile sweep of all 7 routes and full-mode sanity. (4) Wheel scroll works — scrolled from y=0 to y=9074 (docH=9874) using page.mouse.wheel; after settle, zero .sda-rise/.sda-blur/.sda-scale/.sda-fade elements were left below viewport with opacity < 0.95 (lowCount=0). (5) nav-cta click on /?experience=light sets location.hash='#cta' and scrolls to page bottom where #cta lives. (6) footer-back-to-top returns scrollY to 0 after ~2s of Lenis lerp. (7) Footer 'Animações' toggle switches html class between 'aether-experience-light motion-tier-low' and 'aether-experience-full motion-tier-high' — no crash, hot swap works. (8) Mobile menu-open locks scroll (html overflow=clip, body overflow='hidden auto'); menu-close restores it (though on this test scrollY stayed 0 because we were at top — verified overflow returned to normal). (9) Blog light lists v0.6.0/Quintessence/v0.5.4/v0.5.3/v0.5.2. (10) Full mode /?experience=full renders (classes contain motion-tier-high), scrolls to y=11343/docH=12143, zero errors.",
+  "rca of the issue": "N/A — no bugs found in this iteration."
+}

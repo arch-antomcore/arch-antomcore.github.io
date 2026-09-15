@@ -964,8 +964,7 @@ main .footer-glass-pill:hover {
 .motion-tier-low .animate-footer-scroll-marquee {
   animation-duration: 60s;
 }
-.motion-tier-low .noise-overlay,
-.motion-tier-low .scroll-progress {
+.motion-tier-low .noise-overlay {
   display: none;
 }
 .motion-tier-low .footer-grid-plane__scan {
@@ -1804,37 +1803,71 @@ html.lenis body {
    LIGHT EXPERIENCE
    The preference is deliberately scoped to the document root so the
    cinematic profile remains unchanged. Components that own timers/WebGL
-   are not mounted in this profile; these rules cover decorative CSS only.
+   are not mounted in this profile. Decorative multi-layer loops are off,
+   but cheap opacity/translate motion stays so the page still feels alive.
    ============================================================ */
 html.aether-experience-light .noise-overlay,
-html.aether-experience-light .scroll-progress,
-html.aether-experience-light .sda-rise,
-html.aether-experience-light .sda-fade,
-html.aether-experience-light .sda-left,
-html.aether-experience-light .sda-right,
-html.aether-experience-light .sda-scale,
-html.aether-experience-light .sda-blur,
 html.aether-experience-light .sda-drift,
 html.aether-experience-light .sda-exit-fade,
-html.aether-experience-light .aether-spin-slow,
-html.aether-experience-light .aether-marquee,
 html.aether-experience-light .hero-grid,
 html.aether-experience-light .aurora-blob,
 html.aether-experience-light .hero-streak-line,
 html.aether-experience-light .hero-particle,
+html.aether-experience-light .aether-blob--ink,
+html.aether-experience-light .aether-blob--tangerine,
 html.aether-experience-light .animate-footer-breathe,
-html.aether-experience-light .animate-footer-scroll-marquee,
 html.aether-experience-light .animate-footer-heartbeat,
 html.aether-experience-light .footer-grid-plane__scan,
-html.aether-experience-light .animate-pulse,
-html.aether-experience-light .animate-ping,
-html.aether-experience-light .animate-spin {
+html.aether-experience-light .animate-ping {
   animation: none !important;
   animation-timeline: auto !important;
   animation-range: none !important;
   opacity: 1 !important;
   transform: none !important;
   filter: none !important;
+}
+
+html.aether-experience-light .aether-marquee,
+html.aether-experience-light .animate-footer-scroll-marquee {
+  animation-duration: 70s;
+}
+
+/* Soft reveal: one shared keyframe (opacity + 24px rise, no blur/scale)
+   replaces every SDA variant in the light profile. */
+@keyframes sda-rise-soft {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Staggered entrance for static hero lines (light profile). */
+.aether-soft-enter {
+  animation: sda-rise-soft 0.8s var(--ease-out-expo) both;
+  animation-delay: calc(0.12s + var(--i, 0) * 0.1s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .aether-soft-enter { animation: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    html.aether-experience-light :is(.sda-rise, .sda-left, .sda-right, .sda-scale, .sda-blur) {
+      animation-name: sda-rise-soft;
+      animation-range-start: entry calc(4% + var(--sda-i, 0) * 3%);
+      animation-range-end: cover calc(24% + var(--sda-i, 0) * 3%);
+    }
+  }
+
+  @supports not (animation-timeline: view()) {
+    html.aether-experience-light :is(.sda-rise, .sda-left, .sda-right, .sda-scale, .sda-blur) {
+      transform: translateY(24px);
+      filter: none;
+      transition-duration: 0.6s;
+      transition-delay: calc(var(--sda-i, 0) * 60ms);
+    }
+    html.aether-experience-light .sda-in:is(.sda-rise, .sda-left, .sda-right, .sda-scale, .sda-blur) {
+      transform: none;
+    }
+  }
 }
 
 html.aether-experience-light .nav-glass,

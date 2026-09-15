@@ -105,9 +105,9 @@ const StaticHeadline = ({ headline }) => (
     className="aether-font-display font-extrabold uppercase text-[#211d18] leading-[1.1] aether-tracking-tighter text-[9.5vw] sm:text-7xl lg:text-[8.5vw]"
     data-testid="aether-kinetic-headline"
   >
-    <span className="block py-2">{headline.l1}</span>
-    <span className="aether-text-stroke block py-2">{headline.l2}</span>
-    <span className="flex items-center gap-4 py-2 md:gap-8">
+    <span className="aether-soft-enter block py-2" style={{ "--i": 0 }}>{headline.l1}</span>
+    <span className="aether-soft-enter aether-text-stroke block py-2" style={{ "--i": 1 }}>{headline.l2}</span>
+    <span className="aether-soft-enter flex items-center gap-4 py-2 md:gap-8" style={{ "--i": 2 }}>
       <span>{headline.l3a}</span>
       <svg viewBox="0 0 24 24" className="h-[0.55em] w-[0.55em] shrink-0 text-[#A34A33]" fill="currentColor" aria-hidden="true">
         <path d="M12 0l2.4 8.2L22.4 6 16.8 12l5.6 6-8-2.2L12 24l-2.4-8.2L1.6 18l5.6-6-5.6-6 8 2.2L12 0z" />
@@ -198,6 +198,8 @@ const AetherHero = () => {
   const isPt = language === "pt";
   const A = t.HOME.aether;
   const [galleryOpen, setGalleryOpen] = useState(false);
+  // No intro curtain in the light profile, so entrance delays are compressed.
+  const d = isLightExperience ? 0.3 : 1;
 
   return (
     <section
@@ -219,7 +221,7 @@ const AetherHero = () => {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1.1 }}
+            transition={{ duration: 0.7, delay: 1.1 * d }}
             className="flex items-center justify-between border-b border-[#211d18]/10 pb-5 mb-8 md:mb-12"
             data-testid="aether-eyebrow"
           >
@@ -239,7 +241,7 @@ const AetherHero = () => {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              transition={{ duration: 0.7, delay: 1.9, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.7, delay: 1.9 * d, ease: [0.16, 1, 0.3, 1] }}
               className="md:col-span-5 text-base lg:text-lg text-[#211d18]/60 leading-relaxed"
               data-testid="aether-subheadline"
             >
@@ -250,7 +252,7 @@ const AetherHero = () => {
               initial="hidden"
               animate="visible"
               variants={fadeUp}
-              transition={{ duration: 0.7, delay: 2.05, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.7, delay: 2.05 * d, ease: [0.16, 1, 0.3, 1] }}
               className="md:col-span-7 md:flex md:justify-end"
             >
               <CtaButtons
@@ -267,7 +269,7 @@ const AetherHero = () => {
             initial="hidden"
             animate="visible"
             variants={fadeUp}
-            transition={{ duration: 0.7, delay: 2.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, delay: 2.2 * d, ease: [0.16, 1, 0.3, 1] }}
             className="mt-10 pt-5 border-t border-[#211d18]/10 flex flex-wrap items-center justify-between gap-4"
           >
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#211d18]/70 font-medium">
