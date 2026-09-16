@@ -24,10 +24,10 @@ export const getQueryExperience = () => {
   return normalizeExperience(params.get("motion") || params.get("experience"));
 };
 
-// A new browser entry deliberately ignores the previous local preference.
-// The selected profile lives in React state while the visitor moves through
-// the SPA and is asked again after a reload/direct entry.
-export const getInitialExperience = () => getQueryExperience();
+// Restore the visitor's last explicit profile on a full browser entry. Query
+// parameters remain an intentional override for previews and QA, while normal
+// F5 reloads keep the selected experience instead of reopening the chooser.
+export const getInitialExperience = () => getSavedExperience();
 
 export const getSavedExperience = () => {
   if (!isBrowser()) return null;

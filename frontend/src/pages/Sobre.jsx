@@ -3,7 +3,6 @@ import { Container, Section, SectionHeader, Kicker, Reveal } from "@/components/
 import PageHero from "@/components/site/PageHero";
 import CtaSection from "@/components/site/CtaSection";
 import { SpotlightCard } from "@/components/site/interactions";
-import SectionRail from "@/components/aether/SectionRail";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Users, Trophy as Award, GitMerge } from "@phosphor-icons/react";
 
@@ -11,25 +10,8 @@ const Sobre = () => {
   const { t, language } = useTranslation();
   const SOBRE = t.SOBRE;
 
-  const railItems = language === "pt"
-    ? [
-        { id: "sobre-hero", label: "01 · Intro" },
-        { id: "equipe", label: "02 · Equipe" },
-        { id: "paradigma", label: "03 · Paradigma" },
-        { id: "licenciamento", label: "04 · Termos" },
-        { id: "cta", label: "05 · Contato" },
-      ]
-    : [
-        { id: "sobre-hero", label: "01 · Intro" },
-        { id: "equipe", label: "02 · Team" },
-        { id: "paradigma", label: "03 · Paradigm" },
-        { id: "licenciamento", label: "04 · Terms" },
-        { id: "cta", label: "05 · Contact" },
-      ];
-
   return (
     <div data-testid="sobre-page">
-      <SectionRail items={railItems} />
       <div id="sobre-hero">
         <PageHero
           kicker={SOBRE.kicker}

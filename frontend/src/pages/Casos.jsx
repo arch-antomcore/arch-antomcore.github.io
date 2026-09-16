@@ -6,32 +6,14 @@ import CtaSection from "@/components/site/CtaSection";
 import { SpotlightCard } from "@/components/site/interactions";
 import ComparisonTable from "@/components/site/ComparisonTable";
 import EditorialChapters from "@/components/aether/EditorialChapters";
-import SectionRail from "@/components/aether/SectionRail";
 import { ImageBand, MEDIA } from "@/components/aether/GlassMedia";
 
 const Casos = () => {
   const { t, language } = useTranslation();
   const CASOS = t.CASOS;
 
-  const railItems = language === "pt"
-    ? [
-        { id: "casos-hero", label: "01 · Intro" },
-        { id: "casos-problem", label: "02 · Problema" },
-        { id: "casos-compare", label: "03 · Comparativo" },
-        { id: "casos-audience", label: "04 · Audiência" },
-        { id: "cta", label: "05 · Contato" },
-      ]
-    : [
-        { id: "casos-hero", label: "01 · Intro" },
-        { id: "casos-problem", label: "02 · Problem" },
-        { id: "casos-compare", label: "03 · Compare" },
-        { id: "casos-audience", label: "04 · Audience" },
-        { id: "cta", label: "05 · Contact" },
-      ];
-
   return (
     <div data-testid="casos-de-uso-page">
-      <SectionRail items={railItems} />
       <div id="casos-hero">
         <PageHero
           kicker={CASOS.kicker}

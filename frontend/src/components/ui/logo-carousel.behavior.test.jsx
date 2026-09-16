@@ -62,7 +62,7 @@ describe("LogoCarousel experience profiles", () => {
     jest.useRealTimers();
   });
 
-  it("cycles the animated profile while leaving the light profile static", () => {
+  it("cycles both profiles while keeping the explicit static escape hatch frozen", () => {
     act(() => {
       root.render(<LogoCarousel columnCount={3} logos={logos} />);
     });
@@ -80,16 +80,27 @@ describe("LogoCarousel experience profiles", () => {
     expect(firstImage()).not.toBe(animatedInitialLogo);
 
     act(() => {
-      root.render(<LogoCarousel columnCount={3} logos={logos} isStatic />);
+      root.render(<LogoCarousel columnCount={3} logos={logos} profile="light" />);
     });
 
+    const lightInitialLogo = firstImage();
+    expect(carousel.dataset.carouselMode).toBe("animated");
+    expect(carousel.dataset.carouselProfile).toBe("light");
+
+    act(() => {
+      jest.advanceTimersByTime(2000);
+    });
+
+    expect(firstImage()).not.toBe(lightInitialLogo);
+
+    act(() => {
+      root.render(<LogoCarousel columnCount={3} logos={logos} isStatic />);
+    });
     const staticInitialLogo = firstImage();
     expect(carousel.dataset.carouselMode).toBe("static");
-
     act(() => {
       jest.advanceTimersByTime(4000);
     });
-
     expect(firstImage()).toBe(staticInitialLogo);
   });
 });

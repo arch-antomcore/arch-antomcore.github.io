@@ -11,6 +11,7 @@ import AetherClosing from "@/components/aether/AetherClosing";
 import { IntroCurtain } from "@/components/aether/AetherKit";
 import { GlassShowcase } from "@/components/aether/GlassMedia";
 import CtaSection from "@/components/site/CtaSection";
+import FounderMessage from "@/components/site/FounderMessage";
 import { useExperience } from "@/context/ExperienceContext";
 
 // These visual systems contain the most expensive canvases and texture work on
@@ -282,6 +283,8 @@ const Home = () => {
     </ScrollCinematic>
     
     <AetherClosing />
+
+    <FounderMessage />
 
     <CtaSection />
   </div>

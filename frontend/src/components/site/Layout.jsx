@@ -9,6 +9,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { initScrollAnimations } from "@/lib/scrollAnimations";
 import { CustomCursor } from "@/components/aether/AetherKit";
 import { InteractiveMenu } from "@/components/ui/modern-mobile-menu";
+import SectionRail from "@/components/aether/SectionRail";
 import ExperienceSelector from "@/components/site/ExperienceSelector";
 import { ExperienceProvider, useExperience } from "@/context/ExperienceContext";
 import {
@@ -271,6 +272,7 @@ const SiteContent = ({ lenis = null }) => {
         />
       )}
       <Nav />
+      <SectionRail />
       <main className="relative z-10 bg-transparent">
         <React.Suspense
           fallback={
@@ -320,9 +322,9 @@ const FullExperienceRuntime = ({ light = false }) => {
 };
 
 const readInitialExperience = () => {
-  // A full browser entry intentionally starts at the chooser again. React
-  // state still carries the selection across client-side route changes, while
-  // F5/direct entries do not inherit a previous device preference.
+  // Restore the explicit profile on F5/direct entries. A query parameter can
+  // still force a profile for previews and QA; normal navigation stays in the
+  // visitor's chosen experience.
   const queryExperience = getInitialExperience();
   if (queryExperience) applyExperienceToDocument(queryExperience);
   return queryExperience;

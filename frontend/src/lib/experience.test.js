@@ -40,9 +40,9 @@ describe("experience preferences", () => {
     expect(getSavedExperience()).toBe(EXPERIENCE.LIGHT);
   });
 
-  it("starts a new browser entry at the chooser instead of restoring storage", () => {
+  it("restores the selected profile on a browser reload and honors query overrides", () => {
     localStorage.setItem(EXPERIENCE_STORAGE_KEY, EXPERIENCE.LIGHT);
-    expect(getInitialExperience()).toBeNull();
+    expect(getInitialExperience()).toBe(EXPERIENCE.LIGHT);
 
     window.history.replaceState({}, "", "/?experience=full");
     expect(getInitialExperience()).toBe(EXPERIENCE.FULL);

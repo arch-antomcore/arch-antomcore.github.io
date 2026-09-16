@@ -17,7 +17,7 @@ const Marquee = () => {
       <LogoCarousel
         columnCount={3}
         logos={carouselLogos}
-        isStatic={isLightExperience}
+        profile={isLightExperience ? "light" : "full"}
       />
     </div>
   );

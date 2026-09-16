@@ -6,32 +6,14 @@ import PageHero from "@/components/site/PageHero";
 import CtaSection from "@/components/site/CtaSection";
 import { SpotlightCard } from "@/components/site/interactions";
 import EditorialChapters from "@/components/aether/EditorialChapters";
-import SectionRail from "@/components/aether/SectionRail";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const Produto = () => {
   const { t, language } = useTranslation();
   const PRODUTO = t.PRODUTO;
 
-  const railItems = language === "pt"
-    ? [
-        { id: "produto-hero", label: "01 · Intro" },
-        { id: "funcionamento", label: "02 · Como funciona" },
-        { id: "edicoes", label: "03 · Edições" },
-        { id: "sustentavel", label: "04 · Sustentável" },
-        { id: "cta", label: "05 · Contato" },
-      ]
-    : [
-        { id: "produto-hero", label: "01 · Intro" },
-        { id: "funcionamento", label: "02 · How it works" },
-        { id: "edicoes", label: "03 · Editions" },
-        { id: "sustentavel", label: "04 · Sustainable" },
-        { id: "cta", label: "05 · Contact" },
-      ];
-
   return (
     <div data-testid="produto-page">
-      <SectionRail items={railItems} />
       <div id="produto-hero">
         <PageHero
           kicker={PRODUTO.kicker}

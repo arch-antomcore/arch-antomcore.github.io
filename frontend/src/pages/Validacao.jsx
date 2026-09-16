@@ -4,7 +4,6 @@ import { Container, Section, SectionHeader, Reveal } from "@/components/site/pri
 import PageHero from "@/components/site/PageHero";
 import CtaSection from "@/components/site/CtaSection";
 import { SpotlightCard, Magnetic } from "@/components/site/interactions";
-import SectionRail from "@/components/aether/SectionRail";
 import { useTranslation } from "@/hooks/useTranslation";
 import {
   Buildings,
@@ -21,29 +20,8 @@ const Validacao = () => {
   const VALIDACAO = t.VALIDACAO;
   const [imgError, setImgError] = useState(false);
 
-  const railItems = language === "pt"
-    ? [
-        { id: "validacao-hero", label: "01 · Resumo" },
-        { id: "instituicao", label: "02 · Pacific Palm" },
-        { id: "atuacao", label: "03 · Atuação" },
-        { id: "stress-test", label: "04 · Teste de Fogo" },
-        { id: "terminal-audit", label: "05 · Telemetria" },
-        { id: "veredito", label: "06 · Veredito" },
-        { id: "cta", label: "07 · Contato" },
-      ]
-    : [
-        { id: "validacao-hero", label: "01 · Overview" },
-        { id: "instituicao", label: "02 · Pacific Palm" },
-        { id: "atuacao", label: "03 · Execution" },
-        { id: "stress-test", label: "04 · Stress Test" },
-        { id: "terminal-audit", label: "05 · Telemetry" },
-        { id: "veredito", label: "06 · Verdict" },
-        { id: "cta", label: "07 · Contact" },
-      ];
-
   return (
     <div data-testid="validacao-page" className="relative overflow-hidden">
-      <SectionRail items={railItems} />
 
       {/* Hero Section */}
       <div id="validacao-hero">

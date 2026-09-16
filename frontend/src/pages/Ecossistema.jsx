@@ -5,24 +5,11 @@ import { Container, Section, SectionHeader, Reveal } from "@/components/site/pri
 import PageHero from "@/components/site/PageHero";
 import CtaSection from "@/components/site/CtaSection";
 import { SpotlightCard } from "@/components/site/interactions";
-import SectionRail from "@/components/aether/SectionRail";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const Ecossistema = () => {
   const { language } = useTranslation();
   const isPt = language === "pt";
-
-  const railItems = isPt
-    ? [
-        { id: "eco-hero", label: "01 · Intro" },
-        { id: "projetos", label: "02 · Projetos" },
-        { id: "cta", label: "03 · Contato" },
-      ]
-    : [
-        { id: "eco-hero", label: "01 · Intro" },
-        { id: "projetos", label: "02 · Projects" },
-        { id: "cta", label: "03 · Contact" },
-      ];
 
   const products = [
     {
@@ -88,7 +75,6 @@ const Ecossistema = () => {
 
   return (
     <div data-testid="ecossistema-page">
-      <SectionRail items={railItems} />
 
       <div id="eco-hero">
         <PageHero

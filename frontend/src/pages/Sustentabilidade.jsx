@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Section, SectionHeader, Reveal } from "@/components/site/primitives";
 import PageHero from "@/components/site/PageHero";
 import CtaSection from "@/components/site/CtaSection";
-import SectionRail from "@/components/aether/SectionRail";
 import { useTranslation } from "@/hooks/useTranslation";
 import { getLucideIcon } from "@/lib/iconHelper";
 import { ImageBand, MEDIA } from "@/components/aether/GlassMedia";
@@ -12,21 +11,8 @@ const Sustentabilidade = () => {
   const { t, language } = useTranslation();
   const SUSTENTABILIDADE = t.SUSTENTABILIDADE;
 
-  const railItems = language === "pt"
-    ? [
-        { id: "sust-hero", label: "01 · Intro" },
-        { id: "sust-cards", label: "02 · Impacto" },
-        { id: "cta", label: "03 · Contato" },
-      ]
-    : [
-        { id: "sust-hero", label: "01 · Intro" },
-        { id: "sust-cards", label: "02 · Impact" },
-        { id: "cta", label: "03 · Contact" },
-      ];
-
   return (
     <div data-testid="sustentabilidade-page">
-      <SectionRail items={railItems} />
       <div id="sust-hero">
         <PageHero
           kicker={SUSTENTABILIDADE.kicker}

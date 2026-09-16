@@ -563,24 +563,41 @@ export const CONTENT_PT = {
     title: ["Plugins", "AetherCore."],
     lead: "Expanda a inteligência do AetherCore conectando provedores locais e ferramentas externas com segurança local-first.",
     cardsTitle: "O que você pode conectar",
-    cardsDesc: "Arquitetura aberta para integrar serviços locais. Criada com foco em rodar modularmente junto ao LocalAI.",
+    cardsDesc: "Uma superfície de plugins para escolher o motor, conversar por canais autorizados e executar ferramentas com o Kernel mantendo a decisão humana no centro.",
     cards: [
       {
-        t: "Provedores (Providers)",
-        d: "Integre o LocalAI para inferência local avançada (LLMs, áudio, imagens) de forma desacoplada do Kernel.",
-        icon: "Plug",
+        t: "Motores locais · LocalAI + Ollama",
+        d: "Rode LLMs, áudio, imagens e embeddings no próprio hardware. O plugin só expõe o que o workspace autorizou, sem amarrar o Kernel a um fornecedor.",
+        icon: "Cpu",
         link: "https://localai.io"
       },
       {
+        t: "Telegram Bridge",
+        d: "Converse com os agentes pelo Telegram e escolha o motor por conversa — Granite, Qwen, Gemma, GLM, Llama ou outro provider configurado — sempre com aprovação e escopo explícitos.",
+        icon: "PaperPlaneTilt",
+        link: "https://core.telegram.org/bots/api"
+      },
+      {
+        t: "Model API Bridge",
+        d: "Use APIs compatíveis com OpenAI/GPT, Anthropic/Claude e Google/Gemini quando você permitir. O mesmo contrato também acomoda Granite, Qwen, Gemma, GLM e Llama em endpoints locais ou remotos.",
+        icon: "Brain",
+        link: "https://platform.openai.com/docs/api-reference"
+      },
+      {
         t: "Model Context Protocol (MCP)",
-        d: "Conecte servidores MCP externos para importar contextos e ferramentas universais de forma padronizada.",
+        d: "Conecte servidores MCP externos para importar contextos e ferramentas universais de forma padronizada, com permissões visíveis antes de cada ação.",
         icon: "Blocks",
         link: "https://modelcontextprotocol.io"
       },
       {
-        t: "Ferramentas & RAG",
-        d: "Adicione novas ações executáveis ao Kernel e conecte bancos de dados diretamente ao Memory Kernel local.",
-        icon: "Cpu"
+        t: "Ferramentas & Memory RAG",
+        d: "Adicione ações executáveis, índices vetoriais e pipelines RAG diretamente ao Memory Kernel local, com trilha de auditoria por workspace.",
+        icon: "Database"
+      },
+      {
+        t: "Webhooks & Eventos locais",
+        d: "Reaja a arquivos, filas e eventos do sistema sem transformar cada integração em um processo residente pesado.",
+        icon: "ArrowsClockwise"
       }
     ],
     featuresTitle: "Segurança de Extensão",
@@ -1240,24 +1257,41 @@ export const CONTENT_EN = {
     title: ["AetherCore", "Plugins."],
     lead: "Expand AetherCore capabilities by connecting local inference engines and external tool suites with local-first safety.",
     cardsTitle: "Supported Connectors",
-    cardsDesc: "Open architecture built to run modularly with local backends like LocalAI.",
+    cardsDesc: "A plugin surface for choosing the engine, talking through approved channels, and executing tools while the Kernel keeps the human in control.",
     cards: [
       {
-        t: "Inference Providers",
-        d: "Hook LocalAI for high-performance offline inference (LLMs, audio, images) detached from the core Kernel.",
-        icon: "Plug",
+        t: "Local engines · LocalAI + Ollama",
+        d: "Run LLMs, audio, images, and embeddings on your own hardware. Plugins expose only the capabilities approved by the active workspace.",
+        icon: "Cpu",
         link: "https://localai.io"
       },
       {
+        t: "Telegram Bridge",
+        d: "Talk to agents from Telegram and select the engine per conversation — Granite, Qwen, Gemma, GLM, Llama, or another configured provider — with explicit approval gates.",
+        icon: "PaperPlaneTilt",
+        link: "https://core.telegram.org/bots/api"
+      },
+      {
+        t: "Model API Bridge",
+        d: "Use OpenAI/GPT, Anthropic/Claude, and Google/Gemini APIs when you allow it. The same contract also fits Granite, Qwen, Gemma, GLM, and Llama through local or remote endpoints.",
+        icon: "Brain",
+        link: "https://platform.openai.com/docs/api-reference"
+      },
+      {
         t: "MCP Bridge",
-        d: "Connect external MCP servers to import universal contexts and tools under a standard protocol.",
+        d: "Connect external MCP servers to import universal contexts and tools under a standard protocol, with permissions visible before each action.",
         icon: "Blocks",
         link: "https://modelcontextprotocol.io"
       },
       {
         t: "Tools & Memory RAG",
-        d: "Add new executable utilities and connect vector indexes directly into the local Memory Kernel.",
-        icon: "Cpu"
+        d: "Add executable actions, vector indexes, and RAG pipelines directly into the local Memory Kernel with a workspace audit trail.",
+        icon: "Database"
+      },
+      {
+        t: "Local webhooks & events",
+        d: "React to files, queues, and system events without turning every integration into a heavyweight resident process.",
+        icon: "ArrowsClockwise"
       }
     ],
     featuresTitle: "Extension Safety",

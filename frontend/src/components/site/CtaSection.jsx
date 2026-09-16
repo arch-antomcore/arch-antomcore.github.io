@@ -57,7 +57,7 @@ const AnimatedVideoBackdrop = () => {
 
 const StaticVideoBackdrop = () => (
   <div
-    className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_20%,rgba(163,74,51,0.28),transparent_42%),radial-gradient(ellipse_at_20%_80%,rgba(217,119,6,0.16),transparent_45%)]"
+    className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_20%,rgba(163,74,51,0.24),transparent_48%)]"
     aria-hidden="true"
     data-testid="cta-static-bg"
   />
@@ -75,12 +75,23 @@ const CtaSection = () => {
 
   return (
     <section id="cta" className="px-4 py-16 md:px-8 md:py-24" data-testid="cta-section">
-      {/* Dark glass island with live video backdrop */}
-      <div className="relative overflow-hidden rounded-[40px] bg-[#0b0a08]">
+      {/* Dark island: the full profile layers video/glass; light keeps one
+          static paint layer so scrolling into the CTA does not trigger a
+          large blend/filter repaint on slower GPUs. */}
+      <div
+        className={`cta-surface relative overflow-hidden rounded-[40px] bg-[#0b0a08] ${
+          isLightExperience ? "cta-surface--light" : ""
+        }`}
+        data-experience-profile={isLightExperience ? "light" : "full"}
+      >
         <VideoBackdrop />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0b0a08]/85 via-[#0b0a08]/55 to-[#0b0a08]/90" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_80%_10%,rgba(163, 74, 51,0.16),transparent_60%)]" />
-        <div className="noise-print absolute inset-0 opacity-[0.1] mix-blend-overlay" />
+        {!isLightExperience && (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0b0a08]/85 via-[#0b0a08]/55 to-[#0b0a08]/90" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_80%_10%,rgba(163, 74, 51,0.16),transparent_60%)]" />
+            <div className="noise-print absolute inset-0 opacity-[0.1] mix-blend-overlay" />
+          </>
+        )}
 
         <Container className="relative z-10 py-20 md:py-28">
           <div className="grid gap-14 lg:grid-cols-[1.3fr_1fr] lg:items-end">
@@ -98,7 +109,11 @@ const CtaSection = () => {
 
               {/* Notice banner — glass */}
               <div className="mt-8 max-w-xl" data-testid="cta-notice">
-                <div className="glass-panel flex items-start gap-3 !rounded-2xl px-5 py-4">
+                <div
+                  className={`${
+                    isLightExperience ? "cta-panel-light" : "glass-panel"
+                  } flex items-start gap-3 !rounded-2xl px-5 py-4`}
+                >
                   <MessageCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#A34A33]" strokeWidth={1.75} />
                   <span className="text-sm leading-relaxed text-[#f7f4ec]/85">{CTA.notice}</span>
                 </div>
@@ -179,7 +194,11 @@ const CtaSection = () => {
 
             {/* Details — liquid glass over the moving video */}
             <Reveal delay={0.1}>
-              <div className="glass-panel p-8" data-cursor="hover" data-testid="cta-details-panel">
+              <div
+                className={`${isLightExperience ? "cta-panel-light" : "glass-panel"} p-8`}
+                data-cursor="hover"
+                data-testid="cta-details-panel"
+              >
                 <dl className="divide-y divide-[#f7f4ec]/10">
                   {CTA.details.map((d) => (
                     <div key={d.k} className="flex items-center justify-between py-4 first:pt-0 last:pb-0">

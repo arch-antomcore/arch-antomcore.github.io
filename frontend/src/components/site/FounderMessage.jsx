@@ -7,11 +7,13 @@ import { cn } from "@/lib/utils";
 import { SpotlightCard } from "@/components/site/interactions";
 import { LiquidGlassCard } from "@/components/ui/LiquidGlassCard";
 import { motion, AnimatePresence } from "framer-motion";
+import { useExperience } from "@/context/ExperienceContext";
 
 const FounderMessage = () => {
   const [likes, setLikes] = useState(142);
   const [isLiked, setIsLiked] = useState(false);
   const [activeImage, setActiveImage] = useState(null); // Lightbox state
+  const { isLightExperience } = useExperience();
   const LINKEDIN_URL = "https://www.linkedin.com/in/matheus-peres-da-silva/";
 
   const img1 = "/assets/img/gallery/linkedin-1.jpg";
@@ -135,7 +137,7 @@ const FounderMessage = () => {
             background: "radial-gradient(circle at 50% 50%, transparent 25%, #f4f1e8 85%)",
           }}
         />
-        <ShaderAnimation />
+        {!isLightExperience && <ShaderAnimation />}
       </div>
       
       <Container className="relative z-10 flex flex-col items-center">

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const CYCLE_INTERVAL = 2000;
 const COLUMN_DELAY = 200;
@@ -58,7 +58,7 @@ const LogoContent = ({ logo }) => (
   </div>
 );
 
-export const LogoColumn = React.memo(({ logos, index, currentTime, isStatic }) => {
+export const LogoColumn = React.memo(({ logos, index, currentTime, isStatic, profile = "full" }) => {
   const currentIndex = getCurrentLogoIndex(currentTime, index, logos.length);
   const currentLogo = useMemo(() => logos[currentIndex], [logos, currentIndex]);
 
@@ -91,28 +91,36 @@ export const LogoColumn = React.memo(({ logos, index, currentTime, isStatic }) =
         <motion.div
           key={`${currentLogo.id ?? currentLogo.name}-${currentIndex}`}
           className="absolute inset-0 flex items-center justify-center"
-          initial={{ y: "10%", opacity: 0, filter: "blur(8px)" }}
+          initial={{
+            y: profile === "light" ? "4%" : "10%",
+            opacity: 0,
+            filter: profile === "light" ? "blur(0px)" : "blur(8px)",
+          }}
           animate={{
             y: "0%",
             opacity: 1,
             filter: "blur(0px)",
             transition: {
-              type: "spring",
-              stiffness: 300,
-              damping: 20,
-              mass: 1,
-              bounce: 0.2,
-              duration: 0.5,
+              ...(profile === "light"
+                ? { type: "tween", ease: "easeOut", duration: 0.28 }
+                : {
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20,
+                    mass: 1,
+                    bounce: 0.2,
+                    duration: 0.5,
+                  }),
             },
           }}
           exit={{
-            y: "-20%",
+            y: profile === "light" ? "-8%" : "-20%",
             opacity: 0,
-            filter: "blur(6px)",
+            filter: profile === "light" ? "blur(0px)" : "blur(6px)",
             transition: {
               type: "tween",
               ease: "easeIn",
-              duration: 0.3,
+              duration: profile === "light" ? 0.2 : 0.3,
             },
           }}
         >
@@ -130,9 +138,11 @@ export const LogoColumn = React.memo(({ logos, index, currentTime, isStatic }) =
   );
 });
 
-export function LogoCarousel({ columnCount = 2, logos, isStatic = false }) {
-  const prefersReducedMotion = useReducedMotion();
-  const shouldRemainStatic = isStatic || prefersReducedMotion;
+export function LogoCarousel({ columnCount = 2, logos, isStatic = false, profile = "full" }) {
+  // The light product profile still cycles through integrations. It removes
+  // blur and spring physics, while `isStatic` remains an explicit opt-out for
+  // embeds that need a frozen snapshot.
+  const shouldRemainStatic = isStatic;
   const [currentTime, setCurrentTime] = useState(0);
   const logoSets = useMemo(() => distributeLogos(logos, columnCount), [logos, columnCount]);
 
@@ -152,6 +162,7 @@ export function LogoCarousel({ columnCount = 2, logos, isStatic = false }) {
       className="flex space-x-4"
       data-testid="logo-carousel"
       data-carousel-mode={shouldRemainStatic ? "static" : "animated"}
+      data-carousel-profile={profile}
       aria-label="Tecnologias da plataforma AetherCore"
     >
       {logoSets.map((columnLogos, index) => (
@@ -161,6 +172,7 @@ export function LogoCarousel({ columnCount = 2, logos, isStatic = false }) {
           index={index}
           currentTime={currentTime}
           isStatic={shouldRemainStatic}
+          profile={profile}
         />
       ))}
     </div>
