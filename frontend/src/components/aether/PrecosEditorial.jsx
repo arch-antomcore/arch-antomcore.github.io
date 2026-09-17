@@ -108,12 +108,12 @@ const PrecosEditorial = () => {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-[#ece7da] py-24 md:py-32"
+      className="relative overflow-hidden bg-[#ece7da] py-16 md:py-24"
       data-testid="precos-editorial"
     >
       <div className="mx-auto max-w-[1400px] px-6 md:px-12">
         {/* Meta strip */}
-        <div className="mb-16 flex items-center justify-between border-b border-[#211d18]/12 pb-5 md:mb-24">
+        <div className="mb-10 flex items-center justify-between border-b border-[#211d18]/12 pb-5 md:mb-14">
           <span className="flex items-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#211d18]/60">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#A34A33]" />
             {language === "pt" ? "Preambulo — 02" : "Preamble — 02"}
@@ -131,7 +131,7 @@ const PrecosEditorial = () => {
         </motion.div>
 
         {/* Stats strip */}
-        <div className="mt-20 grid grid-cols-1 gap-6 border-t border-[#211d18]/12 pt-8 md:mt-28 md:grid-cols-4 md:gap-4">
+        <div className="mt-12 grid grid-cols-1 gap-6 border-t border-[#211d18]/12 pt-8 md:mt-16 md:grid-cols-4 md:gap-4">
           {s.map((m, i) => (
             <motion.div
               key={m.k}
@@ -156,7 +156,7 @@ const PrecosEditorial = () => {
 
       {/* Constant-speed infinite marquee band */}
       <div
-        className="marquee-mask mt-24 overflow-hidden border-y border-[#211d18]/10 bg-[#f4f1e8] py-6 md:mt-32 md:py-8"
+        className="marquee-mask mt-14 overflow-hidden border-y border-[#211d18]/10 bg-[#f4f1e8] py-6 md:mt-20 md:py-8"
         data-testid="precos-marquee"
       >
         <div className="aether-marquee">

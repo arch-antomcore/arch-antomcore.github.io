@@ -40,7 +40,7 @@ const PageHero = ({ kicker, lines, lead, primary, secondary, ghostWord }) => {
 
 
   return (
-    <header className="relative overflow-hidden pt-36 md:pt-48 pb-16 md:pb-24" data-testid="page-hero">
+    <header className="relative overflow-hidden pt-32 md:pt-40 pb-12 md:pb-16" data-testid="page-hero">
       <AmbientBlobs />
 
       {/* Giant ghost serif watermark drifting in parallax */}
@@ -59,7 +59,7 @@ const PageHero = ({ kicker, lines, lead, primary, secondary, ghostWord }) => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-center justify-between border-b border-[#211d18]/10 pb-5 mb-10 md:mb-14"
+          className="flex items-center justify-between border-b border-[#211d18]/10 pb-5 mb-6 md:mb-8"
         >
           <span className="text-[11px] uppercase tracking-[0.3em] font-semibold text-[#211d18]/60 flex items-center gap-2.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#A34A33] animate-pulse" />
@@ -94,7 +94,7 @@ const PageHero = ({ kicker, lines, lead, primary, secondary, ghostWord }) => {
           })}
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-10 md:mt-14 items-end">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-8 md:mt-10 items-end">
           {lead && (
             <motion.p
               initial={{ opacity: 0, y: 18 }}
@@ -163,7 +163,7 @@ const PageHero = ({ kicker, lines, lead, primary, secondary, ghostWord }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.7 }}
-          className="mt-12 md:mt-16 border-t border-[#211d18]/10 relative"
+          className="mt-8 md:mt-10 border-t border-[#211d18]/10 relative"
         >
           {/* Scroll indicator + section marker */}
           <div className="absolute -top-3 right-0 flex items-center gap-3 bg-[#f4f1e8] pl-4">

@@ -34,7 +34,7 @@ const ManifestoChaptersFull = ({ chapters }) => (
         viewport={{ once: true, amount: 0.4 }}
         variants={fadeUp}
         transition={{ delay: i * 0.1 }}
-        className="group relative p-8 md:p-12 lg:p-16 transition-colors duration-500 hover:bg-[#211d18]/[0.03]"
+        className="group relative p-8 md:p-10 lg:p-14 transition-colors duration-500 hover:bg-[#211d18]/[0.03]"
         data-cursor="hover"
         data-cursor-text="Ler"
         data-testid={`aether-manifesto-chapter-${c.n}`}
@@ -62,8 +62,8 @@ const ManifestoChaptersStatic = ({ chapters }) => (
     className="relative z-10 grid grid-cols-1 divide-y divide-[#211d18]/10 border-y border-[#211d18]/10 md:grid-cols-3 md:divide-x md:divide-y-0"
     data-testid="aether-manifesto-chapters"
   >
-    {chapters.map((chapter) => (
-      <article key={chapter.n} className="group relative p-8 md:p-12 lg:p-16">
+    {chapters.map((chapter, i) => (
+      <article key={chapter.n} className="group relative p-8 md:p-10 lg:p-14" data-reveal="rise" data-reveal-index={i}>
         <div className="flex items-start justify-between">
           <span className="aether-font-serif inline-block origin-left text-2xl italic text-[#A34A33]">{chapter.n}</span>
           <ArrowUpRight className="h-5 w-5 text-[#211d18]/45" />
@@ -146,13 +146,15 @@ const EditorialMarqueeFull = ({ items }) => {
   );
 };
 
+/* Light profile: CSS-only marquee (single compositor transform, no RAF). */
 const EditorialMarqueeStatic = ({ items }) => (
   <div
     className="relative z-10 overflow-hidden bg-[#0A0A0A] py-6 md:py-8"
     data-testid="aether-editorial-marquee"
     aria-label="AetherCore highlights ticker"
   >
-    <div className="flex whitespace-nowrap">
+    <div className="aether-marquee-soft flex whitespace-nowrap">
+      <Chunk items={items} />
       <Chunk items={items} />
     </div>
   </div>

@@ -93,7 +93,7 @@ const EcosystemSection = () => {
           }
         />
 
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           {products.map((p, i) => (
             <Reveal key={p.id} delay={i * 0.1}>
               <SpotlightCard

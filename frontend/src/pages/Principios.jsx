@@ -46,7 +46,7 @@ const Principios = () => {
             desc={PRINCIPIOS.manifestoDesc}
           />
 
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
             {PRINCIPIOS.items.map((it, i) => {
               const style = getCardStyle(i);
               const Icon = style.icon;
@@ -72,7 +72,7 @@ const Principios = () => {
                         </div>
                       </div>
                       
-                      <div className="mt-16 md:mt-24">
+                      <div className="mt-10 md:mt-14">
                         <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-[#211d18] transition-colors">
                           {it.t}
                         </h3>

@@ -232,23 +232,24 @@ const Blog = () => {
         <Container>
           <div id="blog-posts" ref={postsAnchorRef} className="scroll-mt-28" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {pagePosts.map((post) => {
+            {pagePosts.map((post, index) => {
               const title = language === "en" && post.titleEn ? post.titleEn : post.title;
               const excerpt = language === "en" && post.excerptEn ? post.excerptEn : post.excerpt;
               const date = language === "en" && post.dateEn ? post.dateEn : post.date;
 
               return (
-                <GlassBlogCard
-                  key={post.id}
-                  title={title}
-                  excerpt={excerpt}
-                  version={post.version}
-                  author={post.author}
-                  date={date}
-                  readTime={post.readTime}
-                  tags={post.tags}
-                  onReadClick={() => setSelectedPost(post)}
-                />
+                <div key={post.id} data-reveal="rise" data-reveal-index={index % 3} className="h-full">
+                  <GlassBlogCard
+                    title={title}
+                    excerpt={excerpt}
+                    version={post.version}
+                    author={post.author}
+                    date={date}
+                    readTime={post.readTime}
+                    tags={post.tags}
+                    onReadClick={() => setSelectedPost(post)}
+                  />
+                </div>
               );
             })}
           </div>

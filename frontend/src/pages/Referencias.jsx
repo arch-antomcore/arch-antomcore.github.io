@@ -54,7 +54,7 @@ const Referencias = () => {
             title={REFERENCIAS.introTitle}
             desc={REFERENCIAS.introDesc}
           />
-          <div className="mt-14 grid gap-8 lg:grid-cols-12 items-start">
+          <div className="mt-10 grid gap-8 lg:grid-cols-12 items-start">
             <div className="lg:col-span-7 grid gap-4 sm:grid-cols-2">
               {REFERENCIAS.items.map((r, i) => (
                 <Reveal key={r.tag} delay={i * 0.05}>
@@ -105,7 +105,7 @@ const Referencias = () => {
                 : "Todas as fotografias e vídeos usados neste site são liberados para uso comercial sob as licenças Unsplash e Pexels. Crédito integral aos artistas abaixo."
             }
           />
-          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-testid="media-credits-grid">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-testid="media-credits-grid">
             {Object.entries(MEDIA).map(([key, m], i) => (
               <Reveal key={key} delay={i * 0.05}>
                 <a

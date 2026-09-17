@@ -77,20 +77,18 @@ export const MediaCredit = ({ media, type = "Foto", className = "" }) => (
 export const ImageBand = ({ media, kicker, lines, caption, testId = "image-band" }) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "center center"] });
-  const clipPath = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["inset(16% 7% 16% 7% round 48px)", "inset(0% 0% 0% 0% round 40px)"]
-  );
-  const scale = useTransform(scrollYProgress, [0, 1], [1.22, 1.05]);
+  // Transform-only reveal (compositor friendly) instead of a clip-path scrub
+  // that repainted the full-bleed image on every frame.
+  const frameScale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.18, 1.05]);
   const { scrollYProgress: driftP } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const imgY = useTransform(driftP, [0, 1], ["-6%", "6%"]);
 
   return (
-    <section ref={ref} className="group relative px-4 py-16 md:px-8 md:py-24" data-testid={testId}>
+    <section ref={ref} className="group relative px-4 py-10 md:px-8 md:py-14" data-testid={testId}>
       <motion.div
-        style={{ clipPath }}
-        className="relative h-[62vh] min-h-[420px] overflow-hidden md:h-[74vh]"
+        style={{ scale: frameScale }}
+        className="relative h-[62vh] min-h-[420px] overflow-hidden rounded-[40px] md:h-[74vh] origin-center"
       >
         <motion.img
           src={media.src}
@@ -186,17 +184,13 @@ const GlassShowcaseFull = () => {
   const imgY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
   const imgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.18, 1.08, 1.18]);
   const { scrollYProgress: revealP } = useScroll({ target: ref, offset: ["start end", "start 0.25"] });
-  const clipPath = useTransform(
-    revealP,
-    [0, 1],
-    ["inset(0% 3% 0% 3% round 40px)", "inset(0% 0% 0% 0% round 24px)"]
-  );
+  const frameScale = useTransform(revealP, [0, 1], [0.94, 1]);
 
   return (
     <section ref={ref} className="relative px-4 py-6 md:px-8 md:py-10" data-testid="glass-showcase">
       <motion.div
-        style={{ clipPath }}
-        className="relative min-h-[88vh] overflow-hidden"
+        style={{ scale: frameScale }}
+        className="relative min-h-[80vh] overflow-hidden rounded-[28px] origin-center"
       >
         <motion.img
           src={media.src}
@@ -209,7 +203,7 @@ const GlassShowcaseFull = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_70%_20%,rgba(163, 74, 51,0.18),transparent_65%)]" />
         <div className="noise-print absolute inset-0 opacity-[0.12] mix-blend-overlay" />
 
-        <div className="relative z-10 flex min-h-[88vh] flex-col justify-between pt-24 pb-12 px-7 md:pt-36 md:pb-16 md:px-16">
+        <div className="relative z-10 flex min-h-[80vh] flex-col justify-between pt-24 pb-12 px-7 md:pt-36 md:pb-16 md:px-16">
           {/* Meta strip */}
           <div className="flex items-center justify-between border-b border-white/15 pb-5">
             <span className="flex items-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f7f4ec]/70">
@@ -318,7 +312,7 @@ const GlassShowcaseStatic = () => {
 
   return (
     <section className="relative px-4 py-6 md:px-8 md:py-10" data-testid="glass-showcase">
-      <div className="relative min-h-[72vh] overflow-hidden rounded-[24px]">
+      <div className="relative min-h-[72vh] overflow-hidden rounded-[24px]" data-reveal="rise">
         <img
           src={media.src}
           alt={media.alt}
@@ -336,9 +330,11 @@ const GlassShowcaseStatic = () => {
             <span className="hidden font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f7f4ec]/40 md:block">{c.meta}</span>
           </div>
           <div className="py-14 md:py-20">
-            {c.lines.map((line) => (
+            {c.lines.map((line, i) => (
               <span
                 key={line.t}
+                data-reveal="rise"
+                data-reveal-index={i + 1}
                 className={`block max-w-full leading-[1.02] tracking-tighter ${
                   line.style === "serif"
                     ? "aether-font-serif text-5xl italic text-[#A34A33] sm:text-6xl md:text-7xl lg:text-[5.5vw]"
@@ -355,7 +351,7 @@ const GlassShowcaseStatic = () => {
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-3 md:max-w-2xl">
               {c.stats.map((stat, index) => (
-                <div key={stat.k} className="rounded-2xl border border-white/15 bg-black/20 p-6" data-testid={`showcase-stat-${index}`}>
+                <div key={stat.k} className="rounded-2xl border border-white/15 bg-black/20 p-6" data-reveal="rise" data-reveal-index={index + 1} data-testid={`showcase-stat-${index}`}>
                   <span className="font-display block whitespace-nowrap text-3xl font-extrabold uppercase tracking-tight text-[#f7f4ec] md:text-4xl">{stat.v}</span>
                   <span className="mt-2 block font-mono text-[10px] uppercase tracking-[0.24em] text-[#f7f4ec]/60">{stat.k}</span>
                 </div>

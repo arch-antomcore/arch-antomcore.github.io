@@ -47,7 +47,7 @@ const Sustentabilidade = () => {
             title={SUSTENTABILIDADE.cardsTitle}
             desc={SUSTENTABILIDADE.cardsDesc}
           />
-          <div className="mt-14 grid gap-5 md:gap-6 lg:grid-cols-3">
+          <div className="mt-10 grid gap-5 md:gap-6 lg:grid-cols-3">
             {SUSTENTABILIDADE.cards.map((c, i) => {
               const IconComponent = getLucideIcon(c.icon);
 

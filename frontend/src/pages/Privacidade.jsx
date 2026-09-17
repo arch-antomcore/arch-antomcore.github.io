@@ -32,7 +32,7 @@ const Privacidade = () => {
             title={PRIVACIDADE.policyTitle}
             desc={PRIVACIDADE.policyDesc}
           />
-          <div className="mt-14 grid gap-px overflow-hidden rounded-[28px] liquid-glass sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-px overflow-hidden rounded-[28px] liquid-glass sm:grid-cols-2 lg:grid-cols-3">
             {PRIVACIDADE.cards.map((c, i) => (
               <Reveal key={c.tag} delay={(i % 3) * 0.06}>
                 <SpotlightCard className="h-full bg-black p-8 hover:bg-white/[0.02] transition-colors duration-300">

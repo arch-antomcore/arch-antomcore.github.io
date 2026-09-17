@@ -43,6 +43,20 @@ export const getSavedExperience = () => {
   }
 };
 
+const detectWeakGpu = () => {
+  try {
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl", { failIfMajorPerformanceCaveat: true }) || canvas.getContext("experimental-webgl");
+    if (!gl) return true;
+    const info = gl.getExtension("WEBGL_debug_renderer_info");
+    const renderer = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : "";
+    gl.getExtension("WEBGL_lose_context")?.loseContext();
+    return /swiftshader|llvmpipe|softpipe|software|mesa offscreen|basic render|microsoft basic|intel\(r\) (hd|uhd) graphics [3-6]\d\d\b|intel\(r\) hd graphics$/i.test(renderer);
+  } catch {
+    return false;
+  }
+};
+
 export const prefersLightExperience = () => {
   if (!isBrowser()) return false;
 
@@ -50,8 +64,34 @@ export const prefersLightExperience = () => {
   const saveData = navigator.connection?.saveData === true;
   const limitedCpu = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
   const limitedMemory = navigator.deviceMemory && navigator.deviceMemory < 4;
+  const smallTouch = window.matchMedia?.("(max-width: 767px) and (pointer: coarse)").matches;
 
-  return Boolean(reducedMotion || saveData || limitedCpu || limitedMemory);
+  return Boolean(reducedMotion || saveData || limitedCpu || limitedMemory || smallTouch || detectWeakGpu());
+};
+
+/* First visit: pick a profile from the device signals instead of blocking the
+   page behind a chooser. The visitor can flip it any time (hint pill + footer). */
+export const AUTO_EXPERIENCE_KEY = "aether-experience-auto";
+
+export const detectExperience = () => (prefersLightExperience() ? EXPERIENCE.LIGHT : EXPERIENCE.FULL);
+
+export const wasAutoDetected = () => {
+  if (!isBrowser()) return false;
+  try {
+    return window.localStorage.getItem(AUTO_EXPERIENCE_KEY) === "1";
+  } catch {
+    return false;
+  }
+};
+
+export const markAutoDetected = (value) => {
+  if (!isBrowser()) return;
+  try {
+    if (value) window.localStorage.setItem(AUTO_EXPERIENCE_KEY, "1");
+    else window.localStorage.removeItem(AUTO_EXPERIENCE_KEY);
+  } catch {
+    // ignore blocked storage
+  }
 };
 
 export const saveExperience = (experience) => {

@@ -63,7 +63,7 @@ const CtaSection = () => {
   const CTA = t.CTA;
 
   return (
-    <section id="cta" className="px-4 py-16 md:px-8 md:py-24" data-testid="cta-section">
+    <section id="cta" className="px-4 py-10 md:px-8 md:py-14" data-testid="cta-section">
       {/* Dark glass island with a lazy live-video backdrop */}
       <div className="relative overflow-hidden rounded-[40px] bg-[#0b0a08]" data-experience-profile="cinematic">
         <VideoBackdrop />
@@ -71,8 +71,8 @@ const CtaSection = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_80%_10%,rgba(163, 74, 51,0.16),transparent_60%)]" />
         <div className="noise-print absolute inset-0 opacity-[0.1] mix-blend-overlay" />
 
-        <Container className="relative z-10 py-20 md:py-28">
-          <div className="grid gap-14 lg:grid-cols-[1.3fr_1fr] lg:items-end">
+        <Container className="relative z-10 py-14 md:py-20">
+          <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-end">
             <Reveal>
               <span className="flex items-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f7f4ec]/60">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#A34A33]" />

@@ -1,26 +1,70 @@
-# https://www.robotstxt.org/robotstxt.html
+# AetherCore — exvorn.tech
+# Discoverable by search engines and AI assistants (ChatGPT, Claude, Perplexity, Gemini, Copilot).
+
 User-agent: *
 Allow: /
+Disallow: /static/js/
+Disallow: /static/css/
+Disallow: /demo-glass
+Disallow: /preview-shader
 
-# Exclude private build/chunks and logs
-Disallow: /static/
-Disallow: /build/
-
-# Block AI training crawlers (privacy-first product)
+# AI assistants / answer engines — explicitly allowed
 User-agent: GPTBot
-Disallow: /
+Allow: /
 
 User-agent: ChatGPT-User
-Disallow: /
+Allow: /
 
-User-agent: CCBot
-Disallow: /
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
 
 User-agent: anthropic-ai
-Disallow: /
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
 
 User-agent: Google-Extended
-Disallow: /
+Allow: /
 
-# Sitemap
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+# Machine-readable summary for LLMs
+# https://exvorn.tech/llms.txt
+# https://exvorn.tech/llms-full.txt
+
 Sitemap: https://exvorn.tech/sitemap.xml

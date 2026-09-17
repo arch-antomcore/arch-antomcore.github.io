@@ -159,7 +159,7 @@ const SiteIndex = ({ items, kicker, title, desc, footerCaption }) => {
       id="site-index"
       ref={sectionRef}
       data-testid="site-index"
-      className="relative overflow-hidden py-24 md:py-36 sda-drift"
+      className="relative overflow-hidden py-16 md:py-24"
     >
       {/* Giant ambient scroll-driven word */}
       <motion.div
@@ -174,7 +174,7 @@ const SiteIndex = ({ items, kicker, title, desc, footerCaption }) => {
       </motion.div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-12 md:mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-8 md:mb-12">
           <div className="lg:col-span-5 sda-blur">
             <span className="inline-flex items-center font-mono text-[11px] md:text-xs uppercase tracking-[0.28em] text-[#5d564b]">
               <span className="text-[#837a6c] mr-2">//</span>

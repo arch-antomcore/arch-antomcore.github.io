@@ -47,7 +47,7 @@ const Produto = () => {
             title={PRODUTO.offeringsTitle}
             desc={PRODUTO.offeringsDesc}
           />
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {PRODUTO.offerings.map((o, i) => (
               <Reveal key={o.name} delay={i * 0.08}>
                 <SpotlightCard
@@ -101,7 +101,7 @@ const Produto = () => {
             title={PRODUTO.greenTitle}
             desc={PRODUTO.greenDesc}
           />
-          <div className="mt-14 grid gap-4 md:gap-5 lg:grid-cols-3">
+          <div className="mt-10 grid gap-4 md:gap-5 lg:grid-cols-3">
             {PRODUTO.greenCards.map((c, i) => {
               const IconComponent = getLucideIcon(c.icon);
 

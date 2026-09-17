@@ -33,7 +33,7 @@ const Roadmap = () => {
             desc={ROADMAP.timelineDesc}
           />
 
-          <div className="mt-16 relative">
+          <div className="mt-10 relative">
             <div className="absolute left-[7px] md:left-1/2 top-2 bottom-2 w-px bg-white/10 md:-translate-x-1/2" aria-hidden="true" />
             <div className="space-y-12">
               {ROADMAP.phases.map((p, i) => (
@@ -64,7 +64,7 @@ const Roadmap = () => {
       <Section className="liquid-divider">
         <Container>
           <SectionHeader kicker={ROADMAP.metricsKicker} title={ROADMAP.metricsTitle} desc={ROADMAP.metricsDesc} />
-          <div className="mt-14 grid gap-4 md:gap-5 md:grid-cols-3">
+          <div className="mt-10 grid gap-4 md:gap-5 md:grid-cols-3">
             {ROADMAP.metrics.map((m, i) => (
               <Reveal key={m.tag} delay={i * 0.08}>
                 <SpotlightCard as="article" className="h-full rounded-[28px] liquid-glass p-8 hover:border-white/20 transition-colors duration-300">

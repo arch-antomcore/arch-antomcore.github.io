@@ -65,7 +65,7 @@ const Casos = () => {
       <Section id="casos-audience" className="liquid-divider">
         <Container>
           <SectionHeader kicker={CASOS.audienceKicker} title={CASOS.audienceTitle} desc={CASOS.audienceDesc} />
-          <div className="mt-14 grid gap-4 md:gap-5 sm:grid-cols-2">
+          <div className="mt-10 grid gap-4 md:gap-5 sm:grid-cols-2">
             {CASOS.audience.map((a, i) => (
               <Reveal key={a.t} delay={(i % 2) * 0.08}>
                 <SpotlightCard

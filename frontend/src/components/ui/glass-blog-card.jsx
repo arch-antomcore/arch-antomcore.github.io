@@ -28,7 +28,8 @@ export function GlassBlogCard({
     >
       <SpotlightCard 
         onClick={onReadClick}
-        className="group relative h-full flex flex-col overflow-hidden rounded-2xl liquid-glass backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-white/[0.04] cursor-pointer"
+        data-testid="blog-post-read"
+        className="group relative h-full flex flex-col overflow-hidden rounded-2xl liquid-glass transition-[border-color,background-color,box-shadow,transform] duration-500 hover:border-white/20 hover:bg-white/[0.04] cursor-pointer"
       >
         {/* Version Banner Section */}
         <div className="relative aspect-[16/9] overflow-hidden bg-white flex items-center justify-center select-none border-b border-white/10">

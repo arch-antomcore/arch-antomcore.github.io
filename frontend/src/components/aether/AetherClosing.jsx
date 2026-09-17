@@ -43,13 +43,13 @@ const AetherClosing = () => {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-[#f4f1e8] pt-32 md:pt-48 pb-24 md:pb-32"
+      className="relative overflow-hidden bg-[#f4f1e8] pt-20 md:pt-28 pb-16 md:pb-20"
       data-testid="aether-closing"
     >
       {/* Giant fluid serif watermark drifting behind content */}
       <motion.div
         style={{ y: yWater, opacity: opacityWater }}
-        className="pointer-events-none absolute inset-x-0 top-32 md:top-40 flex justify-center select-none"
+        className="pointer-events-none absolute inset-x-0 top-20 md:top-24 flex justify-center select-none"
         aria-hidden="true"
       >
         <span className="aether-font-serif italic text-[#211d18] whitespace-nowrap text-[26vw] leading-none tracking-[-0.05em] font-normal">
@@ -62,7 +62,7 @@ const AetherClosing = () => {
         className="relative z-10 px-6 md:px-12 max-w-[1600px] mx-auto"
       >
         {/* Eyebrow strip */}
-        <div className="flex items-center justify-between border-b border-[#211d18]/10 pb-5 mb-16 md:mb-24">
+        <div className="flex items-center justify-between border-b border-[#211d18]/10 pb-5 mb-10 md:mb-14">
           <span className="text-[11px] uppercase tracking-[0.3em] font-mono font-semibold text-[#211d18]/60 flex items-center gap-2.5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#A34A33] animate-pulse" />
             {language === "pt" ? "Chapter 04 — Filosofia" : "Chapter 04 — Philosophy"}
@@ -123,7 +123,7 @@ const AetherClosing = () => {
       </motion.div>
 
       {/* Scroll-velocity marquee band */}
-      <div className="mt-24 md:mt-32">
+      <div className="mt-14 md:mt-20">
         <EditorialMarquee items={marqueeItems} />
       </div>
     </section>

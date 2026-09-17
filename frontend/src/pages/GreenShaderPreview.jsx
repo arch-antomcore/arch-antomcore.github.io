@@ -30,7 +30,7 @@ const WhatIsAetherSection = () => {
           title={HOME.whatIsAether.title} 
           desc={HOME.whatIsAether.desc} 
         />
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
           {HOME.whatIsAether.cards.map((card, i) => {
             const IconComponent = CHIP_ICONS[card.icon] || FileText;
             return (
@@ -70,7 +70,7 @@ const Synthesis = () => {
           title={HOME.synthTitle}
           desc={HOME.synthDesc}
         />
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
           {HOME.synth.map((s, i) => {
             const Icon = icons[i] || CheckCircle2;
             return (

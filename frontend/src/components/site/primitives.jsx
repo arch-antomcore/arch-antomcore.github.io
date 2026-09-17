@@ -5,9 +5,10 @@ export const Container = ({ className = "", children }) => (
   <div className={`max-w-7xl mx-auto px-6 md:px-12 ${className}`}>{children}</div>
 );
 
-/* Sections carry a continuous scroll-driven parallax drift (sda-drift). */
-export const Section = ({ id, className = "", children }) => (
-  <section id={id} className={`py-24 md:py-36 sda-drift ${className}`} data-render-defer>
+/* Sections: tighter vertical rhythm, no continuous per-section drift (it forced
+   glass cards to re-rasterize on every scroll frame). */
+export const Section = ({ id, className = "", children, ...rest }) => (
+  <section id={id} className={`py-12 md:py-16 ${className}`} data-render-defer {...rest}>
     {children}
   </section>
 );
@@ -73,11 +74,11 @@ export const SectionHeader = ({ kicker, title, desc, align = "left", className =
           </>
         )}
       </div>
-      <h2 className="mt-5 text-3xl md:text-5xl aether-font-display font-bold uppercase aether-tracking-tighter leading-[1.02] text-gradient py-1 -my-1">
+      <h2 className="mt-4 text-3xl md:text-5xl aether-font-display font-bold uppercase aether-tracking-tighter leading-[1.02] text-gradient py-1 -my-1">
         <KineticText text={title} />
       </h2>
       {desc && (
-        <p className="mt-6 text-base md:text-lg text-zinc-400 leading-relaxed">{desc}</p>
+        <p className="mt-5 text-base md:text-lg text-zinc-400 leading-relaxed">{desc}</p>
       )}
     </Reveal>
   );
@@ -96,7 +97,7 @@ export const PageGridSection = ({
   kicker,
   title,
   desc,
-  gridClassName = "mt-14 grid gap-4 md:gap-5 lg:grid-cols-3",
+  gridClassName = "mt-10 grid gap-4 md:gap-5 lg:grid-cols-3",
   children
 }) => (
   <Section id={id} className={className}>

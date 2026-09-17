@@ -111,7 +111,7 @@ const Ecossistema = () => {
             }
           />
 
-          <div className="mt-14 grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
             {products.map((p, i) => (
               <Reveal key={p.id} delay={i * 0.1}>
                 <SpotlightCard className="rounded-[32px] bg-white/80 border border-[#211d18]/10 p-8 md:p-10 h-full flex flex-col justify-between shadow-lg hover:shadow-2xl hover:border-[#211d18]/25 transition-all duration-300">

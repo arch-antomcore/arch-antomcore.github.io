@@ -10,12 +10,17 @@ import { initScrollAnimations } from "@/lib/scrollAnimations";
 import { CustomCursor } from "@/components/aether/AetherKit";
 import { InteractiveMenu } from "@/components/ui/modern-mobile-menu";
 import SectionRail from "@/components/aether/SectionRail";
-import ExperienceSelector from "@/components/site/ExperienceSelector";
+import ExperienceHint from "@/components/site/ExperienceHint";
 import { ExperienceProvider, useExperience } from "@/context/ExperienceContext";
+import { initLenisGsapSync } from "@/lib/lenisGsapSync";
+import { initGsapReveals } from "@/lib/gsap";
+import { applyRouteSeo } from "@/lib/seo";
 import {
   applyExperienceToDocument,
+  detectExperience,
   EXPERIENCE,
   getInitialExperience,
+  markAutoDetected,
   saveExperience,
 } from "@/lib/experience";
 
@@ -39,8 +44,10 @@ const getHardwareTier = (experience) => {
   return "high";
 };
 
-/* A single Lenis instance owns smooth scrolling in the full experience. */
+/* A single Lenis instance owns smooth scrolling. In the full experience GSAP's
+   ticker drives Lenis (autoRaf off) so ScrollTrigger and Lenis share one clock. */
 const LENIS_OPTIONS = {
+  autoRaf: false,
   autoToggle: true,
   anchors: true,
   stopInertiaOnNavigate: true,
@@ -51,8 +58,8 @@ const LENIS_OPTIONS = {
   infinite: false,
 };
 
-/* Light profile: same engine, gentler easing, touch stays native. */
-const LIGHT_LENIS_OPTIONS = { ...LENIS_OPTIONS, lerp: 0.16 };
+/* Light profile: Lenis runs its own RAF, gentler easing, touch stays native. */
+const LIGHT_LENIS_OPTIONS = { ...LENIS_OPTIONS, autoRaf: true, lerp: 0.16 };
 
 const SiteContent = ({ lenis = null }) => {
   const { pathname, hash } = useLocation();
@@ -63,20 +70,15 @@ const SiteContent = ({ lenis = null }) => {
 
   useEffect(() => {
     if (!lenis || isLightExperience) return undefined;
-    let active = true;
-    let cleanup = () => {};
-
-    import("@/lib/lenisGsapSync")
-      .then(({ initLenisGsapSync }) => {
-        if (active) cleanup = initLenisGsapSync(lenis);
-      })
-      .catch(() => {});
-
-    return () => {
-      active = false;
-      cleanup();
-    };
+    return initLenisGsapSync(lenis);
   }, [lenis, isLightExperience]);
+
+  // GSAP `data-reveal` engine — both profiles, light = shorter travel.
+  useEffect(() => initGsapReveals({ light: isLightExperience }), [isLightExperience]);
+
+  useEffect(() => {
+    applyRouteSeo(pathname, language);
+  }, [pathname, language]);
 
   // Route-change scroll handling uses Lenis only in the full experience.
   useEffect(() => {
@@ -290,6 +292,7 @@ const SiteContent = ({ lenis = null }) => {
         </React.Suspense>
       </main>
       <Footer />
+      <ExperienceHint />
       <div
         className="md:hidden fixed left-0 right-0 z-[60] px-4 pointer-events-none"
         style={{ bottom: "max(1.5rem, env(safe-area-inset-bottom, 0px))" }}
@@ -322,12 +325,18 @@ const FullExperienceRuntime = ({ light = false }) => {
 };
 
 const readInitialExperience = () => {
-  // Restore the explicit profile on F5/direct entries. A query parameter can
-  // still force a profile for previews and QA; normal navigation stays in the
-  // visitor's chosen experience.
-  const queryExperience = getInitialExperience();
-  if (queryExperience) applyExperienceToDocument(queryExperience);
-  return queryExperience;
+  // Saved choice or ?experience= query wins. First visit: auto-detect from the
+  // device (reduced motion, CPU/memory, weak GPU, small touch screens) so the
+  // page renders immediately — no blocking chooser for humans or crawlers.
+  const saved = getInitialExperience();
+  if (saved) {
+    applyExperienceToDocument(saved);
+    return saved;
+  }
+  const detected = saveExperience(detectExperience()) || EXPERIENCE.LIGHT;
+  markAutoDetected(true);
+  applyExperienceToDocument(detected);
+  return detected;
 };
 
 const Layout = () => {
@@ -335,15 +344,10 @@ const Layout = () => {
   const chooseExperience = useCallback((nextExperience) => {
     const saved = saveExperience(nextExperience);
     if (!saved) return;
+    markAutoDetected(false);
     applyExperienceToDocument(saved);
     setExperience(saved);
   }, []);
-
-  // Deep links keep their destination: the chooser renders in place and the
-  // requested page appears right after the visitor picks a profile.
-  if (!experience) {
-    return <ExperienceSelector onSelect={chooseExperience} />;
-  }
 
   const isLightExperience = experience === EXPERIENCE.LIGHT;
   return (

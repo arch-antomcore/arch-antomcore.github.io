@@ -4,6 +4,7 @@ import { getLucideIcon } from "@/lib/iconHelper";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Container, Section, SectionHeader, Kicker, Reveal } from "@/components/site/primitives";
 import { SpotlightCard } from "@/components/site/interactions";
+import GsapReveal from "@/components/site/GsapReveal";
 import Marquee from "@/components/site/Marquee";
 import GlobalLeakCounter from "@/components/site/GlobalLeakCounter";
 import AetherHero from "@/components/aether/AetherHero";
@@ -32,7 +33,7 @@ const WhatIsAetherSection = () => {
         title={HOME.whatIsAether.title} 
         desc={HOME.whatIsAether.desc} 
       />
-      <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
         {HOME.whatIsAether.cards.map((card, i) => {
           const IconComponent = getLucideIcon(card.icon);
 
@@ -66,7 +67,7 @@ const StackSection = () => {
   return (
     <Section id="stack" className="liquid-divider">
       <Container>
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
           <SectionHeader kicker={HOME.stackKicker} title={HOME.stackTitle} desc={HOME.stackDesc} />
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 border border-[#211d18]/10 text-xs font-mono uppercase tracking-widest text-[#211d18] shrink-0 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-[#A34A33] animate-pulse" />
@@ -74,11 +75,11 @@ const StackSection = () => {
           </div>
         </div>
       </Container>
-      <Reveal className="mt-8">
+      <Reveal className="mt-4">
         <Marquee />
       </Reveal>
       <Container>
-        <div className="mt-10 p-5 rounded-2xl bg-white/50 border border-[#211d18]/10 backdrop-blur-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-8 p-5 rounded-2xl bg-white/60 border border-[#211d18]/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-zinc-600 leading-relaxed max-w-2xl">{HOME.stackCredit}</p>
           <span className="font-mono text-[10px] uppercase tracking-widest text-[#A34A33] font-semibold shrink-0">
             // STACK VERIFICADA · RUST + TOKIO + AXUM
@@ -96,7 +97,7 @@ const Synthesis = () => {
   <Section id="synthesis" className="liquid-divider">
     <Container>
       <SectionHeader kicker={HOME.synthKicker} title={HOME.synthTitle} desc={HOME.synthDesc} />
-      <div className="mt-14 grid gap-4 md:gap-5 md:grid-cols-3">
+      <div className="mt-10 grid gap-4 md:gap-5 md:grid-cols-3">
         {HOME.synth.map((s, i) => (
           <Reveal key={s.tag} delay={i * 0.08}>
             <SpotlightCard className="identity-reveal-card h-full rounded-[28px] liquid-glass p-8 transition-colors duration-300 hover:border-white/20">
@@ -112,29 +113,9 @@ const Synthesis = () => {
   );
 };
 
-const ScrollCinematicFull = ({ children, offset = ["0 1", "0.8 1"] }) => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: offset,
-  });
-  
-  const opacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [80, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [0.92, 1]);
-
-  return (
-    <motion.div ref={ref} style={{ opacity, y, scale }}>
-      {children}
-    </motion.div>
-  );
-};
-
-const ScrollCinematic = ({ children, offset }) => {
-  const { isLightExperience } = useExperience();
-  if (isLightExperience) return <div>{children}</div>;
-  return <ScrollCinematicFull offset={offset}>{children}</ScrollCinematicFull>;
-};
+/* Section entrances are GSAP tweens fired once on enter (see GsapReveal), no
+   longer scrubbed transforms over sections full of glass cards. */
+const ScrollCinematic = ({ children }) => <GsapReveal>{children}</GsapReveal>;
 
 const AETHER_ZOOM_IMAGES = [
   {
@@ -186,7 +167,7 @@ const SectionGroupWithStarfieldFull = ({ children }) => {
           aria-hidden="true"
         >
           <GlitterWrap
-            particleCount={550}
+            particleCount={320}
             speed={4}
             starSize={14}
             focalDepth={14}
@@ -206,7 +187,7 @@ const SectionGroupWithStarfieldFull = ({ children }) => {
         <div className="absolute inset-0 z-[1] opacity-[0.92] pointer-events-auto overflow-hidden" aria-hidden="true">
           <div className="sticky top-0 h-screen w-full flex items-center justify-center">
             <BlackHole
-              particleCount={1000}
+              particleCount={620}
               particleSize={4}
               tilt={20}
               tiltSideway={160}
@@ -259,11 +240,11 @@ const Home = () => {
     
     {/* Sections //01 ("O que o Aether Faz?") up to //03 ("Resumo Comercial") */}
     <SectionGroupWithStarfield>
-      <ScrollCinematic offset={["0 1", "0.6 1"]}>
+      <ScrollCinematic>
         <WhatIsAetherSection />
       </ScrollCinematic>
       
-      <ScrollCinematic offset={["0 1", "0.5 1"]}>
+      <ScrollCinematic>
         <Section id="global-leak-counter" className="liquid-divider">
           <Container>
             <GlobalLeakCounter />
@@ -271,14 +252,14 @@ const Home = () => {
         </Section>
       </ScrollCinematic>
       
-      <ScrollCinematic offset={["0 1", "0.6 1"]}>
+      <ScrollCinematic>
         <Synthesis />
       </ScrollCinematic>
     </SectionGroupWithStarfield>
 
     <GlassShowcase />
 
-    <ScrollCinematic offset={["0 1", "0.7 1"]}>
+    <ScrollCinematic>
       <StackSection />
     </ScrollCinematic>
     

@@ -28,7 +28,7 @@ const Dossie = () => {
       <Section className="liquid-divider">
         <Container>
           <SectionHeader kicker={DOSSIE.summaryKicker} title={DOSSIE.summaryTitle} />
-          <div className="mt-14 grid gap-px overflow-hidden rounded-[28px] liquid-glass sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-px overflow-hidden rounded-[28px] liquid-glass sm:grid-cols-2 lg:grid-cols-3">
             {DOSSIE.blocks.map((b, i) => (
               <Reveal key={b.tag} delay={(i % 3) * 0.06}>
                 <SpotlightCard className="h-full bg-black p-8 hover:bg-white/[0.02] transition-colors duration-300">
@@ -45,7 +45,7 @@ const Dossie = () => {
       <Section id="plano" className="liquid-divider">
         <Container>
           <SectionHeader kicker={DOSSIE.planKicker} title={DOSSIE.planTitle} />
-          <div className="mt-14 space-y-3">
+          <div className="mt-10 space-y-3">
             {DOSSIE.plan.map((p, i) => (
               <Reveal key={p.period} delay={(i % 2) * 0.05}>
                 <SpotlightCard className="grid gap-3 rounded-2xl liquid-glass p-6 md:grid-cols-[180px_1fr] md:items-center hover:border-white/20 transition-colors">

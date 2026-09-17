@@ -24,7 +24,7 @@ const Arquitetura = () => {
       <Section className="liquid-divider">
         <Container>
           <SectionHeader kicker={ARQUITETURA.loopKicker} title={ARQUITETURA.loopTitle} desc={ARQUITETURA.loopDesc} />
-          <div className="mt-14 grid gap-4 md:gap-5 lg:grid-cols-4">
+          <div className="mt-10 grid gap-4 md:gap-5 lg:grid-cols-4">
             {ARQUITETURA.loop.map((s, i) => (
               <Reveal key={s.tag} delay={i * 0.07}>
                 <SpotlightCard className="relative flex h-full flex-col rounded-[28px] liquid-glass p-7 hover:border-white/20 transition-colors duration-300">
@@ -51,7 +51,7 @@ const Arquitetura = () => {
       <Section id="seguranca" className="liquid-divider">
         <Container>
           <SectionHeader kicker={ARQUITETURA.capsKicker} title={ARQUITETURA.capsTitle} desc={ARQUITETURA.capsDesc} />
-          <div className="mt-14 grid gap-px overflow-hidden rounded-[28px] liquid-glass sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-px overflow-hidden rounded-[28px] liquid-glass sm:grid-cols-2 lg:grid-cols-4">
             {ARQUITETURA.caps.map((c, i) => (
               <Reveal key={c.n} delay={(i % 4) * 0.05}>
                 <SpotlightCard className="group h-full bg-black p-7 hover:bg-white/[0.03] transition-all duration-300 relative overflow-hidden">

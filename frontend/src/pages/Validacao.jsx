@@ -76,7 +76,7 @@ const Validacao = () => {
               : "A Private Hedge Fund and Venture Capital with Italian heritage, operating in the Federal Territory of Labuan (Malaysia), subjecting AetherCore to the most rigorous international financial stress-tests."}
           />
 
-          <div className="mt-14">
+          <div className="mt-10">
             <Reveal>
               <SpotlightCard
                 as="article"
@@ -218,7 +218,7 @@ const Validacao = () => {
               : "The direct bridge between AetherCore's technical vanguard and the real-world demands of an international Private Hedge Fund."}
           />
 
-          <div className="mt-14">
+          <div className="mt-10">
             <div className="mb-8 p-6 rounded-2xl bg-[#A34A33]/[0.06] border border-[#A34A33]/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div>
                 <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A34A33] font-bold block">
@@ -272,7 +272,7 @@ const Validacao = () => {
             desc={VALIDACAO.stressTest.desc}
           />
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
             {VALIDACAO.stressTest.pillars.map((pillar, i) => (
               <Reveal key={i} delay={i * 0.1}>
                 <SpotlightCard

@@ -347,7 +347,7 @@ const MatrixCell = ({ value, delay }) => {
 const FeatureMatrix = ({ language }) => {
   const m = FEATURE_MATRIX[language] || FEATURE_MATRIX.pt;
   return (
-    <Reveal className="mt-20 md:mt-28">
+    <Reveal className="mt-14 md:mt-20">
       <div
         data-testid="pricing-feature-matrix"
         className="overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.02]"
@@ -398,32 +398,26 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
   const auroraY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   const auroraOpacity = useTransform(scrollYProgress, [0, 0.4, 0.7, 1], [0.04, 0.16, 0.16, 0.04]);
 
-  const clipPath = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.8, 1],
-    [
-      "inset(0% 4% 0% 4% round 48px)",
-      "inset(0% 0% 0% 0% round 0px)",
-      "inset(0% 0% 0% 0% round 0px)",
-      "inset(0% 4% 0% 4% round 48px)"
-    ]
-  );
+  // Transform-only stage reveal (the clip-path scrub repainted the whole dark
+  // island every frame) and a gradient aurora with no 150px filter blur.
+  const stageScale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.94, 1, 1, 0.94]);
+  const stageRadius = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [48, 24, 24, 48]);
 
   return (
     <motion.div
       ref={stageRef}
-      style={{ clipPath }}
+      style={{ scale: stageScale, borderRadius: stageRadius }}
       data-testid="pricing-stage"
       data-anim-scope="pricing-stage"
-      className="relative overflow-hidden bg-[#0b0a08] text-white"
+      className="relative overflow-hidden bg-[#0b0a08] text-white origin-center"
     >
       {/* Tangerine aurora */}
       <motion.div
         aria-hidden="true"
         style={{ y: auroraY, opacity: auroraOpacity }}
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[700px] w-[1100px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[150px]"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[1400px] -translate-x-1/2 -translate-y-1/2 rounded-full"
       >
-        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_center,rgba(163, 74, 51,0.5),rgba(255,90,38,0.12)_48%,transparent_75%)]" />
+        <div className="h-full w-full rounded-full bg-[radial-gradient(ellipse_at_center,rgba(163,74,51,0.55),rgba(255,90,38,0.16)_35%,rgba(255,90,38,0.04)_58%,transparent_72%)]" />
       </motion.div>
 
       {/* Grid */}
@@ -446,7 +440,7 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
         style={{ backgroundImage: NOISE_PATTERN }}
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-44 md:px-12 md:py-56">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 md:px-12 md:py-32">
         {/* Heading */}
         <motion.div
           initial="hidden"
@@ -488,7 +482,7 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
         </motion.div>
 
         {/* Cards */}
-        <div className="mt-16 grid grid-cols-1 items-stretch gap-6 md:mt-24 md:grid-cols-3 lg:gap-8">
+        <div className="mt-10 grid grid-cols-1 items-stretch gap-6 md:mt-24 md:grid-cols-3 lg:gap-8">
           {PRICING.plans.slice(0, 3).map((plan, i) => (
             <PlanCard key={plan.id} plan={plan} index={i} isAnnual={isAnnual} lang={language} labels={labels} />
           ))}
@@ -528,7 +522,7 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.8, ease: easeExpo }}
-          className="mx-auto mt-16 max-w-3xl text-center text-xs leading-relaxed text-white/45"
+          className="mx-auto mt-10 max-w-3xl text-center text-xs leading-relaxed text-white/45"
         >
           {text.footerNote}
         </motion.p>

@@ -79,7 +79,7 @@ const ScoreSummary = ({ CASOS, language }) => {
 
   return (
     <Reveal>
-      <div className="mt-12 mb-16 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 border-t border-b border-[#211d18]/10 py-10">
+      <div className="mt-8 mb-10 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 border-t border-b border-[#211d18]/10 py-8">
         {/* Column 1: Cloud Risks */}
         <div className="relative">
           <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#211d18]/45 block mb-2">
@@ -187,7 +187,7 @@ const ComparisonTable = () => {
         </div>
 
         {/* Bottom verdict */}
-        <Reveal className="mt-16">
+        <Reveal className="mt-10">
           <div className="border-l-2 border-[#A34A33] pl-6 md:pl-10 py-2">
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A34A33] block mb-3 font-semibold">
               // {language === "en" ? "VERDICT" : "VEREDICTO"}

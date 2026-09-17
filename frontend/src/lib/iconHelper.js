@@ -1,36 +1,72 @@
-import * as PhosphorIcons from "@phosphor-icons/react";
+import {
+  ArrowsClockwise,
+  Brain,
+  ChatText,
+  ClipboardText,
+  Code,
+  Cpu,
+  Database,
+  Drop,
+  FileText,
+  Globe,
+  HardDrive,
+  HardDrives,
+  Lightning,
+  LockKey,
+  PaperPlaneTilt,
+  ShieldCheck,
+  SquaresFour,
+  Table,
+  Warning,
+  Wind,
+} from "@phosphor-icons/react";
 
-/**
- * Dynamically resolves a Phosphor icon component by name string with fallbacks.
- * @param {string} iconName - The string name of the icon (e.g. "Drop", "Wind", "FileText").
- * @param {React.Component} defaultIcon - The fallback component to return if name isn't found.
- * @returns {React.Component} The Phosphor icon component.
- */
-export function getLucideIcon(iconName, defaultIcon = PhosphorIcons.FileText) {
+/* Explicit map: a namespace import + dynamic lookup used to pull the entire
+   Phosphor set (~5 MB of JS) into the bundle. */
+const ICONS = {
+  ArrowsClockwise,
+  Blocks: SquaresFour,
+  Brain,
+  ChatText,
+  ClipboardCheck: ClipboardText,
+  ClipboardText,
+  Code,
+  Code2: Code,
+  Cpu,
+  Database,
+  Drop,
+  Droplet: Drop,
+  FileText,
+  Globe,
+  HardDrive,
+  HardDrives,
+  Lightning,
+  LockKey,
+  MessageSquareText: ChatText,
+  PaperPlaneTilt,
+  Server: HardDrives,
+  ShieldCheck,
+  Table,
+  Table2: Table,
+  Warning,
+  AlertTriangle: Warning,
+  Zap: Lightning,
+  Wind,
+};
+
+export function getLucideIcon(iconName, defaultIcon = FileText) {
   if (!iconName) return defaultIcon;
-  const nameMap = {
-    Droplet: "Drop",
-    Code2: "Code",
-    Table2: "Table",
-    MessageSquareText: "ChatText",
-    ShieldCheck: "ShieldCheck",
-    ClipboardCheck: "ClipboardText",
-    Server: "HardDrives",
-    Zap: "Lightning",
-    AlertTriangle: "Warning"
-  };
-  const mapped = nameMap[iconName] || iconName;
-  return PhosphorIcons[mapped] || PhosphorIcons[iconName] || defaultIcon;
+  return ICONS[iconName] || defaultIcon;
 }
 
 export const COMMON_CHIP_ICONS = {
-  FileText: PhosphorIcons.FileText,
-  Code2: PhosphorIcons.Code,
-  Table2: PhosphorIcons.Table,
-  ShieldCheck: PhosphorIcons.ShieldCheck,
-  MessageSquareText: PhosphorIcons.ChatText,
-  Globe: PhosphorIcons.Globe,
-  Cpu: PhosphorIcons.Cpu,
-  HardDrive: PhosphorIcons.HardDrive,
-  ClipboardCheck: PhosphorIcons.ClipboardText,
+  FileText,
+  Code2: Code,
+  Table2: Table,
+  ShieldCheck,
+  MessageSquareText: ChatText,
+  Globe,
+  Cpu,
+  HardDrive,
+  ClipboardCheck: ClipboardText,
 };

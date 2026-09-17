@@ -58,10 +58,9 @@ const Footer = () => {
     let refreshTimer;
     let revert = () => {};
 
-    import("gsap")
-      .then(({ default: gsap }) => import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+    import("@/lib/gsap")
+      .then(({ gsap, ScrollTrigger }) => {
         if (!active || !wrapperRef.current || !contentRef.current) return;
-        gsap.registerPlugin(ScrollTrigger);
         const ctx = gsap.context(() => {
           gsap.set(contentRef.current, { y: 64 });
 
@@ -81,7 +80,7 @@ const Footer = () => {
           refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 250);
         }, wrapperRef);
         revert = () => ctx.revert();
-      }))
+      })
       .catch(() => {});
 
     return () => {

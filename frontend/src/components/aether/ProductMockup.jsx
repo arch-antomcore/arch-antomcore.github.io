@@ -28,7 +28,7 @@ const ProductMockup = ({ labels }) => {
   return (
     <div
       ref={ref}
-      className="relative z-10 px-6 md:px-12 mt-24 md:mt-32 max-w-6xl mx-auto"
+      className="relative z-10 px-6 md:px-12 mt-14 md:mt-20 max-w-6xl mx-auto"
       style={{ perspective: "1200px" }}
       data-testid="aether-product-mockup-section"
     >

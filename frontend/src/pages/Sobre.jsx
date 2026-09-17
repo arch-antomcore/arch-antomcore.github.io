@@ -30,7 +30,7 @@ const Sobre = () => {
             title={SOBRE.teamTitle}
             desc={SOBRE.teamDesc}
           />
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
             {SOBRE.members.map((m, i) => (
               <Reveal key={m.name} delay={i * 0.1}>
                 <SpotlightCard

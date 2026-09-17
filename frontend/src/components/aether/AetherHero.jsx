@@ -169,7 +169,7 @@ const StaticHeroBackdrop = () => (
 
 const StaticProductMockup = ({ labels }) => (
   <div
-    className="relative z-10 mx-auto mt-24 max-w-6xl px-6 md:mt-32 md:px-12"
+    className="relative z-10 mx-auto mt-14 max-w-6xl px-6 md:mt-20 md:px-12"
     data-testid="aether-product-mockup-section"
   >
     <div className="mb-4 flex items-center justify-between text-[11px] font-semibold uppercase tracking-[0.25em] text-[#211d18]/40">
@@ -206,7 +206,7 @@ const AetherHero = () => {
       className="aether-hero-root relative w-full"
       data-testid="aethercore-hero"
     >
-      <div className="relative min-h-[85vh] md:min-h-screen flex flex-col justify-between overflow-hidden pb-12 md:pb-20">
+      <div className="relative min-h-[82vh] md:min-h-[92vh] flex flex-col justify-between overflow-hidden pb-10 md:pb-14">
         {isLightExperience ? (
           <StaticHeroBackdrop />
         ) : (
@@ -216,13 +216,13 @@ const AetherHero = () => {
         )}
         {!isLightExperience && <AmbientBlobs />}
 
-        <div className="relative z-10 px-6 md:px-12 pt-32 md:pt-40 flex-1 flex flex-col justify-center">
+        <div className="relative z-10 px-6 md:px-12 pt-28 md:pt-32 flex-1 flex flex-col justify-center">
           {/* Eyebrow bar */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.1 * d }}
-            className="flex items-center justify-between border-b border-[#211d18]/10 pb-5 mb-8 md:mb-12"
+            className="flex items-center justify-between border-b border-[#211d18]/10 pb-5 mb-6 md:mb-8"
             data-testid="aether-eyebrow"
           >
             <span className="text-[11px] uppercase tracking-[0.3em] font-semibold text-[#211d18]/60 flex items-center gap-2.5">
@@ -236,7 +236,7 @@ const AetherHero = () => {
 
           <KineticHeadline headline={A.headline} />
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-10 md:mt-14 items-end">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mt-8 md:mt-10 items-end">
             <motion.p
               initial="hidden"
               animate="visible"
@@ -310,7 +310,7 @@ const AetherHero = () => {
         </React.Suspense>
       )}
 
-      <div className="mt-24 md:mt-36">
+      <div className="mt-14 md:mt-20">
         <ManifestoChapters chapters={A.chapters} />
         <EditorialMarquee items={A.marquee} />
       </div>

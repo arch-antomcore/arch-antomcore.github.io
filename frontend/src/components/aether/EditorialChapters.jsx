@@ -12,7 +12,7 @@ const EditorialChapters = ({ items = [], leftLabel, hoverLabel = "Ler" }) => {
   if (!items.length) return null;
 
   return (
-    <Container className="mt-16">
+    <Container className="mt-10">
       <div className="flex flex-col divide-y divide-[#211d18]/10">
         {items.map((it, i) => {
           const isEven = i % 2 === 0;

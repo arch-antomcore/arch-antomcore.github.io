@@ -5,19 +5,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#181512" media="(prefers-color-scheme: dark)" />
-        <meta name="description" content="AetherCore — IA local-first em formato de agente para arquivos e tarefas sensíveis. Execução governada, aprovação humana e trilha auditável." />
-        
+        <meta name="description" content="AetherCore é a plataforma de agentes de IA local-first da Exvorn: modelos rodando no seu hardware, execução governada por um Kernel em Rust, aprovação humana e trilha auditável. Sem enviar dados para a nuvem." />
+        <meta name="keywords" content="AetherCore, Aether Core, Aether, Exvorn, IA local, inteligência artificial local, agente de IA, local-first AI, LLM offline, Ollama, Rust, Quintessence IDE, Aether Runtime Kernel, privacidade de dados, LGPD, IA para empresas, IA sem nuvem, Curitiba" />
+        <meta name="author" content="Matheus Peres da Silva — Exvorn" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow" />
+        <link rel="canonical" href="https://exvorn.tech/" />
+        <link rel="alternate" hreflang="pt-BR" href="https://exvorn.tech/" />
+        <link rel="alternate" hreflang="x-default" href="https://exvorn.tech/" />
+        <link rel="alternate" type="text/plain" title="llms.txt" href="https://exvorn.tech/llms.txt" />
+        <link rel="sitemap" type="application/xml" href="https://exvorn.tech/sitemap.xml" />
+
         <!-- SEO OpenGraph Meta Tags -->
-        <meta name="title" content="AetherCore | IA local agente para arquivos e tarefas sensíveis" />
+        <meta name="title" content="AetherCore | IA local-first em formato de agente para arquivos e tarefas sensíveis" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://exvorn.tech" />
+        <meta property="og:locale" content="pt_BR" />
+        <meta property="og:locale:alternate" content="en_US" />
+        <meta property="og:url" content="https://exvorn.tech/" />
         <meta property="og:site_name" content="AetherCore" />
-        <meta property="og:title" content="AetherCore | IA local agente para arquivos e tarefas sensíveis" />
-        <meta property="og:description" content="AetherCore — IA local-first em formato de agente para arquivos e tarefas sensíveis. Execução governada, aprovação humana e trilha auditável." />
+        <meta property="og:title" content="AetherCore | IA local-first em formato de agente para arquivos e tarefas sensíveis" />
+        <meta property="og:description" content="AetherCore é a plataforma de agentes de IA local-first da Exvorn: modelos rodando no seu hardware, execução governada por um Kernel em Rust, aprovação humana e trilha auditável. Sem enviar dados para a nuvem." />
         <meta property="og:image" content="https://exvorn.tech/logo-aether.png" />
+        <meta property="og:image:alt" content="Logotipo do AetherCore" />
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content="AetherCore | IA local agente para arquivos e tarefas sensíveis" />
-        <meta property="twitter:description" content="AetherCore — IA local-first em formato de agente para arquivos e tarefas sensíveis. Execução governada, aprovação humana e trilha auditável." />
+        <meta property="twitter:title" content="AetherCore | IA local-first em formato de agente para arquivos e tarefas sensíveis" />
+        <meta property="twitter:description" content="AetherCore é a plataforma de agentes de IA local-first da Exvorn: modelos rodando no seu hardware, execução governada por um Kernel em Rust, aprovação humana e trilha auditável." />
         <meta property="twitter:image" content="https://exvorn.tech/logo-aether.png" />
 
         <!-- Resource Hints and Prefetches -->
@@ -61,7 +73,7 @@
         work correctly both with client-side routing and a non-root public URL.
         Learn how to configure a non-root public URL by running `npm run build`.
         -->
-        <title>AetherCore | IA local agente para arquivos e tarefas sensíveis</title>
+        <title>AetherCore | IA local-first em formato de agente para arquivos e tarefas sensíveis</title>
         <script>
             window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);
         </script>
@@ -73,45 +85,126 @@
             "@graph": [
                 {
                     "@type": "Organization",
+                    "@id": "https://exvorn.tech/#organization",
                     "name": "Exvorn",
+                    "alternateName": ["Exvorn Tech", "AetherCore"],
                     "url": "https://exvorn.tech",
-                    "logo": "https://exvorn.tech/logo-aether.png",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://exvorn.tech/logo-aether.png"
+                    },
                     "email": "business@exvorn.tech",
                     "foundingDate": "2025",
+                    "founder": { "@id": "https://exvorn.tech/#founder" },
                     "address": {
                         "@type": "PostalAddress",
                         "addressLocality": "Curitiba",
                         "addressRegion": "PR",
                         "addressCountry": "BR"
                     },
+                    "contactPoint": {
+                        "@type": "ContactPoint",
+                        "contactType": "sales",
+                        "email": "business@exvorn.tech",
+                        "availableLanguage": ["Portuguese", "English"]
+                    },
                     "sameAs": [
-                        "https://www.linkedin.com/in/matheus-peres-da-silva/"
+                        "https://www.linkedin.com/in/matheus-peres-da-silva/",
+                        "https://github.com/arch-antomcore"
                     ]
                 },
                 {
+                    "@type": "Person",
+                    "@id": "https://exvorn.tech/#founder",
+                    "name": "Matheus Peres da Silva",
+                    "jobTitle": "Founder & Architect",
+                    "worksFor": { "@id": "https://exvorn.tech/#organization" },
+                    "image": "https://exvorn.tech/founder.jpg",
+                    "sameAs": ["https://www.linkedin.com/in/matheus-peres-da-silva/"]
+                },
+                {
                     "@type": "SoftwareApplication",
+                    "@id": "https://exvorn.tech/#software",
                     "name": "AetherCore",
+                    "alternateName": ["Aether Core", "Aether"],
                     "applicationCategory": "BusinessApplication",
+                    "applicationSubCategory": "Agente de IA local-first",
                     "operatingSystem": "Windows, macOS, Linux",
-                    "description": "IA local-first em formato de agente para arquivos e tarefas sensíveis. Execução governada, aprovação humana e trilha auditável.",
+                    "description": "IA local-first em formato de agente para arquivos e tarefas sensíveis. Modelos rodando no hardware do usuário (Ollama, Qwen, Granite, GLM), execução governada pelo Aether Runtime Kernel em Rust, aprovação humana e trilha auditável.",
+                    "featureList": [
+                        "Execução 100% local, sem enviar dados para a nuvem",
+                        "Aether Runtime Kernel em Rust com permissões explícitas",
+                        "Aprovação humana antes de ações sensíveis",
+                        "Trilha auditável de cada passo do agente",
+                        "Roteamento de múltiplos modelos locais (Granite, GLM, Qwen)",
+                        "Quintessence: IDE integrada com agente ciente do projeto",
+                        "Integração com Telegram e planilhas XLSX"
+                    ],
+                    "keywords": "IA local, agente de IA, local-first, LLM offline, Ollama, Rust, privacidade, LGPD",
                     "softwareVersion": "0.6.0",
                     "url": "https://exvorn.tech",
+                    "image": "https://exvorn.tech/logo-aether.png",
+                    "screenshot": "https://exvorn.tech/console-aether.png",
+                    "inLanguage": ["pt-BR", "en"],
+                    "countryOfOrigin": "BR",
                     "offers": {
                         "@type": "AggregateOffer",
                         "lowPrice": "0",
                         "highPrice": "449",
                         "priceCurrency": "BRL",
-                        "offerCount": "4"
+                        "offerCount": "4",
+                        "url": "https://exvorn.tech/precos"
                     },
-                    "publisher": {
-                        "@type": "Organization",
-                        "name": "Exvorn"
-                    }
+                    "author": { "@id": "https://exvorn.tech/#organization" },
+                    "publisher": { "@id": "https://exvorn.tech/#organization" }
                 },
                 {
                     "@type": "WebSite",
+                    "@id": "https://exvorn.tech/#website",
                     "name": "AetherCore",
-                    "url": "https://exvorn.tech"
+                    "alternateName": "Exvorn — AetherCore",
+                    "url": "https://exvorn.tech",
+                    "inLanguage": "pt-BR",
+                    "publisher": { "@id": "https://exvorn.tech/#organization" },
+                    "about": { "@id": "https://exvorn.tech/#software" }
+                },
+                {
+                    "@type": "FAQPage",
+                    "@id": "https://exvorn.tech/#faq",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "name": "O que é o AetherCore?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "AetherCore é uma plataforma de agentes de IA local-first desenvolvida pela Exvorn (Curitiba, Brasil). Ele roda modelos de linguagem no hardware do usuário, executa tarefas sobre arquivos e sistemas com aprovação humana e registra cada passo em uma trilha auditável."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "O AetherCore envia dados para a nuvem?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Não. O processamento é local por padrão: os modelos (via Ollama, como Qwen, Granite e GLM) rodam na máquina ou na infraestrutura da própria organização, e o Aether Runtime Kernel em Rust controla quais ações e permissões são permitidas."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Em quais sistemas operacionais o AetherCore funciona?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "O AetherCore é um aplicativo desktop para Windows, macOS e Linux, com interface CEF e runtime em Rust. A IDE Quintessence é distribuída junto ao ecossistema."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "Quanto custa o AetherCore?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Há um plano gratuito para começar e planos pagos (Go, Enterprise e Scale) em reais. Os detalhes atualizados estão em https://exvorn.tech/precos."
+                            }
+                        }
+                    ]
                 }
             ]
         }
