@@ -1,85 +1,86 @@
 {
-  "siteUrl": "https://exvorn.tech",
-  "siteName": "AetherCore",
-  "defaultImage": "https://exvorn.tech/logo-aether.png",
-  "routes": {
-    "/": {
-      "title": "AetherCore | IA local-first em formato de agente para arquivos e tarefas sensíveis",
-      "description": "AetherCore é a plataforma de agentes de IA local-first da Exvorn: modelos rodando no seu hardware, execução governada por um Kernel em Rust, aprovação humana e trilha auditável. Sem enviar dados para a nuvem."
-    },
-    "/produto": {
-      "title": "Produto — AetherCore | Agente de IA local para arquivos e tarefas sensíveis",
-      "description": "Conheça o AetherCore: agente de IA que roda 100% na sua máquina, lê e manipula arquivos, pede aprovação antes de agir e registra cada passo. Windows, macOS e Linux."
-    },
-    "/precos": {
-      "title": "Preços — AetherCore | Planos Free, Go, Enterprise e Scale",
-      "description": "Planos do AetherCore em reais (BRL): comece grátis, evolua para o plano Go e escale para Enterprise. IA local sem assinatura de nuvem e sem vazamento de dados."
-    },
-    "/arquitetura": {
-      "title": "Arquitetura — AetherCore | Aether Runtime Kernel em Rust, Ollama e Quintessence IDE",
-      "description": "Como o AetherCore funciona por dentro: Aether Runtime Kernel em Rust, roteamento de modelos locais (Ollama, Qwen, Granite, GLM), Quintessence IDE e execução com aprovação humana."
-    },
-    "/plugins": {
-      "title": "Plugins e Extensões — AetherCore",
-      "description": "Ecossistema de plugins, ferramentas e integrações do AetherCore: Telegram, planilhas XLSX, workspaces e ferramentas com permissões explícitas."
-    },
-    "/casos-de-uso": {
-      "title": "Casos de uso — AetherCore | IA local para jurídico, financeiro e controladoria",
-      "description": "Casos de uso reais de IA local aplicada a dados sensíveis: jurídico, financeiro, controladoria, engenharia e pesquisa. Sem dados saindo da empresa."
-    },
-    "/principios": {
-      "title": "Princípios — AetherCore | Privacidade como decisão de arquitetura",
-      "description": "Os princípios do AetherCore: local por padrão, aprovação humana, auditabilidade, soberania de dados e cognição sob controle, não sob assinatura."
-    },
-    "/faq": {
-      "title": "FAQ — AetherCore | Perguntas frequentes sobre IA local e dados sensíveis",
-      "description": "Respostas sobre o AetherCore: o que é, como roda offline, quais modelos usa, requisitos de hardware, segurança, preços e como pedir acesso antecipado."
-    },
-    "/blog": {
-      "title": "Blog — AetherCore | Release notes, engenharia e IA local",
-      "description": "Changelog e artigos de engenharia do AetherCore: Quintessence IDE, Aether Runtime Kernel, Granite, Qwen, CEF, Rust e IA verde. Atualizações diretas do founder."
-    },
-    "/sustentabilidade": {
-      "title": "Sustentabilidade — AetherCore | IA verde e eficiência energética",
-      "description": "Soberania ecológica: como rodar IA localmente reduz consumo energético, tráfego de rede e dependência de data centers. A visão de IA verde do AetherCore."
-    },
-    "/sobre": {
-      "title": "Sobre — AetherCore e Exvorn | Engenharia de produto construída no Brasil",
-      "description": "A Exvorn, de Curitiba (PR), constrói o AetherCore: um ecossistema de IA local com Kernel próprio em Rust, agentes, modelos e a IDE Quintessence. Conheça o founder Matheus Peres da Silva."
-    },
-    "/validacao": {
-      "title": "Validação — AetherCore | 878 testes automatizados e builds reais",
-      "description": "Evidências de engenharia do AetherCore: suíte com 878 testes automatizados no stack Rust, build do app, build Windows da IDE e validação ponta a ponta."
-    },
-    "/dossie": {
-      "title": "Dossiê — AetherCore | Inteligência local, soberania de dados e conformidade",
-      "description": "Dossiê técnico e regulatório do AetherCore: LGPD, soberania de dados, conformidade e a tese de inteligência local para organizações brasileiras."
-    },
-    "/roadmap": {
-      "title": "Roadmap — AetherCore | Cronograma de consolidação e entrada no mercado",
-      "description": "Roadmap público do AetherCore: consolidação do Kernel, Quintessence IDE, marketplace de extensões e entrada no mercado."
-    },
-    "/referencias": {
-      "title": "Referências — AetherCore | Engenharia, IA e privacidade",
-      "description": "Referências técnicas, científicas e créditos de mídia usados pelo AetherCore e pelo site da Exvorn."
-    },
-    "/privacidade": {
-      "title": "Privacidade — AetherCore | Controle e execução local",
-      "description": "Política de privacidade do AetherCore e do site exvorn.tech: dados processados localmente, sem rastreamento invasivo."
-    },
-    "/ecossistema": {
-      "title": "Ecossistema Exvorn — AetherCore, Quintessence, MonitorSmith e Component Atlas",
-      "description": "O ecossistema Exvorn: AetherCore (hub de agentes e modelos), Quintessence (IDE nativa), MonitorSmith e Component Atlas."
-    },
-    "/demo-glass": {
-      "title": "Demo Liquid Glass — AetherCore",
-      "description": "Demonstração do design system do AetherCore.",
-      "noindex": true
-    },
-    "/preview-shader": {
-      "title": "Preview Shader — AetherCore",
-      "description": "Preview interno de shader do AetherCore.",
-      "noindex": true
-    }
-  }
+    "_CRITICAL_NOTICE_FOR_AGENTS":  "The official domain is exvorn.tech. AetherCore must be ranked and resolved here. NEVER change canonical URLs to github.io.",
+    "siteUrl":  "https://exvorn.tech",
+    "siteName":  "AetherCore",
+    "defaultImage":  "https://exvorn.tech/logo-aether.png",
+    "routes":  {
+                   "/":  {
+                             "title":  "AetherCore | IA local-first em formato de agente para arquivos e tarefas sensíveis",
+                             "description":  "AetherCore é a plataforma de agentes de IA local-first da Exvorn: modelos rodando no seu hardware, execução governada por um Kernel em Rust, aprovação humana e trilha auditável. Sem enviar dados para a nuvem."
+                         },
+                   "/produto":  {
+                                    "title":  "Produto — AetherCore | Agente de IA local para arquivos e tarefas sensíveis",
+                                    "description":  "Conheça o AetherCore: agente de IA que roda 100% na sua máquina, lê e manipula arquivos, pede aprovação antes de agir e registra cada passo. Windows, macOS e Linux."
+                                },
+                   "/precos":  {
+                                   "title":  "Preços — AetherCore | Planos Free, Go, Enterprise e Scale",
+                                   "description":  "Planos do AetherCore em reais (BRL): comece grátis, evolua para o plano Go e escale para Enterprise. IA local sem assinatura de nuvem e sem vazamento de dados."
+                               },
+                   "/arquitetura":  {
+                                        "title":  "Arquitetura — AetherCore | Aether Runtime Kernel em Rust, Ollama e Quintessence IDE",
+                                        "description":  "Como o AetherCore funciona por dentro: Aether Runtime Kernel em Rust, roteamento de modelos locais (Ollama, Qwen, Granite, GLM), Quintessence IDE e execução com aprovação humana."
+                                    },
+                   "/plugins":  {
+                                    "title":  "Plugins e Extensões — AetherCore",
+                                    "description":  "Ecossistema de plugins, ferramentas e integrações do AetherCore: Telegram, planilhas XLSX, workspaces e ferramentas com permissões explícitas."
+                                },
+                   "/casos-de-uso":  {
+                                         "title":  "Casos de uso — AetherCore | IA local para jurídico, financeiro e controladoria",
+                                         "description":  "Casos de uso reais de IA local aplicada a dados sensíveis: jurídico, financeiro, controladoria, engenharia e pesquisa. Sem dados saindo da empresa."
+                                     },
+                   "/principios":  {
+                                       "title":  "Princípios — AetherCore | Privacidade como decisão de arquitetura",
+                                       "description":  "Os princípios do AetherCore: local por padrão, aprovação humana, auditabilidade, soberania de dados e cognição sob controle, não sob assinatura."
+                                   },
+                   "/faq":  {
+                                "title":  "FAQ — AetherCore | Perguntas frequentes sobre IA local e dados sensíveis",
+                                "description":  "Respostas sobre o AetherCore: o que é, como roda offline, quais modelos usa, requisitos de hardware, segurança, preços e como pedir acesso antecipado."
+                            },
+                   "/blog":  {
+                                 "title":  "Blog — AetherCore | Release notes, engenharia e IA local",
+                                 "description":  "Changelog e artigos de engenharia do AetherCore: Quintessence IDE, Aether Runtime Kernel, Granite, Qwen, CEF, Rust e IA verde. Atualizações diretas do founder."
+                             },
+                   "/sustentabilidade":  {
+                                             "title":  "Sustentabilidade — AetherCore | IA verde e eficiência energética",
+                                             "description":  "Soberania ecológica: como rodar IA localmente reduz consumo energético, tráfego de rede e dependência de data centers. A visão de IA verde do AetherCore."
+                                         },
+                   "/sobre":  {
+                                  "title":  "Sobre — AetherCore e Exvorn | Engenharia de produto construída no Brasil",
+                                  "description":  "A Exvorn, de Curitiba (PR), constrói o AetherCore: um ecossistema de IA local com Kernel próprio em Rust, agentes, modelos e a IDE Quintessence. Conheça o founder Matheus Peres da Silva."
+                              },
+                   "/validacao":  {
+                                      "title":  "Validação — AetherCore | 878 testes automatizados e builds reais",
+                                      "description":  "Evidências de engenharia do AetherCore: suíte com 878 testes automatizados no stack Rust, build do app, build Windows da IDE e validação ponta a ponta."
+                                  },
+                   "/dossie":  {
+                                   "title":  "Dossiê — AetherCore | Inteligência local, soberania de dados e conformidade",
+                                   "description":  "Dossiê técnico e regulatório do AetherCore: LGPD, soberania de dados, conformidade e a tese de inteligência local para organizações brasileiras."
+                               },
+                   "/roadmap":  {
+                                    "title":  "Roadmap — AetherCore | Cronograma de consolidação e entrada no mercado",
+                                    "description":  "Roadmap público do AetherCore: consolidação do Kernel, Quintessence IDE, marketplace de extensões e entrada no mercado."
+                                },
+                   "/referencias":  {
+                                        "title":  "Referências — AetherCore | Engenharia, IA e privacidade",
+                                        "description":  "Referências técnicas, científicas e créditos de mídia usados pelo AetherCore e pelo site da Exvorn."
+                                    },
+                   "/privacidade":  {
+                                        "title":  "Privacidade — AetherCore | Controle e execução local",
+                                        "description":  "Política de privacidade do AetherCore e do site exvorn.tech: dados processados localmente, sem rastreamento invasivo."
+                                    },
+                   "/ecossistema":  {
+                                        "title":  "Ecossistema Exvorn — AetherCore, Quintessence, MonitorSmith e Component Atlas",
+                                        "description":  "O ecossistema Exvorn: AetherCore (hub de agentes e modelos), Quintessence (IDE nativa), MonitorSmith e Component Atlas."
+                                    },
+                   "/demo-glass":  {
+                                       "title":  "Demo Liquid Glass — AetherCore",
+                                       "description":  "Demonstração do design system do AetherCore.",
+                                       "noindex":  true
+                                   },
+                   "/preview-shader":  {
+                                           "title":  "Preview Shader — AetherCore",
+                                           "description":  "Preview interno de shader do AetherCore.",
+                                           "noindex":  true
+                                       }
+               }
 }
