@@ -93,7 +93,7 @@ export const ImageBand = ({ media, kicker, lines, caption, testId = "image-band"
         <motion.img
           src={media.src}
           alt={media.alt}
-          loading="lazy"
+          
           style={{ scale, y: imgY }}
           className="absolute inset-0 h-full w-full object-cover grayscale-[45%] transition-[filter] duration-1000 ease-out group-hover:grayscale-0"
         />
@@ -195,7 +195,7 @@ const GlassShowcaseFull = () => {
         <motion.img
           src={media.src}
           alt={media.alt}
-          loading="lazy"
+          
           style={{ y: imgY, scale: imgScale }}
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -316,7 +316,7 @@ const GlassShowcaseStatic = () => {
         <img
           src={media.src}
           alt={media.alt}
-          loading="lazy"
+          
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover"
         />

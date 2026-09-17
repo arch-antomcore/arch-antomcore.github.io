@@ -184,7 +184,7 @@ const StaticProductMockup = ({ labels }) => (
         src="/assets/img/mockups/console-aether.png"
         alt="Console AetherCore — orquestração local de agentes autônomos"
         className="block h-auto w-full"
-        loading="lazy"
+        
         decoding="async"
         data-testid="aether-product-mockup-image"
       />

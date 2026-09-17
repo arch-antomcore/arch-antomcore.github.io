@@ -181,7 +181,7 @@ const FounderMessage = () => {
                   <img
                     src="/founder.jpg"
                     alt="Matheus Peres da Silva"
-                    loading="lazy"
+                    
                     decoding="async"
                     width="56"
                     height="56"
@@ -210,7 +210,7 @@ const FounderMessage = () => {
 
               <div className="grid grid-cols-6 gap-1 rounded-2xl overflow-hidden border border-[#211d18]/10 bg-[#211d18]/[0.02] my-5 relative group/gallery">
                 <button type="button" className="col-span-6 h-64 overflow-hidden relative cursor-zoom-in" onClick={() => setActiveImage(IMAGES[0])} data-founder-img data-testid="founder-gallery-main">
-                  <img src={IMAGES[0]} loading="lazy" decoding="async" className="w-full h-full object-cover founder-img" alt="Aether rebrand hero" />
+                  <img src={IMAGES[0]}  decoding="async" className="w-full h-full object-cover founder-img" alt="Aether rebrand hero" />
                   <span className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover/gallery:opacity-100 transition-opacity duration-500 flex items-end p-4">
                     <span className="text-xs text-white/90 flex items-center gap-1.5"><ImageIcon className="w-3.5 h-3.5" /> Ampliar imagem</span>
                   </span>
@@ -224,7 +224,7 @@ const FounderMessage = () => {
                     data-founder-img
                     data-testid={`founder-gallery-thumb-${i + 1}`}
                   >
-                    <img src={src} loading="lazy" decoding="async" className="w-full h-full object-cover founder-img" alt={`Aether rebrand ${i + 2}`} />
+                    <img src={src}  decoding="async" className="w-full h-full object-cover founder-img" alt={`Aether rebrand ${i + 2}`} />
                   </button>
                 ))}
               </div>
