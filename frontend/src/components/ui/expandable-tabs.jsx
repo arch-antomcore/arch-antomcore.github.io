@@ -21,8 +21,8 @@ const spanVariants = {
   exit: { width: 0, opacity: 0, paddingLeft: 0, paddingRight: 0 },
 };
 
-/* Calibrated spring for responsive, smooth expansion without layout lag */
-const transition = { type: "spring", stiffness: 280, damping: 26, mass: 0.6 };
+/* Calibrated spring for a very smooth, well-crafted expansion */
+const transition = { type: "spring", stiffness: 180, damping: 22, mass: 0.7 };
 
 export function ExpandableTabs({
   tabs,
@@ -35,11 +35,11 @@ export function ExpandableTabs({
   const [hovered, setHovered] = React.useState(null);
   const [focused, setFocused] = React.useState(null);
   const outsideClickRef = React.useRef(null);
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = false; // Bypass OS settings
   const isControlled = activeTab !== undefined;
   const selectedIndex = isControlled ? activeTab : selected;
   const interactionIndex = hovered ?? focused;
-  const motionTransition = prefersReducedMotion ? { duration: 0 } : transition;
+  const motionTransition = transition;
 
   React.useEffect(() => {
     if (activeTab !== undefined) {
@@ -119,7 +119,7 @@ export function ExpandableTabs({
             {isHighlight && (
               <motion.div
                 layoutId="nav-expandable-tab-glide"
-                transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 280, damping: 26 }}
+                transition={transition}
                 className="aether-nav-tab-highlight absolute inset-0 rounded-full bg-white/12 border border-white/15 shadow-sm z-0 pointer-events-none"
               />
             )}
