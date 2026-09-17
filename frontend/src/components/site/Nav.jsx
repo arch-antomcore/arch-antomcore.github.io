@@ -150,10 +150,14 @@ const Nav = () => {
   return (
     <>
       <ScrollProgress />
-      <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 motion-reduce:transition-none ${
-          hidden && !open ? "-translate-y-full" : "translate-y-0"
-        }`}
+      <motion.header
+        initial={{ y: "-100%", opacity: 0 }}
+        animate={{ 
+          y: hidden && !open ? "-100%" : "0%",
+          opacity: hidden && !open ? 0 : 1
+        }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed top-0 inset-x-0 z-50"
         data-testid="site-header"
       >
         <div className="nav-glass absolute inset-0 z-0 pointer-events-none" aria-hidden="true" />
@@ -230,7 +234,7 @@ const Nav = () => {
             </button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       <AnimatePresence>
         {open && (
