@@ -222,7 +222,7 @@ a {
   to { opacity: 0.25; transform: translateY(-48px) scale(0.985); }
 }
 
-@media (prefers-reduced-motion: no-preference) {
+@media (min-width: 0px) {
   /* Native scroll-scrubbed path */
   @supports (animation-timeline: view()) {
     .sda-rise,
@@ -1223,7 +1223,7 @@ html.aether-experience-light .founder-backdrop {
   animation: aether-marquee-soft 64s linear infinite;
   will-change: transform;
 }
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: ignore) {
   .aether-marquee-soft { animation: none; }
 }
 
@@ -1563,7 +1563,7 @@ html.lenis body {
   transition: background 0.3s ease;
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: ignore) {
   .aether-blob--ink,
   .aether-blob--tangerine,
   .aether-spin-slow {
@@ -1637,7 +1637,7 @@ html.lenis body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: ignore) {
   .glass-panel,
   .glass-panel:hover {
     transform: none;
@@ -1731,7 +1731,7 @@ html.lenis body {
   flex-shrink: 0;
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: ignore) {
   .aether-card,
   .aether-card:hover {
     transform: none;
@@ -1894,11 +1894,11 @@ html.aether-experience-light .animate-footer-scroll-marquee {
   animation: sda-rise-soft 0.8s var(--ease-out-expo) both;
   animation-delay: calc(0.12s + var(--i, 0) * 0.1s);
 }
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: ignore) {
   .aether-soft-enter { animation: none; }
 }
 
-@media (prefers-reduced-motion: no-preference) {
+@media (min-width: 0px) {
   @supports (animation-timeline: view()) {
     html.aether-experience-light :is(.sda-rise, .sda-left, .sda-right, .sda-scale, .sda-blur) {
       animation-name: sda-rise-soft;
@@ -2206,7 +2206,7 @@ html.aether-experience-light .aether-nav-surface {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: ignore) {
   .aether-ui-card,
   .aether-card,
   .experience-choice,

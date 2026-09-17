@@ -43,7 +43,7 @@ const AnimatedVideoBackdrop = () => {
       preload="none"
       poster={MEDIA.networkVideo.poster}
       onCanPlay={() => setReady(true)}
-      className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 motion-reduce:transition-none ${
+      className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000  ${
         ready ? "opacity-30" : "opacity-20"
       }`}
       aria-hidden="true"

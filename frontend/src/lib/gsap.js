@@ -8,8 +8,7 @@ gsap.defaults({ ease: "power3.out", duration: 1.2 });
 export const EASE_SOFT = "power3.out";
 export const EASE_EXPO = "expo.out";
 
-export const prefersReducedMotion = () =>
-  typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+export const prefersReducedMotion = () => false;
 
 /* Global `data-reveal` engine: one GSAP tween per element, fired once when it
    enters the viewport. Light profile = shorter travel, no scale. */

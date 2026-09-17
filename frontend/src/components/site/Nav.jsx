@@ -34,7 +34,7 @@ const Nav = () => {
   const lastScrollY = useRef(0);
   const menuId = useId();
   const menuCloseRef = useRef(null);
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = false;
 
   const BRAND = t.BRAND;
   const NAV_LINKS = t.NAV_LINKS;

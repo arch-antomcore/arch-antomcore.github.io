@@ -66,7 +66,7 @@ const SiteContent = ({ lenis = null }) => {
   const { language } = useTranslation();
   const { experience, isLightExperience } = useExperience();
   const prefersReducedMotion = useReducedMotion();
-  const shouldReduceMotion = prefersReducedMotion;
+  const shouldReduceMotion = false;
 
   useEffect(() => {
     if (!lenis || isLightExperience) return undefined;
@@ -313,9 +313,7 @@ const FullExperienceContent = () => {
 const FullExperienceRuntime = ({ light = false }) => {
   const prefersReducedMotion = useReducedMotion();
   const base = light ? LIGHT_LENIS_OPTIONS : LENIS_OPTIONS;
-  const options = prefersReducedMotion
-    ? { ...base, anchors: false, lerp: 1, smoothWheel: false, touchMultiplier: 1 }
-    : base;
+  const options = base;
 
   return (
     <ReactLenis root options={options}>
@@ -352,7 +350,7 @@ const Layout = () => {
   const isLightExperience = experience === EXPERIENCE.LIGHT;
   return (
     <ExperienceProvider experience={experience} setExperience={chooseExperience}>
-      <MotionConfig reducedMotion="user">
+      <MotionConfig>
         <FullExperienceRuntime light={isLightExperience} />
       </MotionConfig>
     </ExperienceProvider>
