@@ -1,7 +1,7 @@
 {
-  "siteUrl": "https://arch-antomcore.github.io",
+  "siteUrl": "https://exvorn.tech",
   "siteName": "AetherCore",
-  "defaultImage": "https://arch-antomcore.github.io/logo-aether.png",
+  "defaultImage": "https://exvorn.tech/logo-aether.png",
   "routes": {
     "/": {
       "title": "AetherCore | IA local-first em formato de agente para arquivos e tarefas sensíveis",

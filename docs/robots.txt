@@ -64,7 +64,7 @@ User-agent: YouBot
 Allow: /
 
 # Machine-readable summary for LLMs
-# https://arch-antomcore.github.io/llms.txt
-# https://arch-antomcore.github.io/llms-full.txt
+# https://exvorn.tech/llms.txt
+# https://exvorn.tech/llms-full.txt
 
-Sitemap: https://arch-antomcore.github.io/sitemap.xml
+Sitemap: https://exvorn.tech/sitemap.xml

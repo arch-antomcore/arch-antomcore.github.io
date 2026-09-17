@@ -1,19 +1,19 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)"/><meta name="theme-color" content="#181512" media="(prefers-color-scheme: dark)"/><meta name="description" content="Changelog e artigos de engenharia do AetherCore: Quintessence IDE, Aether Runtime Kernel, Granite, Qwen, CEF, Rust e IA verde. Atualizações diretas do founder."/><meta name="keywords" content="AetherCore, Aether Core, Aether, Exvorn, IA local, inteligência artificial local, agente de IA, local-first AI, LLM offline, Ollama, Rust, Quintessence IDE, Aether Runtime Kernel, privacidade de dados, LGPD, IA para empresas, IA sem nuvem, Curitiba"/><meta name="author" content="Matheus Peres da Silva — Exvorn"/><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/><meta name="googlebot" content="index, follow"/><link rel="canonical" href="https://arch-antomcore.github.io/blog"/><link rel="alternate" hreflang="pt-BR" href="https://arch-antomcore.github.io/blog"/><link rel="alternate" hreflang="x-default" href="https://arch-antomcore.github.io/blog"/><link rel="alternate" type="text/plain" title="llms.txt" href="https://arch-antomcore.github.io/llms.txt"/><link rel="sitemap" type="application/xml" href="https://arch-antomcore.github.io/sitemap.xml"/><meta name="title" content="Blog — AetherCore | Release notes, engenharia e IA local"/><meta property="og:type" content="website"/><meta property="og:locale" content="pt_BR"/><meta property="og:locale:alternate" content="en_US"/><meta property="og:url" content="https://arch-antomcore.github.io/blog"/><meta property="og:site_name" content="AetherCore"/><meta property="og:title" content="Blog — AetherCore | Release notes, engenharia e IA local"/><meta property="og:description" content="Changelog e artigos de engenharia do AetherCore: Quintessence IDE, Aether Runtime Kernel, Granite, Qwen, CEF, Rust e IA verde. Atualizações diretas do founder."/><meta property="og:image" content="https://arch-antomcore.github.io/logo-aether.png"/><meta property="og:image:alt" content="Logotipo do AetherCore"/><meta property="twitter:card" content="summary_large_image"/><meta property="twitter:title" content="Blog — AetherCore | Release notes, engenharia e IA local"/><meta property="twitter:description" content="Changelog e artigos de engenharia do AetherCore: Quintessence IDE, Aether Runtime Kernel, Granite, Qwen, CEF, Rust e IA verde. Atualizações diretas do founder."/><meta property="twitter:image" content="https://arch-antomcore.github.io/logo-aether.png"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="dns-prefetch" href="https://fonts.gstatic.com"/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><link rel="icon" id="dynamic-favicon" type="image/png" href="/favicon-32.png"/><link rel="icon" type="image/png" href="/favicon-light.png" media="(prefers-color-scheme: dark)"/><link rel="icon" type="image/png" href="/favicon-32.png" media="(prefers-color-scheme: light)"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><script>!function(){function e(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,n=document.getElementById("dynamic-favicon");n&&(n.href=e?"/favicon-light.png":"/favicon-32.png")}e(),window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e)}()</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600;700&family=Fraunces:ital,wght@1,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/><title>Blog — AetherCore | Release notes, engenharia e IA local</title><script>window.addEventListener("error",function(e){e.error instanceof DOMException&&"DataCloneError"===e.error.name&&e.message&&e.message.includes("PerformanceServerTiming")&&(e.stopImmediatePropagation(),e.preventDefault())},!0)</script><script type="application/ld+json">{
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#f4f1e8" media="(prefers-color-scheme: light)"/><meta name="theme-color" content="#181512" media="(prefers-color-scheme: dark)"/><meta name="description" content="Changelog e artigos de engenharia do AetherCore: Quintessence IDE, Aether Runtime Kernel, Granite, Qwen, CEF, Rust e IA verde. Atualizações diretas do founder."/><meta name="keywords" content="AetherCore, Aether Core, Aether, Exvorn, IA local, inteligência artificial local, agente de IA, local-first AI, LLM offline, Ollama, Rust, Quintessence IDE, Aether Runtime Kernel, privacidade de dados, LGPD, IA para empresas, IA sem nuvem, Curitiba"/><meta name="author" content="Matheus Peres da Silva — Exvorn"/><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/><meta name="googlebot" content="index, follow"/><link rel="canonical" href="https://exvorn.tech/blog"/><link rel="alternate" hreflang="pt-BR" href="https://exvorn.tech/blog"/><link rel="alternate" hreflang="x-default" href="https://exvorn.tech/blog"/><link rel="alternate" type="text/plain" title="llms.txt" href="https://exvorn.tech/llms.txt"/><link rel="sitemap" type="application/xml" href="https://exvorn.tech/sitemap.xml"/><meta name="title" content="Blog — AetherCore | Release notes, engenharia e IA local"/><meta property="og:type" content="website"/><meta property="og:locale" content="pt_BR"/><meta property="og:locale:alternate" content="en_US"/><meta property="og:url" content="https://exvorn.tech/blog"/><meta property="og:site_name" content="AetherCore"/><meta property="og:title" content="Blog — AetherCore | Release notes, engenharia e IA local"/><meta property="og:description" content="Changelog e artigos de engenharia do AetherCore: Quintessence IDE, Aether Runtime Kernel, Granite, Qwen, CEF, Rust e IA verde. Atualizações diretas do founder."/><meta property="og:image" content="https://exvorn.tech/logo-aether.png"/><meta property="og:image:alt" content="Logotipo do AetherCore"/><meta property="twitter:card" content="summary_large_image"/><meta property="twitter:title" content="Blog — AetherCore | Release notes, engenharia e IA local"/><meta property="twitter:description" content="Changelog e artigos de engenharia do AetherCore: Quintessence IDE, Aether Runtime Kernel, Granite, Qwen, CEF, Rust e IA verde. Atualizações diretas do founder."/><meta property="twitter:image" content="https://exvorn.tech/logo-aether.png"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="dns-prefetch" href="https://fonts.gstatic.com"/><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><link rel="icon" id="dynamic-favicon" type="image/png" href="/favicon-32.png"/><link rel="icon" type="image/png" href="/favicon-light.png" media="(prefers-color-scheme: dark)"/><link rel="icon" type="image/png" href="/favicon-32.png" media="(prefers-color-scheme: light)"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><script>!function(){function e(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,n=document.getElementById("dynamic-favicon");n&&(n.href=e?"/favicon-light.png":"/favicon-32.png")}e(),window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e)}()</script><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600;700&family=Fraunces:ital,wght@1,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/><title>Blog — AetherCore | Release notes, engenharia e IA local</title><script>window.addEventListener("error",function(e){e.error instanceof DOMException&&"DataCloneError"===e.error.name&&e.message&&e.message.includes("PerformanceServerTiming")&&(e.stopImmediatePropagation(),e.preventDefault())},!0)</script><script type="application/ld+json">{
             "@context": "https://schema.org",
             "@graph": [
                 {
                     "@type": "Organization",
-                    "@id": "https://arch-antomcore.github.io/#organization",
+                    "@id": "https://exvorn.tech/#organization",
                     "name": "Exvorn",
                     "alternateName": ["Exvorn Tech", "AetherCore"],
-                    "url": "https://arch-antomcore.github.io",
+                    "url": "https://exvorn.tech",
                     "logo": {
                         "@type": "ImageObject",
-                        "url": "https://arch-antomcore.github.io/logo-aether.png"
+                        "url": "https://exvorn.tech/logo-aether.png"
                     },
                     "email": "business@exvorn.tech",
                     "foundingDate": "2025",
-                    "founder": { "@id": "https://arch-antomcore.github.io/#founder" },
+                    "founder": { "@id": "https://exvorn.tech/#founder" },
                     "address": {
                         "@type": "PostalAddress",
                         "addressLocality": "Curitiba",
@@ -33,16 +33,16 @@
                 },
                 {
                     "@type": "Person",
-                    "@id": "https://arch-antomcore.github.io/#founder",
+                    "@id": "https://exvorn.tech/#founder",
                     "name": "Matheus Peres da Silva",
                     "jobTitle": "Founder & Architect",
-                    "worksFor": { "@id": "https://arch-antomcore.github.io/#organization" },
-                    "image": "https://arch-antomcore.github.io/founder.jpg",
+                    "worksFor": { "@id": "https://exvorn.tech/#organization" },
+                    "image": "https://exvorn.tech/founder.jpg",
                     "sameAs": ["https://www.linkedin.com/in/matheus-peres-da-silva/"]
                 },
                 {
                     "@type": "SoftwareApplication",
-                    "@id": "https://arch-antomcore.github.io/#software",
+                    "@id": "https://exvorn.tech/#software",
                     "name": "AetherCore",
                     "alternateName": ["Aether Core", "Aether"],
                     "applicationCategory": "BusinessApplication",
@@ -60,9 +60,9 @@
                     ],
                     "keywords": "IA local, agente de IA, local-first, LLM offline, Ollama, Rust, privacidade, LGPD",
                     "softwareVersion": "0.6.0",
-                    "url": "https://arch-antomcore.github.io",
-                    "image": "https://arch-antomcore.github.io/logo-aether.png",
-                    "screenshot": "https://arch-antomcore.github.io/console-aether.png",
+                    "url": "https://exvorn.tech",
+                    "image": "https://exvorn.tech/logo-aether.png",
+                    "screenshot": "https://exvorn.tech/console-aether.png",
                     "inLanguage": ["pt-BR", "en"],
                     "countryOfOrigin": "BR",
                     "offers": {
@@ -71,24 +71,24 @@
                         "highPrice": "449",
                         "priceCurrency": "BRL",
                         "offerCount": "4",
-                        "url": "https://arch-antomcore.github.io/precos"
+                        "url": "https://exvorn.tech/precos"
                     },
-                    "author": { "@id": "https://arch-antomcore.github.io/#organization" },
-                    "publisher": { "@id": "https://arch-antomcore.github.io/#organization" }
+                    "author": { "@id": "https://exvorn.tech/#organization" },
+                    "publisher": { "@id": "https://exvorn.tech/#organization" }
                 },
                 {
                     "@type": "WebSite",
-                    "@id": "https://arch-antomcore.github.io/#website",
+                    "@id": "https://exvorn.tech/#website",
                     "name": "AetherCore",
                     "alternateName": "Exvorn — AetherCore",
-                    "url": "https://arch-antomcore.github.io",
+                    "url": "https://exvorn.tech",
                     "inLanguage": "pt-BR",
-                    "publisher": { "@id": "https://arch-antomcore.github.io/#organization" },
-                    "about": { "@id": "https://arch-antomcore.github.io/#software" }
+                    "publisher": { "@id": "https://exvorn.tech/#organization" },
+                    "about": { "@id": "https://exvorn.tech/#software" }
                 },
                 {
                     "@type": "FAQPage",
-                    "@id": "https://arch-antomcore.github.io/#faq",
+                    "@id": "https://exvorn.tech/#faq",
                     "mainEntity": [
                         {
                             "@type": "Question",
@@ -119,10 +119,10 @@
                             "name": "Quanto custa o AetherCore?",
                             "acceptedAnswer": {
                                 "@type": "Answer",
-                                "text": "Há um plano gratuito para começar e planos pagos (Go, Enterprise e Scale) em reais. Os detalhes atualizados estão em https://arch-antomcore.github.io/precos."
+                                "text": "Há um plano gratuito para começar e planos pagos (Go, Enterprise e Scale) em reais. Os detalhes atualizados estão em https://exvorn.tech/precos."
                             }
                         }
                     ]
                 }
             ]
-        }</script><script defer="defer" src="/static/js/main.c201c62f.js"></script><link href="/static/css/main.573f182a.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script>!function(){var e=!1;function r(r){if(!e){e=!0;var o=document.getElementById("root");o&&!o.innerHTML.trim()&&(o.innerHTML='<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f1e8;padding:2rem"><div style="max-width:480px;text-align:center;font-family:system-ui,sans-serif"><h1 style="font-size:1.5rem;color:#211d18;margin-bottom:1rem">Ops — algo deu errado</h1><p style="color:#666;margin-bottom:1.5rem;font-size:0.875rem">Se você usa o <strong>Brave</strong>, desative o Brave Shields para este site clicando no ícone do leão na barra de endereço.</p><pre style="background:#211d18;color:#f87171;padding:1rem;border-radius:12px;font-size:0.75rem;text-align:left;overflow:auto;max-height:200px">'+r+'</pre><button onclick="location.reload()" style="margin-top:1.5rem;padding:0.6rem 1.5rem;border-radius:999px;border:1px solid #211d18;background:#211d18;color:#f4f1e8;cursor:pointer;font-size:0.875rem">Recarregar</button></div></div>')}}window.addEventListener("error",function(e){e.error&&e.error instanceof DOMException&&"DataCloneError"===e.error.name||setTimeout(function(){r(e.message||"Unknown error")},500)}),window.addEventListener("unhandledrejection",function(e){var o=e.reason?e.reason.message||String(e.reason):"Chunk load failed";setTimeout(function(){r(o)},500)})}()</script><script>!function(){if(!(navigator.connection&&navigator.connection.saveData)){var t=function(){var t,o,i,e,n,s;t=document,(o=window.posthog||[]).__SV||(window.posthog=o,o._i=[],o.init=function(p,r,a){function c(t,o){var i=o.split(".");2==i.length&&(t=t[i[0]],o=i[1]),t[o]=function(){t.push([o].concat(Array.prototype.slice.call(arguments,0)))}}(n=t.createElement("script")).type="text/javascript",n.crossOrigin="anonymous",n.async=!0,n.src=r.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(s=t.getElementsByTagName("script")[0]).parentNode.insertBefore(n,s);var u=o;for(void 0!==a?u=o[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var o="posthog";return"posthog"!==a&&(o+="."+a),t||(o+=" (stub)"),o},u.people.toString=function(){return u.toString(1)+".people (stub)"},i="init capture identify reset opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_distinct_id".split(" "),e=0;e<i.length;e++)c(u,i[e]);o._i.push([p,r,a])},o.__SV=1),posthog.init("phc_xAvL2Iq4tFmANRE7kzbKwaSqp1HJjN7x48s3vr0CMjs",{api_host:"https://us.i.posthog.com",person_profiles:"identified_only",session_recording:!1,capture_pageview:!0})};"requestIdleCallback"in window?requestIdleCallback(t,{timeout:3500}):setTimeout(t,2500)}}()</script></body></html>
+        }</script><script defer="defer" src="/static/js/main.7bec37cc.js"></script><link href="/static/css/main.573f182a.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><script>!function(){var e=!1;function r(r){if(!e){e=!0;var o=document.getElementById("root");o&&!o.innerHTML.trim()&&(o.innerHTML='<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f4f1e8;padding:2rem"><div style="max-width:480px;text-align:center;font-family:system-ui,sans-serif"><h1 style="font-size:1.5rem;color:#211d18;margin-bottom:1rem">Ops — algo deu errado</h1><p style="color:#666;margin-bottom:1.5rem;font-size:0.875rem">Se você usa o <strong>Brave</strong>, desative o Brave Shields para este site clicando no ícone do leão na barra de endereço.</p><pre style="background:#211d18;color:#f87171;padding:1rem;border-radius:12px;font-size:0.75rem;text-align:left;overflow:auto;max-height:200px">'+r+'</pre><button onclick="location.reload()" style="margin-top:1.5rem;padding:0.6rem 1.5rem;border-radius:999px;border:1px solid #211d18;background:#211d18;color:#f4f1e8;cursor:pointer;font-size:0.875rem">Recarregar</button></div></div>')}}window.addEventListener("error",function(e){e.error&&e.error instanceof DOMException&&"DataCloneError"===e.error.name||setTimeout(function(){r(e.message||"Unknown error")},500)}),window.addEventListener("unhandledrejection",function(e){var o=e.reason?e.reason.message||String(e.reason):"Chunk load failed";setTimeout(function(){r(o)},500)})}()</script><script>!function(){if(!(navigator.connection&&navigator.connection.saveData)){var t=function(){var t,o,i,e,n,s;t=document,(o=window.posthog||[]).__SV||(window.posthog=o,o._i=[],o.init=function(p,r,a){function c(t,o){var i=o.split(".");2==i.length&&(t=t[i[0]],o=i[1]),t[o]=function(){t.push([o].concat(Array.prototype.slice.call(arguments,0)))}}(n=t.createElement("script")).type="text/javascript",n.crossOrigin="anonymous",n.async=!0,n.src=r.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(s=t.getElementsByTagName("script")[0]).parentNode.insertBefore(n,s);var u=o;for(void 0!==a?u=o[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var o="posthog";return"posthog"!==a&&(o+="."+a),t||(o+=" (stub)"),o},u.people.toString=function(){return u.toString(1)+".people (stub)"},i="init capture identify reset opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_distinct_id".split(" "),e=0;e<i.length;e++)c(u,i[e]);o._i.push([p,r,a])},o.__SV=1),posthog.init("phc_xAvL2Iq4tFmANRE7kzbKwaSqp1HJjN7x48s3vr0CMjs",{api_host:"https://us.i.posthog.com",person_profiles:"identified_only",session_recording:!1,capture_pageview:!0})};"requestIdleCallback"in window?requestIdleCallback(t,{timeout:3500}):setTimeout(t,2500)}}()</script></body></html>

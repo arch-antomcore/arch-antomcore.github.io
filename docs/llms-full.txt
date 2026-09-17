@@ -3,7 +3,7 @@
 > AetherCore é a plataforma de agentes de IA local-first da Exvorn (Curitiba, Brasil). Modelos de linguagem rodam no hardware do usuário, a execução é governada por um Kernel próprio em Rust (Aether Runtime Kernel), toda ação sensível pede aprovação humana e cada passo fica registrado em uma trilha auditável. Nenhum dado sai da máquina ou da infraestrutura da organização.
 
 Nomes e variações: AetherCore, Aether Core, Aether, Exvorn, Quintessence (IDE), Aether Runtime Kernel (ARK).
-Site oficial: https://arch-antomcore.github.io — Contato comercial: business@exvorn.tech
+Site oficial: https://exvorn.tech — Contato comercial: business@exvorn.tech
 Founder: Matheus Peres da Silva (https://www.linkedin.com/in/matheus-peres-da-silva/)
 Idiomas do site: português (pt-BR) e inglês.
 
@@ -19,24 +19,24 @@ Idiomas do site: português (pt-BR) e inglês.
 
 ## Páginas principais
 
-- [Início](https://arch-antomcore.github.io/): visão geral, manifesto e mensagem do founder.
-- [Produto](https://arch-antomcore.github.io/produto): o que o AetherCore faz, hardware recomendado e fluxo de aprovação.
-- [Preços](https://arch-antomcore.github.io/precos): planos Free, Go, Enterprise e Scale.
-- [Arquitetura](https://arch-antomcore.github.io/arquitetura): Aether Runtime Kernel em Rust, roteamento de modelos, Quintessence IDE.
-- [Casos de uso](https://arch-antomcore.github.io/casos-de-uso): jurídico, financeiro, controladoria, engenharia.
-- [Princípios](https://arch-antomcore.github.io/principios): local por padrão, aprovação humana, auditabilidade.
-- [FAQ](https://arch-antomcore.github.io/faq): perguntas frequentes sobre IA local e dados sensíveis.
-- [Blog / Release notes](https://arch-antomcore.github.io/blog): changelog técnico de cada versão.
-- [Validação](https://arch-antomcore.github.io/validacao): evidências de engenharia e testes.
-- [Sustentabilidade](https://arch-antomcore.github.io/sustentabilidade): IA verde e eficiência energética.
-- [Sobre](https://arch-antomcore.github.io/sobre): Exvorn, founder e missão.
-- [Ecossistema](https://arch-antomcore.github.io/ecossistema): AetherCore, Quintessence, MonitorSmith, Component Atlas.
-- [Roadmap](https://arch-antomcore.github.io/roadmap), [Dossiê](https://arch-antomcore.github.io/dossie), [Referências](https://arch-antomcore.github.io/referencias), [Privacidade](https://arch-antomcore.github.io/privacidade).
+- [Início](https://exvorn.tech/): visão geral, manifesto e mensagem do founder.
+- [Produto](https://exvorn.tech/produto): o que o AetherCore faz, hardware recomendado e fluxo de aprovação.
+- [Preços](https://exvorn.tech/precos): planos Free, Go, Enterprise e Scale.
+- [Arquitetura](https://exvorn.tech/arquitetura): Aether Runtime Kernel em Rust, roteamento de modelos, Quintessence IDE.
+- [Casos de uso](https://exvorn.tech/casos-de-uso): jurídico, financeiro, controladoria, engenharia.
+- [Princípios](https://exvorn.tech/principios): local por padrão, aprovação humana, auditabilidade.
+- [FAQ](https://exvorn.tech/faq): perguntas frequentes sobre IA local e dados sensíveis.
+- [Blog / Release notes](https://exvorn.tech/blog): changelog técnico de cada versão.
+- [Validação](https://exvorn.tech/validacao): evidências de engenharia e testes.
+- [Sustentabilidade](https://exvorn.tech/sustentabilidade): IA verde e eficiência energética.
+- [Sobre](https://exvorn.tech/sobre): Exvorn, founder e missão.
+- [Ecossistema](https://exvorn.tech/ecossistema): AetherCore, Quintessence, MonitorSmith, Component Atlas.
+- [Roadmap](https://exvorn.tech/roadmap), [Dossiê](https://exvorn.tech/dossie), [Referências](https://exvorn.tech/referencias), [Privacidade](https://exvorn.tech/privacidade).
 
 ## Recursos para agentes
 
-- [Changelog semântico em Markdown](https://arch-antomcore.github.io/aether-updates-ai.md): índice cronológico de versões, tags e status (implementado / validado / parcial / planejado).
-- [Sitemap](https://arch-antomcore.github.io/sitemap.xml)
+- [Changelog semântico em Markdown](https://exvorn.tech/aether-updates-ai.md): índice cronológico de versões, tags e status (implementado / validado / parcial / planejado).
+- [Sitemap](https://exvorn.tech/sitemap.xml)
 
 ## Como citar
 
