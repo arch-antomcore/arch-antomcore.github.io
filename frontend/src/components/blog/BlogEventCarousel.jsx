@@ -140,38 +140,63 @@ export const BlogEventCarousel = () => {
   const checkScroll = () => {
     if (!scrollRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanScrollLeft(scrollLeft > 20);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 20);
+    
+    // Add a small threshold (e.g., 5px) to handle rounding errors at the edges
+    setCanScrollLeft(scrollLeft > 5);
+    setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 5);
 
-    // Calculate approx active card
-    const cardWidth = 360;
-    const index = Math.round(scrollLeft / cardWidth);
-    setActiveIndex(Math.min(Math.max(index, 0), CAROUSEL_CARDS.length - 1));
+    // Calculate active card by finding the child whose left edge is closest to the scrollLeft + padding
+    const container = scrollRef.current;
+    const children = Array.from(container.querySelectorAll(".event-carousel-card"));
+    
+    let closestIdx = 0;
+    let minDistance = Infinity;
+    
+    // The container has padding-left (px-6/px-10/px-12) which we need to account for
+    const containerPaddingLeft = parseFloat(window.getComputedStyle(container).paddingLeft) || 0;
+
+    children.forEach((child, idx) => {
+      // The child's offsetLeft relative to the container's scrolling context
+      // Child offsetLeft includes the container's padding.
+      const childLeft = child.offsetLeft - containerPaddingLeft;
+      const distance = Math.abs(childLeft - scrollLeft);
+      
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIdx = idx;
+      }
+    });
+
+    setActiveIndex(closestIdx);
   };
 
   useEffect(() => {
     const el = scrollRef.current;
     if (el) {
       el.addEventListener("scroll", checkScroll, { passive: true });
-      checkScroll();
-      return () => el.removeEventListener("scroll", checkScroll);
+      // Initial check after layout
+      setTimeout(checkScroll, 100);
+      window.addEventListener("resize", checkScroll);
+      return () => {
+        el.removeEventListener("scroll", checkScroll);
+        window.removeEventListener("resize", checkScroll);
+      };
     }
   }, []);
-
-  const scrollTo = (direction) => {
-    if (!scrollRef.current) return;
-    const scrollAmount = scrollRef.current.clientWidth * 0.75;
-    scrollRef.current.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
-    });
-  };
 
   const scrollToIndex = (idx) => {
     if (!scrollRef.current) return;
     const cards = scrollRef.current.querySelectorAll(".event-carousel-card");
     if (cards[idx]) {
-      cards[idx].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      cards[idx].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    }
+  };
+
+  const scrollTo = (direction) => {
+    if (direction === "left") {
+      scrollToIndex(Math.max(0, activeIndex - 1));
+    } else {
+      scrollToIndex(Math.min(CAROUSEL_CARDS.length - 1, activeIndex + 1));
     }
   };
 
@@ -295,7 +320,7 @@ export const BlogEventCarousel = () => {
                 className={`event-carousel-card snap-start flex-shrink-0 w-[290px] sm:w-[340px] md:w-[380px] rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer relative overflow-hidden group border ${
                   isSelected
                     ? "bg-white text-black shadow-2xl border-white scale-[1.02]"
-                    : "bg-white/10 hover:bg-white/15 text-white backdrop-blur-xl border-white/25 hover:border-[#CCFF00]/60"
+                    : "bg-[#001a80]/80 hover:bg-[#001a80]/90 text-white backdrop-blur-xl border-white/30 hover:border-[#CCFF00]/60 shadow-lg"
                 }`}
               >
                 {/* Top Card Badge & Phase */}
@@ -317,7 +342,7 @@ export const BlogEventCarousel = () => {
                   {/* Icon & Subtitle */}
                   <div className="flex items-center gap-3 mb-3">
                     <div className={`p-2.5 rounded-2xl flex items-center justify-center transition-colors ${
-                      isSelected ? "bg-[#0038FF] text-[#CCFF00]" : "bg-white/15 text-[#CCFF00] group-hover:bg-[#CCFF00] group-hover:text-black"
+                      isSelected ? "bg-[#0038FF] text-[#CCFF00]" : "bg-white/25 text-[#CCFF00] group-hover:bg-[#CCFF00] group-hover:text-black"
                     }`}>
                       <Icon className="w-5 h-5 sm:w-6 sm:h-6" weight="bold" />
                     </div>
@@ -344,7 +369,7 @@ export const BlogEventCarousel = () => {
                 </div>
 
                 {/* Bottom Metrics Pill & Status */}
-                <div className="mt-6 pt-4 border-t border-current/15">
+                <div className={`mt-6 pt-4 border-t ${isSelected ? "border-black/15" : "border-white/20"}`}>
                   <div className="flex flex-wrap gap-1.5 mb-3">
                     {card.metrics.map((m, mIdx) => (
                       <span
@@ -352,7 +377,7 @@ export const BlogEventCarousel = () => {
                         className={`text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-md font-bold ${
                           isSelected
                             ? "bg-black/5 text-black/90 border border-black/10"
-                            : "bg-white/10 text-white/90 border border-white/15"
+                            : "bg-white/20 text-white/90 border border-white/25"
                         }`}
                       >
                         {m}
