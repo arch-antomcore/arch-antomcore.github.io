@@ -281,7 +281,7 @@ export const BlogEventCarousel = () => {
         {/* Horizontal Carousel Track */}
         <div
           ref={scrollRef}
-          className="relative z-10 flex gap-4 md:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory px-6 sm:px-10 md:px-12 py-8 md:py-10 no-scrollbar"
+          className="relative z-10 flex gap-4 md:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory px-6 sm:px-10 md:px-12 py-8 md:py-10 [&::-webkit-scrollbar]:hidden"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {CAROUSEL_CARDS.map((card, idx) => {
