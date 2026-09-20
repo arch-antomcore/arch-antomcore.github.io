@@ -119,15 +119,10 @@ const SiteContent = ({ lenis = null }) => {
   }, [language]);
 
   useEffect(() => {
-    const updateFavicon = () => {
-      const isDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-      const faviconLink = document.getElementById("dynamic-favicon");
-      if (faviconLink) faviconLink.href = isDark ? "/favicon-light.png" : "/favicon-32.png";
-    };
-    updateFavicon();
-    const mediaQuery = window.matchMedia?.("(prefers-color-scheme: dark)");
-    mediaQuery?.addEventListener?.("change", updateFavicon);
-    return () => mediaQuery?.removeEventListener?.("change", updateFavicon);
+    const faviconLink = document.getElementById("dynamic-favicon");
+    if (faviconLink) {
+      faviconLink.href = "/assets/img/brand/logo-aether.png";
+    }
   }, []);
 
   // Soft scroll reveals run in both profiles; the light profile only uses the

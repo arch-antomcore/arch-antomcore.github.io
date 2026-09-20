@@ -47,27 +47,10 @@
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         
-        <!-- Dynamic High-Contrast Browser Window Favicons -->
-        <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/favicon.svg" />
-        <link rel="icon" id="dynamic-favicon" type="image/png" href="%PUBLIC_URL%/favicon-32.png" />
-        <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-light.png" media="(prefers-color-scheme: dark)" />
-        <link rel="icon" type="image/png" href="%PUBLIC_URL%/favicon-32.png" media="(prefers-color-scheme: light)" />
-        <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
-        <script>
-            (function() {
-                function updateFavicon() {
-                    var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    var favicon = document.getElementById('dynamic-favicon');
-                    if (favicon) {
-                        favicon.href = isDark ? '%PUBLIC_URL%/favicon-light.png' : '%PUBLIC_URL%/favicon-32.png';
-                    }
-                }
-                updateFavicon();
-                if (window.matchMedia) {
-                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
-                }
-            })();
-        </script>
+        <!-- Official Static Favicon (AetherCore Logo - same as footer) -->
+        <link rel="icon" id="dynamic-favicon" type="image/png" href="%PUBLIC_URL%/assets/img/brand/logo-aether.png" />
+        <link rel="shortcut icon" type="image/png" href="%PUBLIC_URL%/assets/img/brand/logo-aether.png" />
+        <link rel="apple-touch-icon" href="%PUBLIC_URL%/assets/img/brand/logo-aether.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@500;600;700&family=Fraunces:ital,wght@1,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />

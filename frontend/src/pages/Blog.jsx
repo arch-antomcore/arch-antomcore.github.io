@@ -2,6 +2,7 @@ import React, { useMemo, useRef, useState } from "react";
 import PageHero from "@/components/site/PageHero";
 import { Container, Section } from "@/components/site/primitives";
 import { GlassBlogCard } from "@/components/ui/glass-blog-card";
+import { BlogEventCarousel } from "@/components/blog/BlogEventCarousel";
 import { BLOG_POSTS } from "@/data/blogPosts";
 import CtaSection from "@/components/site/CtaSection";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -227,6 +228,9 @@ const Blog = () => {
         lines={text.lines}
         lead={text.lead}
       />
+
+      {/* Major Announcement / Event Horizontal Carousel */}
+      <BlogEventCarousel />
 
       <Section className="liquid-divider relative">
         <Container>
