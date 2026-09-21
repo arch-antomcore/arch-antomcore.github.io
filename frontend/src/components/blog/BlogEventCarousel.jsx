@@ -1,20 +1,26 @@
 import React, { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { 
   CaretLeft, 
   CaretRight, 
   Broadcast, 
-  Lightning, 
   Cpu, 
   Code, 
   Sparkle, 
   ArrowUpRight, 
   ShieldCheck, 
-  Fire,
   CalendarBlank,
   Rocket
 } from "@phosphor-icons/react";
-import { useTranslation } from "@/hooks/useTranslation";
+import { useTranslation } from "../../hooks/useTranslation";
+
+export const getNextCarouselIndex = (currentIndex, direction, cardCount) => {
+  if (!cardCount) return 0;
+
+  const nextIndex = direction === "left" ? currentIndex - 1 : currentIndex + 1;
+  return Math.min(cardCount - 1, Math.max(0, nextIndex));
+};
+
+const NAVIGATION_TIMEOUT = 1200;
 
 // --- Custom Hand-Drawn SVG Accents from Template ---
 
@@ -46,7 +52,7 @@ const CircularEventBadge = ({ text }) => (
     </div>
     <div className="absolute inset-0 flex flex-col items-center justify-center text-black">
       <Rocket className="w-6 h-6 md:w-7 md:h-7 animate-bounce" weight="fill" />
-      <span className="text-[8px] md:text-[9px] font-black tracking-wider uppercase">LIVE</span>
+      <span className="text-[8px] md:text-[9px] font-black tracking-wider uppercase">STATUS</span>
     </div>
   </div>
 );
@@ -58,105 +64,175 @@ export const BlogEventCarousel = () => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const navigationTimerRef = useRef(null);
+  const navigationFrameRef = useRef(null);
 
   const CAROUSEL_CARDS = [
     {
-      id: "kernel-v1",
+      id: "runtime-kernel-governance",
       icon: Cpu,
-      phase: isPt ? "FASE 01 • MOTOR NATIVO" : "PHASE 01 • NATIVE CORE",
-      title: isPt ? "Kernel V1.0 & Zero-Latency Engine" : "Kernel V1.0 & Zero-Latency Engine",
-      subtitle: isPt ? "Reescrita Integral em Rust" : "Full Core Rewrite in Rust",
-      description: isPt 
-        ? "Novo runtime com isolamento de memória rigoroso, inferência local sub-milissegundo e arquitetura modular que reduz em 65% o consumo de RAM em qualquer PC."
-        : "Brand-new execution runtime with strict sandboxing, sub-millisecond local inference, and modular architecture cutting RAM usage by 65% on any hardware.",
-      metrics: isPt ? ["4x Mais Rápido", "0 KB na Nuvem", "Rust Axum"] : ["4x Faster", "0 KB Cloud", "Rust Axum"],
-      tag: isPt ? "BREAKTHROUGH" : "BREAKTHROUGH",
-      highlight: isPt ? "Apresentação ao vivo" : "Live Keynote Demo",
-      status: isPt ? "CONFIDENCIAL // EM HOMOLOGAÇÃO" : "CONFIDENTIAL // IN STAGING",
+      phase: isPt ? "FASE 01 • NÚCLEO DE EXECUÇÃO" : "PHASE 01 • EXECUTION CORE",
+      title: isPt ? "Aether Runtime Kernel" : "Aether Runtime Kernel",
+      subtitle: isPt ? "A autoridade operacional em Rust" : "The Rust operational authority",
+      description: isPt
+        ? "O Kernel recebe a intenção, roteia o modelo, valida ferramentas e mantém sessões, permissões e auditoria no fluxo local. Modelo propõe; Kernel valida; Kernel executa."
+        : "The Kernel receives intent, routes the model, validates tools, and keeps sessions, permissions, and auditing in the local flow. The model proposes; the Kernel validates and executes.",
+      metrics: isPt ? ["Rust", "Permissões", "Trilha de auditoria"] : ["Rust", "Permissions", "Audit trail"],
+      tag: isPt ? "NÚCLEO" : "CORE",
+      highlight: isPt ? "Arquitetura verificável" : "Verifiable architecture",
+      status: isPt ? "IMPLEMENTADO" : "IMPLEMENTED",
       badgeColor: "bg-[#CCFF00] text-black",
     },
     {
-      id: "quintessence-studio",
-      icon: Code,
-      phase: isPt ? "FASE 02 • WORKSPACE" : "PHASE 02 • WORKSPACE",
-      title: isPt ? "Quintessence Studio 2.0" : "Quintessence Studio 2.0",
-      subtitle: isPt ? "A Nova IDE da Era Local" : "The Cognitive Native IDE",
+      id: "local-model-routing",
+      icon: Broadcast,
+      phase: isPt ? "FASE 02 • MODELOS" : "PHASE 02 • MODELS",
+      title: isPt ? "Modelos no controle do usuário" : "Models under your control",
+      subtitle: isPt ? "Ollama, Qwen, Granite e GLM" : "Ollama, Qwen, Granite, and GLM",
       description: isPt
-        ? "Ambiente de desenvolvimento reimaginado com agentes integrados, canvas vetorial e auto-complete sem conexão externa. Suporte nativo a Qwen, DeepSeek e Llama."
-        : "Rebuilt developer environment with built-in multi-agent workflows, infinite canvas, and offline copilot. Native support for Qwen, DeepSeek, and Llama.",
-      metrics: isPt ? ["Offline Copilot", "Multi-LLMs", "Zero Telemetria"] : ["Offline Copilot", "Multi-LLMs", "Zero Telemetry"],
-      tag: isPt ? "NOVA IDE" : "NEW IDE",
-      highlight: isPt ? "Acesso VIP Fechado" : "Closed VIP Access",
-      status: isPt ? "BETA RESTRITO" : "RESTRICTED BETA",
+        ? "O caminho local validado usa Qwen via Ollama sob demanda. Granite pode atuar como orquestrador estruturado; GLM e uplinks compatíveis entram quando configurados, sem fallback silencioso para a nuvem."
+        : "The validated local path uses Qwen through Ollama on demand. Granite can act as a structured orchestrator; GLM and compatible uplinks are used only when configured, with no silent cloud fallback.",
+      metrics: isPt ? ["Qwen + Ollama", "Granite", "Uplinks explícitos"] : ["Qwen + Ollama", "Granite", "Explicit uplinks"],
+      tag: isPt ? "LOCAL-FIRST" : "LOCAL-FIRST",
+      highlight: isPt ? "Roteamento explícito" : "Explicit routing",
+      status: isPt ? "CONFIGURAÇÃO VISÍVEL" : "VISIBLE CONFIGURATION",
       badgeColor: "bg-white text-black",
     },
     {
-      id: "agent-swarm",
-      icon: Lightning,
-      phase: isPt ? "FASE 03 • ORQUESTRAÇÃO" : "PHASE 03 • ORCHESTRATION",
-      title: isPt ? "Multi-Agent Swarm (REACI v2)" : "Multi-Agent Swarm (REACI v2)",
-      subtitle: isPt ? "Enxame de Agentes Autônomos" : "Autonomous Agent Swarms",
+      id: "governed-agents",
+      icon: ShieldCheck,
+      phase: isPt ? "FASE 03 • GOVERNANÇA" : "PHASE 03 • GOVERNANCE",
+      title: isPt ? "Autonomia com freios claros" : "Autonomy with clear brakes",
+      subtitle: isPt ? "Workspace Scope, checkpoints e ARL" : "Workspace Scope, checkpoints, and ARL",
       description: isPt
-        ? "Ativação de múltiplos agentes em paralelo para resolver desafios complexos: auditoria de segurança, síntese de arquivos sensíveis e automação local com checkpoints manuais."
-        : "Deploy concurrent autonomous agents solving complex jobs: security auditing, sensitive data synthesis, and local automation with human-in-the-loop checkpoints.",
-      metrics: isPt ? ["16+ Agentes Paralelos", "Auditoria SHA-256", "Hardware-Light"] : ["16+ Concurrent Agents", "SHA-256 Audit", "Hardware-Light"],
-      tag: isPt ? "PARALELISMO" : "PARALLELISM",
-      highlight: isPt ? "Capacidade Multi-Agente" : "Multi-Agent Fleet",
-      status: isPt ? "PROTOCOLO ATIVO" : "PROTOCOL ACTIVE",
+        ? "Cada leitura, escrita ou ferramenta passa por escopo e política. Ações sensíveis pedem aprovação humana e deixam registro local para revisão."
+        : "Every read, write, or tool call goes through scope and policy. Sensitive actions require human approval and leave a local record for review.",
+      metrics: isPt ? ["Escopo local", "Checkpoints", "Trilha ARL"] : ["Local scope", "Checkpoints", "ARL audit trail"],
+      tag: isPt ? "SEGURANÇA" : "SECURITY",
+      highlight: isPt ? "Revisão humana" : "Human review",
+      status: isPt ? "APROVAÇÃO HUMANA" : "HUMAN APPROVAL",
       badgeColor: "bg-[#CCFF00] text-black",
     },
     {
-      id: "liquid-experience",
+      id: "ecosystem-surfaces",
       icon: Sparkle,
-      phase: isPt ? "FASE 04 • EXPERIÊNCIA" : "PHASE 04 • EXPERIENCE",
-      title: isPt ? "Interface Líquida & Shaders 120 FPS" : "Liquid Glass UI & 120 FPS Shaders",
-      subtitle: isPt ? "A Nova Estética Exvorn" : "The New Exvorn Aesthetic",
+      phase: isPt ? "FASE 04 • ECOSSISTEMA" : "PHASE 04 • ECOSYSTEM",
+      title: isPt ? "Quintessence e Telegram" : "Quintessence and Telegram",
+      subtitle: isPt ? "Duas superfícies, o mesmo Kernel" : "Two surfaces, the same Kernel",
       description: isPt
-        ? "Novo sistema visual baseado em vidro reativo e transições físicas calculadas em GPU integrada, mantendo leveza suprema e zero travamentos em PCs sem placa de vídeo."
-        : "A responsive glass design system with GPU-accelerated physics and fluid shaders, engineered to run locked at 120 FPS without taxing low-spec laptops.",
-      metrics: isPt ? ["120 FPS Fluido", "Modo Leve Ativo", "Sensorial"] : ["120 FPS Fluid", "Light Mode Ready", "Sensorial"],
-      tag: isPt ? "DESIGN SYSTEM" : "DESIGN SYSTEM",
-      highlight: isPt ? "Visual Revelado" : "Visual Revealed",
-      status: isPt ? "PRONTO P/ PRODUÇÃO" : "READY FOR PRODUCTION",
+        ? "A Quintessence conecta o Aether Chat ao workspace por uma ponte IPC local. O gateway Telegram oferece menu, status e seleção de modelo com allowlist; o chat Gemini permanece sem ferramentas locais."
+        : "Quintessence connects Aether Chat to the workspace through a local IPC bridge. The Telegram gateway provides menus, status, and model selection with an allowlist; Gemini chat remains free of local tools.",
+      metrics: isPt ? ["JSON-RPC local", "Open VSX", "Telegram allowlist"] : ["Local JSON-RPC", "Open VSX", "Telegram allowlist"],
+      tag: isPt ? "INTEGRAÇÕES" : "INTEGRATIONS",
+      highlight: isPt ? "Superfícies controladas" : "Controlled surfaces",
+      status: isPt ? "EM EVOLUÇÃO" : "IN PROGRESS",
       badgeColor: "bg-cyan-300 text-black",
     },
     {
-      id: "founder-announcements",
-      icon: Fire,
-      phase: isPt ? "FASE 05 • REVEAL DAY" : "PHASE 05 • REVEAL DAY",
-      title: isPt ? "Anúncios Exclusivos do Founder" : "Exclusive Founder Announcements",
-      subtitle: isPt ? "Transmissão & Vagas VIP" : "Keynote Broadcast & VIP Slots",
+      id: "open-source-community",
+      icon: Code,
+      phase: isPt ? "FASE 05 • ABERTURA PÚBLICA" : "PHASE 05 • PUBLIC OPENING",
+      title: isPt ? "Código aberto, com governança" : "Open source, with governance",
+      subtitle: isPt ? "O próximo passo do AetherCore" : "AetherCore's next step",
       description: isPt
-        ? "Matheus Peres fará comunicados cruciais e demonstrações em tempo real nos próximos dias. Vagas prioritárias e chaves de acesso antecipado serão distribuídas."
-        : "Matheus Peres will deliver critical updates and live product demos in the coming days. Priority rollout keys and community seats will be opened.",
-      metrics: isPt ? ["Transmissão Direta", "Vagas Limitadas", "Chaves Alpha"] : ["Direct Stream", "Limited Seats", "Alpha Keys"],
-      tag: isPt ? "COMUNICADO OFICIAL" : "OFFICIAL BRIEFING",
-      highlight: isPt ? "Fique Atento aos Próximos Dias" : "Stay Tuned Next Days",
-      status: isPt ? "CONTAGEM REGRESSIVA" : "COUNTDOWN ON",
+        ? "Estamos preparando a abertura pública do código no GitHub, com licença, avisos, SECURITY e guia de contribuição. A comunidade poderá auditar, sugerir e enviar melhorias quando a base estiver publicada."
+        : "We are preparing the public GitHub release with licensing, notices, SECURITY, and contribution guidance. The community will be able to audit, suggest, and submit improvements once the code is published.",
+      metrics: isPt ? ["GitHub público", "Licença e avisos", "CONTRIBUTING"] : ["Public GitHub", "License and notices", "CONTRIBUTING"],
+      tag: isPt ? "OPEN SOURCE" : "OPEN SOURCE",
+      highlight: isPt ? "Plano de abertura" : "Opening plan",
+      status: isPt ? "EM PREPARAÇÃO" : "IN PREPARATION",
       badgeColor: "bg-[#CCFF00] text-black",
     },
   ];
 
-  // Use a ref for the "intended" index so arrow clicks always use the latest value,
-  // not a stale React state captured in a closure during smooth scroll animations.
+  // The ref is the source of truth while a smooth scroll is running. React state
+  // can lag behind several rapid clicks, while the ref is updated synchronously.
   const targetIndexRef = useRef(0);
-  const isScrollLockedRef = useRef(false);
+  const navigationTargetRef = useRef(null);
+  const settledIndexRef = useRef(null);
+
+  const cancelNavigation = () => {
+    if (navigationTimerRef.current) {
+      window.clearTimeout(navigationTimerRef.current);
+      navigationTimerRef.current = null;
+    }
+    if (navigationFrameRef.current) {
+      window.cancelAnimationFrame(navigationFrameRef.current);
+      navigationFrameRef.current = null;
+    }
+    navigationTargetRef.current = null;
+  };
+
+  const getCards = (container) =>
+    Array.from(container.querySelectorAll(".event-carousel-card"));
+
+  const getCardScrollLeft = (container, card) => {
+    const styles = window.getComputedStyle(container);
+    const paddingLeft = parseFloat(styles.paddingLeft) || 0;
+    const borderLeft = container.clientLeft || 0;
+    const maxScrollLeft = Math.max(0, container.scrollWidth - container.clientWidth);
+    const target = card.offsetLeft - paddingLeft - borderLeft;
+    return Math.min(maxScrollLeft, Math.max(0, target));
+  };
+
+  const finishNavigation = (idx) => {
+    cancelNavigation();
+    targetIndexRef.current = idx;
+    // Multiple cards can share the track's maximum scrollLeft. Preserve the
+    // requested card until a new user gesture starts instead of falling back
+    // to an earlier card based only on physical position.
+    settledIndexRef.current = idx;
+    setActiveIndex(idx);
+    checkScroll();
+  };
+
+  const waitForNavigation = (container, idx, targetScrollLeft) => {
+    const startedAt = Date.now();
+
+    const settle = () => {
+      if (navigationTargetRef.current !== idx) return;
+      const reachedTarget = Math.abs(container.scrollLeft - targetScrollLeft) <= 1;
+      const timedOut = Date.now() - startedAt >= NAVIGATION_TIMEOUT;
+
+      if (reachedTarget || timedOut) {
+        finishNavigation(idx);
+        return;
+      }
+
+      navigationFrameRef.current = window.requestAnimationFrame(settle);
+    };
+
+    navigationFrameRef.current = window.requestAnimationFrame(settle);
+    navigationTimerRef.current = window.setTimeout(() => finishNavigation(idx), NAVIGATION_TIMEOUT + 100);
+  };
 
   const checkScroll = () => {
     const container = scrollRef.current;
     if (!container) return;
 
     const { scrollLeft, scrollWidth, clientWidth } = container;
+    const children = getCards(container);
+    const atScrollEnd = Math.ceil(scrollLeft + clientWidth) >= scrollWidth - 5;
 
     setCanScrollLeft(scrollLeft > 5);
-    setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 5);
+    setCanScrollRight(!atScrollEnd || targetIndexRef.current < children.length - 1);
 
-    // Don't update activeIndex during a programmatic scroll — the arrow buttons
-    // manage the target index themselves via targetIndexRef.
-    if (isScrollLockedRef.current) return;
+    // During a programmatic scroll the requested card remains selected. The
+    // settle loop below confirms the final position before releasing this lock.
+    if (navigationTargetRef.current !== null) return;
 
-    const children = Array.from(container.querySelectorAll(".event-carousel-card"));
     if (children.length === 0) return;
+
+    const settledIndex = settledIndexRef.current;
+    if (settledIndex !== null && children[settledIndex]) {
+      const settledScrollLeft = getCardScrollLeft(container, children[settledIndex]);
+      if (Math.abs(scrollLeft - settledScrollLeft) <= 1) {
+        targetIndexRef.current = settledIndex;
+        setActiveIndex((current) => (current === settledIndex ? current : settledIndex));
+        return;
+      }
+      settledIndexRef.current = null;
+    }
 
     const containerPaddingLeft = parseFloat(window.getComputedStyle(container).paddingLeft) || 0;
     let closestIdx = 0;
@@ -171,57 +247,68 @@ export const BlogEventCarousel = () => {
       }
     });
 
-    targetIndexRef.current = closestIdx;
-    setActiveIndex(closestIdx);
+    if (targetIndexRef.current !== closestIdx) targetIndexRef.current = closestIdx;
+    setActiveIndex((current) => (current === closestIdx ? current : closestIdx));
   };
 
   useEffect(() => {
     const el = scrollRef.current;
     if (el) {
       el.addEventListener("scroll", checkScroll, { passive: true });
-      setTimeout(checkScroll, 150);
+      const initialFrame = window.requestAnimationFrame(checkScroll);
+      const cancelFromUserScroll = () => {
+        if (navigationTargetRef.current === null && settledIndexRef.current === null) return;
+        cancelNavigation();
+        settledIndexRef.current = null;
+        checkScroll();
+      };
+
+      el.addEventListener("pointerdown", cancelFromUserScroll, { passive: true });
+      el.addEventListener("touchstart", cancelFromUserScroll, { passive: true });
+      el.addEventListener("wheel", cancelFromUserScroll, { passive: true });
       window.addEventListener("resize", checkScroll);
       return () => {
+        window.cancelAnimationFrame(initialFrame);
         el.removeEventListener("scroll", checkScroll);
+        el.removeEventListener("pointerdown", cancelFromUserScroll);
+        el.removeEventListener("touchstart", cancelFromUserScroll);
+        el.removeEventListener("wheel", cancelFromUserScroll);
         window.removeEventListener("resize", checkScroll);
+        cancelNavigation();
       };
     }
-  }, []);
+    // The listener must be rebound when the translated card layout changes;
+    // `checkScroll` is intentionally kept from the current render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPt]);
 
   const scrollToIndex = (idx) => {
     const container = scrollRef.current;
     if (!container) return;
-    const cards = container.querySelectorAll(".event-carousel-card");
+    const cards = getCards(container);
     if (!cards[idx]) return;
 
-    // Lock: prevent checkScroll from overwriting activeIndex during the animation
-    isScrollLockedRef.current = true;
-
-    // Immediately update the visual state and ref
+    cancelNavigation();
     targetIndexRef.current = idx;
     setActiveIndex(idx);
+    navigationTargetRef.current = idx;
 
-    // Calculate exact scroll position for this card
-    const containerPaddingLeft = parseFloat(window.getComputedStyle(container).paddingLeft) || 0;
-    const targetScrollLeft = cards[idx].offsetLeft - containerPaddingLeft;
+    const targetScrollLeft = getCardScrollLeft(container, cards[idx]);
 
     container.scrollTo({
       left: targetScrollLeft,
       behavior: "smooth",
     });
 
-    // Unlock after the smooth scroll animation is expected to finish
-    setTimeout(() => {
-      isScrollLockedRef.current = false;
-      checkScroll(); // Sync state with actual position
-    }, 600);
+    waitForNavigation(container, idx, targetScrollLeft);
   };
 
   const scrollTo = (direction) => {
-    const current = targetIndexRef.current;
-    const nextIdx = direction === "left"
-      ? Math.max(0, current - 1)
-      : Math.min(CAROUSEL_CARDS.length - 1, current + 1);
+    const nextIdx = getNextCarouselIndex(
+      targetIndexRef.current,
+      direction,
+      CAROUSEL_CARDS.length,
+    );
     scrollToIndex(nextIdx);
   };
 
@@ -256,7 +343,7 @@ export const BlogEventCarousel = () => {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#CCFF00]"></span>
               </span>
               <span className="font-mono font-bold text-[11px] md:text-xs uppercase tracking-[0.2em] text-[#CCFF00]">
-                {isPt ? "EVENTO IMINENTE • ANÚNCIOS IMPORTANTES" : "IMMINENT EVENT • MAJOR ANNOUNCEMENTS"}
+                {isPt ? "ATUALIZAÇÃO DO PROJETO • MARCOS VERIFICADOS" : "PROJECT UPDATE • VERIFIED MILESTONES"}
               </span>
             </div>
 
@@ -269,23 +356,23 @@ export const BlogEventCarousel = () => {
                   textShadow: '1px 1px 0 #001A99, 2px 2px 0 #001A99, 3px 3px 0 #001A99, 4px 4px 0 #001A99, 5px 5px 0 #001A99, 6px 6px 0 #001A99, 7px 7px 0 #001A99, 8px 8px 0 #001A99'
                 }}
               >
-                {isPt ? "#GRANDE ATUALIZAÇÃO" : "#MAJOR UPDATE"}
+                {isPt ? "#AETHERCORE EM EVOLUÇÃO" : "#AETHERCORE IN PROGRESS"}
               </h2>
               <h3 
-                className="text-[clamp(2rem,5.5vw,3.8rem)] font-black leading-[0.9] tracking-tighter text-white uppercase m-0 p-0"
+                className="text-[clamp(2rem,5.5vw,3.8rem)] font-black leading-[0.9] tracking-tighter text-[#f7f4ec] uppercase m-0 p-0"
                 style={{ 
                   fontFamily: '"Arial Black", Impact, sans-serif',
                   textShadow: '1px 1px 0 #001A99, 2px 2px 0 #001A99, 3px 3px 0 #001A99, 4px 4px 0 #001A99, 5px 5px 0 #001A99, 6px 6px 0 #001A99, 7px 7px 0 #001A99, 8px 8px 0 #001A99'
                 }}
               >
-                {isPt ? "KEYNOTE & LANÇAMENTO" : "KEYNOTE & REVEAL"}
+                {isPt ? "CÓDIGO, CONTROLE E COMUNIDADE" : "CODE, CONTROL, AND COMMUNITY"}
               </h3>
             </div>
 
-            <p className="mt-4 text-white/90 text-sm md:text-base font-medium max-w-2xl leading-relaxed">
+            <p className="mt-4 text-[#f7f4ec]/90 text-sm md:text-base font-medium max-w-2xl leading-relaxed">
               {isPt
-                ? "Nos próximos dias, uma série de novidades transformará a infraestrutura do AetherCore e da Exvorn. Deslize para visualizar os pilares que serão revelados."
-                : "In the coming days, a landmark series of announcements will transform the AetherCore and Exvorn ecosystem. Swipe to explore the upcoming keynote pillars."}
+                ? "Do runtime Rust ao plano de abertura open source: estes são os marcos implementados e os próximos passos que estamos preparando para o AetherCore."
+                : "From the Rust runtime to the open-source opening plan: these are the milestones shipped and the next steps we are preparing for AetherCore."}
             </p>
           </div>
 
@@ -293,19 +380,20 @@ export const BlogEventCarousel = () => {
           <div className="flex items-center gap-5 sm:gap-6 self-start md:self-end">
             <div className="hidden sm:block">
               <CircularEventBadge 
-                text={isPt ? "AETHER KEYNOTE • ANÚNCIO EXCLUSIVO • DIAS • " : "AETHER KEYNOTE • MAJOR UPDATE INCOMING • "} 
+                text={isPt ? "AETHERCORE • CÓDIGO ABERTO EM PREPARAÇÃO • " : "AETHERCORE • OPEN SOURCE IN PREPARATION • "}
               />
             </div>
 
             {/* Next / Prev Controls */}
             <div className="flex items-center gap-2">
               <button
+                type="button"
                 onClick={() => scrollTo("left")}
                 disabled={!canScrollLeft}
                 aria-label="Previous card"
-                className={`p-3 md:p-3.5 rounded-full border border-white/30 text-white backdrop-blur-md transition-all duration-200 ${
+                className={`p-3 md:p-3.5 rounded-full border border-white/30 text-[#f7f4ec] backdrop-blur-md transition-all duration-200 ${
                   canScrollLeft
-                    ? "bg-white/20 hover:bg-[#CCFF00] hover:text-black hover:border-black cursor-pointer shadow-lg active:scale-95"
+                    ? "bg-white/20 hover:bg-[#CCFF00] hover:text-[#211d18] hover:border-[#211d18] cursor-pointer shadow-lg active:scale-95"
                     : "opacity-35 cursor-not-allowed bg-black/20"
                 }`}
               >
@@ -313,12 +401,13 @@ export const BlogEventCarousel = () => {
               </button>
 
               <button
+                type="button"
                 onClick={() => scrollTo("right")}
                 disabled={!canScrollRight}
                 aria-label="Next card"
-                className={`p-3 md:p-3.5 rounded-full border border-white/30 text-white backdrop-blur-md transition-all duration-200 ${
+                className={`p-3 md:p-3.5 rounded-full border border-white/30 text-[#f7f4ec] backdrop-blur-md transition-all duration-200 ${
                   canScrollRight
-                    ? "bg-white/20 hover:bg-[#CCFF00] hover:text-black hover:border-black cursor-pointer shadow-lg active:scale-95"
+                    ? "bg-white/20 hover:bg-[#CCFF00] hover:text-[#211d18] hover:border-[#211d18] cursor-pointer shadow-lg active:scale-95"
                     : "opacity-35 cursor-not-allowed bg-black/20"
                 }`}
               >
@@ -331,7 +420,7 @@ export const BlogEventCarousel = () => {
         {/* Horizontal Carousel Track */}
         <div
           ref={scrollRef}
-          className="relative z-10 flex gap-4 md:gap-6 overflow-x-auto px-6 sm:px-10 md:px-12 py-8 md:py-10 [&::-webkit-scrollbar]:hidden"
+          className="relative z-10 flex gap-4 md:gap-6 overflow-x-auto px-6 sm:px-10 md:px-12 py-8 md:py-10 text-[#f7f4ec] [&::-webkit-scrollbar]:hidden"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {CAROUSEL_CARDS.map((card, idx) => {
@@ -344,21 +433,21 @@ export const BlogEventCarousel = () => {
                 onClick={() => scrollToIndex(idx)}
                 className={`event-carousel-card flex-shrink-0 w-[290px] sm:w-[340px] md:w-[380px] rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer relative overflow-hidden group border ${
                   isSelected
-                    ? "bg-white text-black shadow-2xl border-white scale-[1.02]"
-                    : "bg-[#001a80]/80 hover:bg-[#001a80]/90 text-white backdrop-blur-xl border-white/30 hover:border-[#CCFF00]/60 shadow-lg"
+                    ? "bg-[#f7f4ec] text-[#211d18] shadow-2xl border-white scale-[1.02]"
+                    : "bg-[#001a80]/80 hover:bg-[#001a80]/90 text-[#f7f4ec] backdrop-blur-xl border-white/30 hover:border-[#CCFF00]/60 shadow-lg"
                 }`}
               >
                 {/* Top Card Badge & Phase */}
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-4">
                     <span className={`px-3 py-1 rounded-full font-mono text-[10px] sm:text-xs font-black tracking-wider uppercase shadow-sm ${
-                      isSelected ? "bg-[#0038FF] text-white" : card.badgeColor
+                      isSelected ? "bg-[#0038FF] text-[#f7f4ec]" : card.badgeColor
                     }`}>
                       {card.tag}
                     </span>
 
                     <span className={`font-mono text-[10px] uppercase tracking-wider font-bold ${
-                      isSelected ? "text-black/60" : "text-white"
+                      isSelected ? "text-[#211d18]/65" : "text-[#f7f4ec]/80"
                     }`}>
                       {card.phase}
                     </span>
@@ -378,7 +467,7 @@ export const BlogEventCarousel = () => {
                         {card.subtitle}
                       </span>
                       <h4 className={`text-lg sm:text-xl font-black leading-tight tracking-tight ${
-                        isSelected ? "text-black" : "text-white"
+                      isSelected ? "text-[#211d18]" : "text-[#f7f4ec]"
                       }`}>
                         {card.title}
                       </h4>
@@ -387,7 +476,7 @@ export const BlogEventCarousel = () => {
 
                   {/* Body Description */}
                   <p className={`text-xs sm:text-sm leading-relaxed mt-3 ${
-                    isSelected ? "text-black/80 font-medium" : "text-white/95 font-normal"
+                    isSelected ? "text-[#211d18]/85 font-medium" : "text-[#f7f4ec]/90 font-normal"
                   }`}>
                     {card.description}
                   </p>
@@ -401,8 +490,8 @@ export const BlogEventCarousel = () => {
                         key={mIdx}
                         className={`text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-md font-bold ${
                           isSelected
-                            ? "bg-black/5 text-black/90 border border-black/10"
-                            : "bg-white/25 text-white border border-white/30"
+                            ? "bg-[#211d18]/5 text-[#211d18]/90 border border-[#211d18]/10"
+                            : "bg-white/25 text-[#f7f4ec] border border-white/30"
                         }`}
                       >
                         {m}
@@ -415,7 +504,7 @@ export const BlogEventCarousel = () => {
                       ● {card.status}
                     </span>
                     <span className={`inline-flex items-center gap-1 ${
-                      isSelected ? "text-black/60" : "text-white/90"
+                      isSelected ? "text-[#211d18]/70" : "text-[#f7f4ec]/85"
                     }`}>
                       {card.highlight}
                       <ArrowUpRight className="w-3 h-3" />
@@ -427,15 +516,17 @@ export const BlogEventCarousel = () => {
           })}
         </div>
 
-        {/* Bottom Bar: Carousel Pagination Dots & Countdown Note */}
+        {/* Bottom Bar: Carousel Pagination Dots & Project Status */}
         <div className="relative z-10 px-6 sm:px-10 md:px-12 py-4 sm:py-5 bg-black/25 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/10">
           {/* Direct Slide Jump Pills */}
           <div className="flex items-center gap-2">
             {CAROUSEL_CARDS.map((c, i) => (
               <button
                 key={c.id}
+                type="button"
                 onClick={() => scrollToIndex(i)}
                 aria-label={`Jump to announcement ${i + 1}`}
+                aria-current={activeIndex === i ? "true" : undefined}
                 className={`transition-all duration-300 rounded-full ${
                   activeIndex === i
                     ? "w-8 h-2.5 bg-[#CCFF00]"
@@ -445,13 +536,13 @@ export const BlogEventCarousel = () => {
             ))}
           </div>
 
-          {/* Event Countdown / Official Transmission Notice */}
-          <div className="flex items-center gap-2 text-xs font-mono text-white/90 font-bold">
+          {/* Project Status Notice */}
+          <div className="flex items-center gap-2 text-xs font-mono text-[#f7f4ec]/90 font-bold">
             <CalendarBlank className="w-4 h-4 text-[#CCFF00]" />
             <span>
               {isPt
-                ? "DIVULGAÇÃO OFICIAL: PRÓXIMOS DIAS NO HUB DA EXVORN"
-                : "OFFICIAL RELEASE: COMING SOON ON EXVORN HUB"}
+                ? "STATUS DO PROJETO: ROADMAP E GOVERNANÇA EM CONSTRUÇÃO"
+                : "PROJECT STATUS: ROADMAP AND GOVERNANCE IN PROGRESS"}
             </span>
           </div>
         </div>
