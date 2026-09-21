@@ -137,36 +137,41 @@ export const BlogEventCarousel = () => {
     },
   ];
 
+  // Use a ref for the "intended" index so arrow clicks always use the latest value,
+  // not a stale React state captured in a closure during smooth scroll animations.
+  const targetIndexRef = useRef(0);
+  const isScrollLockedRef = useRef(false);
+
   const checkScroll = () => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    
-    // Add a small threshold (e.g., 5px) to handle rounding errors at the edges
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+
     setCanScrollLeft(scrollLeft > 5);
     setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 5);
 
-    // Calculate active card by finding the child whose left edge is closest to the scrollLeft + padding
-    const container = scrollRef.current;
+    // Don't update activeIndex during a programmatic scroll — the arrow buttons
+    // manage the target index themselves via targetIndexRef.
+    if (isScrollLockedRef.current) return;
+
     const children = Array.from(container.querySelectorAll(".event-carousel-card"));
-    
+    if (children.length === 0) return;
+
+    const containerPaddingLeft = parseFloat(window.getComputedStyle(container).paddingLeft) || 0;
     let closestIdx = 0;
     let minDistance = Infinity;
-    
-    // The container has padding-left (px-6/px-10/px-12) which we need to account for
-    const containerPaddingLeft = parseFloat(window.getComputedStyle(container).paddingLeft) || 0;
 
     children.forEach((child, idx) => {
-      // The child's offsetLeft relative to the container's scrolling context
-      // Child offsetLeft includes the container's padding.
       const childLeft = child.offsetLeft - containerPaddingLeft;
       const distance = Math.abs(childLeft - scrollLeft);
-      
       if (distance < minDistance) {
         minDistance = distance;
         closestIdx = idx;
       }
     });
 
+    targetIndexRef.current = closestIdx;
     setActiveIndex(closestIdx);
   };
 
@@ -174,8 +179,7 @@ export const BlogEventCarousel = () => {
     const el = scrollRef.current;
     if (el) {
       el.addEventListener("scroll", checkScroll, { passive: true });
-      // Initial check after layout
-      setTimeout(checkScroll, 100);
+      setTimeout(checkScroll, 150);
       window.addEventListener("resize", checkScroll);
       return () => {
         el.removeEventListener("scroll", checkScroll);
@@ -189,22 +193,35 @@ export const BlogEventCarousel = () => {
     if (!container) return;
     const cards = container.querySelectorAll(".event-carousel-card");
     if (!cards[idx]) return;
-    
-    // Calculate the target scroll position manually instead of using scrollIntoView
-    // which scrolls the entire page/viewport
+
+    // Lock: prevent checkScroll from overwriting activeIndex during the animation
+    isScrollLockedRef.current = true;
+
+    // Immediately update the visual state and ref
+    targetIndexRef.current = idx;
+    setActiveIndex(idx);
+
+    // Calculate exact scroll position for this card
     const containerPaddingLeft = parseFloat(window.getComputedStyle(container).paddingLeft) || 0;
     const targetScrollLeft = cards[idx].offsetLeft - containerPaddingLeft;
-    
+
     container.scrollTo({
       left: targetScrollLeft,
       behavior: "smooth",
     });
+
+    // Unlock after the smooth scroll animation is expected to finish
+    setTimeout(() => {
+      isScrollLockedRef.current = false;
+      checkScroll(); // Sync state with actual position
+    }, 600);
   };
 
   const scrollTo = (direction) => {
+    const current = targetIndexRef.current;
     const nextIdx = direction === "left"
-      ? Math.max(0, activeIndex - 1)
-      : Math.min(CAROUSEL_CARDS.length - 1, activeIndex + 1);
+      ? Math.max(0, current - 1)
+      : Math.min(CAROUSEL_CARDS.length - 1, current + 1);
     scrollToIndex(nextIdx);
   };
 
