@@ -331,7 +331,7 @@ export const BlogEventCarousel = () => {
         {/* Horizontal Carousel Track */}
         <div
           ref={scrollRef}
-          className="relative z-10 flex gap-4 md:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory px-6 sm:px-10 md:px-12 py-8 md:py-10 [&::-webkit-scrollbar]:hidden"
+          className="relative z-10 flex gap-4 md:gap-6 overflow-x-auto px-6 sm:px-10 md:px-12 py-8 md:py-10 [&::-webkit-scrollbar]:hidden"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {CAROUSEL_CARDS.map((card, idx) => {
@@ -342,7 +342,7 @@ export const BlogEventCarousel = () => {
               <div
                 key={card.id}
                 onClick={() => scrollToIndex(idx)}
-                className={`event-carousel-card snap-start flex-shrink-0 w-[290px] sm:w-[340px] md:w-[380px] rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer relative overflow-hidden group border ${
+                className={`event-carousel-card flex-shrink-0 w-[290px] sm:w-[340px] md:w-[380px] rounded-[2rem] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer relative overflow-hidden group border ${
                   isSelected
                     ? "bg-white text-black shadow-2xl border-white scale-[1.02]"
                     : "bg-[#001a80]/80 hover:bg-[#001a80]/90 text-white backdrop-blur-xl border-white/30 hover:border-[#CCFF00]/60 shadow-lg"
