@@ -185,19 +185,27 @@ export const BlogEventCarousel = () => {
   }, []);
 
   const scrollToIndex = (idx) => {
-    if (!scrollRef.current) return;
-    const cards = scrollRef.current.querySelectorAll(".event-carousel-card");
-    if (cards[idx]) {
-      cards[idx].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
-    }
+    const container = scrollRef.current;
+    if (!container) return;
+    const cards = container.querySelectorAll(".event-carousel-card");
+    if (!cards[idx]) return;
+    
+    // Calculate the target scroll position manually instead of using scrollIntoView
+    // which scrolls the entire page/viewport
+    const containerPaddingLeft = parseFloat(window.getComputedStyle(container).paddingLeft) || 0;
+    const targetScrollLeft = cards[idx].offsetLeft - containerPaddingLeft;
+    
+    container.scrollTo({
+      left: targetScrollLeft,
+      behavior: "smooth",
+    });
   };
 
   const scrollTo = (direction) => {
-    if (direction === "left") {
-      scrollToIndex(Math.max(0, activeIndex - 1));
-    } else {
-      scrollToIndex(Math.min(CAROUSEL_CARDS.length - 1, activeIndex + 1));
-    }
+    const nextIdx = direction === "left"
+      ? Math.max(0, activeIndex - 1)
+      : Math.min(CAROUSEL_CARDS.length - 1, activeIndex + 1);
+    scrollToIndex(nextIdx);
   };
 
   return (
@@ -333,7 +341,7 @@ export const BlogEventCarousel = () => {
                     </span>
 
                     <span className={`font-mono text-[10px] uppercase tracking-wider font-bold ${
-                      isSelected ? "text-black/60" : "text-white/70"
+                      isSelected ? "text-black/60" : "text-white"
                     }`}>
                       {card.phase}
                     </span>
@@ -362,14 +370,14 @@ export const BlogEventCarousel = () => {
 
                   {/* Body Description */}
                   <p className={`text-xs sm:text-sm leading-relaxed mt-3 ${
-                    isSelected ? "text-black/80 font-medium" : "text-white/80 font-normal"
+                    isSelected ? "text-black/80 font-medium" : "text-white/95 font-normal"
                   }`}>
                     {card.description}
                   </p>
                 </div>
 
                 {/* Bottom Metrics Pill & Status */}
-                <div className={`mt-6 pt-4 border-t ${isSelected ? "border-black/15" : "border-white/20"}`}>
+                <div className={`mt-6 pt-4 border-t ${isSelected ? "border-black/15" : "border-white/30"}`}>
                   <div className="flex flex-wrap gap-1.5 mb-3">
                     {card.metrics.map((m, mIdx) => (
                       <span
@@ -377,7 +385,7 @@ export const BlogEventCarousel = () => {
                         className={`text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-md font-bold ${
                           isSelected
                             ? "bg-black/5 text-black/90 border border-black/10"
-                            : "bg-white/20 text-white/90 border border-white/25"
+                            : "bg-white/25 text-white border border-white/30"
                         }`}
                       >
                         {m}
@@ -390,7 +398,7 @@ export const BlogEventCarousel = () => {
                       ● {card.status}
                     </span>
                     <span className={`inline-flex items-center gap-1 ${
-                      isSelected ? "text-black/60" : "text-white/60"
+                      isSelected ? "text-black/60" : "text-white/90"
                     }`}>
                       {card.highlight}
                       <ArrowUpRight className="w-3 h-3" />
