@@ -1,9 +1,7 @@
-import React, { act } from "react";
+import React, { act, Profiler } from "react";
 import { createRoot } from "react-dom/client";
-import { useReducedMotion } from "../../lib/motionPreference";
+import { MOTION_STORAGE_KEY, setMotionPreference } from "../../lib/motionPreference";
 import { LogoCarousel } from "./infinite-slider";
-
-jest.mock("../../lib/motionPreference", () => ({ useReducedMotion: jest.fn(() => false) }));
 
 jest.mock("framer-motion", () => {
   const ReactModule = jest.requireActual("react");
@@ -53,7 +51,7 @@ describe("LogoCarousel playback", () => {
   });
 
   beforeEach(() => {
-    useReducedMotion.mockReturnValue(false);
+    window.localStorage.removeItem(MOTION_STORAGE_KEY);
     jest.useFakeTimers();
     jest.spyOn(Math, "random").mockReturnValue(0.5);
     visibilityDescriptor = Object.getOwnPropertyDescriptor(document, "hidden");
@@ -76,6 +74,7 @@ describe("LogoCarousel playback", () => {
     else delete document.hidden;
     delete global.IntersectionObserver;
     jest.restoreAllMocks();
+    window.localStorage.removeItem(MOTION_STORAGE_KEY);
     jest.useRealTimers();
   });
 
@@ -110,20 +109,41 @@ describe("LogoCarousel playback", () => {
     expect(firstImage()).toBe(staticInitialLogo);
   });
 
-  it("freezes the same composition for reduced motion and resumes when allowed", () => {
-    useReducedMotion.mockReturnValue(true);
+  it("keeps playing despite old reduction preferences", () => {
+    window.localStorage.setItem(MOTION_STORAGE_KEY, "reduced");
     render();
     const initialLogo = firstImage();
-    expect(carousel().dataset.carouselMode).toBe("static");
-    expect(carousel().dataset.carouselState).toBe("static");
-    act(() => jest.advanceTimersByTime(4000));
-    expect(firstImage()).toBe(initialLogo);
-
-    useReducedMotion.mockReturnValue(false);
-    render();
+    act(() => setMotionPreference("reduced"));
     expect(carousel().dataset.carouselMode).toBe("animated");
+    expect(carousel().dataset.carouselState).toBe("playing");
     act(() => jest.advanceTimersByTime(2000));
     expect(firstImage()).not.toBe(initialLogo);
+  });
+
+  it("does not rerender between changes and retains the exact stagger", () => {
+    const onRender = jest.fn();
+    act(() => root.render(<Profiler id="logos" onRender={onRender}><LogoCarousel columnCount={3} logos={logos} /></Profiler>));
+    const sources = () => [...container.querySelectorAll('[data-testid="logo-carousel-column"] img')].map((image) => image.alt);
+    const initial = sources();
+    onRender.mockClear();
+    act(() => jest.advanceTimersByTime(1599));
+    expect(onRender).not.toHaveBeenCalled();
+    act(() => jest.advanceTimersByTime(1));
+    expect(onRender).toHaveBeenCalledTimes(1);
+    expect(sources()[0]).toBe(initial[0]);
+    expect(sources()[1]).toBe(initial[1]);
+    expect(sources()[2]).not.toBe(initial[2]);
+    act(() => jest.advanceTimersByTime(200));
+    expect(sources()[0]).toBe(initial[0]);
+    expect(sources()[1]).not.toBe(initial[1]);
+    act(() => jest.advanceTimersByTime(200));
+    expect(sources()[0]).not.toBe(initial[0]);
+  });
+
+  it("does not create a clock when every column has a single logo", () => {
+    render({ logos: logos.slice(0, 3) });
+    expect(carousel().dataset.carouselState).toBe("playing");
+    expect(jest.getTimerCount()).toBe(0);
   });
 
   it("pauses outside the viewport and resumes from the elapsed cycle time", () => {

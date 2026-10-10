@@ -12,6 +12,7 @@ export function initScrollAnimations() {
   if (nativeSupport) return () => {};
 
   const reduced = prefersReducedMotion();
+  const observed = new Set();
 
   const io = new IntersectionObserver(
     (entries) => {
@@ -19,6 +20,7 @@ export function initScrollAnimations() {
         if (entry.isIntersecting) {
           entry.target.classList.add("sda-in");
           io.unobserve(entry.target);
+          observed.delete(entry.target);
         }
       });
     },
@@ -29,11 +31,12 @@ export function initScrollAnimations() {
 
   const observe = (el) => {
     if (!(el instanceof Element) || !el.matches(SELECTOR)) return;
-    if (el.classList.contains("sda-in")) return;
+    if (el.classList.contains("sda-in") || observed.has(el)) return;
     if (reduced) {
       el.classList.add("sda-in");
     } else {
       io.observe(el);
+      observed.add(el);
     }
   };
 
@@ -43,22 +46,23 @@ export function initScrollAnimations() {
     node.querySelectorAll?.(SELECTOR).forEach(observe);
   };
 
-  document.querySelectorAll(SELECTOR).forEach((el) => {
-      if (el.classList.contains("sda-in")) return;
-      if (reduced) {
-        el.classList.add("sda-in");
-      } else {
-        io.observe(el);
-      }
-  });
+  observeWithin(document.body);
 
   const mo = new MutationObserver((records) => {
     records.forEach((record) => record.addedNodes.forEach(observeWithin));
+    if (records.some((record) => record.removedNodes.length > 0)) {
+      observed.forEach((el) => {
+        if (el.isConnected) return;
+        io.unobserve(el);
+        observed.delete(el);
+      });
+    }
   });
   mo.observe(document.body, { childList: true, subtree: true });
 
   return () => {
     io.disconnect();
     mo.disconnect();
+    observed.clear();
   };
 }

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useMemo } from "react";
+import React, { useRef, useState, useEffect, useMemo, useSyncExternalStore } from "react";
 import { Link } from "react-router-dom";
 import {
   motion,
@@ -10,24 +10,22 @@ import {
 } from "framer-motion";
 import { useReducedMotion } from "@/lib/motionPreference";
 
-export const useMotionBudget = () => {
-  const [enabled, setEnabled] = useState(false);
-  const reducedMotion = useReducedMotion();
-
-  useEffect(() => {
-    const update = () => {
-      setEnabled(!reducedMotion && !document.hidden);
-    };
-
-    update();
-    document.addEventListener("visibilitychange", update);
-    return () => {
-      document.removeEventListener("visibilitychange", update);
-    };
-  }, [reducedMotion]);
-
-  return enabled && !reducedMotion;
+const visibilitySubscribers = new Set();
+const notifyVisibility = () => visibilitySubscribers.forEach((listener) => listener());
+const subscribeVisibility = (listener) => {
+  if (!visibilitySubscribers.size) document.addEventListener("visibilitychange", notifyVisibility);
+  visibilitySubscribers.add(listener);
+  return () => {
+    visibilitySubscribers.delete(listener);
+    if (!visibilitySubscribers.size) document.removeEventListener("visibilitychange", notifyVisibility);
+  };
 };
+const pageIsVisible = () => !document.hidden;
+const serverIsVisible = () => true;
+
+// All buttons/cards share one browser listener. Rendering the animated state
+// immediately also avoids mounting a static headline before its first effect.
+export const useMotionBudget = () => useSyncExternalStore(subscribeVisibility, pageIsVisible, serverIsVisible);
 
 /* Thin scroll-progress bar fixed at the very top of the viewport */
 export const ScrollProgress = () => {
@@ -53,6 +51,7 @@ export const Magnetic = ({ children, strength = 0.28, className = "" }) => {
   const ref = useRef(null);
   const rectRef = useRef(null);
   const raf = useRef(null);
+  const pointerRef = useRef(null);
   const enabled = useMotionBudget();
 
   const canTrackPointer = useMemo(() => {
@@ -79,11 +78,11 @@ export const Magnetic = ({ children, strength = 0.28, className = "" }) => {
       onEnter();
     }
     const r = rectRef.current;
-    if (raf.current) cancelAnimationFrame(raf.current);
+    pointerRef.current = { pageX: e.pageX, pageY: e.pageY };
+    if (raf.current !== null) return;
     raf.current = requestAnimationFrame(() => {
       raf.current = null;
-      const pageX = e.pageX;
-      const pageY = e.pageY;
+      const { pageX, pageY } = pointerRef.current;
       const x = (pageX - (r.left + r.width / 2)) * strength;
       const y = (pageY - (r.top + r.height / 2)) * strength;
       el.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
@@ -92,6 +91,7 @@ export const Magnetic = ({ children, strength = 0.28, className = "" }) => {
 
   const onLeave = () => {
     rectRef.current = null;
+    pointerRef.current = null;
     if (raf.current) cancelAnimationFrame(raf.current);
     raf.current = null;
     if (ref.current) {
@@ -104,6 +104,7 @@ export const Magnetic = ({ children, strength = 0.28, className = "" }) => {
     const element = ref.current;
     const reset = () => {
       rectRef.current = null;
+      pointerRef.current = null;
       if (raf.current) cancelAnimationFrame(raf.current);
       raf.current = null;
       element?.style.removeProperty("transform");
@@ -156,10 +157,11 @@ export const MagneticButton = ({
 };
 
 /* A bounded pointer tilt. Work is scheduled only in response to pointer input. */
-export const SpotlightCard = ({ as: Tag = "div", className = "", children, cursorText, enableTilt = true, ...rest }) => {
+export const SpotlightCard = ({ as: Tag = "div", className = "", children, cursorText, enableTilt = true, style, ...rest }) => {
   const ref = useRef(null);
   const rectRef = useRef(null);
   const raf = useRef(null);
+  const pointerRef = useRef(null);
   const enabled = useMotionBudget();
   const canTrackPointer = useMemo(() => {
     if (typeof window === "undefined") return false;
@@ -185,13 +187,13 @@ export const SpotlightCard = ({ as: Tag = "div", className = "", children, curso
       onEnter();
     }
     const r = rectRef.current;
-    if (raf.current) cancelAnimationFrame(raf.current);
+    pointerRef.current = { pageX: e.pageX, pageY: e.pageY };
+    if (raf.current !== null) return;
 
     if (enableTilt && r && r.width && r.height) {
       raf.current = requestAnimationFrame(() => {
         raf.current = null;
-        const pageX = e.pageX;
-        const pageY = e.pageY;
+        const { pageX, pageY } = pointerRef.current;
         const x = pageX - r.left;
         const y = pageY - r.top;
         const centerX = r.width / 2;
@@ -207,6 +209,7 @@ export const SpotlightCard = ({ as: Tag = "div", className = "", children, curso
 
   const onLeave = () => {
     rectRef.current = null;
+    pointerRef.current = null;
     if (raf.current) cancelAnimationFrame(raf.current);
     raf.current = null;
     if (ref.current) {
@@ -219,6 +222,7 @@ export const SpotlightCard = ({ as: Tag = "div", className = "", children, curso
     const element = ref.current;
     const reset = () => {
       rectRef.current = null;
+      pointerRef.current = null;
       if (raf.current) cancelAnimationFrame(raf.current);
       raf.current = null;
       element?.style.removeProperty("transform");
@@ -240,7 +244,7 @@ export const SpotlightCard = ({ as: Tag = "div", className = "", children, curso
       onPointerLeave={onLeave}
       onBlur={onLeave}
       className={`aether-interactive-card card-glow transition-[border-color,box-shadow,background-color] duration-300 ease-out ${className}`}
-      style={{ transformStyle: "preserve-3d", ...rest.style }}
+      style={{ transformStyle: "preserve-3d", ...style }}
       {...cursorProps}
       {...rest}
     >
@@ -287,7 +291,7 @@ export const WordRotator = ({ words, interval = 2600, className = "" }) => {
   );
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled || words.length < 2) return;
     const t = setInterval(() => setI((p) => (p + 1) % words.length), interval);
     return () => clearInterval(t);
   }, [enabled, words.length, interval]);

@@ -38,14 +38,28 @@ describe("chapter discovery on lazy and utility pages", () => {
     expect(jest.getTimerCount()).toBe(0);
   });
 
-  it("discovers sections that arrive with a lazy route and then stops retrying", () => {
-    act(() => jest.advanceTimersByTime(480));
+  it("discovers late sections without polling and removes departed chapters", async () => {
+    act(() => jest.runAllTimers());
     const section = document.createElement("section");
     section.id = "later-section";
-    main.appendChild(section);
-    act(() => jest.advanceTimersByTime(240));
+    await act(async () => { main.appendChild(section); });
+    act(() => jest.runAllTimers());
     expect(container.querySelector('a[href="#later-section"]')).not.toBeNull();
     expect(container.querySelector('a[href="#__bottom"]')).toBeNull();
     expect(jest.getTimerCount()).toBe(0);
+
+    await act(async () => { section.remove(); });
+    act(() => jest.runAllTimers());
+    expect(container.querySelector('a[href="#later-section"]')).toBeNull();
+    expect(container.querySelector('a[href="#__bottom"]')).not.toBeNull();
+  });
+
+  it("cancels queued scroll work when the rail unmounts", () => {
+    act(() => jest.runAllTimers());
+    window.dispatchEvent(new Event("scroll"));
+    expect(jest.getTimerCount()).toBe(1);
+    act(() => root.unmount());
+    expect(jest.getTimerCount()).toBe(0);
+    root = createRoot(container);
   });
 });

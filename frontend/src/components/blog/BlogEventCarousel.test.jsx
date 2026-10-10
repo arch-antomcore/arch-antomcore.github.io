@@ -210,4 +210,30 @@ describe("BlogEventCarousel navigation", () => {
     });
     expect(next.disabled).toBe(true);
   });
+
+  it("batches a burst of native scroll events into one geometry check", () => {
+    act(() => root.render(<BlogEventCarousel />));
+    const { track, cards } = setupTrackMetrics();
+    act(() => jest.advanceTimersByTime(20));
+    const getStyle = jest.spyOn(window, "getComputedStyle");
+    track.scrollLeft = 424;
+    act(() => {
+      for (let index = 0; index < 20; index += 1) track.dispatchEvent(new Event("scroll"));
+    });
+    expect(getStyle).not.toHaveBeenCalled();
+    act(() => jest.advanceTimersByTime(16));
+    expect(getStyle).toHaveBeenCalledTimes(1);
+    expect(selectedIndex(cards)).toBe(1);
+    getStyle.mockRestore();
+  });
+
+  it("waits for real scroll events without polling every animation frame", () => {
+    act(() => root.render(<BlogEventCarousel />));
+    setupTrackMetrics();
+    act(() => jest.advanceTimersByTime(20));
+    act(() => container.querySelector('[aria-label="Next card"]').click());
+    act(() => jest.advanceTimersByTime(100));
+    // Only the bounded fallback remains while the browser performs its scroll.
+    expect(jest.getTimerCount()).toBe(1);
+  });
 });

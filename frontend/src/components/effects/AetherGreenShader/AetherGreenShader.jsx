@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { VERT, FRAG } from "@/lib/shaders/greenShader";
 
 
@@ -40,15 +40,24 @@ const DEFAULT_UNIFORMS = {
 };
 
 const pendingReleases = new WeakMap();
+const EMPTY_UNIFORMS = Object.freeze({});
 
-export function AetherGreenShaderCanvas({ className = "h-full w-full", customUniforms = {} }) {
+export function AetherGreenShaderCanvas({ className = "h-full w-full", customUniforms = EMPTY_UNIFORMS }) {
   const canvasRef = useRef(null);
+  const [contextVersion, setContextVersion] = useState(0);
+  const uniformsRef = useRef(customUniforms);
+  const syncUniformsRef = useRef(null);
+  uniformsRef.current = customUniforms;
+
+  useEffect(() => {
+    syncUniformsRef.current?.();
+  }, [customUniforms]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const UNIFORMS = { ...DEFAULT_UNIFORMS, ...customUniforms };
+    let UNIFORMS = { ...DEFAULT_UNIFORMS, ...uniformsRef.current };
     const pendingRelease = pendingReleases.get(canvas);
     if (pendingRelease !== undefined) window.clearTimeout(pendingRelease);
     pendingReleases.delete(canvas);
@@ -58,25 +67,49 @@ export function AetherGreenShaderCanvas({ className = "h-full w-full", customUni
 
     const compile = (type, src) => {
       const s = gl.createShader(type);
+      if (!s) return null;
       gl.shaderSource(s, src);
       gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+        gl.deleteShader(s);
+        return null;
+      }
       return s;
     };
 
     const program = gl.createProgram();
     const vertexShader = compile(gl.VERTEX_SHADER, VERT);
     const fragmentShader = compile(gl.FRAGMENT_SHADER, FRAG);
+    if (!program || !vertexShader || !fragmentShader) {
+      if (vertexShader) gl.deleteShader(vertexShader);
+      if (fragmentShader) gl.deleteShader(fragmentShader);
+      if (program) gl.deleteProgram(program);
+      return;
+    }
     gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
     gl.linkProgram(program);
     gl.deleteShader(vertexShader);
     gl.deleteShader(fragmentShader);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      gl.deleteProgram(program);
+      return;
+    }
     gl.useProgram(program);
 
     const buf = gl.createBuffer();
+    if (!buf) {
+      gl.deleteProgram(program);
+      return;
+    }
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
     const loc = gl.getAttribLocation(program, "a_position");
+    if (loc < 0) {
+      gl.deleteBuffer(buf);
+      gl.deleteProgram(program);
+      return;
+    }
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
 
@@ -108,11 +141,13 @@ export function AetherGreenShaderCanvas({ className = "h-full w-full", customUni
     let pointerClientX = 0;
     let pointerClientY = 0;
     let bounds = canvas.getBoundingClientRect();
+    let layoutDirty = true;
     let raf = 0;
     let lastNow = null;
     let visible = document.visibilityState === "visible";
     let inView = true;
     let disposed = false;
+    let contextLost = false;
     const start = performance.now();
 
     const resizeCanvas = () => {
@@ -130,12 +165,16 @@ export function AetherGreenShaderCanvas({ className = "h-full w-full", customUni
     };
 
     function requestRender() {
-      if (!disposed && visible && inView && raf === 0) {
+      if (!disposed && !contextLost && visible && inView && raf === 0) {
         raf = requestAnimationFrame(render);
       }
     }
 
     const updatePointerTarget = () => {
+      if (!UNIFORMS.cursorEnabled) {
+        targetPresence = 0;
+        return;
+      }
       if (!pointerKnown) return;
       if (bounds.width === 0 || bounds.height === 0) return;
       const inside =
@@ -161,10 +200,10 @@ export function AetherGreenShaderCanvas({ className = "h-full w-full", customUni
     };
 
     const onPointerMove = (e) => {
+      if (!UNIFORMS.cursorEnabled) return;
       pointerKnown = true;
       pointerClientX = e.clientX;
       pointerClientY = e.clientY;
-      bounds = canvas.getBoundingClientRect();
       updatePointerTarget();
     };
 
@@ -175,26 +214,37 @@ export function AetherGreenShaderCanvas({ className = "h-full w-full", customUni
     };
 
     const updateLayout = () => {
-      bounds = canvas.getBoundingClientRect();
-      resizeCanvas();
-      updatePointerTarget();
+      // Scroll and ResizeObserver can fire several times before a paint.
+      // Read geometry and resize the buffer once, in the render callback.
+      layoutDirty = true;
       requestRender();
     };
 
+    const syncUniforms = () => {
+      UNIFORMS = { ...DEFAULT_UNIFORMS, ...uniformsRef.current };
+      if (contextLost) return;
+      gl.uniform3fv(uni.colors, new Float32Array(UNIFORMS.colors.flat()));
+      gl.uniform4f(uni.shape, UNIFORMS.scale, UNIFORMS.intensity, UNIFORMS.paramA, UNIFORMS.warp);
+      gl.uniform4f(uni.surface, UNIFORMS.detail, UNIFORMS.contrast, UNIFORMS.brightness, UNIFORMS.saturation);
+      gl.uniform4f(uni.finish, UNIFORMS.hue, UNIFORMS.vignette, UNIFORMS.blur, UNIFORMS.grain);
+      gl.uniform4f(uni.transform, UNIFORMS.seed, UNIFORMS.rotate, UNIFORMS.drift, UNIFORMS.oklab);
+      updatePointerTarget();
+      requestRender();
+    };
+    syncUniformsRef.current = syncUniforms;
+
     window.addEventListener("resize", updateLayout);
-    if (UNIFORMS.cursorEnabled) {
-      window.addEventListener("pointermove", onPointerMove, { passive: true });
-      window.addEventListener("pointercancel", onPointerLeave);
-      window.addEventListener("scroll", updateLayout, true);
-      window.addEventListener("blur", onPointerLeave);
-      document.documentElement.addEventListener("pointerleave", onPointerLeave);
-    }
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("pointercancel", onPointerLeave);
+    window.addEventListener("scroll", updateLayout, { capture: true, passive: true });
+    window.addEventListener("blur", onPointerLeave);
+    document.documentElement.addEventListener("pointerleave", onPointerLeave);
 
     const resizeObserver = new ResizeObserver(updateLayout);
     resizeObserver.observe(canvas);
     const intersectionObserver = new IntersectionObserver(([entry]) => {
       inView = entry?.isIntersecting ?? true;
-      if (inView) requestRender();
+      if (inView) updateLayout();
       else if (raf !== 0) {
         cancelAnimationFrame(raf);
         raf = 0;
@@ -205,7 +255,7 @@ export function AetherGreenShaderCanvas({ className = "h-full w-full", customUni
 
     const onVisibilityChange = () => {
       visible = document.visibilityState === "visible";
-      if (visible) requestRender();
+      if (visible) updateLayout();
       else if (raf !== 0) {
         cancelAnimationFrame(raf);
         raf = 0;
@@ -213,10 +263,26 @@ export function AetherGreenShaderCanvas({ className = "h-full w-full", customUni
       }
     };
     document.addEventListener("visibilitychange", onVisibilityChange);
+    const onContextLost = (event) => {
+      event.preventDefault();
+      contextLost = true;
+      cancelAnimationFrame(raf);
+      raf = 0;
+      lastNow = null;
+    };
+    const onContextRestored = () => setContextVersion((version) => version + 1);
+    canvas.addEventListener("webglcontextlost", onContextLost);
+    canvas.addEventListener("webglcontextrestored", onContextRestored);
 
     function render(now) {
       raf = 0;
-      if (disposed || !visible || !inView) return;
+      if (disposed || contextLost || !visible || !inView) return;
+      if (layoutDirty) {
+        layoutDirty = false;
+        bounds = canvas.getBoundingClientRect();
+        resizeCanvas();
+        updatePointerTarget();
+      }
       const dt = lastNow === null ? 0 : Math.min((now - lastNow) / 1000, 0.1);
       lastNow = now;
       const follow = 1 - Math.exp(-12 * dt);
@@ -251,18 +317,19 @@ export function AetherGreenShaderCanvas({ className = "h-full w-full", customUni
 
     return () => {
       disposed = true;
+      syncUniformsRef.current = null;
       cancelAnimationFrame(raf);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibilityChange);
+      canvas.removeEventListener("webglcontextlost", onContextLost);
+      canvas.removeEventListener("webglcontextrestored", onContextRestored);
       window.removeEventListener("resize", updateLayout);
-      if (UNIFORMS.cursorEnabled) {
-        window.removeEventListener("pointermove", onPointerMove);
-        window.removeEventListener("pointercancel", onPointerLeave);
-        window.removeEventListener("scroll", updateLayout, true);
-        window.removeEventListener("blur", onPointerLeave);
-        document.documentElement.removeEventListener("pointerleave", onPointerLeave);
-      }
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointercancel", onPointerLeave);
+      window.removeEventListener("scroll", updateLayout, true);
+      window.removeEventListener("blur", onPointerLeave);
+      document.documentElement.removeEventListener("pointerleave", onPointerLeave);
       gl.deleteBuffer(buf);
       gl.deleteProgram(program);
       const releaseTimer = window.setTimeout(() => {
@@ -274,7 +341,7 @@ export function AetherGreenShaderCanvas({ className = "h-full w-full", customUni
       }, 0);
       pendingReleases.set(canvas, releaseTimer);
     };
-  }, [customUniforms]);
+  }, [contextVersion]);
 
   return (
     <canvas

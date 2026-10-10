@@ -74,23 +74,33 @@ const SectionRail = ({ items: providedItems }) => {
   useEffect(() => {
     if (providedItems?.length) return undefined;
     let frame;
-    let retry;
-    let attempts = 0;
     const collect = () => {
-      attempts += 1;
+      frame = undefined;
       const next = getDiscoveredItems(language);
-      setDiscovered(next);
-      const hasEditorialAnchor = next.some((item) => !item.id.startsWith("__"));
-      // Lazy routes get time to mount. Utility pages intentionally keep their
-      // Intro/End fallback instead of polling for sections indefinitely.
-      if (!hasEditorialAnchor && attempts < 30) retry = window.setTimeout(collect, 120);
+      setDiscovered((current) => current.length === next.length && current.every((item, index) =>
+        item.id === next[index].id && item.label === next[index].label,
+      ) ? current : next);
     };
     const schedule = window.requestAnimationFrame || ((callback) => window.setTimeout(callback, 0));
-    frame = schedule(collect);
+    const queueCollect = () => {
+      if (frame === undefined) frame = schedule(collect);
+    };
+    // Lazy routes and expanded content can add chapters at any time. Observe
+    // their structure instead of polling the whole document for 3.6 seconds.
+    const main = document.querySelector("main");
+    const observer = main && typeof MutationObserver !== "undefined" ? new MutationObserver((records) => {
+      const chaptersChanged = records.some((record) => record.type === "attributes" ||
+        [...record.addedNodes, ...record.removedNodes].some((node) =>
+          node.nodeType === 1 && (node.id || node.querySelector("[id]")),
+        ));
+      if (chaptersChanged) queueCollect();
+    }) : null;
+    observer?.observe(main, { childList: true, subtree: true, attributes: true, attributeFilter: ["id"] });
+    queueCollect();
     return () => {
+      observer?.disconnect();
       window.cancelAnimationFrame?.(frame);
       window.clearTimeout(frame);
-      window.clearTimeout(retry);
     };
   }, [pathname, language, providedItems]);
 
@@ -98,8 +108,9 @@ const SectionRail = ({ items: providedItems }) => {
 
   useEffect(() => {
     if (!items.length) return undefined;
-    let ticking = false;
+    let frame;
     const updateActiveSection = () => {
+      frame = undefined;
       const scrollY = window.scrollY + window.innerHeight * 0.35;
       let bestIdx = 0;
       items.forEach((item, index) => {
@@ -113,17 +124,19 @@ const SectionRail = ({ items: providedItems }) => {
         if (scrollY >= top) bestIdx = index;
       });
       setActive(bestIdx);
-      ticking = false;
     };
     const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        (window.requestAnimationFrame || ((callback) => window.setTimeout(callback, 16)))(updateActiveSection);
+      if (frame === undefined) {
+        frame = (window.requestAnimationFrame || ((callback) => window.setTimeout(callback, 16)))(updateActiveSection);
       }
     };
     updateActiveSection();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.cancelAnimationFrame?.(frame);
+      window.clearTimeout(frame);
+    };
   }, [items]);
 
   const displayItems = useMemo(

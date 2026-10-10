@@ -28,7 +28,7 @@ export const Button = ({
   return (
     <button
       type={type}
-      className={`inline-flex min-h-9 touch-manipulation items-center justify-center font-tight transition-[opacity,transform] duration-200 ease [-webkit-tap-highlight-color:transparent] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1d1d1d] active:scale-[0.97] motion-reduce:active:scale-100 [@media(hover:hover)_and_(pointer:fine)]:hover:opacity-90 ${VARIANT_CLASS[variant]} ${className}`}
+      className={`inline-flex min-h-9 touch-manipulation items-center justify-center font-tight transition-[opacity,transform] duration-200 ease [-webkit-tap-highlight-color:transparent] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1d1d1d] active:scale-[0.97] [@media(hover:hover)_and_(pointer:fine)]:hover:opacity-90 ${VARIANT_CLASS[variant]} ${className}`}
       {...props}
     >
       {children}

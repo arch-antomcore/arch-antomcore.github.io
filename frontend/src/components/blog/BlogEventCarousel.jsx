@@ -66,6 +66,7 @@ export const BlogEventCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const navigationTimerRef = useRef(null);
   const navigationFrameRef = useRef(null);
+  const navigationScrollLeftRef = useRef(0);
 
   const CAROUSEL_CARDS = [
     {
@@ -187,19 +188,15 @@ export const BlogEventCarousel = () => {
   };
 
   const waitForNavigation = (container, idx, targetScrollLeft) => {
-    const startedAt = Date.now();
-
+    navigationScrollLeftRef.current = targetScrollLeft;
+    // Native scroll events report actual movement. One initial check covers a
+    // target that already shares scrollLeft; a timeout covers interrupted or
+    // unsupported smooth scrolling without polling layout every frame.
     const settle = () => {
+      navigationFrameRef.current = null;
       if (navigationTargetRef.current !== idx) return;
       const reachedTarget = Math.abs(container.scrollLeft - targetScrollLeft) <= 1;
-      const timedOut = Date.now() - startedAt >= NAVIGATION_TIMEOUT;
-
-      if (reachedTarget || timedOut) {
-        finishNavigation(idx);
-        return;
-      }
-
-      navigationFrameRef.current = window.requestAnimationFrame(settle);
+      if (reachedTarget) finishNavigation(idx);
     };
 
     navigationFrameRef.current = window.requestAnimationFrame(settle);
@@ -219,7 +216,10 @@ export const BlogEventCarousel = () => {
 
     // During a programmatic scroll the requested card remains selected. The
     // settle loop below confirms the final position before releasing this lock.
-    if (navigationTargetRef.current !== null) return;
+    if (navigationTargetRef.current !== null) {
+      if (Math.abs(scrollLeft - navigationScrollLeftRef.current) <= 1) finishNavigation(navigationTargetRef.current);
+      return;
+    }
 
     if (children.length === 0) return;
 
@@ -254,8 +254,16 @@ export const BlogEventCarousel = () => {
   useEffect(() => {
     const el = scrollRef.current;
     if (el) {
-      el.addEventListener("scroll", checkScroll, { passive: true });
-      const initialFrame = window.requestAnimationFrame(checkScroll);
+      let scrollFrame = null;
+      const scheduleCheck = () => {
+        if (scrollFrame !== null) return;
+        scrollFrame = window.requestAnimationFrame(() => {
+          scrollFrame = null;
+          checkScroll();
+        });
+      };
+      el.addEventListener("scroll", scheduleCheck, { passive: true });
+      scheduleCheck();
       const cancelFromUserScroll = () => {
         if (navigationTargetRef.current === null && settledIndexRef.current === null) return;
         cancelNavigation();
@@ -266,14 +274,14 @@ export const BlogEventCarousel = () => {
       el.addEventListener("pointerdown", cancelFromUserScroll, { passive: true });
       el.addEventListener("touchstart", cancelFromUserScroll, { passive: true });
       el.addEventListener("wheel", cancelFromUserScroll, { passive: true });
-      window.addEventListener("resize", checkScroll);
+      window.addEventListener("resize", scheduleCheck);
       return () => {
-        window.cancelAnimationFrame(initialFrame);
-        el.removeEventListener("scroll", checkScroll);
+        if (scrollFrame !== null) window.cancelAnimationFrame(scrollFrame);
+        el.removeEventListener("scroll", scheduleCheck);
         el.removeEventListener("pointerdown", cancelFromUserScroll);
         el.removeEventListener("touchstart", cancelFromUserScroll);
         el.removeEventListener("wheel", cancelFromUserScroll);
-        window.removeEventListener("resize", checkScroll);
+        window.removeEventListener("resize", scheduleCheck);
         cancelNavigation();
       };
     }

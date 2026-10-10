@@ -77,13 +77,14 @@ export const MediaCredit = ({ media, type = "Foto", className = "" }) => (
 export const ImageBand = ({ media, kicker, lines, caption, testId = "image-band" }) => {
   const ref = useRef(null);
   const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "center center"] });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   // Transform-only reveal (compositor friendly) instead of a clip-path scrub
   // that repainted the full-bleed image on every frame.
-  const frameScale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.18, 1.05]);
-  const { scrollYProgress: driftP } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const imgY = useTransform(driftP, [0, 1], ["-6%", "6%"]);
+  // Center/center is exactly halfway through start/end -> end/start.
+  // Share one target measurement for the reveal and the continuous drift.
+  const frameScale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [1.18, 1.05]);
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 
   return (
     <section ref={ref} className="group relative px-4 py-10 md:px-8 md:py-14" data-testid={testId}>
@@ -94,7 +95,8 @@ export const ImageBand = ({ media, kicker, lines, caption, testId = "image-band"
         <motion.img
           src={media.src}
           alt={media.alt}
-          
+          loading="lazy"
+          decoding="async"
           style={{ scale: shouldReduceMotion ? 1 : scale, y: shouldReduceMotion ? 0 : imgY }}
           className="absolute inset-0 h-full w-full object-cover grayscale-[45%] transition-[filter] duration-1000 ease-out group-hover:grayscale-0"
         />
@@ -197,7 +199,8 @@ export const GlassShowcase = () => {
         <motion.img
           src={media.src}
           alt={media.alt}
-          
+          loading="lazy"
+          decoding="async"
           style={{ y: shouldReduceMotion ? 0 : imgY, scale: shouldReduceMotion ? 1 : imgScale }}
           className="absolute inset-0 h-full w-full object-cover"
         />

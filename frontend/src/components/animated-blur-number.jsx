@@ -76,8 +76,6 @@ const STYLES = `
   from { opacity: 1; filter: blur(0); }
   to { opacity: 0; filter: blur(var(--an-blur, 21px)); }
 }
-html[data-motion-preference="reduced"] .an-in { animation: none; }
-html[data-motion-preference="reduced"] .an-out { animation: none; display: none; }
 .an-sr {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;

@@ -15,7 +15,7 @@ export { prefersReducedMotion };
 export function initGsapReveals() {
   if (typeof window === "undefined" || prefersReducedMotion()) return () => {};
 
-  const tweens = [];
+  const tweens = new Map();
   const seen = new WeakSet();
 
   const reveal = (el) => {
@@ -28,8 +28,7 @@ export function initGsapReveals() {
     if (kind === "left") { from.x = -40; from.y = 0; }
     if (kind === "fade") from.y = 0;
 
-    tweens.push(
-      gsap.fromTo(el, from, {
+    const tween = gsap.fromTo(el, from, {
         autoAlpha: 1,
         x: 0,
         y: 0,
@@ -37,10 +36,12 @@ export function initGsapReveals() {
         duration: 1.35,
         delay: index * 0.09,
         ease: EASE_SOFT,
-        clearProps: "transform",
+        clearProps: "opacity,visibility,transform",
+        // Completed reveals must not retain nodes from previously visited routes.
+        onComplete: () => tweens.delete(el),
         scrollTrigger: { trigger: el, start: "top 90%", once: true },
-      }),
-    );
+      });
+    tweens.set(el, tween);
   };
 
   const scan = (node) => {
@@ -52,6 +53,16 @@ export function initGsapReveals() {
   scan(document.body);
   const mo = new MutationObserver((records) => {
     records.forEach((record) => record.addedNodes.forEach(scan));
+    // A route can disappear before its reveal trigger ever enters the viewport.
+    // Kill that trigger immediately; allow ordinary DOM reparenting to finish.
+    if (records.some((record) => record.removedNodes.length > 0)) {
+      tweens.forEach((tween, el) => {
+        if (el.isConnected) return;
+        tween.scrollTrigger?.kill();
+        tween.kill();
+        tweens.delete(el);
+      });
+    }
   });
   mo.observe(document.body, { childList: true, subtree: true });
 
@@ -75,6 +86,7 @@ export function initGsapReveals() {
       tween.kill();
       gsap.set(targets, { clearProps: "opacity,visibility,transform" });
     });
+    tweens.clear();
   };
 }
 

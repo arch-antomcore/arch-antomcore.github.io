@@ -1,7 +1,6 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { MotionConfig } from "framer-motion";
-import { applyMotionPreferenceToDocument, useReducedMotion } from "@/lib/motionPreference";
+import { applyMotionPreferenceToDocument } from "@/lib/motionPreference";
 import { ReactLenis, useLenis } from "lenis/react";
 import Nav from "@/components/site/Nav";
 import Footer from "@/components/site/Footer";
@@ -29,10 +28,9 @@ const LENIS_OPTIONS = {
 const SiteContent = ({ lenis = null, previousNavigation }) => {
   const { pathname, hash, key: locationKey } = useLocation();
   const { language } = useTranslation();
-  const shouldReduceMotion = useReducedMotion();
 
-  useEffect(() => initGsapReveals(), [shouldReduceMotion]);
-  useEffect(() => initScrollAnimations(), [shouldReduceMotion]);
+  useEffect(() => initGsapReveals(), []);
+  useEffect(() => initScrollAnimations(), []);
 
   useEffect(() => {
     applyRouteSeo(pathname, language);
@@ -59,8 +57,8 @@ const SiteContent = ({ lenis = null, previousNavigation }) => {
             lenis.resize();
             lenis.scrollTo(el, {
               offset: -80,
-              duration: shouldReduceMotion ? 0 : 1.2,
-              immediate: shouldReduceMotion,
+              duration: 1.2,
+              immediate: false,
               force: true,
             });
           } else {
@@ -79,7 +77,7 @@ const SiteContent = ({ lenis = null, previousNavigation }) => {
     if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
     else window.scrollTo({ top: 0, behavior: "auto" });
     return undefined;
-  }, [pathname, hash, locationKey, lenis, shouldReduceMotion, previousNavigation]);
+  }, [pathname, hash, locationKey, lenis, previousNavigation]);
 
   useEffect(() => {
     document.documentElement.lang = language === "pt" ? "pt-BR" : "en";
@@ -139,59 +137,14 @@ const SmoothSiteContent = ({ previousNavigation }) => {
   return <SiteContent lenis={lenis} previousNavigation={previousNavigation} />;
 };
 
-// Framer Motion 11 caches reducedMotion when each visual element mounts.
-// Recreate those elements when the accessibility preference changes, keeping
-// the scroll runtime, navigation history and viewport position intact.
-class MotionPreferenceBoundary extends React.Component {
-  getSnapshotBeforeUpdate(previousProps) {
-    if (previousProps.reduced === this.props.reduced) return null;
-    return {
-      top: window.scrollY,
-      left: window.scrollX,
-    };
-  }
-
-  componentDidUpdate(previousProps, previousState, snapshot) {
-    if (!snapshot) return;
-    const restore = () => {
-      window.scrollTo({ top: snapshot.top, left: snapshot.left, behavior: "auto" });
-    };
-    restore();
-    // The scroll library also updates in a passive effect after this commit.
-    // Restore again before the next paint, after its new instance is ready.
-    window.cancelAnimationFrame(this.restoreFrame);
-    this.restoreFrame = window.requestAnimationFrame(restore);
-  }
-
-  componentWillUnmount() {
-    window.cancelAnimationFrame(this.restoreFrame);
-  }
-
-  render() {
-    return (
-      <MotionConfig key={String(this.props.reduced)} reducedMotion={this.props.reduced ? "always" : "never"}>
-        {this.props.children}
-      </MotionConfig>
-    );
-  }
-}
-
 const CinematicRuntime = () => {
-  const shouldReduceMotion = useReducedMotion();
   const previousNavigation = useRef(null);
-  const options = useMemo(() => ({
-    ...LENIS_OPTIONS,
-    smoothWheel: !shouldReduceMotion,
-    lerp: shouldReduceMotion ? 1 : LENIS_OPTIONS.lerp,
-  }), [shouldReduceMotion]);
 
-  useLayoutEffect(() => applyMotionPreferenceToDocument(), [shouldReduceMotion]);
+  useLayoutEffect(() => applyMotionPreferenceToDocument(), []);
 
   return (
-    <ReactLenis root options={options}>
-      <MotionPreferenceBoundary reduced={shouldReduceMotion}>
-        <SmoothSiteContent previousNavigation={previousNavigation} />
-      </MotionPreferenceBoundary>
+    <ReactLenis root options={LENIS_OPTIONS}>
+      <SmoothSiteContent previousNavigation={previousNavigation} />
     </ReactLenis>
   );
 };

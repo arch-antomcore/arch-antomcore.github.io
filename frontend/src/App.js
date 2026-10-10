@@ -26,7 +26,7 @@ const GreenShaderPreview = React.lazy(() => import("@/pages/GreenShaderPreview")
 function App() {
   return (
     <BrowserRouter>
-      <MotionConfig reducedMotion="user">
+      <MotionConfig reducedMotion="never">
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />

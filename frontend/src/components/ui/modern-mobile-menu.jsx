@@ -49,7 +49,9 @@ const InteractiveMenu = ({ items, accentColor }) => {
   const itemRefs = useRef([]);
 
   useEffect(() => {
+    let frame;
     const setLineWidth = () => {
+      frame = undefined;
       const activeItemElement = itemRefs.current[activeIndex];
       const activeTextElement = textRefs.current[activeIndex];
 
@@ -71,12 +73,14 @@ const InteractiveMenu = ({ items, accentColor }) => {
       }
     };
 
-    // Small delay to ensure DOM is ready
-    setTimeout(setLineWidth, 10);
-
-    window.addEventListener('resize', setLineWidth);
+    const scheduleMeasurement = () => {
+      if (frame === undefined) frame = requestAnimationFrame(setLineWidth);
+    };
+    scheduleMeasurement();
+    window.addEventListener('resize', scheduleMeasurement);
     return () => {
-      window.removeEventListener('resize', setLineWidth);
+      window.removeEventListener('resize', scheduleMeasurement);
+      cancelAnimationFrame(frame);
     };
   }, [activeIndex, finalItems, language]);
 

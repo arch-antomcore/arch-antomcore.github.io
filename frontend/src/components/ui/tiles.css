@@ -45,7 +45,3 @@
   background-color: var(--tile);
   transition-duration: 60ms;
 }
-
-.aether-tiles[data-tile-motion="reduced"] .aether-tiles__cell {
-  transition: none;
-}

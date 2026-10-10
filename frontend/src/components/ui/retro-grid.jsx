@@ -26,9 +26,8 @@ const FALLBACK_STYLES = `
   }
 }
 
-html[data-motion-preference="reduced"] [data-retro-grid-scroll="true"] {
-  animation: none !important;
-  transform: translateY(-50%) !important;
+[data-retro-grid-active="false"] [data-retro-grid-scroll="true"] {
+  animation-play-state: paused !important;
 }
 `
 
@@ -272,6 +271,8 @@ function createProgram(gl) {
   const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER_SOURCE)
 
   if (!vertexShader || !fragmentShader) {
+    if (vertexShader) gl.deleteShader(vertexShader)
+    if (fragmentShader) gl.deleteShader(fragmentShader)
     return null
   }
 
@@ -438,7 +439,6 @@ export function RetroGrid({
       return
     }
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
     const colorScheme = window.matchMedia("(prefers-color-scheme: dark)")
 
     let animationFrameId = null
@@ -447,6 +447,7 @@ export function RetroGrid({
     let currentDevicePixelRatio = 1
     let gl = null
     let isVisible = true
+    let isDocumentVisible = !document.hidden
     let isContextLost = false
     let lineColor = resolveLineColor(lightLineColorRef.current, container)
     let positionBuffer = null
@@ -547,8 +548,12 @@ export function RetroGrid({
 
       currentDevicePixelRatio = Math.min(window.devicePixelRatio || 1, MAX_DEVICE_PIXEL_RATIO)
 
-      canvas.width = Math.floor(currentWidth * currentDevicePixelRatio)
-      canvas.height = Math.floor(currentHeight * currentDevicePixelRatio)
+      const width = Math.floor(currentWidth * currentDevicePixelRatio)
+      const height = Math.floor(currentHeight * currentDevicePixelRatio)
+      // Assigning either dimension clears and reallocates the drawing buffer.
+      // Theme changes and viewport entry do not require that work.
+      if (canvas.width !== width) canvas.width = width
+      if (canvas.height !== height) canvas.height = height
       canvas.style.width = `${currentWidth}px`
       canvas.style.height = `${currentHeight}px`
       gl.viewport(0, 0, canvas.width, canvas.height)
@@ -577,7 +582,7 @@ export function RetroGrid({
       gl.uniform2f(programInfo.uniforms.containerSize, currentWidth, currentHeight)
       gl.uniform1f(programInfo.uniforms.devicePixelRatio, currentDevicePixelRatio)
       gl.uniform4fv(programInfo.uniforms.lineColor, lineColor)
-      gl.uniform1f(programInfo.uniforms.time, reducedMotion.matches ? 0 : timestamp / 1000)
+      gl.uniform1f(programInfo.uniforms.time, timestamp / 1000)
       gl.uniform2f(programInfo.uniforms.viewportSize, window.innerWidth, window.innerHeight)
       gl.drawArrays(gl.TRIANGLES, 0, 3)
     }
@@ -590,9 +595,11 @@ export function RetroGrid({
     }
 
     const frame = (timestamp) => {
+      animationFrameId = null
+      if (!isVisible || !isDocumentVisible || isContextLost) return
       draw(timestamp)
 
-      if (!reducedMotion.matches && isVisible) {
+      if (isVisible && isDocumentVisible) {
         animationFrameId = requestAnimationFrame(frame)
         return
       }
@@ -601,6 +608,11 @@ export function RetroGrid({
     }
 
     const syncScene = () => {
+      container.dataset.retroGridActive = String(isVisible && isDocumentVisible)
+      if (!isVisible || !isDocumentVisible) {
+        stopAnimation()
+        return
+      }
       if (isContextLost) {
         stopAnimation()
         setIsWebGlReady(false)
@@ -626,11 +638,6 @@ export function RetroGrid({
       draw(performance.now())
       setIsWebGlReady(true)
 
-      if (reducedMotion.matches || !isVisible) {
-        stopAnimation()
-        return
-      }
-
       if (animationFrameId === null) {
         animationFrameId = requestAnimationFrame(frame)
       }
@@ -650,12 +657,7 @@ export function RetroGrid({
     const intersectionObserver = new IntersectionObserver(([entry]) => {
       isVisible = entry?.isIntersecting ?? false
 
-      if (isVisible) {
-        syncScene()
-        return
-      }
-
-      stopAnimation()
+      syncScene()
     })
     intersectionObserver.observe(container)
 
@@ -667,7 +669,8 @@ export function RetroGrid({
       attributes: true,
     })
 
-    const handleMotionChange = () => {
+    const handleVisibilityChange = () => {
+      isDocumentVisible = !document.hidden
       syncScene()
     }
 
@@ -688,7 +691,7 @@ export function RetroGrid({
       syncScene()
     }
 
-    reducedMotion.addEventListener("change", handleMotionChange)
+    document.addEventListener("visibilitychange", handleVisibilityChange)
     colorScheme.addEventListener("change", handleColorSchemeChange)
     window.addEventListener("resize", handleWindowResize)
     canvas.addEventListener("webglcontextlost", handleContextLost)
@@ -701,7 +704,7 @@ export function RetroGrid({
       resizeObserver.disconnect()
       intersectionObserver.disconnect()
       themeObserver.disconnect()
-      reducedMotion.removeEventListener("change", handleMotionChange)
+      document.removeEventListener("visibilitychange", handleVisibilityChange)
       colorScheme.removeEventListener("change", handleColorSchemeChange)
       window.removeEventListener("resize", handleWindowResize)
       canvas.removeEventListener("webglcontextlost", handleContextLost)

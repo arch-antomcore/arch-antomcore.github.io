@@ -5,8 +5,7 @@ export const EXPERIENCE = Object.freeze({ CINEMATIC: "cinematic" });
 
 const isBrowser = () => typeof window !== "undefined";
 
-// Legacy URLs still resolve to the single current composition. Accessibility
-// preferences control motion independently; they never select another design.
+// Legacy URLs still resolve to the single animated composition.
 export const normalizeExperience = (value) =>
   [EXPERIENCE.CINEMATIC, "light", "low", "full", "high", "medium"].includes(value)
     ? EXPERIENCE.CINEMATIC

@@ -59,11 +59,11 @@ describe("cinematic pointer interactions", () => {
     wrapper.getBoundingClientRect = () => ({ left: 10, top: 20, width: 100, height: 40 });
     return wrapper;
   };
-  const pointer = (element, type) => {
+  const pointer = (element, type, x = 90, y = 60) => {
     const event = new MouseEvent(type, {
-      bubbles: true, clientX: 90, clientY: 60, relatedTarget: type === "pointerout" ? document.body : null,
+      bubbles: true, clientX: x, clientY: y, relatedTarget: type === "pointerout" ? document.body : null,
     });
-    Object.defineProperties(event, { pageX: { value: 90 }, pageY: { value: 60 } });
+    Object.defineProperties(event, { pageX: { value: x }, pageY: { value: y } });
     act(() => element.dispatchEvent(event));
   };
   const flushFrames = () => act(() => {
@@ -85,7 +85,7 @@ describe("cinematic pointer interactions", () => {
     expect(wrapper.style.willChange).toBe("");
   });
 
-  it("clears transforms and pending work immediately when motion is reduced", () => {
+  it("ignores old reduction settings and cancels work on unmount", () => {
     const wrapper = render();
     pointer(wrapper, "pointermove");
     flushFrames();
@@ -93,22 +93,36 @@ describe("cinematic pointer interactions", () => {
     pointer(wrapper, "pointermove");
     expect(frames.size).toBe(1);
     act(() => setMotionPreference("reduced"));
-    expect(frames.size).toBe(0);
-    expect(wrapper.style.transform).toBe("");
-    expect(wrapper.style.willChange).toBe("");
-    pointer(wrapper, "pointerover");
-    pointer(wrapper, "pointermove");
-    expect(frames.size).toBe(0);
-    expect(wrapper.style.willChange).toBe("");
-
-    act(() => setMotionPreference("animated"));
-    pointer(wrapper, "pointermove");
     expect(frames.size).toBe(1);
+    expect(wrapper.style.transform).not.toBe("");
     act(() => root.unmount());
     root = null;
     expect(frames.size).toBe(0);
     expect(wrapper.style.transform).toBe("");
     expect(wrapper.style.willChange).toBe("");
+  });
+
+  it("coalesces pointer bursts into one frame using the latest coordinates", () => {
+    const wrapper = render();
+    window.requestAnimationFrame.mockClear();
+    window.cancelAnimationFrame.mockClear();
+    pointer(wrapper, "pointermove", 70, 40);
+    pointer(wrapper, "pointermove", 80, 50);
+    pointer(wrapper, "pointermove", 90, 60);
+    expect(window.requestAnimationFrame).toHaveBeenCalledTimes(1);
+    expect(window.cancelAnimationFrame).not.toHaveBeenCalled();
+    flushFrames();
+    expect(wrapper.style.transform).toBe("translate3d(7.50px, 5.00px, 0)");
+  });
+
+  it("shares one visibility listener across all interactive elements", () => {
+    const addListener = jest.spyOn(document, "addEventListener");
+    const removeListener = jest.spyOn(document, "removeEventListener");
+    act(() => root.render(<><Magnetic>First</Magnetic><Magnetic>Second</Magnetic><SpotlightCard>Third</SpotlightCard></>));
+    expect(addListener.mock.calls.filter(([event]) => event === "visibilitychange")).toHaveLength(1);
+    act(() => root.unmount());
+    root = null;
+    expect(removeListener.mock.calls.filter(([event]) => event === "visibilitychange")).toHaveLength(1);
   });
 
   it("does not track a coarse pointer or promote its layer", () => {
@@ -134,6 +148,12 @@ describe("cinematic pointer interactions", () => {
     pointer(card, "pointerout");
     expect(card.style.transform).toBe("");
     expect(card.style.willChange).toBe("");
+  });
+
+  it("preserves the 3D transform context alongside caller styles", () => {
+    act(() => root.render(<SpotlightCard style={{ opacity: 0.8 }}>Details</SpotlightCard>));
+    expect(container.firstElementChild.style.opacity).toBe("0.8");
+    expect(container.firstElementChild.style.transformStyle).toBe("preserve-3d");
   });
 
   it("cancels a pending card tilt when the page becomes hidden", () => {

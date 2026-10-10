@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useReducedMotion } from "@/lib/motionPreference";
 import { Check, Minus, Warning as AlertTriangle, Cpu, HardDrives as Server, Lightning as Zap, Shield } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
@@ -73,10 +73,14 @@ const cardVariants = {
 };
 
 /* Numbered editorial plan card with smooth 3D tilt & spotlight tracking */
-const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
+export const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
   const shouldReduceMotion = useReducedMotion();
   const cardRef = useRef(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [hovered, setHovered] = useState(false);
+  const tiltX = useMotionValue(0);
+  const tiltY = useMotionValue(0);
+  const rotateX = useSpring(tiltX, { stiffness: 280, damping: 22, mass: 0.5 });
+  const rotateY = useSpring(tiltY, { stiffness: 280, damping: 22, mass: 0.5 });
 
   const isCustom = plan.priceMonthly === null;
   const isFree = plan.priceMonthly === 0;
@@ -86,56 +90,59 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
   const rec = plan.recommended;
   const PlanIcon = plan.id === "free" ? Cpu : plan.id === "go" ? Zap : Server;
 
-  const rectRef = useRef(null);
   const rafRef = useRef(null);
+  const pointerRef = useRef(null);
 
   useEffect(() => {
     if (shouldReduceMotion) {
-      rectRef.current = null;
       cancelAnimationFrame(rafRef.current);
-      setTilt({ x: 0, y: 0 });
+      rafRef.current = null;
+      tiltX.set(0);
+      tiltY.set(0);
+      setHovered(false);
     }
     return () => cancelAnimationFrame(rafRef.current);
-  }, [shouldReduceMotion]);
+  }, [shouldReduceMotion, tiltX, tiltY]);
 
   const handleMouseEnter = () => {
-    if (cardRef.current) {
-      rectRef.current = cardRef.current.getBoundingClientRect();
-    }
+    if (!shouldReduceMotion) setHovered(true);
   };
 
   const handleMouseMove = (e) => {
     if (shouldReduceMotion || !cardRef.current) return;
-    if (!rectRef.current) {
-      rectRef.current = cardRef.current.getBoundingClientRect();
-    }
-    const rect = rectRef.current;
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-
+    pointerRef.current = { x: e.clientX, y: e.clientY };
+    if (rafRef.current !== null) return;
     rafRef.current = requestAnimationFrame(() => {
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      rafRef.current = null;
+      if (!cardRef.current || !pointerRef.current) return;
+      // Read layout once per frame, then update MotionValues directly. Pointer
+      // movement must not rerender prices, features and every child of the card.
+      const rect = cardRef.current.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const x = pointerRef.current.x - rect.left;
+      const y = pointerRef.current.y - rect.top;
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-
-      const rotateX = Number((((y - centerY) / centerY) * -6).toFixed(2));
-      const rotateY = Number((((x - centerX) / centerX) * 6).toFixed(2));
-
-      setTilt({ x: rotateX, y: rotateY });
+      tiltX.set(Math.max(-6, Math.min(6, ((y - centerY) / centerY) * -6)));
+      tiltY.set(Math.max(-6, Math.min(6, ((x - centerX) / centerX) * 6)));
     });
   };
 
   const handleMouseLeave = () => {
-    rectRef.current = null;
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    setTilt({ x: 0, y: 0 });
+    pointerRef.current = null;
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = null;
+    tiltX.set(0);
+    tiltY.set(0);
+    setHovered(false);
   };
 
-  const isHovered = !shouldReduceMotion && (tilt.x !== 0 || tilt.y !== 0);
+  const isHovered = !shouldReduceMotion && hovered;
 
   return (
     <motion.div
       ref={cardRef}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       variants={shouldReduceMotion ? undefined : cardVariants}
@@ -144,8 +151,6 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
       whileInView={shouldReduceMotion ? undefined : "visible"}
       viewport={{ once: true, margin: "-60px" }}
       animate={shouldReduceMotion ? { rotateX: 0, rotateY: 0, y: 0, scale: 1, opacity: 1 } : {
-        rotateX: tilt.x,
-        rotateY: tilt.y,
         y: rec ? (isHovered ? -28 : -16) : (isHovered ? -14 : 0),
         scale: isHovered ? 1.025 : 1,
       }}
@@ -157,12 +162,14 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
       }}
       data-plan={plan.id}
       data-testid={`pricing-card-${plan.id}`}
-      className={`group/card relative flex flex-col overflow-hidden rounded-[28px] p-8 md:p-10 transition-all duration-500 ${
+      className={`group/card relative flex flex-col overflow-hidden rounded-[28px] p-8 md:p-10 transition-[border-color,box-shadow,background-color] duration-500 ${
         rec
           ? "border-2 border-[#0038FF] bg-[#17130c] shadow-[0_20px_50px_-15px_rgba(0,56,255,0.35)] hover:shadow-[0_32px_80px_-10px_rgba(0,56,255,0.6)]"
           : "border border-white/12 bg-[#12100a] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_32px_64px_-28px_rgba(0,0,0,0.7)] hover:border-[#0038FF]/60 hover:shadow-[0_28px_65px_-12px_rgba(0,56,255,0.35)]"
       }`}
       style={{
+        rotateX,
+        rotateY,
         perspective: shouldReduceMotion ? undefined : "1000px",
         transformStyle: shouldReduceMotion ? undefined : "preserve-3d",
         transition: shouldReduceMotion ? "none" : undefined,

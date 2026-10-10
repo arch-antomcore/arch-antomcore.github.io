@@ -93,10 +93,10 @@ describe("curved screenshot reel", () => {
     expect(tiles().map((tile) => tile.querySelector("img").getAttribute("src"))).toEqual(initialSources);
   });
 
-  it("reacts to the system motion preference without removing the band", () => {
+  it("keeps the band moving when the system motion preference changes", () => {
     render();
     act(() => { preference.matches = true; preferenceListeners.forEach((listener) => listener()); });
-    expect(reel().dataset.carouselState).toBe("paused");
+    expect(reel().dataset.carouselState).toBe("playing");
     expect(tiles().length).toBeGreaterThan(1);
     act(() => { preference.matches = false; preferenceListeners.forEach((listener) => listener()); });
     expect(reel().dataset.carouselState).toBe("playing");
@@ -113,15 +113,16 @@ describe("curved screenshot reel", () => {
     expect(tiles().every((tile) => tile.style.animationPlayState === "running")).toBe(true);
   });
 
-  it("preserves an explicit animation opt-in over a system reduction preference", () => {
+  it("ignores both system reduction and old saved reduction settings", () => {
     preference.matches = true;
+    window.localStorage.setItem(MOTION_STORAGE_KEY, "reduced");
     render();
-    expect(reel().dataset.carouselState).toBe("paused");
+    expect(reel().dataset.carouselState).toBe("playing");
     act(() => setMotionPreference("animated"));
     expect(reel().dataset.carouselState).toBe("playing");
     act(() => setMotionPreference("reduced"));
-    expect(reel().dataset.carouselState).toBe("paused");
+    expect(reel().dataset.carouselState).toBe("playing");
     act(() => setMotionPreference("system"));
-    expect(reel().dataset.carouselState).toBe("paused");
+    expect(reel().dataset.carouselState).toBe("playing");
   });
 });

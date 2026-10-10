@@ -25,6 +25,23 @@ function measure(width, height, tile, aspect, gap, bend) {
   return { columns, sweep, unit: round(unit), limit: round(Math.min(sweep, limit)) };
 }
 
+// A wrapping tile changes one screenshot. Keep the other faceted images out
+// of React's reconciliation work when their source and geometry are unchanged.
+const ScreenshotFacets = React.memo(({ src, aspectRatio, tileHeight, unit, radius }) => {
+  const share = aspectRatio / SLICES;
+  const u = (n) => `calc(${+n.toFixed(4)} * min(${tileHeight}cqh, ${+(MAX_WIDTH / aspectRatio).toFixed(4)}cqw))`;
+  const turn = (deg) => `translateZ(${radius}) rotateY(${+deg.toFixed(4)}deg) translateZ(-${radius})`;
+  return Array.from({ length: SLICES }, (_, k) => (
+    <div
+      key={k}
+      className="tilted-grid-facet"
+      style={{ left: u((aspectRatio - share) / 2), width: k === SLICES - 1 ? u(share) : `calc(${u(share)} + 1px)`, height: u(1), transform: turn((aspectRatio / 2 - (k + 0.5) * share) * unit), borderRadius: k === 0 ? "12px 0 0 12px" : k === SLICES - 1 ? "0 12px 12px 0" : undefined }}
+    >
+      {src && <img src={src} alt="" draggable={false} decoding="async" style={{ left: u(-k * share), width: u(aspectRatio), height: u(1) }} />}
+    </div>
+  ));
+});
+
 /**
  * Decorative curved image band. Supply ordinary, accessible image controls
  * beside it when the screenshots convey content (as the homepage does).
@@ -109,7 +126,6 @@ export function TiltedGridHero({
   const turn = (deg) => `translateZ(${radius}) rotateY(${+deg.toFixed(4)}deg) translateZ(-${radius})`;
   const hide = +(((sweep - limit) / (2 * sweep || 1)) * 100).toFixed(4);
   const css = `@keyframes ${orbit}{from{transform:${turn(-sweep)}}to{transform:${turn(sweep)}}0%,${hide}%,${100 - hide}%,100%{visibility:hidden}${hide + 0.001}%,${100 - hide - 0.001}%{visibility:visible}}`;
-  const share = aspectRatio / SLICES;
   const duration = columns * Math.max(0.5, speed);
   const mask = `linear-gradient(90deg,transparent,#000 ${fade}%,#000 ${100 - fade}%,transparent)`;
   const isPaused = paused || !inView || !documentVisible || reducedMotion || hovered;
@@ -147,15 +163,7 @@ export function TiltedGridHero({
                 });
               }}
             >
-              {Array.from({ length: SLICES }, (_, k) => (
-                <div
-                  key={k}
-                  className="tilted-grid-facet"
-                  style={{ left: u((aspectRatio - share) / 2), width: k === SLICES - 1 ? u(share) : `calc(${u(share)} + 1px)`, height: u(1), transform: turn((aspectRatio / 2 - (k + 0.5) * share) * unit), borderRadius: k === 0 ? "12px 0 0 12px" : k === SLICES - 1 ? "0 12px 12px 0" : undefined }}
-                >
-                  {hasEntered && img && <img src={img.src} alt="" draggable={false} decoding="async" style={{ left: u(-k * share), width: u(aspectRatio), height: u(1) }} />}
-                </div>
-              ))}
+              <ScreenshotFacets src={hasEntered ? img?.src : undefined} aspectRatio={aspectRatio} tileHeight={tileHeight} unit={unit} radius={radius} />
             </div>
           );
         })}

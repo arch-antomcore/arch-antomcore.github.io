@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useReducedMotion } from "../../lib/motionPreference";
 
@@ -46,6 +46,14 @@ export const getCurrentLogoIndex = (currentTime, columnIndex, logosLength) => {
   return Math.floor(adjustedTime / CYCLE_INTERVAL);
 };
 
+// The stagger changes a visible logo only at these boundaries. There is no
+// reason to wake React ten times a second between two identical compositions.
+export const getNextLogoChangeDelay = (currentTime, columns) => columns.reduce((delay, logos, index) => {
+  if (logos.length < 2) return delay;
+  const phase = (currentTime + index * COLUMN_DELAY) % CYCLE_INTERVAL;
+  return Math.min(delay, CYCLE_INTERVAL - phase);
+}, Infinity);
+
 const LogoContent = ({ logo }) => (
   <div className="absolute inset-0 flex items-center justify-center">
     <img
@@ -59,8 +67,7 @@ const LogoContent = ({ logo }) => (
   </div>
 );
 
-export const LogoColumn = React.memo(({ logos, index, currentTime, isStatic }) => {
-  const currentIndex = getCurrentLogoIndex(currentTime, index, logos.length);
+export const LogoColumn = React.memo(({ logos, index, currentIndex, isStatic }) => {
   const currentLogo = useMemo(() => logos[currentIndex], [logos, currentIndex]);
 
   if (!currentLogo) return null;
@@ -138,14 +145,11 @@ export function LogoCarousel({ columnCount = 2, logos, isStatic = false }) {
   const shouldReduceMotion = useReducedMotion();
   const shouldRemainStatic = isStatic || shouldReduceMotion;
   const [currentTime, setCurrentTime] = useState(0);
+  const elapsedTimeRef = useRef(0);
   const [isVisible, setIsVisible] = useState(() => typeof document === "undefined" || !document.hidden);
   const [isInView, setIsInView] = useState(() => typeof IntersectionObserver === "undefined");
   const isPlaying = !shouldRemainStatic && isVisible && isInView;
   const logoSets = useMemo(() => distributeLogos(logos, columnCount), [logos, columnCount]);
-
-  const updateTime = useCallback(() => {
-    setCurrentTime((previousTime) => previousTime + 100);
-  }, []);
 
   useEffect(() => {
     const updateVisibility = () => setIsVisible(!document.hidden);
@@ -164,10 +168,26 @@ export function LogoCarousel({ columnCount = 2, logos, isStatic = false }) {
 
   useEffect(() => {
     if (!isPlaying) return undefined;
-
-    const intervalId = window.setInterval(updateTime, 100);
-    return () => window.clearInterval(intervalId);
-  }, [isPlaying, updateTime]);
+    let timer;
+    let startedAt = performance.now();
+    const schedule = () => {
+      const delay = getNextLogoChangeDelay(elapsedTimeRef.current, logoSets);
+      if (!Number.isFinite(delay)) return;
+      startedAt = performance.now();
+      timer = window.setTimeout(() => {
+        elapsedTimeRef.current += delay;
+        setCurrentTime(elapsedTimeRef.current);
+        schedule();
+      }, delay);
+    };
+    schedule();
+    return () => {
+      window.clearTimeout(timer);
+      // Preserve time spent before the next boundary when the tab/section
+      // pauses, so resuming does not restart an unfinished transition period.
+      if (timer !== undefined) elapsedTimeRef.current += Math.max(0, performance.now() - startedAt);
+    };
+  }, [isPlaying, logoSets]);
 
   return (
     <div
@@ -183,7 +203,7 @@ export function LogoCarousel({ columnCount = 2, logos, isStatic = false }) {
           key={index}
           logos={columnLogos}
           index={index}
-          currentTime={currentTime}
+          currentIndex={getCurrentLogoIndex(currentTime, index, columnLogos.length)}
           isStatic={shouldRemainStatic}
         />
       ))}

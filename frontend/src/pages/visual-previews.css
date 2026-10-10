@@ -68,7 +68,3 @@
   .reference-glass-demo-controls { border-radius: 28px; }
   .reference-glass-demo-viewer { max-width: none; }
 }
-html[data-motion-preference="reduced"] .reference-glass-demo-back,
-  html[data-motion-preference="reduced"] .reference-glass-demo-reset { transition: none; }
-html[data-motion-preference="reduced"] .reference-glass-demo-back:hover,
-  html[data-motion-preference="reduced"] .reference-glass-demo-reset:hover { transform: none; }

@@ -220,9 +220,3 @@ main .reference-action-secondary:hover { background: #051a6e !important; }
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
   .glass-panel { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background: #16212f; }
 }
-html[data-motion-preference="reduced"] .aether-enter { animation: none !important; }
-html[data-motion-preference="reduced"] :is(.sda-rise, .sda-fade, .sda-left, .sda-right, .sda-scale, .sda-blur, .sda-drift, .sda-exit-fade) { animation: none !important; opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
-html[data-motion-preference="reduced"] .aether-spin-slow, html[data-motion-preference="reduced"] .aether-marquee-soft, html[data-motion-preference="reduced"] .aether-marquee { animation-play-state: paused !important; }
-html[data-motion-preference="reduced"] [data-testid="sust-image-band"] img, html[data-motion-preference="reduced"] [data-testid="sust-image-band"] > div { transform: none !important; }
-html[data-motion-preference="reduced"] [data-testid="pricing-stage"] { transform: none !important; }
-html[data-motion-preference="reduced"] .reference-action, html[data-motion-preference="reduced"] .aether-card, html[data-motion-preference="reduced"] .aether-interactive-card { transition: none; }

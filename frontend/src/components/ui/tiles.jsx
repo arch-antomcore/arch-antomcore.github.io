@@ -64,7 +64,7 @@ export function Tiles({ className, rows, cols, tileClassName, tileSize = "md", v
     const surface = grid?.parentElement;
     if (!surface || shouldReduceMotion || !geometry.rows) return undefined;
     const finePointer = window.matchMedia?.("(hover: hover) and (pointer: fine)");
-    let frame = 0;
+    let frame = null;
     let activeCell = null;
     let pointer = null;
     const clear = () => {
@@ -72,7 +72,7 @@ export function Tiles({ className, rows, cols, tileClassName, tileSize = "md", v
       activeCell = null;
     };
     const update = () => {
-      frame = 0;
+      frame = null;
       if (!pointer || document.hidden) { clear(); return; }
       const rect = grid.getBoundingClientRect();
       const x = pointer.x - rect.left;
@@ -85,20 +85,26 @@ export function Tiles({ className, rows, cols, tileClassName, tileSize = "md", v
       clear();
       if (cell) { cell.dataset.active = "true"; activeCell = cell; }
     };
-    const move = (event) => {
-      if (event.pointerType === "touch" || finePointer?.matches === false) { clear(); return; }
-      pointer = { x: event.clientX, y: event.clientY };
-      if (!frame) frame = window.requestAnimationFrame(update);
+    const leave = () => {
+      pointer = null;
+      if (frame !== null) window.cancelAnimationFrame(frame);
+      frame = null;
+      clear();
     };
-    const leave = () => { pointer = null; clear(); };
+    const move = (event) => {
+      if (event.pointerType === "touch" || finePointer?.matches === false) { leave(); return; }
+      pointer = { x: event.clientX, y: event.clientY };
+      if (frame === null) frame = window.requestAnimationFrame(update);
+    };
     surface.addEventListener("pointermove", move, { passive: true });
     surface.addEventListener("pointerleave", leave, { passive: true });
+    surface.addEventListener("pointercancel", leave, { passive: true });
     document.addEventListener("visibilitychange", leave);
     return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      clear();
+      leave();
       surface.removeEventListener("pointermove", move);
       surface.removeEventListener("pointerleave", leave);
+      surface.removeEventListener("pointercancel", leave);
       document.removeEventListener("visibilitychange", leave);
     };
   }, [geometry, shouldReduceMotion]);

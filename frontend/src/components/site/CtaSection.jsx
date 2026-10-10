@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useReducedMotion } from "@/lib/motionPreference";
 import { ArrowUpRight, ChatCircle as MessageCircle, LinkedinLogo as Linkedin } from "@phosphor-icons/react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Container, Reveal } from "@/components/site/primitives";
@@ -8,31 +7,37 @@ import { MEDIA, MediaCredit } from "@/components/aether/GlassMedia";
 const LINKEDIN_URL = "https://www.linkedin.com/in/matheus-peres-da-silva/";
 
 /* Video backdrop — lazy: only plays while the section is on screen */
-const AnimatedVideoBackdrop = () => {
+export const AnimatedVideoBackdrop = () => {
   const videoRef = useRef(null);
   const [ready, setReady] = useState(false);
-  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const el = videoRef.current;
-    if (prefersReducedMotion) {
-      el?.pause();
-      return undefined;
-    }
-    if (!el || !("IntersectionObserver" in window)) return;
-    const io = new IntersectionObserver(
+    if (!el) return undefined;
+    let nearby = !("IntersectionObserver" in window);
+    const syncPlayback = () => {
+      if (nearby && !document.hidden) {
+        if (el.paused) el.play()?.catch(() => {});
+      } else {
+        el.pause();
+      }
+    };
+    const io = "IntersectionObserver" in window ? new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          el.play().catch(() => {});
-        } else {
-          el.pause();
-        }
+        nearby = entry.isIntersecting;
+        syncPlayback();
       },
       { rootMargin: "120px 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [prefersReducedMotion]);
+    ) : null;
+    io?.observe(el);
+    document.addEventListener("visibilitychange", syncPlayback);
+    syncPlayback();
+    return () => {
+      io?.disconnect();
+      document.removeEventListener("visibilitychange", syncPlayback);
+      el.pause();
+    };
+  }, []);
 
   return (
     <video
@@ -54,8 +59,7 @@ const AnimatedVideoBackdrop = () => {
   );
 };
 
-/* The CTA is intentionally cinematic in both experience profiles. It is
-   still lazy: the actual media plays only while this section is nearby. */
+/* The media stays animated and loads only while this section is nearby. */
 const VideoBackdrop = () => <AnimatedVideoBackdrop />;
 
 const CtaSection = () => {

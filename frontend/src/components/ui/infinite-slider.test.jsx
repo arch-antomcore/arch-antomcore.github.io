@@ -1,4 +1,4 @@
-import { distributeLogos, getCurrentLogoIndex } from "./infinite-slider";
+import { distributeLogos, getCurrentLogoIndex, getNextLogoChangeDelay } from "./infinite-slider";
 
 const logos = [
   { id: 1, name: "Rust", src: "/stack/rust.svg" },
@@ -25,5 +25,14 @@ describe("LogoCarousel sequencing", () => {
     expect(getCurrentLogoIndex(2000, 0, 3)).toBe(1);
     expect(getCurrentLogoIndex(1800, 1, 3)).toBe(1);
     expect(getCurrentLogoIndex(6000, 0, 3)).toBe(0);
+  });
+
+  it("schedules only the next visible logo change and skips single-logo columns", () => {
+    const columns = [[logos[0], logos[1]], [logos[2], logos[3]], [logos[3], logos[4]]];
+    expect(getNextLogoChangeDelay(0, columns)).toBe(1600);
+    expect(getNextLogoChangeDelay(1600, columns)).toBe(200);
+    expect(getNextLogoChangeDelay(1800, columns)).toBe(200);
+    expect(getNextLogoChangeDelay(2000, columns)).toBe(1600);
+    expect(getNextLogoChangeDelay(0, [[logos[0]], []])).toBe(Infinity);
   });
 });
