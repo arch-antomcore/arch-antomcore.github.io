@@ -3,13 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { EditorialMarquee } from "./AetherSections";
 import { useTranslation } from "@/hooks/useTranslation";
 
-/**
- * Awwwards-grade closing composition:
- * 1. Giant fluid serif watermark that scrolls in parallax
- * 2. Kinetic editorial statement with alternating stroke + solid lines
- * 3. Scroll-velocity marquee band
- * 4. "Numero de série" footer strip with mono glyphs
- */
+/* A kinetic blue manifesto, with product metadata from the shared copy. */
 const AetherClosing = () => {
   const { t, language } = useTranslation();
   const ref = useRef(null);
@@ -25,15 +19,13 @@ const AetherClosing = () => {
   const lines = language === "pt"
     ? [
         { text: "Cognição", variant: "solid" },
-        { text: "sob controle,", variant: "stroke" },
-        { text: "não sob", variant: "solid" },
-        { text: "assinatura.", variant: "serif" },
+        { text: "sob controle.", variant: "accent" },
+        { text: "Execução local.", variant: "solid" },
       ]
     : [
         { text: "Cognition", variant: "solid" },
-        { text: "you own,", variant: "stroke" },
-        { text: "not one you", variant: "solid" },
-        { text: "subscribe to.", variant: "serif" },
+        { text: "under control.", variant: "accent" },
+        { text: "Local execution.", variant: "solid" },
       ];
 
   const marqueeItems = language === "pt"
@@ -43,32 +35,32 @@ const AetherClosing = () => {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-[#f4f1e8] pt-20 md:pt-28 pb-16 md:pb-20"
+      className="aether-closing-panel relative overflow-hidden pt-14 md:pt-20 pb-0"
       data-testid="aether-closing"
     >
-      {/* Giant fluid serif watermark drifting behind content */}
+      {/* A display-type watermark drifts behind the statement. */}
       <motion.div
         style={{ y: yWater, opacity: opacityWater }}
         className="pointer-events-none absolute inset-x-0 top-20 md:top-24 flex justify-center select-none"
         aria-hidden="true"
       >
-        <span className="aether-font-serif italic text-[#211d18] whitespace-nowrap text-[26vw] leading-none tracking-[-0.05em] font-normal">
-          {language === "pt" ? "AetherCore." : "AetherCore."}
+        <span className="aether-closing-watermark whitespace-nowrap text-[20vw] leading-none tracking-[-0.05em] font-black uppercase">
+          AetherCore
         </span>
       </motion.div>
 
       <motion.div
         style={{ y: yStatement }}
-        className="relative z-10 px-6 md:px-12 max-w-[1600px] mx-auto"
+        className="relative z-10 px-6 md:px-12 max-w-[1456px] mx-auto"
       >
         {/* Eyebrow strip */}
-        <div className="flex items-center justify-between border-b border-[#211d18]/10 pb-5 mb-10 md:mb-14">
-          <span className="text-[11px] uppercase tracking-[0.3em] font-mono font-semibold text-[#211d18]/60 flex items-center gap-2.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#A34A33] animate-pulse" />
-            {language === "pt" ? "Chapter 04 — Filosofia" : "Chapter 04 — Philosophy"}
+        <div className="flex items-center justify-between border-b border-[#f4f1e8]/25 pb-5 mb-10 md:mb-14">
+          <span className="text-[11px] uppercase tracking-[0.2em] font-mono font-semibold text-[#f4f1e8] flex items-center gap-2.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#ccff00] animate-pulse" />
+            {language === "pt" ? "Filosofia AetherCore" : "AetherCore philosophy"}
           </span>
-          <span className="hidden md:block text-[11px] uppercase tracking-[0.3em] font-mono font-semibold text-[#211d18]/40">
-            //MANIFESTO.2026
+          <span className="hidden md:block text-[11px] uppercase tracking-[0.15em] font-mono font-semibold text-[#f4f1e8]/75">
+            {t.BRAND.tagline}
           </span>
         </div>
 
@@ -88,13 +80,7 @@ const AetherClosing = () => {
               className="overflow-hidden py-2"
             >
               <span
-                className={`block leading-[1.05] tracking-tighter py-1 ${
-                  ln.variant === "serif"
-                    ? "aether-font-serif italic text-[#A34A33] text-5xl sm:text-6xl md:text-7xl lg:text-[6.5vw] font-normal"
-                    : ln.variant === "stroke"
-                    ? "aether-font-display font-extrabold uppercase aether-text-stroke text-5xl sm:text-6xl md:text-7xl lg:text-[6.5vw]"
-                    : "aether-font-display font-extrabold uppercase text-[#211d18] text-5xl sm:text-6xl md:text-7xl lg:text-[6.5vw]"
-                }`}
+                className={`aether-closing-line block leading-[1.02] tracking-tighter py-1 font-black uppercase ${ln.variant === "accent" ? "text-[#ccff00]" : "text-[#f4f1e8]"}`}
               >
                 {ln.text}
               </span>
@@ -103,22 +89,9 @@ const AetherClosing = () => {
         </div>
 
         {/* Meta strip */}
-        <div className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-4 pt-8 border-t border-[#211d18]/10">
-          {[
-            { k: "N°", v: "00.04" },
-            { k: language === "pt" ? "REV" : "REV", v: "v0.6.0" },
-            { k: language === "pt" ? "ANO" : "YEAR", v: "MMXXVI" },
-            { k: language === "pt" ? "STATUS" : "STATUS", v: language === "pt" ? "AO VIVO" : "LIVE" },
-          ].map((m) => (
-            <div key={m.k} className="flex items-baseline gap-3">
-              <span className="text-[10px] uppercase tracking-[0.28em] font-mono text-[#211d18]/40">
-                {m.k}
-              </span>
-              <span className="aether-font-display font-bold uppercase tracking-tight text-lg text-[#211d18]">
-                {m.v}
-              </span>
-            </div>
-          ))}
+        <div className="mt-12 flex items-center justify-between gap-4 pt-6 border-t border-[#f4f1e8]/25 font-mono text-[11px] uppercase tracking-[0.15em] text-[#f4f1e8]/80">
+          <span>{t.BRAND.name}</span>
+          <span>{t.BRAND.version}</span>
         </div>
       </motion.div>
 

@@ -1,0 +1,74 @@
+/* Isolated photo/glass surfaces: semantic classes avoid the legacy utility
+   remapping applied to light page content. */
+.reference-glass-demo {
+  min-height: min(920px, 100svh);
+  margin: 112px clamp(16px, 2vw, 32px) 32px;
+  padding: clamp(24px, 4vw, 64px);
+  border-radius: clamp(28px, 4vw, 58px);
+  color: var(--card, #f7f4ec);
+  isolation: isolate;
+}
+.reference-glass-demo-wash {
+  background: linear-gradient(115deg, rgb(4 15 45 / 77%), rgb(8 37 143 / 25%) 65%, rgb(4 15 45 / 48%));
+}
+.reference-glass-demo-back,
+.reference-glass-demo-reset {
+  border: 1px solid var(--aether-lime, #ccff00);
+  border-radius: 999px;
+  background: var(--aether-lime, #ccff00);
+  color: var(--aether-blue-deep, #08258f);
+  padding: 13px 20px;
+  font-size: 12px;
+  font-weight: 750;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+.reference-glass-demo-back:hover,
+.reference-glass-demo-reset:hover { background: var(--card, #f7f4ec); transform: translateY(-2px); }
+.reference-glass-demo-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  border: 1px solid rgb(247 244 236 / 25%);
+  border-radius: 999px;
+  background: rgb(7 20 52 / 65%);
+  color: var(--card, #f7f4ec);
+  font: 600 9px/1.5 var(--font-code, monospace);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.reference-glass-demo-label > span { width: 7px; height: 7px; border-radius: 50%; background: var(--aether-lime, #ccff00); }
+.reference-glass-demo-controls {
+  padding: clamp(24px, 3vw, 40px);
+  border: 1px solid rgb(0 56 255 / 15%);
+  border-radius: 32px;
+  background: var(--card, #f7f4ec);
+  color: var(--ink, #211d18);
+  box-shadow: 0 28px 70px -35px rgb(2 13 44 / 50%);
+}
+.reference-glass-demo-controls h1 { color: var(--aether-blue, #0038ff); font-weight: 850; }
+.reference-glass-demo-description { color: var(--ink-muted, #5b5851); }
+.reference-glass-demo-code { padding: 2px 5px; border-radius: 5px; background: rgb(0 56 255 / 7%); color: var(--aether-blue, #0038ff); font: 600 12px var(--font-code, monospace); }
+.reference-glass-demo-control-label { color: var(--ink-muted, #5b5851); font: 600 10px/1.6 var(--font-code, monospace); }
+.reference-glass-demo-control-label output { flex-shrink: 0; color: var(--aether-blue, #0038ff); font-weight: 750; }
+.reference-glass-demo-range { width: 100%; height: 24px; margin: 0; accent-color: var(--aether-blue, #0038ff); cursor: pointer; }
+.reference-glass-demo-instruction { border-top: 1px solid rgb(0 56 255 / 14%); color: var(--ink-muted, #5b5851); font: 600 10px/1.6 var(--font-code, monospace); }
+.reference-glass-demo-viewer { border: 1px solid rgb(247 244 236 / 28%); box-shadow: 0 28px 60px -28px rgb(0 0 0 / 45%); }
+.reference-glass-demo-viewer-content { color: var(--card, #f7f4ec); }
+.reference-glass-demo-viewer-content h3 { color: var(--card, #f7f4ec); font-weight: 800; }
+.reference-glass-demo-icon { border-radius: 15px; background: var(--aether-blue, #0038ff); color: var(--aether-lime, #ccff00); }
+.reference-glass-demo-viewer-meta { margin-top: 5px; color: #d4dcff; font: 600 9px/1.5 var(--font-code, monospace); letter-spacing: 0.1em; text-transform: uppercase; }
+.reference-glass-demo-viewer-description { color: #f0eee8; }
+.reference-glass-demo :focus-visible { outline: 3px solid var(--aether-lime, #ccff00); outline-offset: 4px; }
+.reference-glass-demo-controls :focus-visible { outline-color: var(--aether-blue, #0038ff); }
+
+@media (max-width: 767px) {
+  .reference-glass-demo { min-height: 0; margin-top: 92px; padding-block: 28px 36px; }
+  .reference-glass-demo-nav { flex-wrap: wrap; justify-content: flex-start; gap: 14px; }
+  .reference-glass-demo-controls { border-radius: 28px; }
+  .reference-glass-demo-viewer { max-width: none; }
+}
+html[data-motion-preference="reduced"] .reference-glass-demo-back,
+  html[data-motion-preference="reduced"] .reference-glass-demo-reset { transition: none; }
+html[data-motion-preference="reduced"] .reference-glass-demo-back:hover,
+  html[data-motion-preference="reduced"] .reference-glass-demo-reset:hover { transform: none; }

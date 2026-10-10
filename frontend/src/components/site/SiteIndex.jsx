@@ -81,7 +81,7 @@ const IndexRow = ({ item, index, total, activeIndex, setActiveIndex }) => {
               <motion.h3
                 animate={{
                   x: isActive ? 12 : 0,
-                  color: isActive ? "#A34A33" : "#211d18",
+                  color: isActive ? "#0038FF" : "#211d18",
                 }}
                 transition={{ type: "spring", stiffness: 260, damping: 26 }}
                 className="text-2xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.05] truncate"
@@ -98,7 +98,7 @@ const IndexRow = ({ item, index, total, activeIndex, setActiveIndex }) => {
                   x: isActive ? 0 : -18,
                 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="hidden lg:inline-block font-serif-italic italic text-2xl text-[#A34A33]/80"
+                className="hidden lg:inline-block font-serif-italic italic text-2xl text-[#0038FF]/80"
               >
                 ↗
               </motion.span>

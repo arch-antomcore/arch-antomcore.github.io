@@ -2,22 +2,22 @@ import React from "react";
 import { KineticText } from "@/components/site/interactions";
 
 export const Container = ({ className = "", children }) => (
-  <div className={`max-w-7xl mx-auto px-6 md:px-12 ${className}`}>{children}</div>
+  <div className={`aether-container max-w-7xl mx-auto px-6 md:px-12 ${className}`}>{children}</div>
 );
 
 /* Sections: tighter vertical rhythm, no continuous per-section drift (it forced
    glass cards to re-rasterize on every scroll frame). */
 export const Section = ({ id, className = "", children, ...rest }) => (
-  <section id={id} className={`py-12 md:py-16 ${className}`} data-render-defer {...rest}>
+  <section id={id} className={`aether-section py-12 md:py-16 ${className}`} data-render-defer {...rest}>
     {children}
   </section>
 );
 
 export const Kicker = ({ children, className = "" }) => (
   <span
-    className={`inline-flex items-center font-mono text-[11px] md:text-xs uppercase tracking-[0.28em] text-zinc-500 ${className}`}
+    className={`aether-kicker inline-flex items-center font-mono text-[11px] md:text-xs uppercase tracking-[0.28em] text-zinc-500 ${className}`}
   >
-    <span className="mr-2.5 h-1.5 w-1.5 rounded-full bg-[#A34A33]" aria-hidden="true" />
+    <span className="mr-2.5 h-1.5 w-1.5 rounded-full bg-[#0038FF]" aria-hidden="true" />
     {children}
   </span>
 );
@@ -45,36 +45,18 @@ export const Reveal = ({ children, delay = 0, className = "", as = "div", varian
   );
 };
 
-/* Editorial serial index — the little "//03" ticker seen on Awwwards sites */
-let __sectionCounter = 0;
-const useSectionIndex = () => {
-  const [idx] = React.useState(() => {
-    __sectionCounter = (__sectionCounter + 1) % 100;
-    return __sectionCounter;
-  });
-  return idx.toString().padStart(2, "0");
-};
-
-export const SectionHeader = ({ kicker, title, desc, align = "left", className = "", showIndex = true }) => {
-  const idx = useSectionIndex();
+export const SectionHeader = ({ kicker, title, desc, align = "left", className = "" }) => {
   const isCenter = align === "center";
   return (
     <Reveal
       variant="blur"
-      className={`${isCenter ? "text-center mx-auto max-w-3xl" : "max-w-3xl"} ${className}`}
+      className={`aether-section-header ${isCenter ? "text-center mx-auto max-w-3xl" : "max-w-3xl"} ${className}`}
     >
       <div className={`flex items-center gap-4 ${isCenter ? "justify-center" : ""}`}>
         {kicker && <Kicker>{kicker}</Kicker>}
-        {showIndex && kicker && (
-          <>
-            <span className="h-px flex-1 bg-[#211d18]/10 max-w-[120px]" aria-hidden="true" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#211d18]/35">
-              //{idx}
-            </span>
-          </>
-        )}
+
       </div>
-      <h2 className="mt-4 text-3xl md:text-5xl aether-font-display font-bold uppercase aether-tracking-tighter leading-[1.02] text-gradient py-1 -my-1">
+      <h2 className="aether-section-title mt-4 text-3xl md:text-5xl aether-font-display font-bold uppercase aether-tracking-tighter leading-[1.02] text-gradient py-1 -my-1">
         <KineticText text={title} />
       </h2>
       {desc && (

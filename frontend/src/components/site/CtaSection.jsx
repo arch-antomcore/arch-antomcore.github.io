@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motionPreference";
 import { ArrowUpRight, ChatCircle as MessageCircle, LinkedinLogo as Linkedin } from "@phosphor-icons/react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Container, Reveal } from "@/components/site/primitives";
@@ -68,14 +68,14 @@ const CtaSection = () => {
       <div className="relative overflow-hidden rounded-[40px] bg-[#0b0a08]" data-experience-profile="cinematic">
         <VideoBackdrop />
         <div className="absolute inset-0 bg-gradient-to-br from-[#0b0a08]/85 via-[#0b0a08]/55 to-[#0b0a08]/90" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_80%_10%,rgba(163, 74, 51,0.16),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_80%_10%,rgba(0,56,255,0.16),transparent_60%)]" />
         <div className="noise-print absolute inset-0 opacity-[0.1] mix-blend-overlay" />
 
         <Container className="relative z-10 py-14 md:py-20">
           <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-end">
             <Reveal>
               <span className="flex items-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f7f4ec]/60">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#A34A33]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#0038FF]" />
                 {CTA.kicker}
               </span>
               <h2 className="aether-font-display mt-6 max-w-2xl text-4xl font-bold uppercase leading-[1.02] tracking-tight text-[#f7f4ec] md:text-6xl">
@@ -88,7 +88,7 @@ const CtaSection = () => {
               {/* Notice banner — glass */}
               <div className="mt-8 max-w-xl" data-testid="cta-notice">
                 <div className="glass-panel flex items-start gap-3 !rounded-2xl px-5 py-4">
-                  <MessageCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#A34A33]" strokeWidth={1.75} />
+                  <MessageCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#0038FF]" strokeWidth={1.75} />
                   <span className="text-sm leading-relaxed text-[#f7f4ec]/85">{CTA.notice}</span>
                 </div>
               </div>
@@ -129,16 +129,16 @@ const CtaSection = () => {
                   data-cursor-text="Email"
                   className="group inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-full px-8 py-4 text-sm font-medium transition-all duration-300"
                   style={{
-                    background: "linear-gradient(135deg, #A34A33 0%, #7a3526 100%)",
+                    background: "linear-gradient(135deg, #0038FF 0%, #08258f 100%)",
                     color: "#fff",
-                    boxShadow: "0 0 20px rgba(163, 74, 51, 0.25), 0 4px 12px rgba(0,0,0,0.15)",
+                    boxShadow: "0 0 20px rgba(0,56,255, 0.25), 0 4px 12px rgba(0,0,0,0.15)",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = "0 0 30px rgba(163, 74, 51, 0.45), 0 6px 20px rgba(0,0,0,0.2)";
+                    e.currentTarget.style.boxShadow = "0 0 30px rgba(0,56,255, 0.45), 0 6px 20px rgba(0,0,0,0.2)";
                     e.currentTarget.style.transform = "translateY(-2px)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "0 0 20px rgba(163, 74, 51, 0.25), 0 4px 12px rgba(0,0,0,0.15)";
+                    e.currentTarget.style.boxShadow = "0 0 20px rgba(0,56,255, 0.25), 0 4px 12px rgba(0,0,0,0.15)";
                     e.currentTarget.style.transform = "translateY(0)";
                   }}
                 >

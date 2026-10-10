@@ -5,7 +5,7 @@ export const BackgroundLines = ({
   className,
   children,
   lineColorBlue = "linear-gradient(90deg, transparent 0%, #38bdf8 30%, #818cf8 50%, #38bdf8 70%, transparent 100%)",
-  lineColorGreen = "linear-gradient(90deg, transparent 0%, #A34A33 30%, #A34A33 50%, #A34A33 70%, transparent 100%)",
+  lineColorGreen = "linear-gradient(90deg, transparent 0%, #0038FF 30%, #0038FF 50%, #0038FF 70%, transparent 100%)",
   duration = 5,
 }) => {
   const lineWrapperTops = [

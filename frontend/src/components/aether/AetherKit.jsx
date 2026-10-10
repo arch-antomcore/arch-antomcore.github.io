@@ -333,7 +333,7 @@ export const IntroCurtain = () => {
           transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
           className="block aether-font-display font-extrabold uppercase tracking-tighter text-3xl md:text-5xl text-[#f4f1e8]"
         >
-          AetherCore<span className="text-[#A34A33]">.</span>
+          AetherCore<span className="text-[#0038FF]">.</span>
         </motion.span>
       </span>
     </motion.div>

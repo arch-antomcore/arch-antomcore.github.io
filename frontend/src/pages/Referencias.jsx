@@ -32,7 +32,7 @@ const Referencias = () => {
   const REFERENCIAS = t.REFERENCIAS;
 
   return (
-    <div data-testid="referencias-page">
+    <div className="design-page" data-testid="referencias-page">
       <PageHero
         kicker={REFERENCIAS.kicker}
         lines={[REFERENCIAS.title]}
@@ -124,7 +124,7 @@ const Referencias = () => {
                       {m.source}
                     </span>
                   </div>
-                  <h3 className="mt-5 text-base font-semibold tracking-tight text-[#211d18] group-hover:text-[#A34A33] transition-colors duration-300">
+                  <h3 className="mt-5 text-base font-semibold tracking-tight text-[#211d18] group-hover:text-[#0038FF] transition-colors duration-300">
                     {m.author}
                   </h3>
                   <p className="mt-1.5 flex-1 text-xs leading-relaxed text-[#211d18]/55">{m.alt}</p>

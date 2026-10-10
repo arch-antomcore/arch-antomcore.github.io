@@ -8,10 +8,10 @@ import { Shield, Eye, Cpu, Scales as Scale, UserCheck, Code } from "@phosphor-ic
 // Mapeamento visual para cada princípio
 const getCardStyle = (index) => {
   const styles = [
-    { span: "md:col-span-2 lg:col-span-2", icon: Shield, color: "text-[#A34A33]" }, // 01: controle
+    { span: "md:col-span-2 lg:col-span-2", icon: Shield, color: "text-[#0038FF]" }, // 01: controle
     { span: "col-span-1", icon: Eye, color: "text-sky-400" }, // 02: consentimento
-    { span: "col-span-1", icon: Cpu, color: "text-[#A34A33]" }, // 03: registro
-    { span: "col-span-1", icon: Scale, color: "text-[#A34A33]" }, // 04: proporcionalidade
+    { span: "col-span-1", icon: Cpu, color: "text-[#0038FF]" }, // 03: registro
+    { span: "col-span-1", icon: Scale, color: "text-[#0038FF]" }, // 04: proporcionalidade
     { span: "col-span-1", icon: UserCheck, color: "text-rose-400" }, // 05: humano no comando
     { span: "md:col-span-2 lg:col-span-2", icon: Code, color: "text-indigo-400" }, // 06: código como defesa
   ];
@@ -23,7 +23,7 @@ const Principios = () => {
   const PRINCIPIOS = t.PRINCIPIOS;
 
   return (
-    <div data-testid="principios-page">
+    <div className="design-page" data-testid="principios-page">
       <PageHero
         kicker={PRINCIPIOS.kicker}
         lines={[PRINCIPIOS.title]}
@@ -54,7 +54,7 @@ const Principios = () => {
               return (
                 <Reveal key={it.n} delay={i * 0.1} className={style.span}>
                   <div
-                    className="aether-card group relative flex h-full flex-col justify-between overflow-hidden p-8 md:p-10 cursor-pointer"
+                    className="aether-card group relative flex h-full flex-col justify-between overflow-hidden p-8 md:p-10"
                     data-cursor="hover"
                   >
                     {/* Giant background watermark number */}

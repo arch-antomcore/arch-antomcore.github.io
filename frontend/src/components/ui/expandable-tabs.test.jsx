@@ -1,6 +1,9 @@
 import React, { act } from "react";
 import { createRoot } from "react-dom/client";
 import { ExpandableTabs } from "./expandable-tabs";
+import { useReducedMotion } from "@/lib/motionPreference";
+
+jest.mock("@/lib/motionPreference", () => ({ useReducedMotion: jest.fn() }), { virtual: true });
 
 jest.mock("@/lib/utils", () => ({
   cn: (...values) => values.filter(Boolean).join(" "),
@@ -50,7 +53,6 @@ jest.mock("framer-motion", () => {
   return {
     AnimatePresence: ({ children }) => children,
     motion,
-    useReducedMotion: () => true,
   };
 });
 
@@ -70,6 +72,7 @@ describe("ExpandableTabs navbar behavior", () => {
   });
 
   beforeEach(() => {
+    useReducedMotion.mockReturnValue(false);
     container = document.createElement("div");
     document.body.appendChild(container);
     root = createRoot(container);
@@ -131,5 +134,41 @@ describe("ExpandableTabs navbar behavior", () => {
     const active = container.querySelector('[aria-current="page"]');
     expect(active.textContent).toContain("Validation");
     expect(active.getAttribute("data-nav-expanded")).toBe("true");
+  });
+
+  it("supports arrow, Home and End focus navigation without navigating until activated", () => {
+    const onChange = jest.fn();
+    act(() => root.render(<ExpandableTabs tabs={tabs} activeTab={3} onChange={onChange} />));
+    const buttons = [...container.querySelectorAll("button")];
+    const key = (value) => act(() => document.activeElement.dispatchEvent(new KeyboardEvent("keydown", { key: value, bubbles: true, cancelable: true })));
+    act(() => buttons[3].focus());
+    act(() => buttons[9].dispatchEvent(new MouseEvent("mouseover", { bubbles: true })));
+    key("ArrowRight");
+    expect(document.activeElement).toBe(buttons[4]);
+    expect(buttons[4].dataset.navExpanded).toBe("true");
+    key("End");
+    expect(document.activeElement).toBe(buttons[12]);
+    key("ArrowRight");
+    expect(document.activeElement).toBe(buttons[0]);
+    key("ArrowLeft");
+    expect(document.activeElement).toBe(buttons[12]);
+    key("Home");
+    expect(document.activeElement).toBe(buttons[0]);
+    expect(onChange).not.toHaveBeenCalled();
+    act(() => buttons[0].click());
+    expect(onChange).toHaveBeenCalledWith(0);
+  });
+
+  it("retains hover expansion and route selection when reduced motion is selected", () => {
+    useReducedMotion.mockReturnValue(true);
+    const onChange = jest.fn();
+    act(() => root.render(<ExpandableTabs tabs={tabs} activeTab={6} onChange={onChange} />));
+    const buttons = [...container.querySelectorAll("button")];
+    act(() => buttons[2].dispatchEvent(new MouseEvent("mouseover", { bubbles: true })));
+    expect(buttons[2].dataset.navExpanded).toBe("true");
+    expect(buttons[6].getAttribute("aria-current")).toBe("page");
+    act(() => buttons[2].click());
+    expect(onChange).toHaveBeenCalledWith(2);
+    expect(buttons.every((button) => button.type === "button")).toBe(true);
   });
 });

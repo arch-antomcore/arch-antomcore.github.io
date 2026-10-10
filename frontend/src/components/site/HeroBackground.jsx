@@ -77,7 +77,7 @@ const HeroBackground = memo(() => (
     {PARTICLES.map((p, i) => (
       <span
         key={i}
-        className="hero-particle absolute rounded-full bg-[#A34A33]/30"
+        className="hero-particle absolute rounded-full bg-[#0038FF]/30"
         style={{
           left: p.l,
           top: p.t,

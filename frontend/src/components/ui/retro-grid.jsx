@@ -26,11 +26,9 @@ const FALLBACK_STYLES = `
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  [data-retro-grid-scroll="true"] {
-    animation: none !important;
-    transform: translateY(-50%) !important;
-  }
+html[data-motion-preference="reduced"] [data-retro-grid-scroll="true"] {
+  animation: none !important;
+  transform: translateY(-50%) !important;
 }
 `
 

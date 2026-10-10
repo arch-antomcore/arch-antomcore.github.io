@@ -1,0 +1,125 @@
+/* Shared details for the interior reading pages. Photography and video keep
+   their own glass treatment; these rules only address the editorial cards. */
+.design-number,
+.manifesto-chapter-number,
+.editorial-chapter-number,
+.pricing-opening-title,
+.aether-closing-line,
+.aether-closing-watermark {
+  font-family: var(--font-headline);
+  font-style: normal;
+}
+.design-page :is(.aether-card, .aether-interactive-card),
+.design-panel {
+  border: 1px solid rgb(0 56 255 / 15%);
+  border-radius: 32px;
+  background-color: var(--card);
+  box-shadow: 0 12px 34px -30px rgb(8 37 143 / 32%);
+}
+.design-page :is(.aether-card, .aether-interactive-card):hover,
+.design-panel:hover {
+  border-color: rgb(0 56 255 / 40%);
+}
+.design-page :is(.aether-card, .aether-interactive-card) h3 {
+  font-family: var(--font-headline);
+  font-weight: 900;
+  color: var(--ink) !important;
+  letter-spacing: -0.035em;
+}
+.design-page :is(.aether-card, .aether-interactive-card) p {
+  color: #57534b !important;
+}
+.design-page :is(.aether-card, .aether-interactive-card) p :is(strong, b) {
+  color: var(--ink);
+}
+.design-panel .aether-kicker {
+  background: rgb(0 56 255 / 6%);
+}
+.architecture-flow-chip {
+  background: rgb(0 56 255 / 6%);
+  border: 1px solid rgb(0 56 255 / 12%);
+}
+main .design-blue-panel,
+.design-page .design-blue-panel {
+  background-color: var(--aether-blue-deep) !important;
+  border-color: rgb(244 241 232 / 18%);
+  color: var(--paper) !important;
+  box-shadow: none;
+}
+.design-page .design-blue-panel :is(p, .text-white, .text-zinc-300, .text-zinc-400, [class*="text-[#f4f1e8]/"], [class*="text-[#f7f4ec]/"]) {
+  color: #e2e7ff !important;
+}
+.design-page .design-blue-panel :is(h2, h3) {
+  font-family: var(--font-headline);
+  color: var(--aether-lime) !important;
+}
+.design-page .design-blue-panel :is(a, .aether-kicker, .aether-dark-accent) {
+  color: var(--aether-lime) !important;
+}
+.design-page .design-blue-panel .aether-kicker {
+  background: rgb(244 241 232 / 8%);
+  border-color: rgb(244 241 232 / 25%);
+}
+.design-page .design-blue-panel a:hover { color: var(--paper) !important; }
+.design-page .design-blue-panel p :is(strong, b) { color: var(--paper); }
+.editorial-chapter-list [data-testid^="editorial-chapter-"] {
+  margin-bottom: 0;
+  border-color: rgb(0 56 255 / 16%);
+  padding: clamp(24px, 3.6vw, 48px);
+}
+.editorial-chapter-list .editorial-chapter-number {
+  min-width: 2ch;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.07em;
+}
+.editorial-chapter-list h3 {
+  font-family: var(--font-headline);
+  font-weight: 900;
+  text-wrap: balance;
+}
+.pricing-opening-title {
+  font-size: clamp(2.3rem, 5.2vw, 4.8rem);
+  line-height: 1.03;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.pricing-opening-title > span { color: var(--aether-blue); }
+.pricing-plan-summary h3 { font-family: var(--font-headline); }
+.blog-pagination a[aria-current="page"] {
+  background: var(--aether-lime) !important;
+  border-color: var(--aether-lime) !important;
+  color: var(--aether-blue-deep) !important;
+  box-shadow: none;
+}
+.blog-markdown code {
+  color: var(--aether-blue) !important;
+  background: rgb(0 56 255 / 6%) !important;
+}
+.aether-closing-panel {
+  width: calc(100% - 64px);
+  max-width: 1392px;
+  margin: 32px auto;
+  border: 2px solid var(--aether-blue);
+  border-radius: clamp(32px, 4vw, 58px);
+  background-color: var(--aether-blue);
+  color: var(--paper);
+}
+.aether-closing-watermark { color: var(--paper); }
+.aether-closing-line {
+  font-size: clamp(1.9rem, 5.4vw, 5.2rem);
+  overflow-wrap: break-word;
+  text-shadow: 4px 5px 0 var(--aether-blue-deep);
+}
+.aether-closing-panel .aether-closing-line.text-\[\#f4f1e8\] { color: var(--paper); }
+.aether-closing-panel .aether-closing-line.text-\[\#ccff00\] { color: var(--aether-lime); }
+@media (max-width: 767px) {
+  .editorial-chapter-list .editorial-chapter > div:first-child > div {
+    flex-direction: row;
+    align-items: baseline;
+  }
+  .editorial-chapter-list .editorial-chapter-number { font-size: 2.5rem; }
+  .aether-closing-panel { width: calc(100% - 32px); margin-block: 24px; }
+  .aether-closing-line { text-shadow: 2px 3px 0 var(--aether-blue-deep); }
+}

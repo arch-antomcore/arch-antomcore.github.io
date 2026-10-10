@@ -1,3 +1,5 @@
+import { prefersReducedMotion } from "./motionPreference";
+
 /* Fallback engine for the SDA (scroll-driven animation) system.
    Browsers with native `animation-timeline: view()` need nothing;
    older ones get an IntersectionObserver that toggles `.sda-in`. */
@@ -9,7 +11,7 @@ export function initScrollAnimations() {
     typeof CSS !== "undefined" && CSS.supports?.("animation-timeline: view()");
   if (nativeSupport) return () => {};
 
-  const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const reduced = prefersReducedMotion();
 
   const io = new IntersectionObserver(
     (entries) => {

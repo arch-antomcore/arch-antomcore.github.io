@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "@/index.css";
+import "@/reference-theme.css";
+import "@/cinematic-theme.css";
+import "@/design-refinements.css";
 import App from "@/App";
 
 import { LanguageProvider } from "@/context/LanguageContext";

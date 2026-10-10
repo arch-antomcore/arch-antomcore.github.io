@@ -10,7 +10,7 @@ const Dossie = () => {
   const DOSSIE = t.DOSSIE;
 
   return (
-    <div data-testid="dossie-page">
+    <div className="design-page" data-testid="dossie-page">
       <PageHero
         kicker={DOSSIE.kicker}
         lines={DOSSIE.title}

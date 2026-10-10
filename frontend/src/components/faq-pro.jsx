@@ -38,7 +38,7 @@ function highlightText(text, query) {
     if (part.toLowerCase() === normalizedQuery.toLowerCase()) {
       return (
         <mark
-          className="rounded-sm bg-[#A34A33]/10 text-[#A34A33] font-medium px-0.5"
+          className="rounded-sm bg-[#0038FF]/10 text-[#0038FF] font-medium px-0.5"
           key={index}>
           {part}
         </mark>
@@ -82,14 +82,14 @@ function FaqProRow({
         <button
           aria-controls={panelId}
           aria-expanded={isOpen}
-          className="flex w-full items-start justify-between gap-4 px-6 py-5 text-left outline-none focus-visible:ring-1 focus-visible:ring-[#A34A33]/20"
+          className="flex w-full items-start justify-between gap-4 px-6 py-5 text-left outline-none focus-visible:ring-1 focus-visible:ring-[#0038FF]/20"
           id={triggerId}
           onClick={onToggle}
           type="button">
           <span
             className={cn(
               "font-medium text-[16px] leading-6 tracking-[-0.01em] transition-colors duration-300",
-              isOpen ? "text-[#A34A33]" : "text-[#211d18]"
+              isOpen ? "text-[#0038FF]" : "text-[#211d18]"
             )}>
             {highlightText(item.question, query)}
           </span>
@@ -97,7 +97,7 @@ function FaqProRow({
             aria-hidden
             className={cn(
               "mt-1 size-4 shrink-0 text-[#211d18]/45 transition-transform duration-300 ease-out",
-              isOpen && "rotate-180 text-[#A34A33]"
+              isOpen && "rotate-180 text-[#0038FF]"
             )} />
         </button>
       </h3>
@@ -200,7 +200,7 @@ function FaqPro({
         <input
           aria-label={searchPlaceholder}
           className={cn(
-            "h-12 w-full appearance-none rounded-full border border-[#211d18]/10 bg-[#fbf9f2] px-6 pr-12 text-[15px] text-[#211d18] outline-none transition-colors duration-300 focus:border-[#A34A33]/30 focus:bg-[#f4f1e8]",
+            "h-12 w-full appearance-none rounded-full border border-[#211d18]/10 bg-[#fbf9f2] px-6 pr-12 text-[15px] text-[#211d18] outline-none transition-colors duration-300 focus:border-[#0038FF]/30 focus:bg-[#f4f1e8]",
             "placeholder:text-[#211d18]/45",
             "[&::-webkit-search-cancel-button]:appearance-none",
             "[&::-webkit-search-decoration]:appearance-none"

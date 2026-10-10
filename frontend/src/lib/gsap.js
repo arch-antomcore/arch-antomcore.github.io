@@ -1,6 +1,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { prefersReducedMotion } from "./motionPreference";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 gsap.defaults({ ease: "power3.out", duration: 1.2 });
@@ -8,11 +9,10 @@ gsap.defaults({ ease: "power3.out", duration: 1.2 });
 export const EASE_SOFT = "power3.out";
 export const EASE_EXPO = "expo.out";
 
-export const prefersReducedMotion = () => false;
+export { prefersReducedMotion };
 
-/* Global `data-reveal` engine: one GSAP tween per element, fired once when it
-   enters the viewport. Light profile = shorter travel, no scale. */
-export function initGsapReveals({ light = false } = {}) {
+/* Global `data-reveal` engine: one tween per element on viewport entry. */
+export function initGsapReveals() {
   if (typeof window === "undefined" || prefersReducedMotion()) return () => {};
 
   const tweens = [];
@@ -23,9 +23,9 @@ export function initGsapReveals({ light = false } = {}) {
     seen.add(el);
     const kind = el.dataset.reveal || "rise";
     const index = Number(el.dataset.revealIndex || 0);
-    const from = { autoAlpha: 0, y: light ? 22 : 40 };
-    if (kind === "scale" && !light) from.scale = 0.965;
-    if (kind === "left") { from.x = light ? -18 : -40; from.y = 0; }
+    const from = { autoAlpha: 0, y: 40 };
+    if (kind === "scale") from.scale = 0.965;
+    if (kind === "left") { from.x = -40; from.y = 0; }
     if (kind === "fade") from.y = 0;
 
     tweens.push(
@@ -34,7 +34,7 @@ export function initGsapReveals({ light = false } = {}) {
         x: 0,
         y: 0,
         scale: 1,
-        duration: light ? 1.05 : 1.35,
+        duration: 1.35,
         delay: index * 0.09,
         ease: EASE_SOFT,
         clearProps: "transform",

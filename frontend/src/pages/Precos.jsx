@@ -10,7 +10,7 @@ const Precos = () => {
   const PRICING = t.PRICING;
 
   return (
-    <div data-testid="precos-page">
+    <div className="design-page" data-testid="precos-page">
       <div id="precos-hero">
         <PageHero
           kicker={PRICING.kicker}

@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React from "react";
+
 import { getLucideIcon } from "@/lib/iconHelper";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Container, Section, SectionHeader, Kicker, Reveal } from "@/components/site/primitives";
@@ -9,25 +9,20 @@ import Marquee from "@/components/site/Marquee";
 import GlobalLeakCounter from "@/components/site/GlobalLeakCounter";
 import AetherHero from "@/components/aether/AetherHero";
 import AetherClosing from "@/components/aether/AetherClosing";
-import { IntroCurtain } from "@/components/aether/AetherKit";
+
 import { GlassShowcase } from "@/components/aether/GlassMedia";
 import CtaSection from "@/components/site/CtaSection";
+import { Tiles } from "@/components/ui/tiles";
 import FounderMessage from "@/components/site/FounderMessage";
-import { useExperience } from "@/context/ExperienceContext";
 
-// These visual systems contain the most expensive canvases and texture work on
-// the home page. They are fetched only after a visitor intentionally selects
-// the full experience.
-const ZoomParallax = React.lazy(() => import("@/components/ui/zoom-parallax").then((module) => ({ default: module.ZoomParallax })));
-const BlackHole = React.lazy(() => import("@/components/ui/black-hole").then((module) => ({ default: module.BlackHole })));
-const GlitterWrap = React.lazy(() => import("@/components/ui/glitter-wrap").then((module) => ({ default: module.GlitterWrap })));
 
 const WhatIsAetherSection = () => {
   const { t } = useTranslation();
   const HOME = t.HOME;
   return (
   <Section id="what-is-aether" className="liquid-divider">
-    <Container>
+    <Container className="aether-tile-surface">
+      <Tiles tileSize="lg" />
       <SectionHeader 
         kicker={HOME.whatIsAether.kicker} 
         title={HOME.whatIsAether.title} 
@@ -70,7 +65,7 @@ const StackSection = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
           <SectionHeader kicker={HOME.stackKicker} title={HOME.stackTitle} desc={HOME.stackDesc} />
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 border border-[#211d18]/10 text-xs font-mono uppercase tracking-widest text-[#211d18] shrink-0 shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#A34A33] animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-[#0038FF] animate-pulse" />
             14 Módulos · Processamento 100% Local
           </div>
         </div>
@@ -81,7 +76,7 @@ const StackSection = () => {
       <Container>
         <div className="mt-8 p-5 rounded-2xl bg-white/60 border border-[#211d18]/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-zinc-600 leading-relaxed max-w-2xl">{HOME.stackCredit}</p>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-[#A34A33] font-semibold shrink-0">
+          <span className="font-mono text-[10px] uppercase tracking-widest text-[#0038FF] font-semibold shrink-0">
             // STACK VERIFICADA · RUST + TOKIO + AXUM
           </span>
         </div>
@@ -117,129 +112,17 @@ const Synthesis = () => {
    longer scrubbed transforms over sections full of glass cards. */
 const ScrollCinematic = ({ children }) => <GsapReveal>{children}</GsapReveal>;
 
-const AETHER_ZOOM_IMAGES = [
-  {
-    src: "/assets/img/gallery/aether-5.png",
-    alt: "Chat inteligente integrado na barra lateral do Quintessence",
-  },
-  {
-    src: "/assets/img/gallery/aether-2.png",
-    alt: "Orquestrador Hub de Modelos e LLMs",
-  },
-  {
-    src: "/assets/img/gallery/aether-1.png",
-    alt: "AetherCore Workspace - Dashboard local e chat com IA",
-  },
-  {
-    src: "/assets/img/gallery/aether-4.png",
-    alt: "Marketplace de Extensões do Quintessence",
-  },
-  {
-    src: "/assets/img/gallery/aether-3.png",
-    alt: "Visual da IDE de alta performance do Quintessence",
-  },
-  {
-    src: "/assets/img/gallery/aether-2.png",
-    alt: "Orquestrador de Modelos",
-  },
-  {
-    src: "/assets/img/gallery/aether-4.png",
-    alt: "Quintessence Marketplace",
-  },
-];
-
-const SectionGroupWithStarfieldFull = ({ children }) => {
-  const groupRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: groupRef,
-    offset: ["start end", "end start"],
-  });
-
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [-60, 60]);
-
-  return (
-    <div ref={groupRef} className="relative overflow-hidden w-full">
-      {/* Background Starfield Warp Tunnel (GlitterWrap) with Parallax behind BlackHole */}
-      <React.Suspense fallback={null}>
-        <motion.div
-          style={{ y: parallaxY }}
-          className="absolute inset-0 z-0 pointer-events-none opacity-[0.85] overflow-hidden"
-          aria-hidden="true"
-        >
-          <GlitterWrap
-            particleCount={320}
-            speed={4}
-            starSize={14}
-            focalDepth={14}
-            brightness={85}
-            glitterIntensity={4}
-            color1="#ffffff"
-            color2="#A34A33"
-            color3="#eab308"
-            trailAmount={80}
-            reverse={true}
-          />
-        </motion.div>
-      </React.Suspense>
-
-      {/* Interactive 3D BlackHole Background spanning 'what-is-aether' section */}
-      <React.Suspense fallback={null}>
-        <div className="absolute inset-0 z-[1] opacity-[0.92] pointer-events-auto overflow-hidden" aria-hidden="true">
-          <div className="sticky top-0 h-screen w-full flex items-center justify-center">
-            <BlackHole
-              particleCount={620}
-              particleSize={4}
-              tilt={20}
-              tiltSideway={160}
-              trail={50}
-              orbitSpeed={4}
-              outerRadius={70}
-              emitOutward={true}
-              colors={["#ffffff", "#A34A33", "#d97706"]}
-            />
-          </div>
-          {/* Clean transparent container without dark gradient masks */}
-        </div>
-      </React.Suspense>
-
-      <div className="relative z-10">
-        {children}
-      </div>
-    </div>
-  );
-};
-
-const SectionGroupWithStarfield = ({ children }) => {
-  const { isLightExperience } = useExperience();
-  if (isLightExperience) {
-    return <div className="relative w-full">{children}</div>;
-  }
-  return <SectionGroupWithStarfieldFull>{children}</SectionGroupWithStarfieldFull>;
-};
-
-const GalleryLoadingPlaceholder = () => (
-  <div
-    className="min-h-[46vh] w-full bg-[#211d18]"
-    aria-hidden="true"
-    data-testid="gallery-loading-placeholder"
-  />
-);
-
 const Home = () => {
-  const { isLightExperience } = useExperience();
+
 
   return (
   <div data-testid="home-page">
-    {!isLightExperience && <IntroCurtain />}
+
     <AetherHero />
-    {!isLightExperience && (
-      <React.Suspense fallback={<GalleryLoadingPlaceholder />}>
-        <ZoomParallax images={AETHER_ZOOM_IMAGES} />
-      </React.Suspense>
-    )}
+
     
     {/* Sections //01 ("O que o Aether Faz?") up to //03 ("Resumo Comercial") */}
-    <SectionGroupWithStarfield>
+    <div className="home-editorial-sections">
       <ScrollCinematic>
         <WhatIsAetherSection />
       </ScrollCinematic>
@@ -255,7 +138,7 @@ const Home = () => {
       <ScrollCinematic>
         <Synthesis />
       </ScrollCinematic>
-    </SectionGroupWithStarfield>
+    </div>
 
     <GlassShowcase />
 

@@ -1,0 +1,51 @@
+.aether-tile-surface {
+  position: relative;
+  isolation: isolate;
+}
+
+.aether-tile-content {
+  position: relative;
+  z-index: 1;
+}
+
+.aether-tiles {
+  --tile: rgba(204, 255, 0, 0.3);
+  --tiles-line: rgba(244, 241, 232, 0.11);
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  contain: paint;
+}
+
+.aether-tiles--paper {
+  --tile: rgba(0, 56, 255, 0.09);
+  --tiles-line: rgba(0, 56, 255, 0.075);
+}
+
+.aether-tiles__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--tiles-columns), var(--tiles-size));
+  grid-auto-rows: var(--tiles-size);
+  width: max-content;
+  border-top: 1px solid var(--tiles-line);
+  border-left: 1px solid var(--tiles-line);
+}
+
+.aether-tiles__cell {
+  border-right: 1px solid var(--tiles-line);
+  border-bottom: 1px solid var(--tiles-line);
+  background-color: transparent;
+  transition: background-color 1.35s cubic-bezier(0.2, 0.65, 0.3, 1);
+}
+
+.aether-tiles__cell[data-active="true"] {
+  background-color: var(--tile);
+  transition-duration: 60ms;
+}
+
+.aether-tiles[data-tile-motion="reduced"] .aether-tiles__cell {
+  transition: none;
+}

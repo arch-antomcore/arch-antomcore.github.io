@@ -1,32 +1,32 @@
 import React, { useRef } from "react";
-import { gsap, useGSAP, EASE_SOFT, prefersReducedMotion } from "@/lib/gsap";
-import { useExperience } from "@/context/ExperienceContext";
+import { gsap, useGSAP, EASE_SOFT } from "@/lib/gsap";
+import { useReducedMotion } from "@/lib/motionPreference";
 
 /* Section-level entrance: one tween on enter (never scrubbed), so heavy
    children (glass cards, canvases) are not re-rastered on every frame. */
 const GsapReveal = ({ children, className = "", y = 48, scale = 0.975, duration = 1.4 }) => {
   const ref = useRef(null);
-  const { isLightExperience } = useExperience();
+  const reducedMotion = useReducedMotion();
 
   useGSAP(
     () => {
       const el = ref.current;
-      if (!el || prefersReducedMotion()) return;
+      if (!el || reducedMotion) return;
       gsap.fromTo(
         el,
-        { autoAlpha: 0, y: isLightExperience ? 24 : y, scale: isLightExperience ? 1 : scale },
+        { autoAlpha: 0, y, scale },
         {
           autoAlpha: 1,
           y: 0,
           scale: 1,
-          duration: isLightExperience ? 1.1 : duration,
+          duration,
           ease: EASE_SOFT,
           clearProps: "transform",
           scrollTrigger: { trigger: el, start: "top 86%", once: true },
         },
       );
     },
-    { scope: ref, dependencies: [isLightExperience] },
+    { scope: ref, dependencies: [reducedMotion, y, scale, duration], revertOnUpdate: true },
   );
 
   return (

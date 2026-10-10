@@ -77,7 +77,7 @@ export function CardVisual({ className, ...props }) {
 export function GeometricVisual({
   primaryColor = "#06b6d4",
   accentColor = "#f59e0b",
-  particleColor = "#A34A33",
+  particleColor = "#0038FF",
 }) {
   const [hovered, setHovered] = useState(false);
   const [mounted, setMounted] = useState(false);

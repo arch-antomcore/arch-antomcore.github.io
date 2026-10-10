@@ -13,7 +13,7 @@ const Produto = () => {
   const PRODUTO = t.PRODUTO;
 
   return (
-    <div data-testid="produto-page">
+    <div className="design-page" data-testid="produto-page">
       <div id="produto-hero">
         <PageHero
           kicker={PRODUTO.kicker}
@@ -55,8 +55,8 @@ const Produto = () => {
                   cursorText={o.name}
                   className={`flex h-full flex-col rounded-[28px] p-7 md:p-8 transition-all duration-500 border ${
                     i === 1
-                      ? "bg-[#211d18] text-[#f4f1e8] border-[#211d18] hover:bg-[#A34A33] hover:border-[#A34A33]"
-                      : "bg-[#fbf9f2] text-[#211d18] border-[#211d18]/10 hover:border-[#A34A33] hover:-translate-y-1"
+                      ? "design-blue-panel bg-[#08258f] text-[#f4f1e8] border-[#08258f] hover:border-[#0038FF]"
+                      : "bg-[#fbf9f2] text-[#211d18] border-[#211d18]/10 hover:border-[#0038FF] hover:-translate-y-1"
                   }`}
                 >
                   <div className="flex items-baseline gap-3">
@@ -82,7 +82,7 @@ const Produto = () => {
                         key={p}
                         className={`flex items-center gap-2.5 text-sm ${i === 1 ? "text-[#f4f1e8]/85" : "text-[#211d18]/70"}`}
                       >
-                        <span className={`h-1.5 w-1.5 rounded-full ${i === 1 ? "bg-[#A34A33]" : "bg-[#211d18]/40"}`} />
+                        <span className={`h-1.5 w-1.5 rounded-full ${i === 1 ? "bg-[#ccff00]" : "bg-[#0038FF]"}`} />
                         {p}
                       </li>
                     ))}
@@ -107,9 +107,9 @@ const Produto = () => {
 
               return (
                 <Reveal key={c.t} delay={i * 0.08}>
-                  <SpotlightCard as="article" cursorText={c.t} className="flex h-full flex-col rounded-[28px] bg-[#fbf9f2] border border-[#211d18]/10 p-8 hover:border-[#A34A33] hover:-translate-y-1 transition-all duration-500">
+                  <SpotlightCard as="article" cursorText={c.t} className="flex h-full flex-col rounded-[28px] bg-[#fbf9f2] border border-[#211d18]/10 p-8 hover:border-[#0038FF] hover:-translate-y-1 transition-all duration-500">
                     <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#A34A33]/10 text-[#A34A33]">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0038FF]/10 text-[#0038FF]">
                         <IconComponent className="h-5 w-5" strokeWidth={2} />
                       </span>
                       <Kicker className="!mb-0">{c.t}</Kicker>

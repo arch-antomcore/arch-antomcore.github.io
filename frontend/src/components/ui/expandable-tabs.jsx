@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motionPreference";
 import { useOnClickOutside } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 
@@ -35,11 +36,11 @@ export function ExpandableTabs({
   const [hovered, setHovered] = React.useState(null);
   const [focused, setFocused] = React.useState(null);
   const outsideClickRef = React.useRef(null);
-  const prefersReducedMotion = false; // Bypass OS settings
+  const prefersReducedMotion = useReducedMotion();
   const isControlled = activeTab !== undefined;
   const selectedIndex = isControlled ? activeTab : selected;
   const interactionIndex = hovered ?? focused;
-  const motionTransition = transition;
+  const motionTransition = prefersReducedMotion ? { duration: 0 } : transition;
 
   React.useEffect(() => {
     if (activeTab !== undefined) {
@@ -65,6 +66,18 @@ export function ExpandableTabs({
 
   const handleMouseLeave = () => {
     setHovered(null);
+  };
+
+  const handleKeyDown = (event) => {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    const buttons = Array.from(outsideClickRef.current?.querySelectorAll("button:not(:disabled)") || []);
+    const currentIndex = buttons.indexOf(event.currentTarget);
+    if (currentIndex < 0) return;
+    event.preventDefault();
+    setHovered(null);
+    const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? buttons.length - 1
+      : (currentIndex + (event.key === "ArrowRight" ? 1 : -1) + buttons.length) % buttons.length;
+    buttons[nextIndex]?.focus();
   };
 
   const Separator = () => (
@@ -94,6 +107,7 @@ export function ExpandableTabs({
         return (
           <motion.button
             key={tab.title}
+            type="button"
             layout
             variants={buttonVariants}
             initial={false}
@@ -103,6 +117,7 @@ export function ExpandableTabs({
             onFocus={() => setFocused(index)}
             onBlur={() => setFocused(null)}
             onClick={() => handleSelect(index)}
+            onKeyDown={handleKeyDown}
             transition={motionTransition}
             aria-label={tab.title}
             aria-current={isSelected ? "page" : undefined}
@@ -119,7 +134,7 @@ export function ExpandableTabs({
             {isHighlight && (
               <motion.div
                 layoutId="nav-expandable-tab-glide"
-                transition={transition}
+                transition={motionTransition}
                 className="aether-nav-tab-highlight absolute inset-0 rounded-full bg-white/12 border border-white/15 shadow-sm z-0 pointer-events-none"
               />
             )}

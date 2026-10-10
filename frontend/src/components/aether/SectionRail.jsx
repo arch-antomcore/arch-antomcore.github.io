@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motionPreference";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -67,17 +68,22 @@ const SectionRail = ({ items: providedItems }) => {
   const [discovered, setDiscovered] = useState([]);
   const { pathname } = useLocation();
   const { language } = useTranslation();
+  const shouldReduceMotion = useReducedMotion();
   const items = providedItems?.length ? providedItems : discovered;
 
   useEffect(() => {
     if (providedItems?.length) return undefined;
     let frame;
     let retry;
+    let attempts = 0;
     const collect = () => {
+      attempts += 1;
       const next = getDiscoveredItems(language);
       setDiscovered(next);
       const hasEditorialAnchor = next.some((item) => !item.id.startsWith("__"));
-      if (!hasEditorialAnchor) retry = window.setTimeout(collect, 120);
+      // Lazy routes get time to mount. Utility pages intentionally keep their
+      // Intro/End fallback instead of polling for sections indefinitely.
+      if (!hasEditorialAnchor && attempts < 30) retry = window.setTimeout(collect, 120);
     };
     const schedule = window.requestAnimationFrame || ((callback) => window.setTimeout(callback, 0));
     frame = schedule(collect);
@@ -129,15 +135,16 @@ const SectionRail = ({ items: providedItems }) => {
 
   const jumpTo = (event, item) => {
     event.preventDefault();
+    const behavior = shouldReduceMotion ? "auto" : "smooth";
     if (item.id === "__top") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior });
       return;
     }
     if (item.id === "__bottom") {
-      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior });
       return;
     }
-    document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById(item.id)?.scrollIntoView({ behavior, block: "start" });
   };
 
   return (
@@ -159,18 +166,20 @@ const SectionRail = ({ items: providedItems }) => {
             aria-current={isActive ? "location" : undefined}
           >
             <motion.span
-              animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : 8 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              initial={false}
+              animate={{ opacity: isActive ? 1 : 0, x: shouldReduceMotion || isActive ? 0 : 8 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#211d18]/80 rounded-full bg-[#f4f1e8]/90 px-2.5 py-1 shadow-[0_6px_18px_-10px_rgba(33,29,24,0.4)] whitespace-nowrap"
             >
               {item.number} · {item.label}
             </motion.span>
             <motion.span
+              initial={false}
               animate={{
                 scale: isActive ? 1.4 : 1,
-                backgroundColor: isActive ? "#A34A33" : "rgba(138,131,119,0.7)",
+                backgroundColor: isActive ? "#0038FF" : "rgba(138,131,119,0.7)",
               }}
-              transition={{ duration: 0.25 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }}
               className="block h-1.5 w-1.5 rounded-full"
             />
           </a>

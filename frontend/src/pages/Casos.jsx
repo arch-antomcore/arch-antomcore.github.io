@@ -13,7 +13,7 @@ const Casos = () => {
   const CASOS = t.CASOS;
 
   return (
-    <div data-testid="casos-de-uso-page">
+    <div className="design-page" data-testid="casos-de-uso-page">
       <div id="casos-hero">
         <PageHero
           kicker={CASOS.kicker}
@@ -71,10 +71,10 @@ const Casos = () => {
                 <SpotlightCard
                   as="article"
                   cursorText={language === "en" ? "Read" : "Ler"}
-                  className="h-full rounded-[28px] bg-[#fbf9f2] border border-[#211d18]/10 p-8 hover:border-[#A34A33] hover:-translate-y-1 transition-all duration-500"
+                  className="h-full rounded-[28px] bg-[#fbf9f2] border border-[#211d18]/10 p-8 hover:border-[#0038FF] hover:-translate-y-1 transition-all duration-500"
                 >
                   <div className="flex items-baseline gap-3 mb-4">
-                    <span className="aether-font-serif italic text-[#211d18]/30 text-4xl leading-none">
+                    <span className="design-number text-[#0038FF] text-4xl leading-none font-black">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="h-px flex-1 bg-[#211d18]/10" />

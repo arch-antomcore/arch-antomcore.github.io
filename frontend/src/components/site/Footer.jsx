@@ -1,23 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useLenis } from "lenis/react";
 import { ArrowUp } from "@phosphor-icons/react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Magnetic, useMotionBudget } from "@/components/site/interactions";
-import { Boxes } from "@/components/ui/background-boxes";
 import { motion } from "framer-motion";
-import { EXPERIENCE } from "@/lib/experience";
-import { useExperience } from "@/context/ExperienceContext";
+import { useReducedMotion } from "@/lib/motionPreference";
 
 const Footer = () => {
   const wrapperRef = useRef(null);
   const contentRef = useRef(null);
   const motionEnabled = useMotionBudget();
+  const shouldReduceMotion = useReducedMotion();
   const [shouldReveal, setShouldReveal] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
+  const lenis = useLenis();
   const { pathname } = location;
   const { t, language, setLanguage } = useTranslation();
-  const { isLightExperience, setExperience } = useExperience();
   const { BRAND, FOOTER_LINKS } = t;
 
   useEffect(() => {
@@ -69,7 +68,7 @@ const Footer = () => {
             scrollTrigger: {
               trigger: wrapperRef.current,
               start: "top bottom",
-              end: "bottom bottom",
+              end: "top center",
               scrub: 0.85,
               invalidateOnRefresh: true,
             },
@@ -91,24 +90,37 @@ const Footer = () => {
     };
   }, [shouldReveal, language, pathname]);
 
-  const scrollToTop = () =>
-    window.scrollTo({ top: 0, behavior: shouldReveal ? "smooth" : "auto" });
+  const scrollToTarget = (target) => {
+    if (lenis) {
+      lenis.start();
+      lenis.resize?.();
+      lenis.scrollTo(target, {
+        offset: typeof target === "number" ? 0 : -80,
+        duration: shouldReduceMotion ? 0 : 1.2,
+        immediate: shouldReduceMotion,
+        force: true,
+      });
+    } else if (typeof target === "number") {
+      window.scrollTo({ top: target, behavior: shouldReduceMotion ? "auto" : "smooth" });
+    } else {
+      target.scrollIntoView({ behavior: shouldReduceMotion ? "auto" : "smooth", block: "start" });
+    }
+  };
+
+  const scrollToTop = () => scrollToTarget(0);
 
   const handleLinkClick = (e, to) => {
-    if (!to) return;
-    if (to.startsWith("/#") || to.startsWith("#")) {
-      const hash = to.startsWith("/#") ? to.substring(1) : to;
-      if (location.pathname === "/") {
-        e.preventDefault();
-        const el = document.querySelector(hash);
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-          window.history.pushState(null, "", hash);
-        }
-      } else {
-        navigate(`/${hash}`);
-      }
-    }
+    if (!to || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const [path, fragment] = to.split("#");
+    const targetPath = path || location.pathname;
+    const targetHash = fragment ? `#${fragment}` : "";
+    // Changed routes and hashes use Link/Router, then Layout performs one
+    // scroll. An already-current URL needs an explicit repeat scroll.
+    if (targetPath !== location.pathname || targetHash !== location.hash) return;
+    const target = targetHash ? document.getElementById(fragment) : 0;
+    if (target === null) return;
+    e.preventDefault();
+    scrollToTarget(target);
   };
 
   const productLinks = [
@@ -155,32 +167,15 @@ const Footer = () => {
   return (
     <div
       ref={wrapperRef}
-      className={
-        shouldReveal
-          ? "cinematic-footer-wrapper relative h-[90vh] w-full md:h-[95vh]"
-          : "cinematic-footer-wrapper relative w-full py-16"
-      }
-      style={shouldReveal ? { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" } : undefined}
+      className="cinematic-footer-wrapper relative z-10 w-full py-16"
       data-anim-scope
       data-render-defer
     >
       <footer
-        className={`${
-          shouldReveal ? "fixed bottom-0 left-0 h-[65vh] md:h-[70vh]" : "relative"
-        } flex w-full flex-col justify-end overflow-hidden bg-[#f4f1e8] text-[#211d18] border-t border-[#211d18]/10`}
+        className="relative flex w-full flex-col justify-end overflow-hidden bg-[#f4f1e8] text-[#211d18] border-t border-[#211d18]/10"
         data-testid="site-footer"
         data-cursor="hidden"
       >
-        <div className="absolute inset-0 overflow-hidden z-0">
-          <div 
-            className="absolute inset-0 w-full h-full z-10 pointer-events-none" 
-            style={{
-              background: "radial-gradient(circle at 50% 50%, transparent 20%, #f4f1e8 85%)",
-            }}
-          />
-          {motionEnabled && <Boxes />}
-        </div>
-
         <div
           ref={contentRef}
           className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-6 pt-12 md:px-12 md:pb-8 flex flex-col justify-between h-full pointer-events-none"
@@ -208,6 +203,7 @@ const Footer = () => {
               >
                 <Link
                   to="/"
+                  onClick={(event) => handleLinkClick(event, "/")}
                   className="flex items-center gap-2.5 group pointer-events-auto"
                   data-testid="footer-brand-logo"
                 >
@@ -228,10 +224,10 @@ const Footer = () => {
                 </p>
                 <a
                   href="mailto:business@exvorn.tech"
-                  className="mt-3 inline-flex items-center gap-2 font-mono text-xs tracking-wide text-[#A34A33] hover:text-[#211d18] transition-colors duration-200 pointer-events-auto"
+                  className="mt-3 inline-flex items-center gap-2 font-mono text-xs tracking-wide text-[#0038FF] hover:text-[#211d18] transition-colors duration-200 pointer-events-auto"
                   data-testid="footer-email-link"
                 >
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#A34A33]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#0038FF]" />
                   business@exvorn.tech
                 </a>
               </motion.div>
@@ -367,19 +363,6 @@ const Footer = () => {
                   EN
                 </button>
               </div>
-
-              <button
-                type="button"
-                onClick={() => setExperience(isLightExperience ? EXPERIENCE.FULL : EXPERIENCE.LIGHT)}
-                data-testid="experience-toggle"
-                aria-pressed={isLightExperience}
-                aria-label={language === "pt" ? "Alternar perfil de animações" : "Toggle animation profile"}
-                className="rounded-full border border-[#211d18]/10 bg-[#ece7da] px-3.5 py-1 font-mono text-[10px] tracking-wide text-[#211d18]/60 transition-colors hover:bg-[#f4f1e8] hover:text-[#211d18]"
-              >
-                {isLightExperience
-                  ? language === "pt" ? "Animações: leves" : "Animation: light"
-                  : language === "pt" ? "Animações: completas" : "Animation: full"}
-              </button>
 
               <div className="rounded-full bg-[#ece7da] border border-[#211d18]/10 px-3.5 py-1 flex items-center gap-2">
                 <span className="relative flex h-1.5 w-1.5">

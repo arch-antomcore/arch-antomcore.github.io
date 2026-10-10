@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useReducedMotion } from "@/lib/motionPreference";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Magnetic } from "@/components/site/interactions";
-import { useExperience } from "@/context/ExperienceContext";
 
 /* ============================================================
    GLASS MEDIA SYSTEM — imagery + liquid glass (Awwwards kit)
@@ -64,7 +64,7 @@ export const MediaCredit = ({ media, type = "Foto", className = "" }) => (
     className={`media-credit ${className}`}
     data-testid="media-credit"
   >
-    <span className="h-1 w-1 rounded-full bg-[#A34A33]" aria-hidden="true" />
+    <span className="h-1 w-1 rounded-full bg-[#0038FF]" aria-hidden="true" />
     {type}: {media.author} · {media.source}
   </a>
 );
@@ -76,6 +76,7 @@ export const MediaCredit = ({ media, type = "Foto", className = "" }) => (
    ------------------------------------------------------------ */
 export const ImageBand = ({ media, kicker, lines, caption, testId = "image-band" }) => {
   const ref = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "center center"] });
   // Transform-only reveal (compositor friendly) instead of a clip-path scrub
   // that repainted the full-bleed image on every frame.
@@ -87,14 +88,14 @@ export const ImageBand = ({ media, kicker, lines, caption, testId = "image-band"
   return (
     <section ref={ref} className="group relative px-4 py-10 md:px-8 md:py-14" data-testid={testId}>
       <motion.div
-        style={{ scale: frameScale }}
+        style={{ scale: shouldReduceMotion ? 1 : frameScale }}
         className="relative h-[62vh] min-h-[420px] overflow-hidden rounded-[40px] md:h-[74vh] origin-center"
       >
         <motion.img
           src={media.src}
           alt={media.alt}
           
-          style={{ scale, y: imgY }}
+          style={{ scale: shouldReduceMotion ? 1 : scale, y: shouldReduceMotion ? 0 : imgY }}
           className="absolute inset-0 h-full w-full object-cover grayscale-[45%] transition-[filter] duration-1000 ease-out group-hover:grayscale-0"
         />
         {/* Ink wash + grain */}
@@ -115,7 +116,7 @@ export const ImageBand = ({ media, kicker, lines, caption, testId = "image-band"
                   transition={{ duration: 0.8, delay: 0.15 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                   className={
                     ln.serif
-                      ? "aether-font-serif mr-3 inline-block text-4xl italic text-[#A34A33] sm:text-5xl md:text-6xl"
+                      ? "aether-font-serif mr-3 inline-block text-4xl italic text-[#0038FF] sm:text-5xl md:text-6xl"
                       : "aether-font-display mr-3 inline-block text-4xl font-extrabold uppercase tracking-tight text-[#f7f4ec] sm:text-5xl md:text-6xl"
                   }
                 >
@@ -175,11 +176,12 @@ const SHOWCASE = {
   },
 };
 
-const GlassShowcaseFull = () => {
+export const GlassShowcase = () => {
   const { language } = useTranslation();
   const c = SHOWCASE[language] || SHOWCASE.pt;
   const media = MEDIA.datacenter;
   const ref = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const imgY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
   const imgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.18, 1.08, 1.18]);
@@ -187,27 +189,27 @@ const GlassShowcaseFull = () => {
   const frameScale = useTransform(revealP, [0, 1], [0.94, 1]);
 
   return (
-    <section ref={ref} className="relative px-4 py-6 md:px-8 md:py-10" data-testid="glass-showcase">
+    <section ref={ref} className="aether-showcase-root relative px-4 py-6 md:px-8 md:py-10" data-testid="glass-showcase">
       <motion.div
-        style={{ scale: frameScale }}
-        className="relative min-h-[80vh] overflow-hidden rounded-[28px] origin-center"
+        style={{ scale: shouldReduceMotion ? 1 : frameScale }}
+        className="aether-showcase-frame relative min-h-[80vh] overflow-hidden origin-center"
       >
         <motion.img
           src={media.src}
           alt={media.alt}
           
-          style={{ y: imgY, scale: imgScale }}
+          style={{ y: shouldReduceMotion ? 0 : imgY, scale: shouldReduceMotion ? 1 : imgScale }}
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b0a08]/70 via-[#0b0a08]/35 to-[#0b0a08]/90" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_70%_20%,rgba(163, 74, 51,0.18),transparent_65%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_70%_20%,rgba(0,56,255,0.18),transparent_65%)]" />
         <div className="noise-print absolute inset-0 opacity-[0.12] mix-blend-overlay" />
 
         <div className="relative z-10 flex min-h-[80vh] flex-col justify-between pt-24 pb-12 px-7 md:pt-36 md:pb-16 md:px-16">
           {/* Meta strip */}
           <div className="flex items-center justify-between border-b border-white/15 pb-5">
             <span className="flex items-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f7f4ec]/70">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#A34A33]" />
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#0038FF]" />
               {c.kicker}
             </span>
             <span className="hidden font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f7f4ec]/40 md:block">
@@ -232,13 +234,7 @@ const GlassShowcaseFull = () => {
                       transition: { duration: 0.95, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] },
                     },
                   }}
-                  className={`block w-max max-w-full leading-[1.02] tracking-tighter ${
-                    ln.style === "serif"
-                      ? "aether-font-serif italic text-[#A34A33] text-5xl sm:text-6xl md:text-7xl lg:text-[5.5vw]"
-                      : ln.style === "stroke"
-                      ? "aether-font-display aether-text-stroke--light font-extrabold uppercase text-5xl sm:text-6xl md:text-7xl lg:text-[5.5vw]"
-                      : "aether-font-display font-extrabold uppercase text-[#f7f4ec] text-5xl sm:text-6xl md:text-7xl lg:text-[5.5vw]"
-                  }`}
+                  className={`aether-showcase-line ${ln.style === "serif" ? "aether-showcase-line--accent" : ""}`}
                 >
                   {ln.t}
                 </motion.span>
@@ -271,7 +267,7 @@ const GlassShowcaseFull = () => {
               {c.stats.map((s, i) => (
                 <div
                   key={s.k}
-                  className="glass-panel p-6 flex flex-col justify-between"
+                  className="glass-panel aether-showcase-stat p-6 flex flex-col justify-between"
                   data-cursor="hover"
                   data-testid={`showcase-stat-${i}`}
                 >
@@ -290,7 +286,7 @@ const GlassShowcaseFull = () => {
                 to="/arquitetura"
                 data-cursor="hover"
                 data-testid="showcase-cta"
-                className="glass-panel inline-flex items-center gap-2.5 !rounded-full px-8 py-4 text-sm font-semibold text-[#f7f4ec] hover:text-[#A34A33]"
+                className="glass-panel inline-flex items-center gap-2.5 !rounded-full px-8 py-4 text-sm font-semibold text-[#f7f4ec] hover:text-[#0038FF]"
               >
                 {c.cta}
                 <ArrowUpRight className="h-4 w-4" strokeWidth={2} />
@@ -303,77 +299,4 @@ const GlassShowcaseFull = () => {
       </motion.div>
     </section>
   );
-};
-
-const GlassShowcaseStatic = () => {
-  const { language } = useTranslation();
-  const c = SHOWCASE[language] || SHOWCASE.pt;
-  const media = MEDIA.datacenter;
-
-  return (
-    <section className="relative px-4 py-6 md:px-8 md:py-10" data-testid="glass-showcase">
-      <div className="relative min-h-[72vh] overflow-hidden rounded-[24px]" data-reveal="rise">
-        <img
-          src={media.src}
-          alt={media.alt}
-          
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0b0a08]/75 via-[#0b0a08]/45 to-[#0b0a08]/90" />
-        <div className="relative z-10 flex min-h-[72vh] flex-col justify-between px-7 pb-12 pt-24 md:px-16 md:pb-16 md:pt-32">
-          <div className="flex items-center justify-between border-b border-white/15 pb-5">
-            <span className="flex items-center gap-2.5 font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f7f4ec]/70">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#A34A33]" />
-              {c.kicker}
-            </span>
-            <span className="hidden font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f7f4ec]/40 md:block">{c.meta}</span>
-          </div>
-          <div className="py-14 md:py-20">
-            {c.lines.map((line, i) => (
-              <span
-                key={line.t}
-                data-reveal="rise"
-                data-reveal-index={i + 1}
-                className={`block max-w-full leading-[1.02] tracking-tighter ${
-                  line.style === "serif"
-                    ? "aether-font-serif text-5xl italic text-[#A34A33] sm:text-6xl md:text-7xl lg:text-[5.5vw]"
-                    : line.style === "stroke"
-                    ? "aether-font-display aether-text-stroke--light text-5xl font-extrabold uppercase sm:text-6xl md:text-7xl lg:text-[5.5vw]"
-                    : "aether-font-display text-5xl font-extrabold uppercase text-[#f7f4ec] sm:text-6xl md:text-7xl lg:text-[5.5vw]"
-                }`}
-              >
-                {line.t}
-              </span>
-            ))}
-            <p className="mt-8 max-w-xl text-base leading-relaxed text-[#f7f4ec]/70 md:text-lg">{c.sub}</p>
-          </div>
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-3 md:max-w-2xl">
-              {c.stats.map((stat, index) => (
-                <div key={stat.k} className="rounded-2xl border border-white/15 bg-black/20 p-6" data-reveal="rise" data-reveal-index={index + 1} data-testid={`showcase-stat-${index}`}>
-                  <span className="font-display block whitespace-nowrap text-3xl font-extrabold uppercase tracking-tight text-[#f7f4ec] md:text-4xl">{stat.v}</span>
-                  <span className="mt-2 block font-mono text-[10px] uppercase tracking-[0.24em] text-[#f7f4ec]/60">{stat.k}</span>
-                </div>
-              ))}
-            </div>
-            <Link
-              to="/arquitetura"
-              data-testid="showcase-cta"
-              className="inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/10 px-8 py-4 text-sm font-semibold text-[#f7f4ec]"
-            >
-              {c.cta}
-              <ArrowUpRight className="h-4 w-4" strokeWidth={2} />
-            </Link>
-          </div>
-        </div>
-        <MediaCredit media={media} className="absolute right-5 top-20 md:right-8 md:top-24" />
-      </div>
-    </section>
-  );
-};
-
-export const GlassShowcase = () => {
-  const { isLightExperience } = useExperience();
-  return isLightExperience ? <GlassShowcaseStatic /> : <GlassShowcaseFull />;
 };

@@ -73,7 +73,7 @@ const PageTransition = ({ language = "pt" }) => {
           exit={{ scaleY: 1 }}
           transition={{ duration: 0.55, ease: [0.83, 0, 0.17, 1], delay: 0.0 }}
           style={{ transformOrigin: "top" }}
-          className="absolute inset-0 bg-[#A34A33]"
+          className="absolute inset-0 bg-[#0038FF]"
         />
         {/* Slab 2 — ink */}
         <motion.div
@@ -99,7 +99,7 @@ const PageTransition = ({ language = "pt" }) => {
             transition={{ delay: 0.15, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
             className="flex items-center gap-6"
           >
-            <span className="w-2 h-2 rounded-full bg-[#A34A33] animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-[#0038FF] animate-pulse" />
             <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#211d18]/50">
               //
             </span>

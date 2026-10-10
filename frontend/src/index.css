@@ -32,10 +32,10 @@
   --ink-ghost: #837a6c;
 
   /* Brand accents — electric tangerine editorial system */
-  --aether-tangerine: #A34A33;
-  --aether-violet: #A34A33;
-  --aether-ultraviolet: #A34A33;
-  --aether-lumen: #A34A33;
+  --aether-tangerine: #0038FF;
+  --aether-violet: #0038FF;
+  --aether-ultraviolet: #0038FF;
+  --aether-lumen: #0038FF;
   --aether-arc: #0e7490;
   --aether-gold: #a16207;
   --aether-ink: #211d18;
@@ -56,11 +56,11 @@
   will-change: transform, opacity;
 }
 
-/* Defer only explicitly safe sections. Promoting every card/section created
-   hundreds of compositor layers and exhausted GPU memory on long pages. */
+/* Anchors and scroll reveals need the actual section heights from the first
+   frame. Estimated offscreen heights displaced destinations during navigation. */
 [data-render-defer] {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 900px;
+  content-visibility: visible;
+  contain-intrinsic-size: none;
 }
 
 /* Retain immediate rendering for above-the-fold hero & fixed header */
@@ -134,13 +134,13 @@ h4,
 
 /* Selection */
 ::selection {
-  background: rgba(163, 74, 51, 0.22);
+  background: rgba(0,56,255, 0.22);
   color: var(--ink);
 }
 
 /* Focus visible — accessibility */
 :focus-visible {
-  outline: 2px solid rgba(163, 74, 51, 0.65);
+  outline: 2px solid rgba(0,56,255, 0.65);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -426,7 +426,7 @@ main [class*="to-zinc-950"] {
   color: #b8b1a5 !important;
 }
 .aether-dark-surface .aether-dark-accent {
-  color: #e58c72 !important;
+  color: #ccff00 !important;
 }
 .aether-dark-surface [class*="text-amber-"],
 .aether-dark-surface [class*="text-yellow-"] {
@@ -464,8 +464,8 @@ main .footer-glass-pill {
 }
 main .footer-glass-pill:hover {
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 238, 230, 0.6));
-  border-color: rgba(163, 74, 51, 0.32);
-  box-shadow: 0 16px 34px -14px rgba(163, 74, 51, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.95);
+  border-color: rgba(0,56,255, 0.32);
+  box-shadow: 0 16px 34px -14px rgba(0,56,255, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.95);
   color: var(--ink);
 }
 
@@ -624,8 +624,8 @@ main .footer-glass-pill:hover {
     clip-path 820ms var(--ease-out-expo),
     opacity 420ms ease;
   background:
-    radial-gradient(circle at 56px 56px, rgba(163, 74, 51, 0.1), transparent 26%),
-    linear-gradient(135deg, rgba(163, 74, 51, 0.06), transparent 58%);
+    radial-gradient(circle at 56px 56px, rgba(0,56,255, 0.1), transparent 26%),
+    linear-gradient(135deg, rgba(0,56,255, 0.06), transparent 58%);
 }
 
 .identity-reveal-card:hover::after,
@@ -636,14 +636,14 @@ main .footer-glass-pill:hover {
 
 .pricing-reveal-card[data-plan="go"]::after {
   background:
-    radial-gradient(circle at 56px 56px, rgba(163, 74, 51, 0.14), transparent 28%),
+    radial-gradient(circle at 56px 56px, rgba(0,56,255, 0.14), transparent 28%),
     linear-gradient(135deg, rgba(255, 90, 38, 0.1), rgba(161, 98, 7, 0.05) 42%, transparent 66%);
 }
 
 .pricing-reveal-card[data-plan="enterprise"]::after {
   background:
-    radial-gradient(circle at 56px 56px, rgba(163, 74, 51, 0.12), transparent 28%),
-    linear-gradient(135deg, rgba(163, 74, 51, 0.08), transparent 62%);
+    radial-gradient(circle at 56px 56px, rgba(0,56,255, 0.12), transparent 28%),
+    linear-gradient(135deg, rgba(0,56,255, 0.08), transparent 62%);
 }
 
 /* Shimmer sweep for pill badge */
@@ -655,8 +655,8 @@ main .footer-glass-pill:hover {
 .radial-fade {
   background: radial-gradient(
     60% 60% at 50% 0%,
-    rgba(163, 74, 51, 0.06) 0%,
-    rgba(163, 74, 51, 0) 70%
+    rgba(0,56,255, 0.06) 0%,
+    rgba(0,56,255, 0) 70%
   );
 }
 
@@ -674,7 +674,7 @@ main .footer-glass-pill:hover {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(163, 74, 51, 0.3),
+    rgba(0,56,255, 0.3),
     rgba(14, 116, 144, 0.14),
     transparent
   ) !important;
@@ -938,52 +938,6 @@ main .footer-glass-pill:hover {
   animation-play-state: paused !important;
 }
 
-.motion-tier-low .hero-grid {
-  opacity: 0.24;
-  animation-duration: 62s;
-}
-.motion-tier-low .aurora-blob {
-  filter: blur(12px);
-  opacity: 0.42;
-  animation-duration: 32s;
-}
-.motion-tier-low .aurora-blob-secondary,
-.motion-tier-low .hero-streak:nth-of-type(n + 6),
-.motion-tier-low .hero-particle:nth-of-type(n + 5) {
-  display: none;
-}
-.motion-tier-low .hero-particle {
-  opacity: 0.55;
-  animation-duration: 14s;
-}
-.motion-tier-low .footer-glass-pill,
-.motion-tier-low header {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-.motion-tier-low .animate-footer-scroll-marquee {
-  animation-duration: 60s;
-}
-.motion-tier-low .noise-overlay {
-  display: none;
-}
-.motion-tier-low .footer-grid-plane__scan {
-  display: none;
-}
-.motion-tier-low .footer-grid-plane__lines {
-  animation-duration: 52s;
-}
-.motion-tier-medium .aurora-blob {
-  filter: blur(18px);
-}
-.motion-tier-high .hero-grid {
-  opacity: 0.62;
-  animation-duration: 34s;
-}
-.motion-tier-high .aurora-blob {
-  filter: blur(24px);
-}
-
 @media (max-width: 767px) {
   .noise-overlay {
     opacity: 0.035;
@@ -1165,7 +1119,7 @@ main .footer-glass-pill:hover {
   border-radius: inherit;
   background:
     radial-gradient(120% 60% at 0% 0%, rgba(255, 255, 255, 0.55), transparent 55%),
-    radial-gradient(80% 50% at 100% 100%, rgba(163, 74, 51, 0.06), transparent 60%);
+    radial-gradient(80% 50% at 100% 100%, rgba(0,56,255, 0.06), transparent 60%);
 }
 .founder-img {
   transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
@@ -1193,7 +1147,7 @@ button:hover > .founder-img {
   height: 36vw;
   left: -8vw;
   top: 12%;
-  background: radial-gradient(circle, rgba(163, 74, 51, 0.14), rgba(163, 74, 51, 0) 68%);
+  background: radial-gradient(circle, rgba(0,56,255, 0.14), rgba(0,56,255, 0) 68%);
 }
 .founder-orb--b {
   width: 32vw;
@@ -1202,9 +1156,7 @@ button:hover > .founder-img {
   bottom: 6%;
   background: radial-gradient(circle, rgba(217, 119, 6, 0.12), rgba(217, 119, 6, 0) 68%);
 }
-html.aether-experience-light .founder-backdrop {
-  background: radial-gradient(circle at 50% 45%, rgba(163, 74, 51, 0.05), transparent 60%);
-}
+
 
 .experience-hint {
   bottom: calc(env(safe-area-inset-bottom, 0px) + 5.5rem);
@@ -1223,9 +1175,7 @@ html.aether-experience-light .founder-backdrop {
   animation: aether-marquee-soft 64s linear infinite;
   will-change: transform;
 }
-@media (prefers-reduced-motion: ignore) {
-  .aether-marquee-soft { animation: none; }
-}
+html[data-motion-preference="reduced"] .aether-marquee-soft { animation: none; }
 
 .footer-glass-surface {
   background:
@@ -1269,14 +1219,14 @@ html.aether-experience-light .founder-backdrop {
 
 .footer-grid-plane__glow {
   background:
-    radial-gradient(circle 220px at var(--footer-grid-x) var(--footer-grid-y), rgba(163, 74, 51, 0.26), transparent 72%),
+    radial-gradient(circle 220px at var(--footer-grid-x) var(--footer-grid-y), rgba(0,56,255, 0.26), transparent 72%),
     radial-gradient(circle 560px at 55% 42%, rgba(14, 116, 144, 0.12), transparent 70%);
   mix-blend-mode: multiply;
 }
 
 .footer-grid-plane__scan {
   width: 38%;
-  background: linear-gradient(90deg, transparent, rgba(163, 74, 51, 0.11), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0,56,255, 0.11), transparent);
   filter: blur(18px);
   animation: footer-grid-scan 11s var(--ease-in-out-soft) infinite;
   will-change: transform;
@@ -1313,7 +1263,7 @@ header[data-testid="site-header"] > div.absolute div {
   height: 1px;
   bottom: -2px;
   left: 0;
-  background: linear-gradient(90deg, #A34A33, rgba(163, 74, 51, 0.35));
+  background: linear-gradient(90deg, #0038FF, rgba(0,56,255, 0.35));
   transform-origin: bottom right;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1343,12 +1293,12 @@ header[data-testid="site-header"] > div.absolute div {
 }
 .footer-logo-hover:hover {
   transform: rotate(20deg) scale(1.1);
-  filter: drop-shadow(0 0 8px rgba(163, 74, 51, 0.45));
+  filter: drop-shadow(0 0 8px rgba(0,56,255, 0.45));
 }
 
 /* ============================================================
    AETHERCORE HERO TRANSPLANT — Off-White Editorial Kit
-   Syne display + Instrument Serif accents + tangerine #A34A33
+   Syne display + Instrument Serif accents + tangerine #0038FF
    over the site's paper palette (#f4f1e8 / #ece7da / #fbf9f2).
    ============================================================ */
 
@@ -1399,7 +1349,7 @@ header[data-testid="site-header"] > div.absolute div {
 .aether-blob--tangerine {
   width: 34vw;
   height: 34vw;
-  background: radial-gradient(circle at center, rgba(163, 74, 51, 0.09), rgba(163, 74, 51, 0.03) 40%, transparent 70%);
+  background: radial-gradient(circle at center, rgba(0,56,255, 0.09), rgba(0,56,255, 0.03) 40%, transparent 70%);
   top: 35%;
   left: -12%;
   animation: aether-drift-b 32s ease-in-out infinite alternate;
@@ -1454,7 +1404,7 @@ html.aether-cursor-active [data-cursor="hidden"] * {
   left: 0;
   width: 8px;
   height: 8px;
-  background-color: #A34A33;
+  background-color: #0038FF;
   border-radius: 9999px;
   pointer-events: none;
   z-index: 10000;
@@ -1471,8 +1421,8 @@ html.aether-cursor-active [data-cursor="hidden"] * {
   left: 0;
   width: 32px;
   height: 32px;
-  border: 1.5px solid rgba(163, 74, 51, 0.45);
-  background-color: rgba(163, 74, 51, 0);
+  border: 1.5px solid rgba(0,56,255, 0.45);
+  background-color: rgba(0,56,255, 0);
   border-radius: 9999px;
   pointer-events: none;
   z-index: 9999;
@@ -1483,13 +1433,13 @@ html.aether-cursor-active [data-cursor="hidden"] * {
 }
 
 .aether-cursor-ring.aether-hovering {
-  border-color: rgba(163, 74, 51, 0.95);
-  background-color: rgba(163, 74, 51, 0.15);
+  border-color: rgba(0,56,255, 0.95);
+  background-color: rgba(0,56,255, 0.15);
 }
 
 .aether-cursor-ring.aether-pressing {
-  border-color: rgba(163, 74, 51, 1);
-  background-color: rgba(163, 74, 51, 0.28);
+  border-color: rgba(0,56,255, 1);
+  background-color: rgba(0,56,255, 0.28);
 }
 
 .aether-cursor-label {
@@ -1498,7 +1448,7 @@ html.aether-cursor-active [data-cursor="hidden"] * {
   left: 0;
   padding: 5px 11px 4px;
   border-radius: 9999px;
-  background: #A34A33;
+  background: #0038FF;
   color: #fbf9f2;
   font-family: var(--font-display), sans-serif;
   font-weight: 700;
@@ -1511,7 +1461,7 @@ html.aether-cursor-active [data-cursor="hidden"] * {
   transform: translate3d(-100px, -100px, 0) translate(-50%, calc(-50% + 34px));
   scale: 0.6;
   opacity: 0;
-  box-shadow: 0 12px 26px -10px rgba(163, 74, 51, 0.45);
+  box-shadow: 0 12px 26px -10px rgba(0,56,255, 0.45);
   transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), scale 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity, scale;
 }
@@ -1563,13 +1513,11 @@ html.lenis body {
   transition: background 0.3s ease;
 }
 
-@media (prefers-reduced-motion: ignore) {
-  .aether-blob--ink,
-  .aether-blob--tangerine,
-  .aether-spin-slow {
+html[data-motion-preference="reduced"] .aether-blob--ink,
+  html[data-motion-preference="reduced"] .aether-blob--tangerine,
+  html[data-motion-preference="reduced"] .aether-spin-slow {
     animation: none;
   }
-}
 
 /* ============================================================
    GLASS MEDIA LAYER — liquid glass over imagery/video
@@ -1591,8 +1539,8 @@ html.lenis body {
     color 0.4s ease;
 }
 .glass-panel:hover {
-  border-color: rgba(163, 74, 51, 0.55);
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(163, 74, 51, 0.06));
+  border-color: rgba(0,56,255, 0.55);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(0,56,255, 0.06));
   transform: translateY(-4px);
 }
 
@@ -1617,8 +1565,8 @@ html.lenis body {
 }
 .media-credit:hover {
   color: #f7f4ec;
-  border-color: rgba(163, 74, 51, 0.6);
-  background: rgba(163, 74, 51, 0.22);
+  border-color: rgba(0,56,255, 0.6);
+  background: rgba(0,56,255, 0.22);
 }
 
 .aether-text-stroke--light {
@@ -1637,12 +1585,10 @@ html.lenis body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-@media (prefers-reduced-motion: ignore) {
-  .glass-panel,
-  .glass-panel:hover {
+html[data-motion-preference="reduced"] .glass-panel,
+  html[data-motion-preference="reduced"] .glass-panel:hover {
     transform: none;
   }
-}
 
 /* ============================================================
    AETHER CARD SYSTEM — unified editorial cards
@@ -1673,11 +1619,11 @@ html.lenis body {
 .aether-card:hover {
   will-change: transform;
   transform: translateY(-6px);
-  border-color: rgba(163, 74, 51, 0.5);
+  border-color: rgba(0,56,255, 0.5);
   box-shadow:
     0 30px 60px -28px rgba(33, 29, 24, 0.28),
-    0 0 0 1px rgba(163, 74, 51, 0.14),
-    0 18px 60px -22px rgba(163, 74, 51, 0.24);
+    0 0 0 1px rgba(0,56,255, 0.14),
+    0 18px 60px -22px rgba(0,56,255, 0.24);
 }
 .aether-card--dark {
   border-color: rgba(255, 255, 255, 0.1);
@@ -1688,11 +1634,11 @@ html.lenis body {
   opacity: 0.07;
 }
 .aether-card--dark:hover {
-  border-color: rgba(163, 74, 51, 0.55);
+  border-color: rgba(0,56,255, 0.55);
   box-shadow:
     0 30px 60px -24px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(163, 74, 51, 0.2),
-    0 18px 70px -20px rgba(163, 74, 51, 0.3);
+    0 0 0 1px rgba(0,56,255, 0.2),
+    0 18px 70px -20px rgba(0,56,255, 0.3);
 }
 .aether-card-icon {
   display: inline-flex;
@@ -1702,13 +1648,13 @@ html.lenis body {
   width: 3.5rem;
   flex-shrink: 0;
   border-radius: 1rem;
-  background: rgba(163, 74, 51, 0.1);
-  border: 1px solid rgba(163, 74, 51, 0.25);
-  color: #A34A33;
+  background: rgba(0,56,255, 0.1);
+  border: 1px solid rgba(0,56,255, 0.25);
+  color: #0038FF;
   transition: background-color 0.4s ease, color 0.4s ease, transform 0.4s var(--ease-out-expo);
 }
 .aether-card:hover .aether-card-icon {
-  background: #A34A33;
+  background: #0038FF;
   color: #fbf9f2;
   transform: rotate(-4deg) scale(1.04);
 }
@@ -1727,16 +1673,14 @@ html.lenis body {
   height: 6px;
   width: 6px;
   border-radius: 9999px;
-  background: #A34A33;
+  background: #0038FF;
   flex-shrink: 0;
 }
 
-@media (prefers-reduced-motion: ignore) {
-  .aether-card,
-  .aether-card:hover {
+html[data-motion-preference="reduced"] .aether-card,
+  html[data-motion-preference="reduced"] .aether-card:hover {
     transform: none;
   }
-}
 
 /* ============================================================
    LOGO DYNAMIC THEME INVERSION
@@ -1806,13 +1750,13 @@ html.lenis body {
 }
 
 .modern-mobile-menu .menu__item:focus-visible {
-  outline: 2px solid #e58c72;
+  outline: 2px solid #ccff00;
   outline-offset: 3px;
   border-radius: 999px;
 }
 
 .modern-mobile-menu .menu__item.active {
-  background-color: var(--component-active-color, rgba(163, 74, 51, 0.2));
+  background-color: var(--component-active-color, rgba(0,56,255, 0.2));
   color: var(--component-active-color-text, #ffffff);
   gap: 8px; /* Give space for text when active */
 }
@@ -1849,90 +1793,15 @@ html.lenis body {
   opacity: 1;
 }
 
-/* ============================================================
-   LIGHT EXPERIENCE
-   The preference is deliberately scoped to the document root so the
-   cinematic profile remains unchanged. Components that own timers/WebGL
-   are not mounted in this profile. Decorative multi-layer loops are off,
-   but cheap opacity/translate motion stays so the page still feels alive.
-   ============================================================ */
-html.aether-experience-light .noise-overlay,
-html.aether-experience-light .sda-drift,
-html.aether-experience-light .sda-exit-fade,
-html.aether-experience-light .hero-grid,
-html.aether-experience-light .aurora-blob,
-html.aether-experience-light .hero-streak-line,
-html.aether-experience-light .hero-particle,
-html.aether-experience-light .aether-blob--ink,
-html.aether-experience-light .aether-blob--tangerine,
-html.aether-experience-light .animate-footer-breathe,
-html.aether-experience-light .animate-footer-heartbeat,
-html.aether-experience-light .footer-grid-plane__scan,
-html.aether-experience-light .animate-ping {
-  animation: none !important;
-  animation-timeline: auto !important;
-  animation-range: none !important;
-  opacity: 1 !important;
-  transform: none !important;
-  filter: none !important;
+@keyframes aether-enter {
+  from { opacity: 0; transform: translateY(32px); filter: blur(4px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
-
-html.aether-experience-light .aether-marquee,
-html.aether-experience-light .animate-footer-scroll-marquee {
-  animation-duration: 70s;
+.aether-enter {
+  animation: aether-enter .95s var(--ease-out-expo) both;
+  animation-delay: calc(.12s + var(--i, 0) * .1s);
 }
-
-/* Soft reveal: one shared keyframe (opacity + 24px rise, no blur/scale)
-   replaces every SDA variant in the light profile. */
-@keyframes sda-rise-soft {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Staggered entrance for static hero lines (light profile). */
-.aether-soft-enter {
-  animation: sda-rise-soft 0.8s var(--ease-out-expo) both;
-  animation-delay: calc(0.12s + var(--i, 0) * 0.1s);
-}
-@media (prefers-reduced-motion: ignore) {
-  .aether-soft-enter { animation: none; }
-}
-
-@media (min-width: 0px) {
-  @supports (animation-timeline: view()) {
-    html.aether-experience-light :is(.sda-rise, .sda-left, .sda-right, .sda-scale, .sda-blur) {
-      animation-name: sda-rise-soft;
-      animation-range-start: entry calc(4% + var(--sda-i, 0) * 3%);
-      animation-range-end: cover calc(24% + var(--sda-i, 0) * 3%);
-    }
-  }
-
-  @supports not (animation-timeline: view()) {
-    html.aether-experience-light :is(.sda-rise, .sda-left, .sda-right, .sda-scale, .sda-blur) {
-      transform: translateY(24px);
-      filter: none;
-      transition-duration: 0.6s;
-      transition-delay: calc(var(--sda-i, 0) * 60ms);
-    }
-    html.aether-experience-light .sda-in:is(.sda-rise, .sda-left, .sda-right, .sda-scale, .sda-blur) {
-      transform: none;
-    }
-  }
-}
-
-html.aether-experience-light .nav-glass,
-html.aether-experience-light .liquid-glass,
-html.aether-experience-light .glass-panel,
-html.aether-experience-light .footer-glass-pill,
-html.aether-experience-light .footer-glass-surface,
-html.aether-experience-light [class*="backdrop-blur"] {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-
-html.aether-experience-light .magnetic {
-  will-change: auto;
-}
+html[data-motion-preference="reduced"] .aether-enter { animation: none; }
 
 /* ============================================================
    AETHER MATERIAL LAYER
@@ -1953,7 +1822,7 @@ html.aether-experience-light .magnetic {
   --aether-control-height: 44px;
   --aether-shadow-card: 0 12px 34px -24px rgba(33, 29, 24, 0.34);
   --aether-shadow-card-hover: 0 22px 46px -26px rgba(33, 29, 24, 0.42);
-  --aether-focus-ring: 0 0 0 4px rgba(163, 74, 51, 0.18);
+  --aether-focus-ring: 0 0 0 4px rgba(0,56,255, 0.18);
 }
 
 body {
@@ -1993,7 +1862,7 @@ h4,
 .aether-card:hover,
 .experience-choice:hover,
 .aether-interactive-card:hover {
-  border-color: rgba(163, 74, 51, 0.34);
+  border-color: rgba(0,56,255, 0.34);
   box-shadow: var(--aether-shadow-card-hover);
 }
 
@@ -2129,7 +1998,7 @@ a[class*="rounded-3xl"]:active {
 .aether-ui-input:hover,
 .aether-ui-textarea:hover,
 .aether-ui-select-trigger:hover {
-  border-color: rgba(163, 74, 51, 0.36);
+  border-color: rgba(0,56,255, 0.36);
   background: var(--aether-surface-raised);
 }
 
@@ -2147,7 +2016,7 @@ a[class*="rounded-3xl"]:active {
 }
 
 .aether-ui-select-item[data-highlighted] {
-  background: rgba(163, 74, 51, 0.1) !important;
+  background: rgba(0,56,255, 0.1) !important;
   color: var(--ink) !important;
 }
 
@@ -2173,18 +2042,6 @@ a[class*="rounded-3xl"]:active {
   transform: scale(0.99);
 }
 
-html.aether-experience-light .aether-ui-card,
-html.aether-experience-light .aether-card,
-html.aether-experience-light .experience-choice,
-html.aether-experience-light .aether-interactive-card,
-html.aether-experience-light .liquid-glass,
-html.aether-experience-light .nav-glass,
-html.aether-experience-light .footer-glass-surface,
-html.aether-experience-light .aether-nav-surface {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
   .liquid-glass,
   .nav-glass,
@@ -2206,25 +2063,23 @@ html.aether-experience-light .aether-nav-surface {
   }
 }
 
-@media (prefers-reduced-motion: ignore) {
-  .aether-ui-card,
-  .aether-card,
-  .experience-choice,
-  .aether-interactive-card,
-  .aether-ui-button,
-  .aether-ui-select-trigger,
-  .aether-ui-tabs-trigger,
-  button,
-  a[class*="rounded-full"],
-  a[class*="rounded-2xl"],
-  a[class*="rounded-3xl"] {
+html[data-motion-preference="reduced"] .aether-ui-card,
+  html[data-motion-preference="reduced"] .aether-card,
+  html[data-motion-preference="reduced"] .experience-choice,
+  html[data-motion-preference="reduced"] .aether-interactive-card,
+  html[data-motion-preference="reduced"] .aether-ui-button,
+  html[data-motion-preference="reduced"] .aether-ui-select-trigger,
+  html[data-motion-preference="reduced"] .aether-ui-tabs-trigger,
+  html[data-motion-preference="reduced"] button,
+  html[data-motion-preference="reduced"] a[class*="rounded-full"],
+  html[data-motion-preference="reduced"] a[class*="rounded-2xl"],
+  html[data-motion-preference="reduced"] a[class*="rounded-3xl"] {
     transition: none !important;
   }
 
-  .aether-ui-card:hover,
-  .aether-card:hover,
-  .experience-choice:hover,
-  .aether-interactive-card:hover {
+html[data-motion-preference="reduced"] .aether-ui-card:hover,
+  html[data-motion-preference="reduced"] .aether-card:hover,
+  html[data-motion-preference="reduced"] .experience-choice:hover,
+  html[data-motion-preference="reduced"] .aether-interactive-card:hover {
     transform: none !important;
   }
-}

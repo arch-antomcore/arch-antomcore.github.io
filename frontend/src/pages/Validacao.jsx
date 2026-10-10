@@ -49,7 +49,7 @@ const Validacao = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 md:p-8 rounded-[28px] bg-[#fbf9f2] border border-[#211d18]/10 shadow-[0_20px_50px_-20px_rgba(33,29,24,0.08)]">
               {VALIDACAO.stats.map((st, i) => (
                 <div key={i} className="flex flex-col p-3 min-w-0 md:border-r md:last:border-r-0 border-[#211d18]/10">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A34A33] font-semibold">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#0038FF] font-semibold">
                     {st.label}
                   </span>
                   <span className="aether-font-display text-[clamp(0.95rem,4.2vw,1.875rem)] font-extrabold text-[#211d18] mt-1 tracking-tight [overflow-wrap:anywhere]">
@@ -81,7 +81,7 @@ const Validacao = () => {
               <SpotlightCard
                 as="article"
                 cursorText="Hedge Fund"
-                className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-[#fbf9f2] via-[#f7f4ec] to-[#ece7da] border border-[#211d18]/15 p-8 md:p-14 shadow-xl hover:border-[#A34A33]/50 transition-all duration-500"
+                className="design-panel relative overflow-hidden rounded-[32px] p-8 md:p-14 transition-colors duration-500"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                   {/* Company Profile Left */}
@@ -106,8 +106,8 @@ const Validacao = () => {
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#A34A33]/10 text-[#A34A33] font-mono text-[10px] font-bold uppercase tracking-wider">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#A34A33] animate-ping" />
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#0038FF]/10 text-[#0038FF] font-mono text-[10px] font-bold uppercase tracking-wider">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#0038FF] animate-ping" />
                             {language === "pt" ? "Operação Offshore Homologada" : "Verified Offshore Operation"}
                           </span>
                         </div>
@@ -126,7 +126,7 @@ const Validacao = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full pt-2">
                       <div className="flex items-start gap-3 p-4 rounded-2xl bg-white/60 border border-[#211d18]/10">
-                        <Globe className="h-5 w-5 text-[#A34A33] shrink-0 mt-0.5" />
+                        <Globe className="h-5 w-5 text-[#0038FF] shrink-0 mt-0.5" />
                         <div>
                           <span className="font-mono text-[10px] uppercase tracking-wider text-[#211d18]/50 block">
                             {language === "pt" ? "Jurisdição / Sede" : "Jurisdiction / HQ"}
@@ -138,7 +138,7 @@ const Validacao = () => {
                       </div>
 
                       <div className="flex items-start gap-3 p-4 rounded-2xl bg-white/60 border border-[#211d18]/10">
-                        <Buildings className="h-5 w-5 text-[#A34A33] shrink-0 mt-0.5" />
+                        <Buildings className="h-5 w-5 text-[#0038FF] shrink-0 mt-0.5" />
                         <div>
                           <span className="font-mono text-[10px] uppercase tracking-wider text-[#211d18]/50 block">
                             {language === "pt" ? "Governança & Origem" : "Governance & Origin"}
@@ -156,7 +156,7 @@ const Validacao = () => {
                           href={VALIDACAO.partner.linkedinUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#211d18] text-[#f7f4ec] hover:bg-[#A34A33] font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-md hover:shadow-xl"
+                          className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#211d18] text-[#f7f4ec] hover:bg-[#0038FF] font-mono text-xs uppercase tracking-wider font-semibold transition-all duration-300 shadow-md hover:shadow-xl"
                         >
                           <LinkedinLogo className="h-4 w-4" weight="fill" />
                           {language === "pt" ? "Página Oficial no LinkedIn" : "Official LinkedIn Company Page"}
@@ -168,7 +168,7 @@ const Validacao = () => {
 
                   {/* Financial & Volume Badge Right */}
                   <div className="lg:col-span-5 flex flex-col gap-5">
-                    <div className="aether-dark-surface p-8 rounded-[28px] bg-[#211d18] text-[#f7f4ec] shadow-2xl relative overflow-hidden border border-white/10">
+                    <div className="design-blue-panel p-8 rounded-[28px] text-[#f7f4ec] relative overflow-hidden border border-white/10">
                       <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
                         <Vault className="h-32 w-32" />
                       </div>
@@ -219,9 +219,9 @@ const Validacao = () => {
           />
 
           <div className="mt-10">
-            <div className="mb-8 p-6 rounded-2xl bg-[#A34A33]/[0.06] border border-[#A34A33]/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="mb-8 p-6 rounded-2xl bg-[#0038FF]/[0.06] border border-[#0038FF]/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div>
-                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A34A33] font-bold block">
+                <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#0038FF] font-bold block">
                   {VALIDACAO.founderRole.workplace}
                 </span>
                 <h4 className="aether-font-display text-xl md:text-2xl font-bold uppercase text-[#211d18] mt-1">
@@ -239,11 +239,11 @@ const Validacao = () => {
                   <SpotlightCard
                     as="article"
                     cursorText={`0${idx + 1}`}
-                    className="flex h-full flex-col justify-between rounded-[28px] bg-[#fbf9f2] border border-[#211d18]/10 p-8 hover:border-[#A34A33] hover:-translate-y-1 transition-all duration-500"
+                    className="flex h-full flex-col justify-between rounded-[28px] bg-[#fbf9f2] border border-[#211d18]/10 p-8 hover:border-[#0038FF] hover:-translate-y-1 transition-all duration-500"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-6">
-                        <span className="aether-font-serif italic text-[#A34A33] text-3xl font-normal">
+                        <span className="design-number text-[#0038FF] text-3xl font-black">
                           0{idx + 1}
                         </span>
                         <Cpu className="h-6 w-6 text-[#211d18]/40" />
@@ -278,14 +278,14 @@ const Validacao = () => {
                 <SpotlightCard
                   as="article"
                   cursorText={pillar.tag}
-                  className="flex h-full flex-col justify-between rounded-[28px] bg-[#fbf9f2] border border-[#211d18]/10 p-8 md:p-10 hover:border-[#A34A33] transition-all duration-500"
+                  className="flex h-full flex-col justify-between rounded-[28px] bg-[#fbf9f2] border border-[#211d18]/10 p-8 md:p-10 hover:border-[#0038FF] transition-all duration-500"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-6">
-                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#A34A33]/10 text-[#A34A33] font-mono text-[10px] font-bold uppercase tracking-wider">
+                      <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0038FF]/10 text-[#0038FF] font-mono text-[10px] font-bold uppercase tracking-wider">
                         {pillar.badge}
                       </span>
-                      <span className="aether-font-serif italic text-2xl text-[#211d18]/30">
+                      <span className="design-number text-2xl text-[#0038FF] font-black">
                         {pillar.n}
                       </span>
                     </div>
@@ -357,7 +357,7 @@ const Validacao = () => {
       <Section id="veredito" className="liquid-divider">
         <Container>
           <Reveal>
-            <div className="aether-dark-surface relative overflow-hidden rounded-[32px] bg-gradient-to-r from-[#211d18] to-[#2c2720] text-[#f7f4ec] p-10 md:p-16 border border-white/10 shadow-2xl">
+            <div className="design-blue-panel relative overflow-hidden rounded-[40px] text-[#f7f4ec] p-10 md:p-16">
               <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
                 <span className="aether-dark-accent font-mono text-[10px] uppercase tracking-[0.3em] font-bold">
                   {VALIDACAO.verdict.kicker}

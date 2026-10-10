@@ -16,7 +16,7 @@ const Faq = () => {
   }));
 
   return (
-    <div data-testid="faq-page">
+    <div className="design-page" data-testid="faq-page">
       <PageHero
         kicker={FAQ.kicker}
         lines={FAQ.title}

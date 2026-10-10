@@ -1,0 +1,7 @@
+.tilted-grid-hero { position: relative; overflow: hidden; }
+.tilted-grid-band { position: absolute; inset: 0; pointer-events: none; transition: opacity 500ms ease; }
+.tilted-grid-tile { position: absolute; transform-style: preserve-3d; }
+.tilted-grid-facet { position: absolute; top: 0; overflow: hidden; background: #11151d; }
+.tilted-grid-facet img { position: absolute; top: 0; max-width: none; object-fit: cover; user-select: none; }
+html[data-motion-preference="reduced"] .tilted-grid-tile { animation-play-state: paused !important; }
+html[data-motion-preference="reduced"] .tilted-grid-band { transition: none; }

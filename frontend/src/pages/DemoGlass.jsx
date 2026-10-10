@@ -3,6 +3,7 @@ import { LiquidGlassCard } from "@/components/ui/LiquidGlassCard";
 import { ArrowLeft, ArrowsClockwise as RefreshCw, Stack as Layers } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
+import "./visual-previews.css";
 
 const DemoGlass = () => {
   const [scale, setScale] = useState(100);
@@ -16,7 +17,7 @@ const DemoGlass = () => {
       panelDesc: (
         <>
           Experimente alterar os parâmetros do componente reutilizável{" "}
-          <code className="text-[#A34A33] font-mono bg-[#A34A33]/10 px-1 rounded">
+          <code className="reference-glass-demo-code">
             LiquidGlassCard
           </code>{" "}
           para ver a distorção e o vidro líquido reagirem em tempo real.
@@ -28,6 +29,7 @@ const DemoGlass = () => {
       viewerTitle: "Visualizador de Efeito",
       viewerDesc: "Este card está utilizando o componente reutilizável. O fundo é a foto do oceano debaixo dele, distorcida e refratada de acordo com os parâmetros do painel.",
       btnInteract: "Resetar Parâmetros",
+      previewLabel: "Vidro sobre o oceano",
     },
     en: {
       backHome: "Back to Home",
@@ -35,7 +37,7 @@ const DemoGlass = () => {
       panelDesc: (
         <>
           Try changing the parameters of the reusable{" "}
-          <code className="text-[#A34A33] font-mono bg-[#A34A33]/10 px-1 rounded">
+          <code className="reference-glass-demo-code">
             LiquidGlassCard
           </code>{" "}
           component to see the displacement and liquid glass react in real time.
@@ -47,12 +49,14 @@ const DemoGlass = () => {
       viewerTitle: "Effect Viewer",
       viewerDesc: "This card uses the reusable component. The background is the ocean photo behind it, displaced and refracted based on the control panel inputs.",
       btnInteract: "Reset Parameters",
+      previewLabel: "Glass over the ocean",
     }
   }[language === "pt" ? "pt" : "en"];
 
   return (
-    <div 
-      className="min-h-screen w-full relative flex flex-col items-center justify-center p-6 md:p-12 overflow-hidden"
+    <div
+      className="reference-glass-demo relative flex flex-col items-center justify-center overflow-hidden"
+      data-testid="glass-demo-page"
       style={{
         backgroundImage: "url('/assets/img/backgrounds/cta-seaside.jpg')",
         backgroundSize: "cover",
@@ -61,30 +65,31 @@ const DemoGlass = () => {
       }}
     >
       {/* Dark overlay for contrast */}
-      <div className="absolute inset-0 bg-black/45 z-0" />
+      <div className="reference-glass-demo-wash absolute inset-0 z-0" aria-hidden="true" />
 
       {/* Header Controls */}
-      <div className="relative z-10 w-full max-w-4xl flex items-center justify-between mb-8">
+      <div className="reference-glass-demo-nav relative z-10 w-full max-w-5xl flex items-center justify-between mb-8">
         <Link 
           to="/" 
-          className="inline-flex items-center gap-2 text-white/80 hover:text-white font-medium bg-black/20 hover:bg-black/45 px-4 py-2 rounded-full border border-white/10 transition-all duration-300 backdrop-blur-md"
+          className="reference-glass-demo-back inline-flex items-center gap-2"
         >
           <ArrowLeft className="h-4 w-4" />
           {text.backHome}
         </Link>
-        <span className="text-white/60 font-mono text-xs uppercase tracking-widest bg-black/20 px-3 py-1.5 rounded-full border border-white/5 backdrop-blur-md">
-          Liquid Glass Demo Page
+        <span className="reference-glass-demo-label">
+          <span aria-hidden="true" />
+          {text.previewLabel}
         </span>
       </div>
 
       {/* Main Content Area */}
-      <div className="relative z-10 w-full max-w-4xl grid md:grid-cols-2 gap-8 items-center">
+      <div className="relative z-10 w-full max-w-5xl grid md:grid-cols-2 gap-6 md:gap-10 items-center">
         
-        {/* Left Side: Controls card (Regular transparent styling) */}
-        <div className="bg-black/35 backdrop-blur-xl border border-white/10 rounded-[24px] p-6 text-white shadow-2xl flex flex-col gap-6">
+        {/* Paper controls retain contrast independently of the photo. */}
+        <div className="reference-glass-demo-controls flex flex-col gap-6" data-testid="glass-demo-controls">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight mb-2">{text.panelTitle}</h2>
-            <p className="text-sm text-zinc-300 leading-relaxed">
+            <h1 className="text-2xl font-bold tracking-tight mb-2">{text.panelTitle}</h1>
+            <p className="reference-glass-demo-description text-sm leading-relaxed">
               {text.panelDesc}
             </p>
           </div>
@@ -92,40 +97,42 @@ const DemoGlass = () => {
           <div className="flex flex-col gap-4">
             {/* Scale Slider */}
             <div className="flex flex-col gap-1.5">
-              <div className="flex justify-between text-xs font-mono text-zinc-400">
-                <span>{text.distortion}</span>
-                <span className="text-[#A34A33] font-bold">{scale}</span>
+              <div className="reference-glass-demo-control-label flex justify-between gap-3">
+                <label htmlFor="glass-demo-distortion">{text.distortion}</label>
+                <output htmlFor="glass-demo-distortion">{scale}</output>
               </div>
               <input 
                 type="range" 
+                id="glass-demo-distortion"
                 min="0" 
                 max="200" 
                 value={scale} 
                 onChange={(e) => setScale(Number(e.target.value))}
-                className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#A34A33]"
+                className="reference-glass-demo-range"
               />
             </div>
 
             {/* Corner Radius Slider */}
             <div className="flex flex-col gap-1.5">
-              <div className="flex justify-between text-xs font-mono text-zinc-400">
-                <span>{text.radius}</span>
-                <span className="text-[#A34A33] font-bold">{radius}px</span>
+              <div className="reference-glass-demo-control-label flex justify-between gap-3">
+                <label htmlFor="glass-demo-radius">{text.radius}</label>
+                <output htmlFor="glass-demo-radius">{radius}px</output>
               </div>
               <input 
                 type="range" 
+                id="glass-demo-radius"
                 min="0" 
                 max="100" 
                 value={radius} 
                 onChange={(e) => setRadius(Number(e.target.value))}
-                className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#A34A33]"
+                className="reference-glass-demo-range"
               />
             </div>
           </div>
 
-          <div className="border-t border-white/5 pt-4 flex gap-3 text-xs text-zinc-400 font-mono">
+          <div className="reference-glass-demo-instruction pt-4 flex gap-3">
             <span className="flex items-center gap-1">
-              <RefreshCw className="h-3 w-3 animate-spin-slow" /> {text.instruction}
+              <RefreshCw className="h-3 w-3 shrink-0" /> {text.instruction}
             </span>
           </div>
         </div>
@@ -135,26 +142,30 @@ const DemoGlass = () => {
           <LiquidGlassCard
             displacementScale={scale}
             cornerRadius={radius}
-            className="w-full max-w-sm"
+            className="reference-glass-demo-viewer w-full max-w-sm"
+            style={{ "--lgc-bg": "rgba(7, 20, 52, 0.52)" }}
+            data-testid="glass-demo-viewer"
           >
-            <div className="p-8 text-white flex flex-col gap-6 select-none">
+            <div className="reference-glass-demo-viewer-content p-8 flex flex-col gap-6 select-none">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-[#A34A33] to-fuchsia-500 flex items-center justify-center shadow-lg shadow-orange-500/20">
-                  <Layers className="h-5 w-5 text-white" />
+                <div className="reference-glass-demo-icon h-11 w-11 shrink-0 flex items-center justify-center">
+                  <Layers className="h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="font-bold tracking-tight text-lg">{text.viewerTitle}</h3>
-                  <p className="text-[10px] uppercase tracking-widest text-zinc-400 font-mono">AetherCore UI Primitive</p>
+                  <p className="reference-glass-demo-viewer-meta">AetherCore / Liquid Glass</p>
                 </div>
               </div>
 
-              <p className="text-sm text-zinc-200 leading-relaxed">
+              <p className="reference-glass-demo-viewer-description text-sm leading-relaxed">
                 {text.viewerDesc}
               </p>
 
               <button 
                 onClick={() => { setScale(100); setRadius(32); }}
-                className="w-full py-2.5 rounded-xl border border-white/10 hover:border-white/20 bg-white/5 hover:bg-white/10 transition-all duration-300 text-xs font-semibold tracking-wide"
+                type="button"
+                className="reference-glass-demo-reset w-full"
+                data-testid="glass-demo-reset"
               >
                 {text.btnInteract}
               </button>

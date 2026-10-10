@@ -12,7 +12,7 @@ const TextReveal = React.memo(function TextReveal({
   duration = 250,
   easing = "ease-in-out",
   color = "inherit",
-  hoverColor = "#A34A33", // Mapeado para o roxo da logo
+  hoverColor = "#0038FF", // Mapeado para o roxo da logo
   direction = "up",
   onClick,
 }) {

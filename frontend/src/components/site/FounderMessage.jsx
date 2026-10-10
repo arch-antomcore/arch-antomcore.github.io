@@ -5,8 +5,8 @@ import { ThumbsUp, Chat, ShareNetwork as Share2, LinkedinLogo as Linkedin, Arrow
 import { Container, Section, Reveal, Kicker } from "@/components/site/primitives";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { useExperience } from "@/context/ExperienceContext";
-import { gsap, useGSAP, EASE_SOFT, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, useGSAP, EASE_SOFT } from "@/lib/gsap";
+import { useReducedMotion } from "@/lib/motionPreference";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/matheus-peres-da-silva/";
 const IMAGES = [
@@ -16,8 +16,8 @@ const IMAGES = [
   "/assets/img/gallery/linkedin-4.jpg",
 ];
 
-const PostText = () => (
-  <div className="space-y-4 text-[#2e2921] text-[14px] md:text-[15px] leading-relaxed">
+const PostText = ({ expanded }) => (
+  <div id="founder-post-copy" data-expanded={expanded} className="founder-post-copy space-y-4 text-[#2e2921] text-[14px] md:text-[15px] leading-relaxed">
     <p>
       Não foi um rebrand para parecer maior.
     </p>
@@ -103,7 +103,7 @@ const PostText = () => (
     </p>
     <div className="flex flex-wrap gap-1.5 pt-3 border-t border-[#211d18]/8">
       {["Aether", "AetherCore", "Quintessence", "InteligenciaArtificial", "AgentesDeIA", "Rust", "LocalFirst", "DesignBrasileiro", "TecnologiaBrasileira", "Exvorn"].map(tag => (
-        <span key={tag} className="text-xs text-zinc-500 hover:text-[#211d18] transition-colors cursor-pointer">
+        <span key={tag} className="text-xs text-zinc-500">
           #{tag}
         </span>
       ))}
@@ -112,16 +112,16 @@ const PostText = () => (
 );
 
 const FounderMessage = () => {
-  const [likes, setLikes] = useState(142);
   const [isLiked, setIsLiked] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const [activeImage, setActiveImage] = useState(null);
-  const { isLightExperience } = useExperience();
+  const reducedMotion = useReducedMotion();
   const scope = useRef(null);
   const likeRef = useRef(null);
 
   useGSAP(
     () => {
-      if (prefersReducedMotion()) return;
+      if (reducedMotion) return;
       const card = scope.current?.querySelector("[data-founder-card]");
       if (!card) return;
       const tl = gsap.timeline({
@@ -130,26 +130,21 @@ const FounderMessage = () => {
       });
       tl.fromTo(
         card,
-        { autoAlpha: 0, y: isLightExperience ? 28 : 64, scale: isLightExperience ? 1 : 0.975 },
-        { autoAlpha: 1, y: 0, scale: 1, duration: isLightExperience ? 1.1 : 1.5, clearProps: "transform" },
+        { autoAlpha: 0, y: 48, scale: 0.985 },
+        { autoAlpha: 1, y: 0, scale: 1, duration: 1.2, clearProps: "transform" },
       )
         .from("[data-founder-head]", { autoAlpha: 0, y: 14, duration: 0.9 }, "-=1.0")
         .from("[data-founder-body] > *", { autoAlpha: 0, y: 12, duration: 0.8, stagger: 0.035 }, "-=0.8")
         .from("[data-founder-img]", { autoAlpha: 0, y: 18, scale: 1.04, duration: 0.9, stagger: 0.08 }, "-=0.6")
         .from("[data-founder-foot]", { autoAlpha: 0, y: 10, duration: 0.7 }, "-=0.5");
 
-      if (!isLightExperience) {
-        gsap.to("[data-founder-orb='a']", { y: -26, x: 14, duration: 9, yoyo: true, repeat: -1, ease: "sine.inOut" });
-        gsap.to("[data-founder-orb='b']", { y: 22, x: -12, duration: 11, yoyo: true, repeat: -1, ease: "sine.inOut" });
-      }
     },
-    { scope, dependencies: [isLightExperience] },
+    { scope, dependencies: [reducedMotion], revertOnUpdate: true },
   );
 
   const handleLike = () => {
     setIsLiked(!isLiked);
-    setLikes(prev => isLiked ? prev - 1 : prev + 1);
-    if (likeRef.current && !prefersReducedMotion()) {
+    if (likeRef.current && !reducedMotion) {
       gsap.fromTo(likeRef.current, { scale: 0.82 }, { scale: 1, duration: 0.7, ease: "elastic.out(1, 0.5)" });
     }
   };
@@ -159,16 +154,11 @@ const FounderMessage = () => {
   return (
     <Section className="liquid-divider relative overflow-hidden" data-testid="founder-message-section">
       <div ref={scope} className="relative">
-        <div className="founder-backdrop absolute inset-0 pointer-events-none z-0" aria-hidden="true">
-          <span className="founder-orb founder-orb--a" data-founder-orb="a" />
-          <span className="founder-orb founder-orb--b" data-founder-orb="b" />
-        </div>
-
         <Container className="relative z-10 flex flex-col items-center">
           <Reveal>
             <div className="text-center mb-8">
               <Kicker>Uma mensagem do founder</Kicker>
-              <h2 className="mt-4 text-3xl md:text-4xl font-medium tracking-tight text-[#211d18]">
+              <h2 className="aether-section-title mt-4">
                 Bora conversar?
               </h2>
             </div>
@@ -198,14 +188,17 @@ const FounderMessage = () => {
                   <p className="text-xs text-[#5d564b] truncate max-w-[260px] xs:max-w-xs md:max-w-none">
                     Founder & Architect @ AetherCore
                   </p>
-                  <p className="text-[11px] text-zinc-500 mt-0.5 font-mono">2d • editado • 🌐</p>
+                  <p className="text-[11px] text-zinc-500 mt-0.5 font-mono">Construindo o AetherCore · Brasil</p>
                 </div>
               </div>
             </div>
 
             <div className="px-6 py-5">
               <div data-founder-body>
-                <PostText />
+                <PostText expanded={expanded} />
+                <button type="button" aria-expanded={expanded} aria-controls="founder-post-copy" className="founder-read-more" onClick={() => setExpanded(value => !value)}>
+                  {expanded ? "Recolher mensagem" : "Ler a mensagem completa"}
+                </button>
               </div>
 
               <div className="grid grid-cols-6 gap-1 rounded-2xl overflow-hidden border border-[#211d18]/10 bg-[#211d18]/[0.02] my-5 relative group/gallery">
@@ -254,6 +247,8 @@ const FounderMessage = () => {
             <div className="grid grid-cols-3 border-t border-[#211d18]/8 text-[11px] xs:text-xs md:text-sm text-center" data-founder-foot>
               <button
                 ref={likeRef}
+                type="button"
+                aria-pressed={isLiked}
                 onClick={handleLike}
                 data-testid="founder-like-button"
                 className={cn(
@@ -262,7 +257,7 @@ const FounderMessage = () => {
                 )}
               >
                 <ThumbsUp className="w-3.5 h-3.5" weight={isLiked ? "fill" : "regular"} />
-                <span>{likes}</span>
+                <span>{isLiked ? "Gostei!" : "Gostei"}</span>
               </button>
               <button
                 onClick={openLinkedIn}

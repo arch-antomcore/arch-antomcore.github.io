@@ -20,11 +20,11 @@ const EcosystemSection = () => {
       id: "aethercore",
       name: "AetherCore",
       badge: isPt ? "Carro-Chefe · IA Local" : "Flagship · Local AI",
-      badgeColor: "bg-[#A34A33]/10 text-[#A34A33] border-[#A34A33]/20",
+      badgeColor: "bg-[#0038FF]/10 text-[#0038FF] border-[#0038FF]/20",
       status: isPt ? "🟢 Ativo · v0.6.0" : "🟢 Live · v0.6.0",
       logo: "/assets/ecosystem/aethercore.svg",
       logoAlt: "AetherCore Favicon",
-      logoContainer: "border-[#A34A33]/20 bg-white p-2",
+      logoContainer: "border-[#0038FF]/20 bg-white p-2",
       headline: isPt ? "Agentes Autônomos de IA Local-First" : "Autonomous Local-First Cognitive AI",
       desc: isPt
         ? "Plataforma de inteligência artificial executada 100% no seu hardware com motor nativo em Rust, auditoria criptográfica e governança estrita."
@@ -123,7 +123,7 @@ const EcosystemSection = () => {
                       <h3 className="aether-font-display font-extrabold uppercase text-xl text-[#211d18]">
                         {p.name}
                       </h3>
-                      <h4 className="text-[11px] font-mono uppercase tracking-wider text-[#A34A33] font-semibold">
+                      <h4 className="text-[11px] font-mono uppercase tracking-wider text-[#0038FF] font-semibold">
                         {p.headline}
                       </h4>
                     </div>
@@ -151,7 +151,7 @@ const EcosystemSection = () => {
                       href={p.cta.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full flex items-center justify-center gap-2 bg-[#211d18] text-[#fbf9f2] text-xs uppercase tracking-[0.15em] font-semibold px-5 py-3 rounded-full hover:bg-[#A34A33] transition-all duration-300 shadow-md cursor-pointer"
+                      className="w-full flex items-center justify-center gap-2 bg-[#211d18] text-[#fbf9f2] text-xs uppercase tracking-[0.15em] font-semibold px-5 py-3 rounded-full hover:bg-[#0038FF] transition-all duration-300 shadow-md cursor-pointer"
                     >
                       {p.cta.label}
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -159,7 +159,7 @@ const EcosystemSection = () => {
                   ) : p.cta.active ? (
                     <Link
                       to={p.cta.to}
-                      className="w-full flex items-center justify-center gap-2 bg-[#A34A33] text-[#fbf9f2] text-xs uppercase tracking-[0.15em] font-semibold px-5 py-3 rounded-full hover:bg-[#211d18] transition-all duration-300 shadow-md"
+                      className="w-full flex items-center justify-center gap-2 bg-[#0038FF] text-[#fbf9f2] text-xs uppercase tracking-[0.15em] font-semibold px-5 py-3 rounded-full hover:bg-[#211d18] transition-all duration-300 shadow-md"
                     >
                       {p.cta.label}
                       <ArrowRight className="w-3.5 h-3.5" />

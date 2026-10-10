@@ -1,10 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { useReducedMotion } from "@/lib/motionPreference";
 import { Check, Minus, Warning as AlertTriangle, Cpu, HardDrives as Server, Lightning as Zap, Shield } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Container, Section, Reveal } from "@/components/site/primitives";
 import { MagneticButton, Magnetic } from "@/components/site/interactions";
+import { Tiles } from "@/components/ui/tiles";
 
 const NOISE_PATTERN =
   'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.04), transparent 85%)';
@@ -17,21 +19,23 @@ const NOISE_PATTERN =
 const easeExpo = [0.16, 1, 0.3, 1];
 
 /* Billing toggle — animated spring pill with integrated -20% badge */
-const BillingToggle = ({ isAnnual, setIsAnnual, text, annualLabel }) => (
+const BillingToggle = ({ isAnnual, setIsAnnual, text, annualLabel, shouldReduceMotion }) => (
   <div
     data-testid="billing-toggle-glass"
     className="relative grid grid-cols-2 items-center rounded-full border border-white/12 bg-white/[0.05] p-1.5 backdrop-blur-xl"
   >
     <motion.div
       aria-hidden="true"
-      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-      className="absolute inset-y-1.5 rounded-full bg-[#A34A33] shadow-[0_4px_16px_rgba(163, 74, 51,0.4)]"
+      transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 30 }}
+      className="absolute inset-y-1.5 rounded-full bg-[#0038FF] shadow-[0_4px_16px_rgba(0,56,255,0.4)]"
       style={{ width: "calc(50% - 6px)" }}
       animate={{
         left: isAnnual ? "calc(50% + 3px)" : "6px",
       }}
     />
     <button
+      type="button"
+      aria-pressed={!isAnnual}
       onClick={() => setIsAnnual(false)}
       className={`relative z-10 flex items-center justify-center rounded-full py-2 font-mono text-[10px] font-bold uppercase tracking-[0.24em] transition-colors duration-300 ${
         !isAnnual ? "text-white" : "text-white/45 hover:text-white/70"
@@ -40,6 +44,8 @@ const BillingToggle = ({ isAnnual, setIsAnnual, text, annualLabel }) => (
       {text.monthly}
     </button>
     <button
+      type="button"
+      aria-pressed={isAnnual}
       onClick={() => setIsAnnual(true)}
       className={`relative z-10 flex items-center justify-center gap-2 rounded-full py-2 font-mono text-[10px] font-bold uppercase tracking-[0.24em] transition-colors duration-300 ${
         isAnnual ? "text-white" : "text-white/45 hover:text-white/70"
@@ -48,7 +54,7 @@ const BillingToggle = ({ isAnnual, setIsAnnual, text, annualLabel }) => (
       {annualLabel}
       <span
         className={`rounded-full px-2 py-0.5 text-[9px] font-bold tracking-wider transition-colors duration-300 ${
-          isAnnual ? "bg-white text-[#A34A33]" : "bg-[#A34A33]/20 text-[#A34A33]"
+          isAnnual ? "bg-white text-[#0038FF]" : "bg-[#0038FF]/20 text-[#0038FF]"
         }`}
       >
         -20%
@@ -68,6 +74,7 @@ const cardVariants = {
 
 /* Numbered editorial plan card with smooth 3D tilt & spotlight tracking */
 const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
+  const shouldReduceMotion = useReducedMotion();
   const cardRef = useRef(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
@@ -82,6 +89,15 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
   const rectRef = useRef(null);
   const rafRef = useRef(null);
 
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      rectRef.current = null;
+      cancelAnimationFrame(rafRef.current);
+      setTilt({ x: 0, y: 0 });
+    }
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [shouldReduceMotion]);
+
   const handleMouseEnter = () => {
     if (cardRef.current) {
       rectRef.current = cardRef.current.getBoundingClientRect();
@@ -89,7 +105,7 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
   };
 
   const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
+    if (shouldReduceMotion || !cardRef.current) return;
     if (!rectRef.current) {
       rectRef.current = cardRef.current.getBoundingClientRect();
     }
@@ -115,25 +131,25 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
     setTilt({ x: 0, y: 0 });
   };
 
-  const isHovered = tilt.x !== 0 || tilt.y !== 0;
+  const isHovered = !shouldReduceMotion && (tilt.x !== 0 || tilt.y !== 0);
 
   return (
     <motion.div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      variants={cardVariants}
+      variants={shouldReduceMotion ? undefined : cardVariants}
       custom={index}
-      initial="hidden"
-      whileInView="visible"
+      initial={shouldReduceMotion ? false : "hidden"}
+      whileInView={shouldReduceMotion ? undefined : "visible"}
       viewport={{ once: true, margin: "-60px" }}
-      animate={{
+      animate={shouldReduceMotion ? { rotateX: 0, rotateY: 0, y: 0, scale: 1, opacity: 1 } : {
         rotateX: tilt.x,
         rotateY: tilt.y,
         y: rec ? (isHovered ? -28 : -16) : (isHovered ? -14 : 0),
         scale: isHovered ? 1.025 : 1,
       }}
-      transition={{
+      transition={shouldReduceMotion ? { duration: 0 } : {
         type: "spring",
         stiffness: 280,
         damping: 22,
@@ -143,12 +159,13 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
       data-testid={`pricing-card-${plan.id}`}
       className={`group/card relative flex flex-col overflow-hidden rounded-[28px] p-8 md:p-10 transition-all duration-500 ${
         rec
-          ? "border-2 border-[#A34A33] bg-[#17130c] shadow-[0_20px_50px_-15px_rgba(163,74,51,0.35)] hover:shadow-[0_32px_80px_-10px_rgba(163,74,51,0.6)]"
-          : "border border-white/12 bg-[#12100a] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_32px_64px_-28px_rgba(0,0,0,0.7)] hover:border-[#A34A33]/60 hover:shadow-[0_28px_65px_-12px_rgba(163,74,51,0.35)]"
+          ? "border-2 border-[#0038FF] bg-[#17130c] shadow-[0_20px_50px_-15px_rgba(0,56,255,0.35)] hover:shadow-[0_32px_80px_-10px_rgba(0,56,255,0.6)]"
+          : "border border-white/12 bg-[#12100a] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_32px_64px_-28px_rgba(0,0,0,0.7)] hover:border-[#0038FF]/60 hover:shadow-[0_28px_65px_-12px_rgba(0,56,255,0.35)]"
       }`}
       style={{
-        perspective: "1000px",
-        transformStyle: "preserve-3d",
+        perspective: shouldReduceMotion ? undefined : "1000px",
+        transformStyle: shouldReduceMotion ? undefined : "preserve-3d",
+        transition: shouldReduceMotion ? "none" : undefined,
       }}
     >
       {/* Grain */}
@@ -160,17 +177,17 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
       {rec && (
         <div
           aria-hidden="true"
-          className="absolute -top-24 left-1/2 -translate-x-1/2 h-48 w-72 rounded-full bg-[#A34A33]/25 blur-[80px] pointer-events-none transition-transform duration-500 group-hover/card:scale-125"
+          className={`absolute -top-24 left-1/2 -translate-x-1/2 h-48 w-72 rounded-full bg-[#0038FF]/25 blur-[80px] pointer-events-none ${shouldReduceMotion ? "" : "transition-transform duration-500 group-hover/card:scale-125"}`}
         />
       )}
 
       {/* Numbering row */}
       <div className="relative z-10 flex items-center justify-between">
-        <span className={`font-mono text-xs font-semibold tracking-[0.3em] ${rec ? "text-[#A34A33]" : "text-white/35"}`}>
+        <span className={`font-mono text-xs font-semibold tracking-[0.3em] ${rec ? "text-[#0038FF]" : "text-white/35"}`}>
           //{String(index + 1).padStart(2, "0")}
         </span>
         {rec && (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#A34A33] px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.22em] text-white shadow-[0_8px_20px_-6px_rgba(163,74,51,0.6)] transition-transform duration-300 group-hover/card:scale-105">
+          <span className={`inline-flex items-center gap-1.5 rounded-full bg-[#0038FF] px-3 py-1 font-mono text-[9px] font-bold uppercase tracking-[0.22em] text-white shadow-[0_8px_20px_-6px_rgba(0,56,255,0.6)] ${shouldReduceMotion ? "" : "transition-transform duration-300 group-hover/card:scale-105"}`}>
             {labels.recommended}
           </span>
         )}
@@ -179,13 +196,13 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
       {/* Name */}
       <div className="relative z-10 mt-7 flex items-center gap-3.5">
         <span
-          className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl border transition-all duration-300 group-hover/card:scale-110 ${
+          className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl border transition-all duration-300 ${shouldReduceMotion ? "" : "group-hover/card:scale-110"} ${
             rec
-              ? "border-[#A34A33]/60 bg-[#A34A33]/25 text-[#A34A33] shadow-[0_0_20px_rgba(163,74,51,0.4)]"
-              : "border-white/12 bg-white/[0.06] text-white/70 group-hover/card:border-[#A34A33]/50 group-hover/card:bg-[#A34A33]/15 group-hover/card:text-[#A34A33]"
+              ? "border-[#0038FF]/60 bg-[#0038FF]/25 text-[#0038FF] shadow-[0_0_20px_rgba(0,56,255,0.4)]"
+              : "border-white/12 bg-white/[0.06] text-white/70 group-hover/card:border-[#0038FF]/50 group-hover/card:bg-[#0038FF]/15 group-hover/card:text-[#0038FF]"
           }`}
         >
-          <PlanIcon className="h-5 w-5 transition-transform duration-300 group-hover/card:rotate-6" strokeWidth={1.6} />
+          <PlanIcon className={`h-5 w-5 ${shouldReduceMotion ? "" : "transition-transform duration-300 group-hover/card:rotate-6"}`} strokeWidth={1.6} />
         </span>
         <h3 className="aether-font-display text-xl md:text-2xl font-bold uppercase tracking-tight text-white transition-colors duration-300 group-hover/card:text-white">
           {plan.name}
@@ -209,10 +226,10 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
               <AnimatePresence mode="popLayout" initial={false}>
                 <motion.span
                   key={`${plan.id}-${isAnnual}`}
-                  initial={{ y: 48, opacity: 0, filter: "blur(5px)" }}
+                  initial={shouldReduceMotion ? false : { y: 48, opacity: 0, filter: "blur(5px)" }}
                   animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-                  exit={{ y: -48, opacity: 0, filter: "blur(5px)" }}
-                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  exit={shouldReduceMotion ? undefined : { y: -48, opacity: 0, filter: "blur(5px)" }}
+                  transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 30 }}
                   className={`aether-font-display block font-extrabold leading-none tracking-tighter text-white tabular-nums ${
                     String(isFree ? 0 : price).length > 3 ? "text-[42px] md:text-[50px]" : "text-[56px] md:text-[64px]"
                   }`}
@@ -226,7 +243,7 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
         )}
       </div>
 
-      <div className={`relative z-10 my-7 h-px w-full transition-colors duration-300 ${rec ? "bg-[#A34A33]/40" : "bg-white/10 group-hover/card:bg-white/20"}`} />
+      <div className={`relative z-10 my-7 h-px w-full transition-colors duration-300 ${rec ? "bg-[#0038FF]/40" : "bg-white/10 group-hover/card:bg-white/20"}`} />
 
       {/* Features */}
       <div className="relative z-10 mb-10 flex flex-1 flex-col gap-3.5">
@@ -239,14 +256,14 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
           .map((feat, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, x: -14 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, x: -14 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.25 + i * 0.05, ease: easeExpo }}
-              className="flex items-start gap-3 transition-transform duration-300 group-hover/card:translate-x-1"
+              transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, delay: 0.25 + i * 0.05, ease: easeExpo }}
+              className={`flex items-start gap-3 ${shouldReduceMotion ? "" : "transition-transform duration-300 group-hover/card:translate-x-1"}`}
             >
-              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[#A34A33]/40 bg-[#A34A33]/15 transition-all duration-300 group-hover/card:scale-110 group-hover/card:bg-[#A34A33] group-hover/card:text-white">
-                <Check className="h-3 w-3 text-[#A34A33] transition-colors duration-300 group-hover/card:text-white" strokeWidth={3} />
+              <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[#0038FF]/40 bg-[#0038FF]/15 transition-all duration-300 ${shouldReduceMotion ? "" : "group-hover/card:scale-110"} group-hover/card:bg-[#0038FF] group-hover/card:text-white`}>
+                <Check className="h-3 w-3 text-[#0038FF] transition-colors duration-300 group-hover/card:text-white" strokeWidth={3} />
               </span>
               <span className="text-[13px] font-medium leading-tight text-white/75 transition-colors duration-300 group-hover/card:text-white">{feat.label}</span>
             </motion.div>
@@ -260,10 +277,10 @@ const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
             to="/#cta"
             data-testid={`pricing-cta-${plan.id}`}
             data-cursor="hover"
-            className={`block w-full rounded-2xl py-4 text-center text-[14px] font-semibold transition-all duration-300 transform ${
+            className={`block w-full rounded-2xl py-4 text-center text-[14px] font-semibold transition-all duration-300 transform ${shouldReduceMotion ? "" : "hover:-translate-y-0.5"} ${
               rec
-                ? "bg-[#A34A33] text-white shadow-[0_18px_44px_-14px_rgba(163,74,51,0.65)] hover:bg-[#8b3d29] hover:shadow-[0_24px_54px_-10px_rgba(163,74,51,0.85)] hover:-translate-y-0.5"
-                : "border border-white/20 bg-white/[0.06] text-white hover:border-[#A34A33] hover:bg-[#A34A33] hover:text-white hover:shadow-[0_18px_44px_-14px_rgba(163,74,51,0.5)] hover:-translate-y-0.5"
+                ? "bg-[#0038FF] text-white shadow-[0_18px_44px_-14px_rgba(0,56,255,0.65)] hover:bg-[#08258f] hover:shadow-[0_24px_54px_-10px_rgba(0,56,255,0.85)]"
+                : "border border-white/20 bg-white/[0.06] text-white hover:border-[#0038FF] hover:bg-[#0038FF] hover:text-white hover:shadow-[0_18px_44px_-14px_rgba(0,56,255,0.5)]"
             }`}
           >
             {isCustom ? labels.contact : labels.getStarted}
@@ -307,25 +324,26 @@ const FEATURE_MATRIX = {
 };
 
 const MatrixCell = ({ value, delay }) => {
+  const shouldReduceMotion = useReducedMotion();
   if (value === true)
     return (
       <motion.span
-        initial={{ scale: 0, rotate: -90 }}
+        initial={shouldReduceMotion ? false : { scale: 0, rotate: -90 }}
         whileInView={{ scale: 1, rotate: 0 }}
         viewport={{ once: true }}
-        transition={{ type: "spring", stiffness: 380, damping: 22, delay }}
-        className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#A34A33]/35 bg-[#A34A33]/15"
+        transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 22, delay }}
+        className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#0038FF]/35 bg-[#0038FF]/15"
       >
-        <Check className="h-3.5 w-3.5 text-[#A34A33]" strokeWidth={3} />
+        <Check className="h-3.5 w-3.5 text-[#0038FF]" strokeWidth={3} />
       </motion.span>
     );
   if (value === false)
     return (
       <motion.span
-        initial={{ opacity: 0 }}
+        initial={shouldReduceMotion ? false : { opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.4, delay }}
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.4, delay }}
         className="inline-flex h-6 w-6 items-center justify-center"
       >
         <Minus className="h-3.5 w-3.5 text-white/25" strokeWidth={2} />
@@ -333,10 +351,10 @@ const MatrixCell = ({ value, delay }) => {
     );
   return (
     <motion.span
-      initial={{ opacity: 0, y: 8 }}
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay, ease: easeExpo }}
+      transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.5, delay, ease: easeExpo }}
       className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-white/65"
     >
       {value}
@@ -366,7 +384,7 @@ const FeatureMatrix = ({ language }) => {
             <span
               key={c}
               className={`text-center font-mono text-[10px] font-semibold uppercase tracking-[0.2em] ${
-                i === 1 ? "text-[#A34A33]" : "text-white/55"
+                i === 1 ? "text-[#0038FF]" : "text-white/55"
               }`}
             >
               {c}
@@ -392,6 +410,7 @@ const FeatureMatrix = ({ language }) => {
 };
 
 const PricingStage = ({ PRICING, language, labels, text }) => {
+  const shouldReduceMotion = useReducedMotion();
   const [isAnnual, setIsAnnual] = useState(false);
   const stageRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: stageRef, offset: ["start end", "end start"] });
@@ -406,32 +425,20 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
   return (
     <motion.div
       ref={stageRef}
-      style={{ scale: stageScale, borderRadius: stageRadius }}
+      style={{ scale: shouldReduceMotion ? 1 : stageScale, borderRadius: shouldReduceMotion ? 32 : stageRadius }}
       data-testid="pricing-stage"
       data-anim-scope="pricing-stage"
-      className="relative overflow-hidden bg-[#0b0a08] text-white origin-center"
+      className="aether-tile-surface relative overflow-hidden bg-[#0038FF] text-white origin-center"
     >
-      {/* Tangerine aurora */}
+      <Tiles tileSize="lg" />
+      {/* The soft moving light sits behind the reading content. */}
       <motion.div
         aria-hidden="true"
-        style={{ y: auroraY, opacity: auroraOpacity }}
+        style={{ y: shouldReduceMotion ? 0 : auroraY, opacity: shouldReduceMotion ? 0.12 : auroraOpacity }}
         className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[1400px] -translate-x-1/2 -translate-y-1/2 rounded-full"
       >
-        <div className="h-full w-full rounded-full bg-[radial-gradient(ellipse_at_center,rgba(163,74,51,0.55),rgba(255,90,38,0.16)_35%,rgba(255,90,38,0.04)_58%,transparent_72%)]" />
+        <div className="h-full w-full rounded-full bg-[radial-gradient(ellipse_at_center,rgba(0,56,255,0.55),rgba(204,255,0,0.16)_35%,rgba(204,255,0,0.04)_58%,transparent_72%)]" />
       </motion.div>
-
-      {/* Grid */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.6) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
-          maskImage: "radial-gradient(ellipse 78% 62% at 50% 45%, #000 0%, transparent 74%)",
-          WebkitMaskImage: "radial-gradient(ellipse 78% 62% at 50% 45%, #000 0%, transparent 74%)",
-        }}
-      />
 
       {/* Grain */}
       <div
@@ -443,33 +450,33 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 md:px-12 md:py-32">
         {/* Heading */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
+          initial={shouldReduceMotion ? false : "hidden"}
+          whileInView={shouldReduceMotion ? undefined : "visible"}
           viewport={{ once: true, margin: "-100px" }}
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+          variants={shouldReduceMotion ? undefined : { hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
           className="flex flex-col items-center gap-6 text-center"
         >
           <motion.span
-            variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeExpo } } }}
+            variants={shouldReduceMotion ? undefined : { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeExpo } } }}
             className="inline-flex items-center font-mono text-[11px] uppercase tracking-[0.3em] text-white/50 md:text-xs"
           >
-            <span className="mr-2 text-[#A34A33]">//</span>
+            <span className="mr-2 text-[#0038FF]">//</span>
             {PRICING.kicker}
           </motion.span>
           <motion.h2
-            variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: easeExpo } } }}
+            variants={shouldReduceMotion ? undefined : { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: easeExpo } } }}
             className="aether-font-display max-w-4xl text-4xl font-extrabold uppercase leading-[0.98] text-white sm:text-5xl md:text-6xl"
           >
             {Array.isArray(PRICING.title) ? PRICING.title.join(" ") : PRICING.title}
           </motion.h2>
           <motion.p
-            variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeExpo } } }}
+            variants={shouldReduceMotion ? undefined : { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeExpo } } }}
             className="max-w-2xl text-base leading-relaxed text-white/55 md:text-lg"
           >
             {PRICING.lead}
           </motion.p>
           <motion.div
-            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeExpo } } }}
+            variants={shouldReduceMotion ? undefined : { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeExpo } } }}
             className="mt-4"
           >
             <BillingToggle
@@ -477,6 +484,7 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
               setIsAnnual={setIsAnnual}
               text={text}
               annualLabel={PRICING.annualLabel}
+              shouldReduceMotion={shouldReduceMotion}
             />
           </motion.div>
         </motion.div>
@@ -490,14 +498,14 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
 
         {/* Sovereignty Guarantee Callout */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.8, ease: easeExpo, delay: 0.2 }}
-          className="mt-12 mx-auto max-w-3xl rounded-2xl border border-[#A34A33]/20 bg-[#A34A33]/[0.02] p-6 text-center"
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, ease: easeExpo, delay: 0.2 }}
+          className="mt-12 mx-auto max-w-3xl rounded-2xl border border-[#0038FF]/20 bg-[#0038FF]/[0.02] p-6 text-center"
         >
           <div className="flex flex-col items-center gap-3 md:flex-row md:text-left md:items-start">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#A34A33]/10 text-[#A34A33]">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0038FF]/10 text-[#0038FF]">
               <Shield className="h-5 w-5" />
             </span>
             <div className="space-y-1">
@@ -518,10 +526,10 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
 
         {/* Footer note */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.8, ease: easeExpo }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, ease: easeExpo }}
           className="mx-auto mt-10 max-w-3xl text-center text-xs leading-relaxed text-white/45"
         >
           {text.footerNote}
@@ -547,7 +555,7 @@ const SpecCard = ({ icon: Icon, title, sub, rows, foot, badge, overlay }) => (
           <div className="flex items-center gap-2">
             <h4 className="aether-font-display text-sm font-bold uppercase tracking-tight text-[#211d18]">{title}</h4>
             {badge && (
-              <span className="inline-flex items-center rounded-full bg-[#A34A33]/10 border border-[#A34A33]/25 px-2 py-0.5 font-mono text-[8px] font-bold uppercase tracking-wider text-[#A34A33]">
+              <span className="inline-flex items-center rounded-full bg-[#0038FF]/10 border border-[#0038FF]/25 px-2 py-0.5 font-mono text-[8px] font-bold uppercase tracking-wider text-[#0038FF]">
                 {badge}
               </span>
             )}
@@ -710,7 +718,7 @@ const PricingSection = () => {
           {/* Aether Scale banner */}
           <Reveal>
             <div className="aether-card relative overflow-hidden p-8 md:p-12" data-cursor="hover">
-              <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(163, 74, 51,0.08),transparent_60%)] blur-[50px]" />
+              <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(0,56,255,0.08),transparent_60%)] blur-[50px]" />
 
               <div className="relative z-10 flex flex-col justify-between gap-8 lg:flex-row lg:items-center">
                 <div className="max-w-2xl space-y-4 text-left">
@@ -723,7 +731,7 @@ const PricingSection = () => {
                   <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2.5 border-t border-[#211d18]/[0.08] pt-6 md:grid-cols-3">
                     {PRICING.plans[3].features.map((f, index) => (
                       <li key={index} className="flex items-center gap-2 text-xs text-[#211d18]/55 md:text-sm">
-                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#A34A33]" />
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#0038FF]" />
                         {f.label}
                       </li>
                     ))}

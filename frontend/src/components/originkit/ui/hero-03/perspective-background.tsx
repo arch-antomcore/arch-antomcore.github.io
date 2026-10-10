@@ -3,7 +3,7 @@
 
 "use client";
 
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motionPreference";
 import GalleryTunnel from "@/components/originkit/ui/hero-03/gallery-tunnel";
 import { useTunnelConfig } from "@/components/originkit/ui/hero-03/use-tunnel-size";
 
@@ -23,7 +23,7 @@ const TUNNEL_IMAGES = [
   { src: asset("3.png"), alt: "AetherCore Feature 3" },
 ];
 
-const AETHER_COLORS = ["#A34A33", "#211d18", "#d97706", "#7c2d12", "#ece7da", "#451a03"];
+const AETHER_COLORS = ["#0038FF", "#211d18", "#d97706", "#7c2d12", "#ece7da", "#451a03"];
 
 /**
  * Animated Three.js gallery tunnel.

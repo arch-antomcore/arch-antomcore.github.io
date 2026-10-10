@@ -5,7 +5,8 @@
 
 import { useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motionPreference";
 import GalleryTunnel from "@/components/originkit/ui/hero-03/gallery-tunnel";
 import { useTunnelConfig } from "@/components/originkit/ui/hero-03/use-tunnel-size";
 
@@ -25,7 +26,7 @@ const TUNNEL_IMAGES = [
   { src: asset("3.png"), alt: "AetherCore Feature 3" },
 ];
 
-const AETHER_COLORS = ["#A34A33", "#211d18", "#d97706", "#7c2d12", "#ece7da", "#451a03"];
+const AETHER_COLORS = ["#0038FF", "#211d18", "#d97706", "#7c2d12", "#ece7da", "#451a03"];
 
 const EASE_OUT = [0.215, 0.61, 0.355, 1] as const;
 
@@ -93,7 +94,7 @@ export const GalleryOverlay = ({ open, onClose }: GalleryOverlayProps) => {
           type="button"
           aria-label="Close gallery"
           onClick={onClose}
-          className="inline-flex items-center justify-center rounded-full border border-[#211d18] bg-[#211d18] px-5 py-2 text-xs uppercase font-semibold tracking-wider text-[#fbf9f2] transition-colors hover:bg-[#A34A33] hover:border-[#A34A33]"
+          className="inline-flex items-center justify-center rounded-full border border-[#211d18] bg-[#211d18] px-5 py-2 text-xs uppercase font-semibold tracking-wider text-[#fbf9f2] transition-colors hover:bg-[#0038FF] hover:border-[#0038FF]"
         >
           Fechar Galeria
         </button>

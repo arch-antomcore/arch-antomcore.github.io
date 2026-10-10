@@ -36,7 +36,7 @@ const renderInline = (text) => {
     .replace(/\*\*([^\*]+)\*\*/g, '<strong class="font-medium text-white">$1</strong>')
     .replace(/\*([^\*]+)\*/g, '<em class="italic text-zinc-400">$1</em>')
     .replace(/_([^_]+)_/g, '<em class="italic text-zinc-400">$1</em>')
-    .replace(/`([^`]+)`/g, '<code class="font-mono text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded text-[0.9em]">$1</code>');
+    .replace(/`([^`]+)`/g, '<code class="font-mono text-[#0038FF] bg-[#0038FF]/5 px-1.5 py-0.5 rounded text-[0.9em]">$1</code>');
   return <span dangerouslySetInnerHTML={{ __html: html }} />;
 };
 
@@ -103,7 +103,7 @@ const MarkdownRenderer = ({ content }) => {
   const blocks = parseMarkdownToBlocks(content);
   
   return (
-    <div className="space-y-4 text-zinc-300 font-light text-sm md:text-base leading-relaxed">
+    <div className="blog-markdown space-y-4 text-[#211d18] font-normal text-sm md:text-base leading-relaxed">
       {blocks.map((block, i) => {
         switch (block.type) {
           case "h3":
@@ -222,7 +222,7 @@ const Blog = () => {
     : "";
 
   return (
-    <div data-testid="blog-page">
+    <div className="design-page" data-testid="blog-page">
       <PageHero
         kicker={text.kicker}
         lines={text.lines}
@@ -264,16 +264,18 @@ const Blog = () => {
                 {paginationText.showing} {pagePosts.length} / {BLOG_POSTS.length} - {paginationText.page} {currentPage} {paginationText.of} {totalPages}
               </p>
               <Pagination className="blog-pagination">
-                <PaginationContent className="rounded-full border border-white/10 bg-white/[0.035] p-1.5 shadow-2xl shadow-black/40 backdrop-blur-xl">
+                <PaginationContent className="flex-wrap justify-center rounded-[24px] border border-[#0038FF]/15 bg-[#f7f4ec] p-1.5">
                   <PaginationItem>
                     <PaginationLink
                       href="#blog-posts"
                       aria-label={paginationText.previous}
+                      aria-disabled={currentPage === 1}
+                      tabIndex={currentPage === 1 ? -1 : undefined}
                       onClick={(event) => {
                         event.preventDefault();
                         goToPage(currentPage - 1);
                       }}
-                      className={`h-10 min-w-10 rounded-full border border-white/10 bg-black/30 px-3 text-zinc-300 hover:bg-white/10 hover:text-white ${
+                      className={`h-10 min-w-10 rounded-full border border-transparent px-3 text-[#0038FF] hover:bg-[#0038FF]/5 ${
                         currentPage === 1 ? "pointer-events-none opacity-35" : ""
                       }`}
                     >
@@ -294,8 +296,8 @@ const Blog = () => {
                           }}
                           className={`h-10 w-10 rounded-full border text-sm transition-all duration-300 ${
                             page === currentPage
-                              ? "border-white/30 bg-white text-black shadow-[0_0_24px_rgba(255,255,255,0.18)] hover:bg-white hover:text-black"
-                              : "border-white/10 bg-black/30 text-zinc-400 hover:bg-white/10 hover:text-white"
+                              ? "border-[#ccff00] bg-[#ccff00] text-[#08258f] hover:bg-[#ccff00]"
+                              : "border-transparent text-[#0038FF] hover:bg-[#0038FF]/5"
                           }`}
                         >
                           {page}
@@ -312,11 +314,13 @@ const Blog = () => {
                     <PaginationLink
                       href="#blog-posts"
                       aria-label={paginationText.next}
+                      aria-disabled={currentPage === totalPages}
+                      tabIndex={currentPage === totalPages ? -1 : undefined}
                       onClick={(event) => {
                         event.preventDefault();
                         goToPage(currentPage + 1);
                       }}
-                      className={`h-10 min-w-10 rounded-full border border-white/10 bg-black/30 px-3 text-zinc-300 hover:bg-white/10 hover:text-white ${
+                      className={`h-10 min-w-10 rounded-full border border-transparent px-3 text-[#0038FF] hover:bg-[#0038FF]/5 ${
                         currentPage === totalPages ? "pointer-events-none opacity-35" : ""
                       }`}
                     >
@@ -333,11 +337,11 @@ const Blog = () => {
 
       {/* Details Dialog */}
       <Dialog open={!!selectedPost} onOpenChange={(open) => !open && setSelectedPost(null)}>
-        <DialogContent className="max-w-2xl bg-zinc-950 border border-white/10 rounded-2xl text-white overflow-hidden shadow-2xl p-0">
+        <DialogContent className="reference-blog-dialog max-w-2xl bg-zinc-950 border border-white/10 rounded-2xl text-white overflow-hidden shadow-2xl p-0">
           {selectedPost && (
             <div className="max-h-[85vh] overflow-y-auto" data-lenis-prevent>
               {/* Header Version Banner */}
-              <div className="relative aspect-[21/9] w-full overflow-hidden bg-white flex items-center justify-center select-none border-b border-white/10">
+              <div className="reference-blog-banner relative aspect-[21/9] w-full overflow-hidden bg-white flex items-center justify-center select-none border-b border-white/10">
                 <div className="text-black font-mono font-bold text-6xl tracking-tighter uppercase">
                   {selectedPost.version || "v1.0.0"}
                 </div>

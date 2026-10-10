@@ -10,7 +10,7 @@ const Roadmap = () => {
   const ROADMAP = t.ROADMAP;
 
   return (
-    <div data-testid="roadmap-page">
+    <div className="design-page" data-testid="roadmap-page">
       <PageHero
         kicker={ROADMAP.kicker}
         lines={[ROADMAP.title]}

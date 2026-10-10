@@ -11,7 +11,7 @@ const Sobre = () => {
   const SOBRE = t.SOBRE;
 
   return (
-    <div data-testid="sobre-page">
+    <div className="design-page" data-testid="sobre-page">
       <div id="sobre-hero">
         <PageHero
           kicker={SOBRE.kicker}
@@ -36,10 +36,10 @@ const Sobre = () => {
                 <SpotlightCard
                   as="article"
                   cursorText={m.name.split(" ")[0]}
-                  className="flex h-full flex-col rounded-[28px] bg-[#fbf9f2] border border-[#211d18]/10 p-8 hover:border-[#A34A33] hover:-translate-y-1 transition-all duration-500"
+                  className="flex h-full flex-col rounded-[28px] bg-[#fbf9f2] border border-[#211d18]/10 p-8 hover:border-[#0038FF] hover:-translate-y-1 transition-all duration-500"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#A34A33]/10 text-[#A34A33]">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0038FF]/10 text-[#0038FF]">
                       {i === 0 ? <Award className="h-5 w-5" /> : <Users className="h-5 w-5" />}
                     </span>
                     <div>
@@ -60,7 +60,7 @@ const Sobre = () => {
         <Container>
           <Reveal>
             <div
-              className="aether-card group relative flex flex-col justify-between overflow-hidden p-8 md:p-14 cursor-pointer animate-lift"
+              className="aether-card group relative flex flex-col justify-between overflow-hidden p-8 md:p-14"
               data-cursor="hover"
             >
               <div className="relative z-10 flex flex-col md:flex-row items-start gap-8 md:gap-12">
@@ -69,7 +69,7 @@ const Sobre = () => {
                 </span>
                 <div>
                   <div className="flex items-baseline gap-4 mb-6">
-                    <span className="aether-font-serif italic text-[#A34A33] text-4xl leading-none">03</span>
+                    <span className="design-number text-[#0038FF] text-4xl leading-none font-black">03</span>
                     <h3 className="aether-font-display font-bold uppercase text-2xl md:text-3xl tracking-tight text-[#211d18]">
                       {SOBRE.twinTitle}
                     </h3>
@@ -89,19 +89,19 @@ const Sobre = () => {
         <Container>
           <Reveal>
             <div
-              className="aether-card group relative flex flex-col justify-between overflow-hidden p-8 md:p-12 cursor-pointer animate-lift"
+              className="aether-card group relative flex flex-col justify-between overflow-hidden p-8 md:p-12"
               data-cursor="hover"
             >
               <div className="relative z-10">
                 <div className="flex items-baseline gap-4 mb-8">
-                  <span className="aether-font-serif italic text-[#A34A33] text-4xl leading-none">04</span>
+                  <span className="design-number text-[#0038FF] text-4xl leading-none font-black">04</span>
                   <h3 className="aether-font-display font-bold uppercase text-2xl md:text-3xl tracking-tight text-[#211d18]">
                     {language === "en" ? "Terms & Licensing" : "Termos & Licenciamento"}
                   </h3>
                 </div>
                 <div className="grid gap-8 md:grid-cols-2 text-sm text-[#211d18]/70 leading-relaxed">
                   <div>
-                    <h4 className="font-mono uppercase tracking-[0.22em] text-[10px] text-[#A34A33] mb-3">
+                    <h4 className="font-mono uppercase tracking-[0.22em] text-[10px] text-[#0038FF] mb-3">
                       {language === "en" ? "On-Premise License Model" : "Modelo On-Premise"}
                     </h4>
                     <p>
@@ -111,7 +111,7 @@ const Sobre = () => {
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-mono uppercase tracking-[0.22em] text-[10px] text-[#A34A33] mb-3">
+                    <h4 className="font-mono uppercase tracking-[0.22em] text-[10px] text-[#0038FF] mb-3">
                       {language === "en" ? "Data Sovereignty & Support" : "Soberania & Suporte"}
                     </h4>
                     <p>

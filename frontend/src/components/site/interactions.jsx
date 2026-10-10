@@ -8,62 +8,41 @@ import {
   useVelocity,
   useTransform,
 } from "framer-motion";
-import { useExperience } from "@/context/ExperienceContext";
+import { useReducedMotion } from "@/lib/motionPreference";
 
-const getMotionTier = () =>
-  typeof document === "undefined"
-    ? "medium"
-    : document.documentElement.dataset.motionTier || "medium";
-
-export const useMotionBudget = ({ allowLow = false } = {}) => {
-  const [enabled, setEnabled] = useState(true);
+export const useMotionBudget = () => {
+  const [enabled, setEnabled] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const update = () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const override = urlParams.get("motion") || localStorage.getItem("aether-motion-override");
-
-      if (override === "high") {
-        setEnabled(true);
-        return;
-      }
-      if (override === "low") {
-        setEnabled(allowLow);
-        return;
-      }
-      if (override === "medium") {
-        setEnabled(true);
-        return;
-      }
-
-      const tier = getMotionTier();
-      setEnabled(!document.hidden && (allowLow || tier !== "low"));
+      setEnabled(!reducedMotion && !document.hidden);
     };
 
     update();
     document.addEventListener("visibilitychange", update);
-    window.addEventListener("aether:motion-tier-change", update);
     return () => {
       document.removeEventListener("visibilitychange", update);
-      window.removeEventListener("aether:motion-tier-change", update);
     };
-  }, [allowLow]);
+  }, [reducedMotion]);
 
-  return enabled;
+  return enabled && !reducedMotion;
 };
 
 /* Thin scroll-progress bar fixed at the very top of the viewport */
 export const ScrollProgress = () => {
+  const reducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 34,
     restDelta: 0.001,
   });
+  if (reducedMotion) return null;
   return (
     <motion.div
       style={{ scaleX }}
-      className="scroll-progress fixed top-0 left-0 right-0 z-[80] h-[2px] origin-left bg-[#A34A33]"
+      className="scroll-progress fixed top-0 left-0 right-0 z-[80] h-[2px] origin-left bg-[#0038FF]"
       aria-hidden="true"
     />
   );
@@ -82,7 +61,7 @@ export const Magnetic = ({ children, strength = 0.28, className = "" }) => {
   }, []);
 
   const onEnter = () => {
-    if (!ref.current) return;
+    if (!enabled || !canTrackPointer || !ref.current) return;
     const r = ref.current.getBoundingClientRect();
     rectRef.current = {
       left: r.left + window.pageXOffset,
@@ -102,6 +81,7 @@ export const Magnetic = ({ children, strength = 0.28, className = "" }) => {
     const r = rectRef.current;
     if (raf.current) cancelAnimationFrame(raf.current);
     raf.current = requestAnimationFrame(() => {
+      raf.current = null;
       const pageX = e.pageX;
       const pageY = e.pageY;
       const x = (pageX - (r.left + r.width / 2)) * strength;
@@ -113,13 +93,25 @@ export const Magnetic = ({ children, strength = 0.28, className = "" }) => {
   const onLeave = () => {
     rectRef.current = null;
     if (raf.current) cancelAnimationFrame(raf.current);
+    raf.current = null;
     if (ref.current) {
-      ref.current.style.transform = "translate3d(0, 0, 0)";
-      ref.current.style.willChange = "auto";
+      ref.current.style.removeProperty("transform");
+      ref.current.style.removeProperty("will-change");
     }
   };
 
-  useEffect(() => () => raf.current && cancelAnimationFrame(raf.current), []);
+  useEffect(() => {
+    const element = ref.current;
+    const reset = () => {
+      rectRef.current = null;
+      if (raf.current) cancelAnimationFrame(raf.current);
+      raf.current = null;
+      element?.style.removeProperty("transform");
+      element?.style.removeProperty("will-change");
+    };
+    if (!enabled || !canTrackPointer) reset();
+    return reset;
+  }, [enabled, canTrackPointer]);
 
   return (
     <div
@@ -147,9 +139,9 @@ export const MagneticButton = ({
     "group relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition-colors duration-300 overflow-hidden";
   const styles =
     variant === "primary"
-      ? "border border-[#211d18] bg-[#211d18] !text-[#f7f4ec] shadow-[0_18px_38px_-16px_rgba(33,29,24,0.45)] hover:bg-[#A34A33] hover:border-[#A34A33] hover:shadow-[0_22px_48px_-14px_rgba(109,40,217,0.5)]"
+      ? "border border-[#211d18] bg-[#211d18] !text-[#f7f4ec] shadow-[0_18px_38px_-16px_rgba(33,29,24,0.45)] hover:bg-[#0038FF] hover:border-[#0038FF] hover:shadow-[0_22px_48px_-14px_rgba(0,56,255,0.5)]"
     : variant === "orange"
-      ? "border border-transparent bg-[#A34A33] !text-white shadow-[0_18px_40px_-16px_rgba(163, 74, 51,0.45)] hover:bg-[#211d18] hover:shadow-[0_24px_52px_-14px_rgba(33,29,24,0.55)]"
+      ? "border border-transparent bg-[#0038FF] !text-white shadow-[0_18px_40px_-16px_rgba(0,56,255,0.45)] hover:bg-[#211d18] hover:shadow-[0_24px_52px_-14px_rgba(33,29,24,0.55)]"
       : "border border-[#211d18]/20 text-[#211d18] hover:bg-[#211d18]/[0.05] hover:border-[#211d18]/45";
   const cursorProps = cursorText
     ? { "data-cursor": "hover", "data-cursor-text": cursorText }
@@ -163,18 +155,19 @@ export const MagneticButton = ({
   );
 };
 
-/* Card that tracks the cursor to render an inner radial glow & 3D tilt micro-animation */
+/* A bounded pointer tilt. Work is scheduled only in response to pointer input. */
 export const SpotlightCard = ({ as: Tag = "div", className = "", children, cursorText, enableTilt = true, ...rest }) => {
   const ref = useRef(null);
   const rectRef = useRef(null);
   const raf = useRef(null);
-  const { isLightExperience } = useExperience();
-  // Light mode keeps cards fully operable without a per-pointer RAF loop or
-  // transform takeover. CSS still supplies the calm hover/focus state.
-  const enabled = useMotionBudget() && !isLightExperience;
+  const enabled = useMotionBudget();
+  const canTrackPointer = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    return Boolean(window.matchMedia?.("(hover: hover) and (pointer: fine)").matches);
+  }, []);
 
   const onEnter = () => {
-    if (!enabled || !ref.current) return;
+    if (!enabled || !canTrackPointer || !enableTilt || !ref.current) return;
     const r = ref.current.getBoundingClientRect();
     rectRef.current = {
       left: r.left + window.pageXOffset,
@@ -182,11 +175,11 @@ export const SpotlightCard = ({ as: Tag = "div", className = "", children, curso
       width: r.width,
       height: r.height,
     };
-    ref.current.style.willChange = "transform, background";
+    ref.current.style.willChange = "transform";
   };
 
   const onMove = (e) => {
-    if (!enabled || !ref.current) return;
+    if (!enabled || !canTrackPointer || !enableTilt || !ref.current) return;
     const el = ref.current;
     if (!rectRef.current) {
       onEnter();
@@ -196,6 +189,7 @@ export const SpotlightCard = ({ as: Tag = "div", className = "", children, curso
 
     if (enableTilt && r && r.width && r.height) {
       raf.current = requestAnimationFrame(() => {
+        raf.current = null;
         const pageX = e.pageX;
         const pageY = e.pageY;
         const x = pageX - r.left;
@@ -204,9 +198,9 @@ export const SpotlightCard = ({ as: Tag = "div", className = "", children, curso
         const centerY = r.height / 2;
         const relX = x - centerX;
         const relY = y - centerY;
-        const rotX = ((relY / centerY) * -5).toFixed(2);
-        const rotY = ((relX / centerX) * 5).toFixed(2);
-        el.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px) scale3d(1.015, 1.015, 1.015)`;
+        const rotX = (Math.max(-1, Math.min(1, relY / centerY)) * -2.5).toFixed(2);
+        const rotY = (Math.max(-1, Math.min(1, relX / centerX)) * 2.5).toFixed(2);
+        el.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px) scale3d(1.008, 1.008, 1.008)`;
       });
     }
   };
@@ -214,13 +208,25 @@ export const SpotlightCard = ({ as: Tag = "div", className = "", children, curso
   const onLeave = () => {
     rectRef.current = null;
     if (raf.current) cancelAnimationFrame(raf.current);
+    raf.current = null;
     if (ref.current) {
-      ref.current.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)";
-      ref.current.style.willChange = "auto";
+      ref.current.style.removeProperty("transform");
+      ref.current.style.removeProperty("will-change");
     }
   };
 
-  useEffect(() => () => raf.current && cancelAnimationFrame(raf.current), []);
+  useEffect(() => {
+    const element = ref.current;
+    const reset = () => {
+      rectRef.current = null;
+      if (raf.current) cancelAnimationFrame(raf.current);
+      raf.current = null;
+      element?.style.removeProperty("transform");
+      element?.style.removeProperty("will-change");
+    };
+    if (!enabled || !canTrackPointer || !enableTilt) reset();
+    return reset;
+  }, [enabled, canTrackPointer, enableTilt]);
 
   const cursorProps = cursorText
     ? { "data-cursor": "hover", "data-cursor-text": cursorText }
@@ -232,6 +238,7 @@ export const SpotlightCard = ({ as: Tag = "div", className = "", children, curso
       onPointerEnter={onEnter}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
+      onBlur={onLeave}
       className={`aether-interactive-card card-glow transition-[border-color,box-shadow,background-color] duration-300 ease-out ${className}`}
       style={{ transformStyle: "preserve-3d", ...rest.style }}
       {...cursorProps}
@@ -273,7 +280,7 @@ export const KineticText = ({ text, className = "", delay = 0 }) => {
 /* Cycles through a list of words with a vertical slide — kinetic typography */
 export const WordRotator = ({ words, interval = 2600, className = "" }) => {
   const [i, setI] = useState(0);
-  const enabled = useMotionBudget({ allowLow: true });
+  const enabled = useMotionBudget();
   const longestWord = useMemo(
     () => words.reduce((longest, word) => (word.length > longest.length ? word : longest), words[0] || ""),
     [words],
@@ -313,6 +320,7 @@ export const WordRotator = ({ words, interval = 2600, className = "" }) => {
 
 /* ScrollVelocityEffect wraps any component and dynamically skews it / squeezes it based on scroll speed & direction. */
 export const ScrollVelocityEffect = ({ children, className = "" }) => {
+  const enabled = useMotionBudget();
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
   const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 300 });
@@ -328,7 +336,7 @@ export const ScrollVelocityEffect = ({ children, className = "" }) => {
   );
 
   return (
-    <motion.div style={{ skewY, scale }} className={`origin-center will-change-transform ${className}`}>
+    <motion.div style={enabled ? { skewY, scale } : undefined} className={`origin-center ${enabled ? "will-change-transform" : ""} ${className}`}>
       {children}
     </motion.div>
   );

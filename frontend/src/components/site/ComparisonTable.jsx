@@ -34,7 +34,7 @@ const ComparisonRow = ({ row, index, language }) => {
             {row.feat}
           </h4>
           <div className="flex items-center gap-1.5 mt-2">
-            <span className={`w-1.5 h-1.5 rounded-full ${isCritical ? "bg-[#A34A33] animate-pulse" : isHigh ? "bg-[#A34A33]/70" : "bg-[#211d18]/30"}`} />
+            <span className={`w-1.5 h-1.5 rounded-full ${isCritical ? "bg-[#0038FF] animate-pulse" : isHigh ? "bg-[#0038FF]/70" : "bg-[#211d18]/30"}`} />
             <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#211d18]/50">
               {language === "en"
                 ? (meta.risk === "critical" ? "critical risk" : meta.risk === "high" ? "high risk" : "attention")
@@ -56,11 +56,11 @@ const ComparisonRow = ({ row, index, language }) => {
 
         {/* AetherCore Column */}
         <div className="md:col-span-5 md:col-start-8 pl-0 md:pl-4 min-w-0">
-          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#A34A33] block mb-1.5 font-semibold whitespace-nowrap">
+          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#0038FF] block mb-1.5 font-semibold whitespace-nowrap">
             // {language === "en" ? "AETHERCORE LOCAL-FIRST" : "AETHERCORE LOCAL-FIRST"}
           </span>
           <div className="text-sm text-[#211d18] font-medium leading-relaxed font-sans flex items-start gap-2">
-            <span className="text-[#A34A33] font-bold shrink-0 mt-0.5" aria-hidden="true">✓</span>
+            <span className="text-[#0038FF] font-bold shrink-0 mt-0.5" aria-hidden="true">✓</span>
             <span className="flex-1 min-w-0">{row.aether}</span>
           </div>
         </div>
@@ -104,10 +104,10 @@ const ScoreSummary = ({ CASOS, language }) => {
             {language === "en" ? "Regulatory Risk" : "Risco Regulatório"}
           </span>
           <div className="flex items-baseline gap-1.5">
-            <span className="text-6xl md:text-7xl font-extrabold tracking-tighter text-[#A34A33] leading-none aether-font-display">
+            <span className="text-6xl md:text-7xl font-extrabold tracking-tighter text-[#0038FF] leading-none aether-font-display">
               {criticalCount}
             </span>
-            <span className="text-lg text-[#A34A33]/60 font-mono">
+            <span className="text-lg text-[#0038FF]/60 font-mono">
               {language === "en" ? "critical" : "críticos"}
             </span>
           </div>
@@ -120,7 +120,7 @@ const ScoreSummary = ({ CASOS, language }) => {
 
         {/* Column 3: AetherCore Compliance */}
         <div className="relative md:border-l md:border-[#211d18]/10 md:pl-10">
-          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A34A33] block mb-2 font-semibold">
+          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#0038FF] block mb-2 font-semibold">
             AetherCore Local-First
           </span>
           <div className="flex items-baseline gap-1.5">
@@ -155,7 +155,7 @@ const ComparisonLegend = ({ language }) => (
         </span>
       </div>
       <div className="md:col-span-5 md:col-start-8 pl-4 min-w-0">
-        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#A34A33] font-bold block whitespace-nowrap">
+        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#0038FF] font-bold block whitespace-nowrap">
           AetherCore Local-First
         </span>
       </div>
@@ -188,8 +188,8 @@ const ComparisonTable = () => {
 
         {/* Bottom verdict */}
         <Reveal className="mt-10">
-          <div className="border-l-2 border-[#A34A33] pl-6 md:pl-10 py-2">
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#A34A33] block mb-3 font-semibold">
+          <div className="border-l-2 border-[#0038FF] pl-6 md:pl-10 py-2">
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#0038FF] block mb-3 font-semibold">
               // {language === "en" ? "VERDICT" : "VEREDICTO"}
             </span>
             <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-[#211d18] aether-font-display leading-tight max-w-3xl">

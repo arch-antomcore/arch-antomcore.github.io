@@ -12,7 +12,7 @@ const defaultItems = [
     { label: 'settings', title: 'FAQ', icon: Settings, to: "/faq" },
 ];
 
-const defaultAccentColor = 'var(--component-active-color-default, #A34A33)';
+const defaultAccentColor = 'var(--component-active-color-default, #0038FF)';
 
 const InteractiveMenu = ({ items, accentColor }) => {
   const navigate = useNavigate();

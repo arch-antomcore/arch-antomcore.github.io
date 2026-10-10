@@ -1,25 +1,20 @@
-import React, { createContext, useContext, useLayoutEffect, useMemo } from "react";
-import { applyExperienceToDocument, EXPERIENCE } from "@/lib/experience";
+import React, { createContext, useContext, useLayoutEffect } from "react";
+import { applyExperienceToDocument, EXPERIENCE, saveExperience } from "@/lib/experience";
 
-const ExperienceContext = createContext({
-  experience: EXPERIENCE.FULL,
-  isLightExperience: false,
-  setExperience: () => {},
+const cinematicExperience = Object.freeze({
+  experience: EXPERIENCE.CINEMATIC,
+  isCinematicExperience: true,
 });
 
-export const ExperienceProvider = ({ experience, setExperience, children }) => {
-  const isLightExperience = experience === EXPERIENCE.LIGHT;
+const ExperienceContext = createContext(cinematicExperience);
 
+export const ExperienceProvider = ({ children }) => {
   useLayoutEffect(() => {
-    applyExperienceToDocument(experience);
-  }, [experience]);
+    saveExperience();
+    applyExperienceToDocument();
+  }, []);
 
-  const value = useMemo(
-    () => ({ experience, isLightExperience, setExperience }),
-    [experience, isLightExperience, setExperience],
-  );
-
-  return <ExperienceContext.Provider value={value}>{children}</ExperienceContext.Provider>;
+  return <ExperienceContext.Provider value={cinematicExperience}>{children}</ExperienceContext.Provider>;
 };
 
 export const useExperience = () => useContext(ExperienceContext);

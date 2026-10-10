@@ -17,10 +17,10 @@ const Ecossistema = () => {
       name: "AetherCore",
       number: "01",
       badge: isPt ? "Flagship · IA Local" : "Flagship · Local AI",
-      badgeStyle: "bg-[#A34A33]/15 text-[#A34A33] border-[#A34A33]/30",
+      badgeStyle: "bg-[#0038FF]/15 text-[#0038FF] border-[#0038FF]/30",
       logo: "/assets/ecosystem/aethercore.svg",
       logoAlt: "AetherCore Favicon",
-      logoContainer: "border-[#A34A33]/20 bg-white shadow-sm shadow-[#A34A33]/10 p-2.5",
+      logoContainer: "border-[#0038FF]/20 bg-white shadow-sm shadow-[#0038FF]/10 p-2.5",
       logoClass: "w-full h-full object-contain",
       headline: isPt ? "Inteligência Autônoma Local-First" : "Autonomous Local-First Intelligence",
       desc: isPt
@@ -37,10 +37,10 @@ const Ecossistema = () => {
       name: "MonitorSmith",
       number: "02",
       badge: isPt ? "Telemetria · Live" : "Telemetry · Live",
-      badgeStyle: "bg-cyan-500/10 text-cyan-600 border-cyan-500/25",
+      badgeStyle: "bg-[#0038FF]/10 text-[#0038FF] border-[#0038FF]/25",
       logo: "/assets/ecosystem/monitorsmith.png",
       logoAlt: "MonitorSmith Logo",
-      logoContainer: "border-cyan-500/20 bg-white shadow-sm shadow-cyan-500/10 p-2",
+      logoContainer: "border-[#0038FF]/15 bg-white p-2",
       logoClass: "w-full h-full object-contain",
       headline: isPt ? "Telemetria & Diagnósticos de Sistema" : "Real-Time System & Hardware Telemetry",
       desc: isPt
@@ -57,10 +57,10 @@ const Ecossistema = () => {
       name: "Component Atlas",
       number: "03",
       badge: isPt ? "UI Catalog · Em Breve" : "UI Catalog · Soon",
-      badgeStyle: "bg-amber-500/10 text-amber-600 border-amber-500/25",
+      badgeStyle: "bg-[#eae6db] text-[#5b5851] border-[#211d18]/15",
       logo: "/assets/ecosystem/component-atlas-x.svg",
       logoAlt: "Component Atlas Logo",
-      logoContainer: "border-red-500/20 bg-white shadow-sm shadow-red-500/10 p-2",
+      logoContainer: "border-[#0038FF]/15 bg-white p-2",
       logoClass: "w-full h-full object-contain",
       headline: isPt ? "Catálogo Universal de Componentes UI" : "Universal Web UI Components Discovery",
       desc: isPt
@@ -74,7 +74,7 @@ const Ecossistema = () => {
   ];
 
   return (
-    <div data-testid="ecossistema-page">
+    <div className="design-page" data-testid="ecossistema-page">
 
       <div id="eco-hero">
         <PageHero
@@ -114,7 +114,7 @@ const Ecossistema = () => {
           <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
             {products.map((p, i) => (
               <Reveal key={p.id} delay={i * 0.1}>
-                <SpotlightCard className="rounded-[32px] bg-white/80 border border-[#211d18]/10 p-8 md:p-10 h-full flex flex-col justify-between shadow-lg hover:shadow-2xl hover:border-[#211d18]/25 transition-all duration-300">
+                <SpotlightCard className="design-panel rounded-[32px] p-8 md:p-10 h-full flex flex-col justify-between transition-colors duration-300">
                   <div>
                     {/* Top Meta Bar */}
                     <div className="flex items-center justify-between gap-2 mb-6">
@@ -143,7 +143,7 @@ const Ecossistema = () => {
                       </div>
                     </div>
 
-                    <h4 className="text-xs font-mono text-[#A34A33] uppercase tracking-wider font-semibold mb-3">
+                    <h4 className="text-xs font-mono text-[#0038FF] uppercase tracking-wider font-semibold mb-3">
                       {p.headline}
                     </h4>
 
@@ -159,20 +159,20 @@ const Ecossistema = () => {
                         href={p.cta.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full inline-flex items-center justify-center gap-2 bg-[#211d18] hover:bg-[#A34A33] text-[#fbf9f2] text-xs uppercase tracking-[0.15em] font-semibold px-6 py-3.5 rounded-full transition-all duration-300 shadow-md cursor-pointer"
+                        className="w-full inline-flex items-center justify-center gap-2 bg-[#0038FF] hover:bg-[#08258f] text-[#fbf9f2] text-xs uppercase tracking-[0.15em] font-semibold px-6 py-3.5 rounded-full transition-colors duration-300"
                       >
                         {p.cta.label}
                         <ArrowUpRight className="w-4 h-4" />
                       </a>
                     ) : p.cta.disabled ? (
                       <div className="w-full inline-flex items-center justify-center gap-2 bg-zinc-100 text-zinc-500 border border-zinc-300/70 text-xs font-mono uppercase tracking-wider px-6 py-3.5 rounded-full select-none">
-                        <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                        <span className="w-2 h-2 rounded-full bg-[#777268]" />
                         {p.cta.label}
                       </div>
                     ) : (
                       <Link
                         to={p.cta.to}
-                        className="w-full inline-flex items-center justify-center gap-2 bg-[#A34A33] hover:bg-[#211d18] text-[#fbf9f2] text-xs uppercase tracking-[0.15em] font-semibold px-6 py-3.5 rounded-full transition-all duration-300 shadow-md"
+                        className="w-full inline-flex items-center justify-center gap-2 bg-[#0038FF] hover:bg-[#08258f] text-[#fbf9f2] text-xs uppercase tracking-[0.15em] font-semibold px-6 py-3.5 rounded-full transition-colors duration-300"
                       >
                         {p.cta.label}
                         <ArrowRight className="w-4 h-4" />

@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useReducedMotion } from "../../lib/motionPreference";
 
 const CYCLE_INTERVAL = 2000;
 const COLUMN_DELAY = 200;
@@ -58,7 +59,7 @@ const LogoContent = ({ logo }) => (
   </div>
 );
 
-export const LogoColumn = React.memo(({ logos, index, currentTime, isStatic, profile = "full" }) => {
+export const LogoColumn = React.memo(({ logos, index, currentTime, isStatic }) => {
   const currentIndex = getCurrentLogoIndex(currentTime, index, logos.length);
   const currentLogo = useMemo(() => logos[currentIndex], [logos, currentIndex]);
 
@@ -79,7 +80,7 @@ export const LogoColumn = React.memo(({ logos, index, currentTime, isStatic, pro
     <motion.div
       className="relative h-14 w-24 overflow-hidden md:h-24 md:w-48"
       data-testid="logo-carousel-column"
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
         delay: index * 0.1,
@@ -92,35 +93,29 @@ export const LogoColumn = React.memo(({ logos, index, currentTime, isStatic, pro
           key={`${currentLogo.id ?? currentLogo.name}-${currentIndex}`}
           className="absolute inset-0 flex items-center justify-center"
           initial={{
-            y: profile === "light" ? "4%" : "10%",
+            y: "10%",
             opacity: 0,
-            filter: profile === "light" ? "blur(0px)" : "blur(8px)",
+            filter: "blur(4px)",
           }}
           animate={{
             y: "0%",
             opacity: 1,
             filter: "blur(0px)",
             transition: {
-              ...(profile === "light"
-                ? { type: "tween", ease: "easeOut", duration: 0.28 }
-                : {
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 20,
-                    mass: 1,
-                    bounce: 0.2,
-                    duration: 0.5,
-                  }),
+              type: "spring",
+              stiffness: 260,
+              damping: 24,
+              mass: 0.8,
             },
           }}
           exit={{
-            y: profile === "light" ? "-8%" : "-20%",
+            y: "-16%",
             opacity: 0,
-            filter: profile === "light" ? "blur(0px)" : "blur(6px)",
+            filter: "blur(3px)",
             transition: {
               type: "tween",
               ease: "easeIn",
-              duration: profile === "light" ? 0.2 : 0.3,
+              duration: 0.3,
             },
           }}
         >
@@ -138,12 +133,14 @@ export const LogoColumn = React.memo(({ logos, index, currentTime, isStatic, pro
   );
 });
 
-export function LogoCarousel({ columnCount = 2, logos, isStatic = false, profile = "full" }) {
-  // The light product profile still cycles through integrations. It removes
-  // blur and spring physics, while `isStatic` remains an explicit opt-out for
-  // embeds that need a frozen snapshot.
-  const shouldRemainStatic = isStatic;
+export function LogoCarousel({ columnCount = 2, logos, isStatic = false }) {
+  const carouselRef = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
+  const shouldRemainStatic = isStatic || shouldReduceMotion;
   const [currentTime, setCurrentTime] = useState(0);
+  const [isVisible, setIsVisible] = useState(() => typeof document === "undefined" || !document.hidden);
+  const [isInView, setIsInView] = useState(() => typeof IntersectionObserver === "undefined");
+  const isPlaying = !shouldRemainStatic && isVisible && isInView;
   const logoSets = useMemo(() => distributeLogos(logos, columnCount), [logos, columnCount]);
 
   const updateTime = useCallback(() => {
@@ -151,18 +148,34 @@ export function LogoCarousel({ columnCount = 2, logos, isStatic = false, profile
   }, []);
 
   useEffect(() => {
-    if (shouldRemainStatic) return undefined;
+    const updateVisibility = () => setIsVisible(!document.hidden);
+    document.addEventListener("visibilitychange", updateVisibility);
+    return () => document.removeEventListener("visibilitychange", updateVisibility);
+  }, []);
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined" || !carouselRef.current) return undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry) setIsInView(entry.isIntersecting);
+    }, { rootMargin: "80px 0px", threshold: 0 });
+    observer.observe(carouselRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isPlaying) return undefined;
 
     const intervalId = window.setInterval(updateTime, 100);
     return () => window.clearInterval(intervalId);
-  }, [shouldRemainStatic, updateTime]);
+  }, [isPlaying, updateTime]);
 
   return (
     <div
+      ref={carouselRef}
       className="flex space-x-4"
       data-testid="logo-carousel"
       data-carousel-mode={shouldRemainStatic ? "static" : "animated"}
-      data-carousel-profile={profile}
+      data-carousel-state={shouldRemainStatic ? "static" : isPlaying ? "playing" : "paused"}
       aria-label="Tecnologias da plataforma AetherCore"
     >
       {logoSets.map((columnLogos, index) => (
@@ -172,7 +185,6 @@ export function LogoCarousel({ columnCount = 2, logos, isStatic = false, profile
           index={index}
           currentTime={currentTime}
           isStatic={shouldRemainStatic}
-          profile={profile}
         />
       ))}
     </div>

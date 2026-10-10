@@ -134,7 +134,7 @@ export const Preloader = ({ onComplete }) => {
         {/* Diagonal Loader Line */}
         <div className="w-40 h-[1px] bg-[#211d18]/10 relative overflow-hidden mb-6">
           <motion.div 
-            className="absolute top-0 left-0 bottom-0 bg-[#A34A33]"
+            className="absolute top-0 left-0 bottom-0 bg-[#0038FF]"
             style={{ width: `${progress}%` }}
           />
         </div>

@@ -12,7 +12,7 @@ const Sustentabilidade = () => {
   const SUSTENTABILIDADE = t.SUSTENTABILIDADE;
 
   return (
-    <div data-testid="sustentabilidade-page">
+    <div className="design-page" data-testid="sustentabilidade-page">
       <div id="sust-hero">
         <PageHero
           kicker={SUSTENTABILIDADE.kicker}
