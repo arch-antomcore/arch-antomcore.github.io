@@ -69,8 +69,8 @@
                                         "description":  "Política de privacidade do AetherCore e do site exvorn.tech: dados processados localmente, sem rastreamento invasivo."
                                     },
                    "/ecossistema":  {
-                                        "title":  "Ecossistema Exvorn — AetherCore, Quintessence, MonitorSmith e Component Atlas",
-                                        "description":  "O ecossistema Exvorn: AetherCore (hub de agentes e modelos), Quintessence (IDE nativa), MonitorSmith e Component Atlas."
+                                        "title":  "Ecossistema Exvorn — AetherCore, Quintessence e MonitorSmith",
+                                        "description":  "O ecossistema Exvorn: AetherCore (hub de agentes e modelos), Quintessence (IDE nativa do AetherCore) e MonitorSmith."
                                     },
                    "/demo-glass":  {
                                        "title":  "Demo Liquid Glass — AetherCore",

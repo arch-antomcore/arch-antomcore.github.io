@@ -6,10 +6,9 @@ import { SpotlightCard } from "@/components/site/interactions";
 import { useTranslation } from "@/hooks/useTranslation";
 
 /**
- * EcosystemSection - Showcases the 3 ventures of Exvorn startup:
+ * EcosystemSection - Showcases Exvorn's two active products:
  * 1. AetherCore (Flagship Local AI)
  * 2. MonitorSmith (Hardware & System Telemetry)
- * 3. Component Atlas (Universal Web UI Component Catalog)
  */
 const EcosystemSection = () => {
   const { language } = useTranslation();
@@ -22,8 +21,8 @@ const EcosystemSection = () => {
       badge: isPt ? "Carro-Chefe · IA Local" : "Flagship · Local AI",
       badgeColor: "bg-[#0038FF]/10 text-[#0038FF] border-[#0038FF]/20",
       status: isPt ? "🟢 Ativo · v0.6.0" : "🟢 Live · v0.6.0",
-      logo: "/assets/ecosystem/aethercore.svg",
-      logoAlt: "AetherCore Favicon",
+      logo: "/assets/img/brand/logo-aether.png",
+      logoAlt: "Símbolo oficial do AetherCore",
       logoContainer: "border-[#0038FF]/20 bg-white p-2",
       headline: isPt ? "Agentes Autônomos de IA Local-First" : "Autonomous Local-First Cognitive AI",
       desc: isPt
@@ -58,26 +57,6 @@ const EcosystemSection = () => {
         active: true,
       },
     },
-    {
-      id: "component-atlas",
-      name: "Component Atlas",
-      badge: isPt ? "Frontend & UI Discovery" : "Frontend & UI Discovery",
-      badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-      status: isPt ? "🟡 Novo · Domínio em Breve" : "🟡 New · Custom Domain Soon",
-      logo: "/assets/ecosystem/component-atlas-x.svg",
-      logoAlt: "Component Atlas Logo",
-      logoContainer: "border-red-500/20 bg-white p-1.5",
-      headline: isPt ? "Catálogo Universal de Componentes UI" : "Universal Web UI Components Discovery",
-      desc: isPt
-        ? "Indexador visual de componentes independentes (Aceternity, Kokonut UI, 21st, shadcn, Magic UI) com busca semântica e comparador lado a lado."
-        : "Unified visual discovery catalog for modern web UI libraries with semantic intent search, theme testing, and side-by-side comparison.",
-      tags: ["React / Tailwind", "Multi-Source Catalog", "Busca Semântica"],
-      cta: {
-        label: isPt ? "Domínio Próprio em Breve" : "Custom Domain Coming Soon",
-        isExternal: false,
-        active: false,
-      },
-    },
   ];
 
   return (
@@ -85,15 +64,15 @@ const EcosystemSection = () => {
       <Container>
         <SectionHeader
           kicker={isPt ? "Ecossistema Exvorn" : "Exvorn Ecosystem"}
-          title={isPt ? "Nossos Três Projetos" : "Our Three Ventures"}
+          title={isPt ? "Nossos dois produtos" : "Our Two Products"}
           desc={
             isPt
-              ? "A Exvorn é a startup de engenharia por trás do AetherCore, MonitorSmith e Component Atlas. Conheça as soluções que compõem nosso portfólio."
-              : "Exvorn is the engineering startup behind AetherCore, MonitorSmith, and Component Atlas. Explore the products powering our unified ecosystem."
+              ? "A Exvorn desenvolve o AetherCore e o MonitorSmith. Conheça as soluções que compõem nosso portfólio."
+              : "Exvorn builds AetherCore and MonitorSmith. Explore the products powering our ecosystem."
           }
         />
 
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
           {products.map((p, i) => (
             <Reveal key={p.id} delay={i * 0.1}>
               <SpotlightCard

@@ -1,7 +1,7 @@
 import React, { useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import * as Dialog from "@radix-ui/react-dialog";
-import { ArrowUpRight, ArrowLeft, ArrowRight, BookOpen, Desktop, Compass, Pause, Play, ArrowsOut, X } from "@phosphor-icons/react";
+import { ArrowUpRight, ArrowLeft, ArrowRight, BookOpen, Desktop, Pause, Play, ArrowsOut, X } from "@phosphor-icons/react";
 import { TiltedGridHero } from "@/components/ui/tilted-grid-hero";
 import { Tiles } from "@/components/ui/tiles";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -131,10 +131,9 @@ const AetherHero = () => {
         </div>
 
         <div className="aether-home-ecosystem">
-          <span>{isPt ? "Ecossistema Exvorn · Outros projetos" : "Exvorn ecosystem · Other projects"}</span>
+          <span>{isPt ? "Também no ecossistema Exvorn" : "Also in the Exvorn ecosystem"}</span>
           <div>
             <a href="https://monitorsmith.app/" target="_blank" rel="noopener noreferrer" data-testid="hero-link-monitorsmith"><Desktop size={16} />MonitorSmith<ArrowUpRight size={15} /></a>
-            <Link to="/ecossistema#component-atlas" data-testid="hero-link-component-atlas"><Compass size={16} />Component Atlas<small>{isPt ? "Em breve" : "Soon"}</small></Link>
           </div>
         </div>
       </div>

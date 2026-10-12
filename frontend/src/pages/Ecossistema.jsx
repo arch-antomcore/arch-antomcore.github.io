@@ -18,9 +18,9 @@ const Ecossistema = () => {
       number: "01",
       badge: isPt ? "Flagship · IA Local" : "Flagship · Local AI",
       badgeStyle: "bg-[#0038FF]/15 text-[#0038FF] border-[#0038FF]/30",
-      logo: "/assets/ecosystem/aethercore.svg",
-      logoAlt: "AetherCore Favicon",
-      logoContainer: "border-[#0038FF]/20 bg-white shadow-sm shadow-[#0038FF]/10 p-2.5",
+      logo: "/assets/img/brand/logo-aether.png",
+      logoAlt: "Símbolo oficial do AetherCore",
+      logoContainer: "border-[#0038FF]/20 bg-white shadow-sm shadow-[#0038FF]/10 p-2",
       logoClass: "w-full h-full object-contain",
       headline: isPt ? "Inteligência Autônoma Local-First" : "Autonomous Local-First Intelligence",
       desc: isPt
@@ -52,25 +52,6 @@ const Ecossistema = () => {
         isExternal: true,
       },
     },
-    {
-      id: "component-atlas",
-      name: "Component Atlas",
-      number: "03",
-      badge: isPt ? "UI Catalog · Em Breve" : "UI Catalog · Soon",
-      badgeStyle: "bg-[#eae6db] text-[#5b5851] border-[#211d18]/15",
-      logo: "/assets/ecosystem/component-atlas-x.svg",
-      logoAlt: "Component Atlas Logo",
-      logoContainer: "border-[#0038FF]/15 bg-white p-2",
-      logoClass: "w-full h-full object-contain",
-      headline: isPt ? "Catálogo Universal de Componentes UI" : "Universal Web UI Components Discovery",
-      desc: isPt
-        ? "Indexador visual que unifica as melhores bibliotecas independentes de componentes web (Aceternity, Kokonut, 21st, shadcn, Magic UI)."
-        : "Unified visual discovery catalog indexing modern independent web UI libraries into an interactive search and comparison stage.",
-      cta: {
-        label: isPt ? "Domínio Próprio em Breve" : "Custom Domain Coming Soon",
-        disabled: true,
-      },
-    },
   ];
 
   return (
@@ -82,8 +63,8 @@ const Ecossistema = () => {
           lines={isPt ? ["O Ecossistema", "de Projetos", "da Exvorn."] : ["The Exvorn", "Project", "Ecosystem."]}
           lead={
             isPt
-              ? "A Exvorn é a startup de engenharia por trás do AetherCore, MonitorSmith e Component Atlas. Conheça nossos produtos e a tecnologia que impulsiona cada iniciativa."
-              : "Exvorn is the engineering startup behind AetherCore, MonitorSmith, and Component Atlas. Explore our products and the unified technology powering each initiative."
+              ? "A Exvorn desenvolve o AetherCore — com a IDE Quintessence — e o MonitorSmith. Conheça os produtos e a tecnologia por trás de cada iniciativa."
+              : "Exvorn builds AetherCore — with the Quintessence IDE — and MonitorSmith. Explore the products and technology behind each initiative."
           }
           ghostWord={isPt ? "Ecosystem" : "Ecossistema"}
           primary={{
@@ -98,20 +79,20 @@ const Ecossistema = () => {
         />
       </div>
 
-      {/* Clean 3-Card Portfolio Section with High Contrast Logos */}
+      {/* Two-product portfolio */}
       <Section id="projetos" className="liquid-divider">
         <Container>
           <SectionHeader
             kicker={isPt ? "Portfólio de Produtos" : "Product Portfolio"}
-            title={isPt ? "Os Três Pilares da Exvorn" : "The Three Pillars of Exvorn"}
+            title={isPt ? "Duas frentes da Exvorn" : "Two sides of Exvorn"}
             desc={
               isPt
-                ? "Cada projeto resolve um desafio fundamental: IA cognitiva local (AetherCore), telemetria de hardware (MonitorSmith) e padrões de interface moderna (Component Atlas)."
-                : "Each project addresses a foundational pillar: local cognitive AI (AetherCore), system telemetry (MonitorSmith), and modern UI patterns (Component Atlas)."
+                ? "IA local-first e ferramentas para trabalho inteligente com o AetherCore; telemetria de hardware e diagnósticos em tempo real com o MonitorSmith."
+                : "Local-first AI and intelligent work tools with AetherCore; hardware telemetry and real-time diagnostics with MonitorSmith."
             }
           />
 
-          <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
             {products.map((p, i) => (
               <Reveal key={p.id} delay={i * 0.1}>
                 <SpotlightCard className="design-panel rounded-[32px] p-8 md:p-10 h-full flex flex-col justify-between transition-colors duration-300">

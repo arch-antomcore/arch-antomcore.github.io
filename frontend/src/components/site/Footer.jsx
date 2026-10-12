@@ -136,7 +136,6 @@ const Footer = () => {
     { label: language === "pt" ? "Ecossistema de Plugins" : "Plugin Ecosystem", to: "/plugins" },
     { label: language === "pt" ? "Ecossistema da Startup" : "Startup Ecosystem", to: "/ecossistema" },
     { label: "MonitorSmith (Telemetria) ↗", href: "https://monitorsmith.app/" },
-    { label: language === "pt" ? "Component Atlas (Em breve)" : "Component Atlas (Soon)", to: "/ecossistema#component-atlas" },
   ];
 
   const exploreLinks = [

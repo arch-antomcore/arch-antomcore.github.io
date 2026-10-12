@@ -37,7 +37,7 @@ Idiomas do site: português (pt-BR) e inglês.
 - [Validação](https://exvorn.tech/validacao): evidências de engenharia e testes.
 - [Sustentabilidade](https://exvorn.tech/sustentabilidade): IA verde e eficiência energética.
 - [Sobre](https://exvorn.tech/sobre): Exvorn, founder e missão.
-- [Ecossistema](https://exvorn.tech/ecossistema): AetherCore, Quintessence, MonitorSmith, Component Atlas.
+- [Ecossistema](https://exvorn.tech/ecossistema): AetherCore, Quintessence e MonitorSmith.
 - [Roadmap](https://exvorn.tech/roadmap), [Dossiê](https://exvorn.tech/dossie), [Referências](https://exvorn.tech/referencias), [Privacidade](https://exvorn.tech/privacidade).
 
 ## Recursos para agentes
