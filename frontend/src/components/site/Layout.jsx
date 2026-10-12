@@ -84,9 +84,6 @@ const SiteContent = ({ lenis = null, previousNavigation }) => {
   }, [language]);
 
   useEffect(() => {
-    const faviconLink = document.getElementById("dynamic-favicon");
-    if (faviconLink) faviconLink.href = "/assets/img/brand/logo-aether.png";
-
     const root = document.documentElement;
     root.classList.remove("motion-tier-low", "motion-tier-medium", "motion-tier-high");
     delete root.dataset.motionTier;
