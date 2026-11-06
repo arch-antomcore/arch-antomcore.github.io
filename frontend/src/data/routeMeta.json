@@ -5,28 +5,28 @@
   "defaultImage": "https://exvorn.tech/logo-aether.png",
   "routes": {
     "/": {
-      "title": "AetherCore | Agente de IA local-first em beta",
-      "description": "Agente em beta com modelos locais e remotos configuráveis, workspaces e ferramentas. O destino dos dados depende do fluxo e da integração."
+      "title": "AetherCore | IA para trabalhar com arquivos, do seu jeito",
+      "description": "AetherCore reúne modelos locais ou conectados, arquivos e ferramentas em uma aplicação desktop com runtime em Rust e fluxo de revisão. Solicite acesso antecipado."
     },
     "/produto": {
-      "title": "Produto — AetherCore | Agente de IA para arquivos em beta",
-      "description": "Conheça o AetherCore em desenvolvimento: interface desktop, runtime em Rust, modelos configuráveis e controles ainda em validação."
+      "title": "Produto — AetherCore | Agente de IA para arquivos",
+      "description": "Conheça o agente AetherCore: workspace, ferramentas para arquivos, modelos configuráveis e etapas de revisão em uma experiência desktop."
     },
     "/precos": {
       "title": "Modelo de acesso — AetherCore",
-      "description": "Estratégia freemium em validação. Nenhum preço ou plano está disponível; núcleo local gratuito é uma hipótese."
+      "description": "Nossa estratégia prevê núcleo local gratuito no lançamento público e soluções para equipes sob proposta. Acesso antecipado ao beta por convite."
     },
     "/arquitetura": {
       "title": "Arquitetura — AetherCore | Rust, workspaces e modelos configuráveis",
-      "description": "Veja a arquitetura beta, opções de modelos locais ou remotos e limites de isolamento e aprovação."
+      "description": "Explore o runtime em Rust, workspaces, ferramentas, escolha de modelos locais ou conectados e etapas de revisão do AetherCore."
     },
     "/plugins": {
       "title": "Integrações — AetherCore em beta",
       "description": "Conectores e integrações podem encaminhar dados a serviços externos. Disponibilidade e limites dependem da configuração."
     },
     "/casos-de-uso": {
-      "title": "Casos de uso — AetherCore em validação",
-      "description": "Explore tarefas com arquivos e critérios para avaliar modelos, conexões, controles e dados antes de uso em produção."
+      "title": "Soluções — AetherCore | IA para arquivos e equipes",
+      "description": "Trabalho com planilhas, documentos e processos que exigem contexto, revisão humana e escolha do caminho de execução."
     },
     "/principios": {
       "title": "Princípios — AetherCore | Limites e caminhos de dados",
@@ -46,11 +46,11 @@
     },
     "/sobre": {
       "title": "Sobre — EXVORN.TECH e AetherCore",
-      "description": "Um fundador desenvolve o AetherCore, agente de IA local-first em beta, e prepara sua validação externa."
+      "description": "A EXVORN.TECH, liderada por Matheus Peres da Silva em Curitiba, desenvolve o AetherCore para levar IA acionável ao trabalho com arquivos."
     },
     "/validacao": {
-      "title": "Status do produto — AetherCore beta",
-      "description": "Estágio atual, limites conhecidos e próximos marcos de validação. Sem cliente, piloto formal, auditoria independente ou receita reportada."
+      "title": "Acesso antecipado — AetherCore",
+      "description": "Conheça as camadas do AetherCore: interface desktop, runtime em Rust, modelos configuráveis, workspaces e estratégia de acesso."
     },
     "/dossie": {
       "title": "Dossiê — AetherCore | Inteligência local, soberania de dados e conformidade",

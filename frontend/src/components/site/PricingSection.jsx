@@ -178,7 +178,7 @@ export const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
         {isCustom ? (
           <div className="flex h-[68px] items-center overflow-hidden">
             <span className="aether-font-display text-3xl md:text-4xl font-bold tracking-tight text-white">
-              {labels.uponRequest}
+              {plan.id === "free" ? labels.freeLaunch : plan.id === "go" ? labels.earlyAccess : labels.uponRequest}
             </span>
           </div>
         ) : (
@@ -256,27 +256,25 @@ export const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
 /* Feature comparison matrix with animated check-ins */
 const FEATURE_MATRIX = {
   pt: {
-    heading: "Estado das capacidades",
-    cols: ["Beta", "Em validação", "Roadmap"],
+    heading: "Como o modelo se sustenta",
+    cols: ["Acesso", "Economia", "Valor"],
     rows: [
-      { f: "Runtime Rust", v: ["Em desenvolvimento", false, false] },
-      { f: "Modelos locais e remotos", v: ["Configuráveis", "Matriz pendente", false] },
-      { f: "Controles de workspace", v: ["Lógicos", "Revisão pendente", false] },
-      { f: "Instalador assinado", v: [false, "Pendente", false] },
-      { f: "Governança multiusuário", v: [false, false, "Hipótese"] },
-      { f: "Suporte empresarial", v: [false, false, "Não ofertado"] },
+      { f: "Núcleo local", v: ["Grátis no lançamento", "Hardware do usuário", "Adoção"] },
+      { f: "Acesso antecipado", v: ["Por convite", "Fluxos delimitados", "Aprendizado"] },
+      { f: "Equipes", v: ["Sob proposta", "Escopo contratado", "Implantação"] },
+      { f: "Suporte", v: ["Sob proposta", "Serviço contratado", "Continuidade"] },
+      { f: "IA externa", v: ["Opcional", "Provedor escolhido", "Flexibilidade"] },
     ],
   },
   en: {
-    heading: "Capability status",
-    cols: ["Beta", "Under validation", "Roadmap"],
+    heading: "How the model sustains itself",
+    cols: ["Access", "Economics", "Value"],
     rows: [
-      { f: "Rust runtime", v: ["In development", false, false] },
-      { f: "Local and remote models", v: ["Configurable", "Matrix pending", false] },
-      { f: "Workspace controls", v: ["Logical", "Review pending", false] },
-      { f: "Signed installer", v: [false, "Pending", false] },
-      { f: "Multi-user governance", v: [false, false, "Hypothesis"] },
-      { f: "Enterprise support", v: [false, false, "Not offered"] },
+      { f: "Local core", v: ["Free at launch", "User hardware", "Adoption"] },
+      { f: "Early access", v: ["By invitation", "Scoped workflows", "Learning"] },
+      { f: "Teams", v: ["By proposal", "Contract scope", "Deployment"] },
+      { f: "Support", v: ["By proposal", "Contracted service", "Continuity"] },
+      { f: "External AI", v: ["Optional", "Chosen provider", "Flexibility"] },
     ],
   },
 };
@@ -434,7 +432,7 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
             {PRICING.lead}
           </motion.p>
           <p className="mt-4 rounded-full border border-white/15 bg-white/[0.04] px-5 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
-            {language === "en" ? "No prices published · model under validation" : "Sem preços publicados · modelo em validação"}
+            {language === "en" ? "Early access · free core planned for launch" : "Acesso antecipado · núcleo gratuito no lançamento"}
           </p>
         </motion.div>
 
@@ -534,11 +532,11 @@ const PricingSection = () => {
   const TEXTS = {
     pt: {
       monthly: "Mensal",
-      scaleKicker: "Hipótese · não disponível",
+      scaleKicker: "Infraestrutura dedicada · roadmap",
       scaleTitle: "Aether Scale",
       scaleDesc:
-        "Possível implantação dedicada, sujeita a validação técnica, de segurança, suporte e custos. Não é uma oferta ativa.",
-      scaleSubtitle: "Roadmap em validação",
+        "Para organizações com necessidades específicas de infraestrutura e integração, planejamos projetos dedicados definidos por escopo técnico e proposta comercial.",
+      scaleSubtitle: "Projeto sob proposta",
       techKicker: "Especificações Técnicas & Engenharia",
       techTitle: "Requisitos de Servidor & Infraestrutura Local",
       techDesc:
@@ -578,15 +576,15 @@ const PricingSection = () => {
       warningDesc:
         "Inferência local consome recursos do dispositivo e o impacto depende do modelo, da tarefa e da carga. Faça benchmark no ambiente escolhido antes de compartilhar infraestrutura ou usar em produção.",
       footerNote:
-        "Nenhum preço ou plano está disponível. O núcleo local gratuito e os níveis pagos para equipes são hipóteses de modelo comercial, ainda sem implementação e validação de disposição a pagar.",
+        "Solicite acesso antecipado. O núcleo local gratuito está previsto para o lançamento público; serviços para equipes serão definidos por proposta, com escopo e preço claros antes de qualquer contratação.",
     },
     en: {
       monthly: "Monthly",
-      scaleKicker: "Hypothesis · unavailable",
+      scaleKicker: "Dedicated infrastructure · roadmap",
       scaleTitle: "Aether Scale",
       scaleDesc:
-        "Possible dedicated deployment, subject to technical, security, support, and cost validation. Not an active offer.",
-      scaleSubtitle: "Roadmap under validation",
+        "For organizations with specific infrastructure and integration needs, we plan dedicated projects defined by technical scope and commercial proposal.",
+      scaleSubtitle: "Custom proposal",
       techKicker: "Technical Specifications & Engineering",
       techTitle: "Server & Local Infrastructure Requirements",
       techDesc:
@@ -625,7 +623,7 @@ const PricingSection = () => {
       warningDesc:
         "Local inference uses device resources; impact depends on model, task, and workload. Benchmark the selected environment before sharing infrastructure or using it in production.",
       footerNote:
-        "No price or plan is available. A free local core and paid team tiers are commercial-model hypotheses, not yet implemented or validated for willingness to pay.",
+        "Request early access. A free local core is planned for public launch; team services will be scoped by proposal, with clear terms and pricing before any agreement.",
     },
   };
 
@@ -634,7 +632,9 @@ const PricingSection = () => {
     recommended: language === "en" ? "Recommended" : "Recomendado",
     getStarted: PRICING.buttonLabel,
     contact: PRICING.contactLabel,
-    uponRequest: language === "en" ? "No price published" : "Sem preço público",
+    uponRequest: language === "en" ? "By proposal" : "Sob proposta",
+    freeLaunch: language === "en" ? "Free at launch" : "Grátis no lançamento",
+    earlyAccess: language === "en" ? "Early access" : "Acesso antecipado",
   };
 
   const cautionOverlay = (

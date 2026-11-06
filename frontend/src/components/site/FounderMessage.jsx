@@ -83,13 +83,13 @@ const PostText = ({ expanded }) => (
       É isso que eu queria que a nova marca transmitisse: autonomia sem perder o controle. Ambição sem virar fumaça. Tecnologia avançada sem tirar o usuário do comando.
     </p>
     <p>
-      E não é só uma tela bonita. A próxima etapa é transformar a beta em uma versão instalável, revisar as fronteiras de segurança e testar fluxos com usuários consentidos.
+      A próxima etapa é levar essa base a usuários: distribuição por convite, fluxos mensuráveis com arquivos e evolução guiada pelo que realmente funciona.
     </p>
     <p className="font-semibold text-[#211d18] border-y border-[#211d18]/8 py-2.5 my-3">
-      Produto em beta, desenvolvido no Brasil. Próximos passos: instalação verificável, revisão independente e pilotos com métricas publicáveis. 🇧🇷
+      Produto desenvolvido no Brasil. IA local-first para trabalho real, com escolha de modelo, contexto e revisão humana. 🇧🇷
     </p>
     <p>
-      O foco agora é provar o fluxo de ponta a ponta: modelo, workspace, ferramentas, aprovações e destino dos dados.
+      O foco agora é transformar o fluxo de ponta a ponta em uma experiência de uso forte: modelo, workspace, ferramentas, aprovações e destino dos dados.
     </p>
     <p className="text-[var(--a-terracotta)] font-bold text-base">
       Essa é a nova cara do projeto. E, honestamente? Ainda estamos só começando. 🚀

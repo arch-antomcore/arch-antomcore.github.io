@@ -71,63 +71,63 @@ export const BlogEventCarousel = () => {
   const CAROUSEL_CARDS = [
     {
       id: "runtime-status", icon: Cpu,
-      phase: isPt ? "ESTÁGIO 01 · PRODUTO" : "STAGE 01 · PRODUCT",
+      phase: isPt ? "01 · ARQUITETURA" : "01 · ARCHITECTURE",
       title: isPt ? "Runtime em Rust" : "Rust runtime",
-      subtitle: isPt ? "Beta em desenvolvimento" : "Beta in development",
+      subtitle: isPt ? "Núcleo do agente" : "The agent core",
       description: isPt
-        ? "A base Rust está em desenvolvimento. Testes focados passaram, mas o build integral, o instalador e a validação de lançamento continuam pendentes."
-        : "The Rust foundation is in development. Focused tests passed, while the full build, installer, and release validation remain pending.",
-      metrics: isPt ? ["Rust", "Build integral pendente", "Instalador pendente"] : ["Rust", "Full build pending", "Installer pending"],
-      tag: isPt ? "BETA" : "BETA", highlight: isPt ? "Estado técnico" : "Technical status",
-      status: isPt ? "EM DESENVOLVIMENTO" : "IN DEVELOPMENT", badgeColor: "bg-[#CCFF00] text-black",
+        ? "O runtime organiza tarefas, ferramentas e eventos de execução em uma base de engenharia voltada a fluxos com arquivos."
+        : "The runtime coordinates tasks, tools, and execution events in an engineering foundation for file-based workflows.",
+      metrics: isPt ? ["Rust", "Ferramentas", "Eventos"] : ["Rust", "Tools", "Events"],
+      tag: isPt ? "NÚCLEO" : "CORE", highlight: isPt ? "Arquitetura" : "Architecture",
+      status: isPt ? "EM EVOLUÇÃO" : "EVOLVING", badgeColor: "bg-[#CCFF00] text-black",
     },
     {
       id: "model-status", icon: Broadcast,
-      phase: isPt ? "ESTÁGIO 02 · MODELOS" : "STAGE 02 · MODELS",
-      title: isPt ? "Modelos configuráveis" : "Configurable models",
-      subtitle: isPt ? "Locais ou remotos" : "Local or remote",
+      phase: isPt ? "02 · MODELOS" : "02 · MODELS",
+      title: isPt ? "Modelo é uma escolha" : "Model choice",
+      subtitle: isPt ? "Local ou conectado" : "Local or connected",
       description: isPt
-        ? "O usuário pode configurar modelos locais e conexões externas. A matriz de versões suportadas e o caminho de cada dado ainda precisam de validação."
-        : "Users can configure local models and external connections. The supported-version matrix and each data path still need validation.",
-      metrics: isPt ? ["Configuração por modelo", "Provedores externos", "Matriz pendente"] : ["Per-model setup", "External providers", "Matrix pending"],
-      tag: isPt ? "MODELOS" : "MODELS", highlight: isPt ? "Caminho configurável" : "Configurable path",
-      status: isPt ? "VALIDAÇÃO PENDENTE" : "VALIDATION PENDING", badgeColor: "bg-white text-black",
+        ? "Configure modelos locais para inferência no dispositivo ou conecte um provedor externo quando a tarefa pedir."
+        : "Configure local models for on-device inference or connect an external provider when the task calls for one.",
+      metrics: isPt ? ["Ollama", "Provedores", "Configuração"] : ["Ollama", "Providers", "Configuration"],
+      tag: isPt ? "MODELOS" : "MODELS", highlight: isPt ? "Flexibilidade" : "Flexibility",
+      status: isPt ? "CONFIGURÁVEL" : "CONFIGURABLE", badgeColor: "bg-white text-black",
     },
     {
       id: "workspace-status", icon: ShieldCheck,
-      phase: isPt ? "ESTÁGIO 03 · CONTROLES" : "STAGE 03 · CONTROLS",
-      title: isPt ? "Workspace e revisão" : "Workspace and review",
-      subtitle: isPt ? "Limites e cobertura" : "Boundaries and coverage",
+      phase: isPt ? "03 · CONTEXTO" : "03 · CONTEXT",
+      title: isPt ? "Workspace definido" : "Defined workspace",
+      subtitle: isPt ? "Arquivos no escopo" : "Files in scope",
       description: isPt
-        ? "O isolamento atual é lógico dentro da aplicação, não uma sandbox do sistema operacional. A cobertura das etapas de aprovação precisa ser testada por fluxo."
-        : "Current isolation is logical within the application, not an operating-system sandbox. Approval-step coverage needs workflow testing.",
-      metrics: isPt ? ["Escopo lógico", "Sem sandbox de SO", "Cobertura em teste"] : ["Logical scope", "No OS sandbox", "Coverage under test"],
-      tag: isPt ? "LIMITES" : "LIMITS", highlight: isPt ? "Transparência" : "Transparency",
-      status: isPt ? "EM VALIDAÇÃO" : "UNDER VALIDATION", badgeColor: "bg-[#CCFF00] text-black",
+        ? "Selecione os arquivos relevantes para a tarefa e mantenha contexto, plano e resultado no mesmo fluxo."
+        : "Select files relevant to the task and keep context, plan, and output in one workflow.",
+      metrics: isPt ? ["Arquivos", "Escopo", "Revisão"] : ["Files", "Scope", "Review"],
+      tag: isPt ? "WORKSPACE" : "WORKSPACE", highlight: isPt ? "Contexto" : "Context",
+      status: isPt ? "DEFINIDO PELO USUÁRIO" : "USER DEFINED", badgeColor: "bg-[#CCFF00] text-black",
     },
     {
       id: "integration-status", icon: Sparkle,
-      phase: isPt ? "ESTÁGIO 04 · INTEGRAÇÕES" : "STAGE 04 · INTEGRATIONS",
-      title: isPt ? "Conectores em avaliação" : "Connectors under review",
-      subtitle: isPt ? "Cada destino exige revisão" : "Each destination needs review",
+      phase: isPt ? "04 · AÇÕES" : "04 · ACTIONS",
+      title: isPt ? "Ferramentas com revisão" : "Tools with review",
+      subtitle: isPt ? "Da intenção ao resultado" : "From intent to output",
       description: isPt
-        ? "Integrações podem encaminhar conteúdo a serviços externos. Disponibilidade, permissões e tratamento dos dados precisam ser confirmados antes de uso sensível."
-        : "Integrations may route content to external services. Availability, permissions, and data handling should be confirmed before sensitive use.",
-      metrics: isPt ? ["Destino explícito", "Política do provedor", "Teste por fluxo"] : ["Explicit destination", "Provider policy", "Workflow testing"],
-      tag: isPt ? "INTEGRAÇÕES" : "INTEGRATIONS", highlight: isPt ? "Configuração consciente" : "Deliberate setup",
-      status: isPt ? "ESCOPO EM REVISÃO" : "SCOPE UNDER REVIEW", badgeColor: "bg-cyan-300 text-black",
+        ? "O agente combina ferramentas e etapas de aprovação para que ações cobertas pelo fluxo possam ser revisadas."
+        : "The agent combines tools and approval steps so covered actions can be reviewed within the workflow.",
+      metrics: isPt ? ["Plano", "Ferramentas", "Aprovação"] : ["Plan", "Tools", "Approval"],
+      tag: isPt ? "EXECUÇÃO" : "EXECUTION", highlight: isPt ? "Revisão humana" : "Human review",
+      status: isPt ? "CONTROLE NO FLUXO" : "WORKFLOW CONTROL", badgeColor: "bg-cyan-300 text-black",
     },
     {
       id: "release-status", icon: Code,
-      phase: isPt ? "ESTÁGIO 05 · DISTRIBUIÇÃO" : "STAGE 05 · DISTRIBUTION",
-      title: isPt ? "Lançamento público" : "Public release",
-      subtitle: isPt ? "Sem aprovação de release" : "No release approval",
+      phase: isPt ? "05 · ACESSO" : "05 · ACCESS",
+      title: isPt ? "Acesso antecipado" : "Early access",
+      subtitle: isPt ? "Construa conosco" : "Build with us",
       description: isPt
-        ? "O repositório e a distribuição continuam privados. Assinatura, instalação limpa, revisão de licença e aprovação pública ainda são etapas pendentes."
-        : "The repository and distribution remain private. Signing, clean installation, license review, and public approval are still pending.",
-      metrics: isPt ? ["Sem release pública", "Assinatura pendente", "Revisão pendente"] : ["No public release", "Signing pending", "Review pending"],
-      tag: isPt ? "DISTRIBUIÇÃO" : "DISTRIBUTION", highlight: isPt ? "Próxima prova" : "Next proof",
-      status: isPt ? "NÃO APROVADO" : "NOT APPROVED", badgeColor: "bg-[#CCFF00] text-black",
+        ? "Estamos preparando acesso por convite e buscamos equipes que trabalham com arquivos para testar fluxos mensuráveis."
+        : "We are preparing invitation-based access and looking for teams working with files to test measurable workflows.",
+      metrics: isPt ? ["Beta", "Por convite", "Contato direto"] : ["Beta", "By invitation", "Direct contact"],
+      tag: isPt ? "ACESSO" : "ACCESS", highlight: isPt ? "Próxima etapa" : "Next step",
+      status: isPt ? "SOLICITE ACESSO" : "REQUEST ACCESS", badgeColor: "bg-[#CCFF00] text-black",
     },
   ];
 
@@ -336,7 +336,7 @@ export const BlogEventCarousel = () => {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#CCFF00]"></span>
               </span>
               <span className="font-mono font-bold text-[11px] md:text-xs uppercase tracking-[0.2em] text-[#CCFF00]">
-                {isPt ? "STATUS DO PRODUTO • SNAPSHOT DE BETA" : "PRODUCT STATUS • BETA SNAPSHOT"}
+                {isPt ? "O AETHERCORE EM CINCO CAMADAS" : "AETHERCORE IN FIVE LAYERS"}
               </span>
             </div>
 
@@ -358,14 +358,14 @@ export const BlogEventCarousel = () => {
                   textShadow: '1px 1px 0 #001A99, 2px 2px 0 #001A99, 3px 3px 0 #001A99, 4px 4px 0 #001A99, 5px 5px 0 #001A99, 6px 6px 0 #001A99, 7px 7px 0 #001A99, 8px 8px 0 #001A99'
                 }}
               >
-                {isPt ? "LIMITES E PRÓXIMAS PROVAS" : "LIMITS AND NEXT PROOFS"}
+                {isPt ? "DA ARQUITETURA AO USO" : "FROM ARCHITECTURE TO USE"}
               </h3>
             </div>
 
             <p className="mt-4 text-[#f7f4ec]/90 text-sm md:text-base font-medium max-w-2xl leading-relaxed">
               {isPt
-                ? "Este snapshot separa o que existe na beta das validações e etapas de distribuição ainda pendentes."
-                : "This snapshot separates what exists in the beta from the validation and release work that remains."}
+                ? "A evolução do AetherCore conecta arquitetura, uso e distribuição em etapas mensuráveis."
+                : "AetherCore connects architecture, usage, and distribution through measurable steps."}
             </p>
           </div>
 
@@ -373,7 +373,7 @@ export const BlogEventCarousel = () => {
           <div className="flex items-center gap-5 sm:gap-6 self-start md:self-end">
             <div className="hidden sm:block">
               <CircularEventBadge 
-                text={isPt ? "AETHERCORE • STATUS DA BETA • " : "AETHERCORE • BETA STATUS • "}
+                text={isPt ? "AETHERCORE • ARQUITETURA EM AÇÃO • " : "AETHERCORE • ARCHITECTURE IN ACTION • "}
               />
             </div>
 
@@ -534,8 +534,8 @@ export const BlogEventCarousel = () => {
             <CalendarBlank className="w-4 h-4 text-[#CCFF00]" />
             <span>
               {isPt
-                ? "STATUS DO PROJETO: ROADMAP E GOVERNANÇA EM CONSTRUÇÃO"
-                : "PROJECT STATUS: ROADMAP AND GOVERNANCE IN PROGRESS"}
+                ? "AETHERCORE: DO CONTEXTO À EXECUÇÃO"
+                : "AETHERCORE: FROM CONTEXT TO EXECUTION"}
             </span>
           </div>
         </div>

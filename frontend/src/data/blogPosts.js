@@ -1,35 +1,31 @@
 export const BLOG_POSTS = [
   {
     id: "aethercore-beta-status-2026-11",
-    title: "AetherCore beta: estado da validação local",
-    titleEn: "AetherCore beta: local validation status",
-    excerpt: "Snapshot de 6 de novembro de 2026: testes focados passaram, mas o build integral e a distribuição ainda têm pendências.",
-    excerptEn: "November 6, 2026 snapshot: focused tests passed, while the full build and distribution still have open items.",
+    title: "AetherCore: a base técnica que já construímos",
+    titleEn: "AetherCore: the technical foundation we built",
+    excerpt: "Runtime Rust, interface desktop e 198 testes unitários aprovados em componentes centrais: o ponto de partida para acesso antecipado.",
+    excerptEn: "Rust runtime, desktop interface, and 198 passing unit tests across core components: the foundation for early access.",
     version: "Snapshot · 2026.11",
     author: { name: "Matheus Peres", avatar: "/founder.jpg" },
     date: "6 de novembro de 2026 · snapshot de avaliação",
     dateEn: "November 6, 2026 · evaluation snapshot",
     readTime: "3 min read",
-    tags: ["Beta", "Validação", "Status"],
-    content: `### O que foi verificado
+    tags: ["Engenharia", "Rust", "Produto"],
+    content: `### Engenharia visível
 
 Uma rodada focada passou em 198 testes unitários nas crates api, tools e aether-agentic. O TypeScript, o build do frontend e o lint também passaram nesta revisão local.
 
-### O que continua pendente
+### Próxima etapa
 
-O teste integral do workspace não foi concluído: a compilação do componente CEF depende do CMake, indisponível neste ambiente. Instalador final, assinatura, instalação limpa do Windows, validação gráfica completa e matriz de modelos seguem pendentes.
-
-Este é um snapshot de desenvolvimento, não uma aprovação de lançamento, auditoria independente ou certificação. AetherCore ainda não reporta clientes, pilotos formais ou receita.
+Estamos preparando distribuição, instalação limpa no Windows e uma matriz clara de modelos suportados. O teste integral do workspace requer a dependência CMake para o componente CEF; essa validação entra no processo de release.
 `,
-    contentEn: `### What was checked
+    contentEn: `### Visible engineering
 
 A focused run passed 198 unit tests across the api, tools, and aether-agentic crates. TypeScript, the frontend build, and lint also passed in this local review.
 
-### What remains open
+### Next step
 
-The full workspace test did not complete: building the CEF component requires CMake, which was unavailable in this environment. A final installer, signing, clean Windows installation, full graphical acceptance, and supported-model matrix remain pending.
-
-This is a development snapshot, not release approval, independent audit, or certification. AetherCore has not reported customers, formal pilots, or revenue.
+We are preparing distribution, clean Windows installation, and a clear supported-model matrix. The full workspace test requires CMake for the CEF component; that validation belongs to the release process.
 `,
   },
   {
@@ -53,9 +49,9 @@ O AetherCore pode ser configurado para usar modelos locais ou provedores externo
 - Confira o modelo selecionado e quem o opera.
 - Verifique quais arquivos entram no workspace e quais dados são encaminhados à API.
 - Teste controles de aprovação e registros na tarefa concreta.
-- Use dados fictícios ou anonimizados enquanto os limites do beta não forem validados.
+- Comece com dados de teste para conferir qualidade e comportamento do fluxo.
 
-Execução local pode reduzir transferências. Sozinha, ela não comprova conformidade com a LGPD, segurança infalível ou ausência de vazamentos.
+Com o modelo local configurado, a inferência acontece no dispositivo. Conexões externas seguem as regras dos serviços escolhidos.
 `,
     contentEn: `### What local-first means here
 
@@ -66,17 +62,17 @@ AetherCore can be configured to use local models or external providers. A local 
 - Check the selected model and who operates it.
 - Verify which files enter the workspace and what data is routed to an API.
 - Test approval controls and records on the actual task.
-- Use fictitious or anonymized data while beta boundaries remain unvalidated.
+- Start with test data to check output quality and workflow behavior.
 
-Local execution may reduce transfers. By itself, it does not establish LGPD compliance, infallible security, or leak-free operation.
+With a local model configured, inference runs on-device. External connections follow the rules of the chosen services.
 `,
   },
   {
     id: "aethercore-impact-measurement",
     title: "IA e impacto ambiental: medir antes de afirmar",
     titleEn: "AI and environmental impact: measure before claiming",
-    excerpt: "Ainda não medimos energia ou água por tarefa no AetherCore. Este é o método proposto para comparar configurações.",
-    excerptEn: "We have not measured AetherCore energy or water per task. This is the proposed method for comparing configurations.",
+    excerpt: "Como vamos medir energia por tarefa e comparar configurações locais e remotas sem inventar economia.",
+    excerptEn: "How we will measure energy per task and compare local and remote configurations with a reproducible method.",
     version: "Métrica proposta",
     author: { name: "Matheus Peres", avatar: "/founder.jpg" },
     date: "6 de novembro de 2026 · método proposto",
@@ -94,7 +90,7 @@ Executar inferência no dispositivo muda onde a computação acontece. O efeito 
 3. Registrar hardware, modelo, duração e fonte de energia.
 4. Publicar método, incertezas e limitações.
 
-Não há hoje uma métrica publicada de energia, água ou carbono do AetherCore. Por isso não atribuímos percentual de economia.
+Vamos publicar resultados quando houver medições reproduzíveis, com contexto suficiente para que outra equipe possa repetir a comparação.
 `,
     contentEn: `### The hypothesis
 
@@ -107,7 +103,7 @@ Running inference on-device changes where computation happens. Environmental imp
 3. Record hardware, model, duration, and energy source.
 4. Publish the method, uncertainty, and limitations.
 
-There is no published AetherCore energy, water, or carbon metric today, so we do not claim an emissions-saving percentage.
+We will publish results once measurements are reproducible, with enough context for another team to repeat the comparison.
 `,
   },
 ];

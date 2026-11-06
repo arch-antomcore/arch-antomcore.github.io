@@ -1,6 +1,4 @@
-// Bilíngue (PT/EN) - Estruturado para o pitch do Programa Centelha Paraná.
-// A versão do produto definida aqui deve refletir sempre a versão mais recente anunciada na área de Blog. O Blog é a fonte da verdade.
-// Copy distinguishes beta behavior, evidence, and roadmap.
+// Conteúdo público bilíngue da EXVORN.TECH. Capacidades atuais e próximos passos são apresentados separadamente.
 
 export const STACK = [
   { name: "Rust", src: "/stack/rust.svg" },
@@ -23,14 +21,14 @@ export const CONTENT_PT = {
   BRAND: {
     name: "AetherCore",
     version: "v0.6.0 · beta",
-    tagline: "IA local / beta",
+    tagline: "IA para trabalho real",
     copyright: "© 2026 AetherCore. IA local-first. Curitiba, Brasil. Contato: business@exvorn.tech",
   },
   NAV_LINKS: [
     { label: "Início", to: "/" },
     { label: "Ecossistema", to: "/ecossistema" },
     { label: "Sobre", to: "/sobre" },
-    { label: "Status do produto", to: "/validacao" },
+    { label: "Acesso antecipado", to: "/validacao" },
     { label: "Produto", to: "/produto" },
     { label: "Sustentabilidade", to: "/sustentabilidade" },
     { label: "Blog", to: "/blog" },
@@ -44,24 +42,24 @@ export const CONTENT_PT = {
   FOOTER_LINKS: [],
   HOME: {
     badge: "v0.6.0 · beta",
-    heroStatus: "Local-first · beta em validação",
+    heroStatus: "IA local-first · acesso antecipado",
     aether: {
       eyebrow: "IA local-first para fluxos de trabalho",
       eyebrowRight: "BETA · v0.6.0",
       headline: { l1: "IA para", l2: "trabalho real.", l3a: "Com", l3b: "controle." },
-      sub: "O AetherCore aproxima modelos configuráveis e ferramentas dos arquivos de trabalho. A execução pode ser local ou conectada; cada fluxo deve deixar claro quais dados seguem para serviços externos.",
+      sub: "Uma aplicação desktop que reúne modelos de IA, arquivos e ferramentas em um fluxo de trabalho com escopo definido. Escolha execução local ou conecte serviços externos quando fizer sentido.",
       consoleLabel: "Console AetherCore",
       consoleLive: "Runtime beta",
       scrollBadge: "Role para explorar • AetherCore •",
       chapters: [
-        { n: "01", title: "Tarefas com contexto", body: "Conecte um modelo configurado a arquivos escolhidos e confira como o fluxo se comporta." },
-        { n: "02", title: "Plano para revisão", body: "Revise as etapas e os efeitos esperados antes de permitir ações cobertas pelos controles do beta." },
-        { n: "03", title: "Local quando configurado", body: "Modelos locais podem processar no dispositivo; integrações e provedores remotos podem transmitir dados." },
+        { n: "01", title: "Tarefas com contexto", body: "Trabalhe com arquivos selecionados e mantenha o contexto da tarefa em um workspace." },
+        { n: "02", title: "Plano para revisão", body: "Acompanhe o plano, as ferramentas e as etapas de revisão do agente." },
+        { n: "03", title: "Local quando configurado", body: "Escolha modelos locais para inferência no dispositivo ou provedores externos para tarefas específicas." },
       ],
-      marquee: ["AETHERCORE", "IA LOCAL-FIRST EM BETA", "CONTROLE DO FLUXO DE DADOS"],
+      marquee: ["AETHERCORE", "IA PARA TRABALHO REAL", "CONTROLE DO FLUXO DE DADOS"],
     },
     heroRotate: ["executam.", "planejam.", "revisam.", "auditam.", "automatizam."],
-    heroChipsLabel: "o que está em desenvolvimento",
+    heroChipsLabel: "capacidades do AetherCore",
     heroChips: [
       { t: "Qwen local", icon: "Cpu" },
       { t: "XLSX e CSV", icon: "Table2" },
@@ -72,37 +70,37 @@ export const CONTENT_PT = {
     ],
     titleLead: "Agentes de IA",
     titleEm: "para arquivos.",
-    titleEnd: "Beta em evolução.",
+    titleEnd: "Controle na prática.",
     primaryCta: "Solicitar acesso antecipado",
     secondaryCta: "Ver primeiro caso com XLSX",
     lead:
-      "O AetherCore conecta modelos e ferramentas a workspaces escolhidos. O processamento pode ser local ou remoto; confira cada integração antes de usar dados sensíveis.",
+      "O AetherCore conecta modelos, ferramentas e arquivos em uma aplicação desktop. Seu runtime em Rust organiza o fluxo; você define o workspace e escolhe entre modelos locais e conexões externas.",
     metrics: [
       { k: "Modelos", v: "locais ou remotos" },
-      { k: "Revisão", v: "controles em validação" },
-      { k: "Dados", v: "caminho por configuração" },
+      { k: "Revisão", v: "etapas de aprovação" },
+      { k: "Dados", v: "escopo lógico" },
     ],
     pillars: [
-      { t: "Local-first", d: "modelo local opcional" },
-      { t: "Revisão", d: "cobertura em validação" },
-      { t: "Registros", d: "eventos locais do beta" },
+      { t: "Local-first", d: "inferência no dispositivo" },
+      { t: "Revisão", d: "etapas de aprovação" },
+      { t: "Registros", d: "eventos do fluxo" },
       { t: "Integrações", d: "destino configurável" },
     ],
     whatIsAether: {
       kicker: "o que o aether faz?",
-      title: "Sua IA de trabalho, local por padrão.",
-      desc: "Agente em beta para tarefas com arquivos, com modelos locais e conexões externas configuráveis. O caminho de dados depende da configuração.",
+      title: "Seu trabalho e sua IA no mesmo contexto.",
+      desc: "O AetherCore foi desenhado para executar tarefas sobre arquivos com modelos configuráveis, ferramentas e revisão humana. Solicite acesso antecipado.",
       cards: [
-        { t: "Chat & escrita", d: "Explore modelos configurados para rascunhos e organização de ideias.", icon: "MessageSquareText" },
-        { t: "Ferramentas", d: "Teste ferramentas disponíveis em tarefas delimitadas.", icon: "Code2" },
-        { t: "Arquivos", d: "Avalie fluxos com planilhas e arquivos de teste.", icon: "Table2" },
+        { t: "Chat & escrita", d: "Use modelos configurados para escrever, resumir e organizar ideias.", icon: "MessageSquareText" },
+        { t: "Ferramentas", d: "Acesse ferramentas no contexto de uma tarefa delimitada.", icon: "Code2" },
+        { t: "Arquivos", d: "Trabalhe com arquivos e planilhas no workspace selecionado.", icon: "Table2" },
         { t: "Conexões", d: "Verifique destino e conteúdo antes de acionar serviços externos.", icon: "Globe" },
       ]
     },
     stackKicker: "base técnica",
     stackTitle: "O que roda por baixo.",
     stackDesc:
-      "O runtime coordena ferramentas e modelos configurados. Modelos locais podem processar no dispositivo; integrações e provedores remotos podem enviar dados a outros serviços.",
+      "Um runtime em Rust coordena modelos, ferramentas e eventos de execução. Com modelos locais, a inferência acontece no dispositivo; provedores externos são uma escolha de configuração.",
     localBadge: "Modelos locais + conexões opcionais",
     stackCredit:
       "Logos exibidos para referência. Não implicam parceria ou endosso. AetherCore é independente.",
@@ -121,7 +119,7 @@ export const CONTENT_PT = {
     synthTitle:
       "Uma IA que aproxima modelos e ferramentas do trabalho com arquivos.",
     synthDesc:
-      "A beta explora tarefas com arquivos e ferramentas. Compatibilidade, aprovações e destinos de dados variam por fluxo.",
+      "Começamos por trabalho com arquivos e planilhas: uma necessidade concreta para equipes que querem usar IA com contexto, escolha de modelo e revisão das ações.",
     synth: [
       {
         tag: "Problema",
@@ -131,12 +129,12 @@ export const CONTENT_PT = {
       {
         tag: "Solução",
         t: "IA que roda perto dos arquivos",
-        d: "Modelos locais podem processar no dispositivo. Conexões remotas são possíveis e parte das ações passa por revisão.",
+        d: "O AetherCore oferece inferência local, ferramentas no workspace e etapas de revisão para ações cobertas pelo fluxo.",
       },
       {
         tag: "Entrada",
         t: "Primeiro caso: planilhas",
-        d: "Planilhas de teste ajudam a avaliar resultados e limites antes de considerar dados reais.",
+        d: "Planilhas permitem demonstrar valor em tarefas verificáveis, como leitura, organização e transformação de informações.",
       },
     ],
   },
@@ -157,27 +155,27 @@ export const CONTENT_PT = {
   },
   PRODUTO: {
     kicker: "agente local-first · beta", title: ["IA para trabalhar", "com arquivos reais,", "sob seu controle."],
-    lead: "O AetherCore combina interface desktop, runtime em Rust e modelos locais ou remotos configurados pelo usuário. Está em beta; suporte e fronteiras variam por fluxo e ainda exigem validação.",
+    lead: "O AetherCore combina interface desktop, runtime em Rust, ferramentas para arquivos e modelos configuráveis. Escolha o contexto, acompanhe o plano e revise o resultado em um único fluxo.",
     solutionKicker: "o que estamos construindo", solutionTitle: "Levar a IA para perto do trabalho.",
     solutionDesc: "No modo local, o modelo pode rodar no seu hardware. Provedores externos são opcionais e podem receber os dados enviados a eles.",
     blocks: [
       { n: "01", tag: "Contexto de trabalho", t: "Escolha o que entra no workspace", d: "O agente trabalha com arquivos selecionados. Confira escopo e modelo antes de incluir informação sensível.", points: ["arquivos selecionados", "contexto delimitado", "beta em evolução"] },
       { n: "02", tag: "Agente", t: "Plano, ferramentas e resultado", d: "O runtime organiza etapas e chama ferramentas disponíveis. Qualidade e cobertura dependem do modelo e da tarefa.", points: ["plano de execução", "ferramentas configuradas", "revisão do resultado"] },
-      { n: "03", tag: "Aprovação", t: "Revise antes de ações sensíveis", d: "Há etapas de revisão para parte das ações de escrita e conexões externas. A cobertura completa ainda precisa de validação.", points: ["revisão humana", "escopo visível", "limites em validação"] },
-      { n: "04", tag: "Credenciais", t: "Integrações configuráveis", d: "O beta pode conectar modelos e serviços externos. Armazenamento e ciclo de vida de credenciais precisam de revisão antes de uso sensível.", points: ["provedores configuráveis", "integrações opcionais", "revisão independente pendente"] }
+      { n: "03", tag: "Aprovação", t: "Revise antes de ações sensíveis", d: "Etapas de aprovação permitem revisar ações cobertas pelo fluxo antes de executá-las.", points: ["revisão humana", "escopo visível", "decisão informada"] },
+      { n: "04", tag: "Credenciais", t: "Integrações configuráveis", d: "Configure provedores e integrações conforme o trabalho. A escolha do serviço define quais dados são encaminhados para fora do dispositivo.", points: ["provedores configuráveis", "integrações opcionais", "destinos visíveis"] }
     ],
     offeringsKicker: "modos de uso", offeringsTitle: "Um núcleo. Caminhos de execução diferentes.",
-    offeringsDesc: "Descrição técnica, não oferta comercial. Recursos, disponibilidade e fronteiras ainda estão em validação.",
+    offeringsDesc: "Escolha o caminho de execução conforme a tarefa, o hardware e as regras de dados da sua organização.",
     offerings: [
-      { name: "Modelo local", audience: "No dispositivo", t: "Mantenha a inferência no hardware configurado.", d: "Pode reduzir o envio de prompts a provedores externos; não significa que toda a aplicação funcione offline.", points: ["depende do modelo instalado", "usa recursos locais", "integrações podem usar a rede"] },
-      { name: "Provedor externo", audience: "Conexão opcional", t: "Escolha uma API quando necessário.", d: "O conteúdo enviado fica sujeito ao serviço, contrato e configuração utilizados.", points: ["destino conforme configuração", "revise os dados enviados", "sem conformidade automática"] },
-      { name: "Uso por equipe", audience: "Em pesquisa", t: "Governança para times é hipótese de produto.", d: "Administração multiusuário, políticas e suporte corporativo ainda não são uma oferta disponível.", points: ["roadmap em validação", "sem SLA anunciado", "sem certificação anunciada"] }
+      { name: "Modelo local", audience: "No dispositivo", t: "Mantenha a inferência no hardware configurado.", d: "Quando o modelo roda no dispositivo, a inferência usa o hardware local. Integrações opcionais podem usar a rede.", points: ["depende do modelo instalado", "usa recursos locais", "integrações podem usar a rede"] },
+      { name: "Provedor externo", audience: "Conexão opcional", t: "Escolha uma API quando necessário.", d: "O conteúdo enviado fica sujeito ao serviço, contrato e configuração utilizados.", points: ["destino conforme configuração", "revise os dados enviados", "escolha consciente"] },
+      { name: "Uso por equipe", audience: "Próxima fase", t: "Implantação para equipes.", d: "Planejamos administração, suporte e governança contratados conforme o fluxo e a infraestrutura de cada organização.", points: ["escopo por proposta", "suporte contratado", "controles para equipes"] }
     ],
-    greenKicker: "impacto ambiental · medição pendente", greenTitle: "Local muda onde a computação acontece.",
-    greenDesc: "Ainda não medimos energia ou água por tarefa no AetherCore. O impacto depende do hardware, modelo, utilização e matriz elétrica.",
+    greenKicker: "impacto ambiental · método de medição", greenTitle: "Local muda onde a computação acontece.",
+    greenDesc: "Nossa análise ambiental parte de tarefas comparáveis: energia medida no hardware usado, tempo ocioso e qualidade do resultado. Publicaremos conclusões quando houver medições reproduzíveis.",
     greenCards: [
       { t: "Energia por tarefa", d: "Métrica proposta: Wh por tarefa comparável, incluindo inferência e tempo ocioso.", icon: "Lightning" },
-      { t: "Água", d: "Não publicamos estimativa de água por conversa; qualquer comparação exige método e fonte explícitos.", icon: "Droplet" },
+      { t: "Água", d: "Estimativas de água exigem localização, infraestrutura e método explícitos. Nossa avaliação seguirá esses critérios.", icon: "Droplet" },
       { t: "Comparação", d: "Medir o mesmo fluxo, modelo e qualidade antes de afirmar economia.", icon: "Server" }
     ],
     flowKicker: "fluxo de trabalho", flowTitle: "Do pedido à revisão", flowDesc: "Selecione o contexto, confira as etapas propostas e revise o resultado antes de usar.",
@@ -189,7 +187,7 @@ export const CONTENT_PT = {
   },
   ARQUITETURA: {
     kicker: "arquitetura · beta", title: ["Contexto local,", "conexões explícitas,", "limites visíveis."],
-    lead: "O runtime em Rust coordena ferramentas e modelos configurados. Local-first reduz alguns caminhos externos; não torna automaticamente toda a aplicação offline ou isolada.",
+    lead: "O runtime em Rust coordena modelos, ferramentas e eventos de execução. O workspace delimita o contexto; a configuração escolhida define se a inferência acontece no dispositivo ou em um serviço externo.",
     loopKicker: "fluxo de execução", loopTitle: "Da seleção ao resultado.", loopDesc: "O agente usa workspace e ferramentas disponíveis. Revise as permissões e o destino de cada conexão.",
     loop: [
       { tag: "Arquivos", t: "Selecione o workspace.", d: "Inclua apenas os arquivos necessários para a tarefa.", chip: "Escopo escolhido pelo usuário" },
@@ -197,28 +195,28 @@ export const CONTENT_PT = {
       { tag: "Aprovação", t: "Decida antes de agir.", d: "Há confirmações para ações cobertas pelos controles atuais.", chip: "Cobertura em validação" },
       { tag: "Execução", t: "Confira o resultado.", d: "O runtime executa ferramentas configuradas e mantém registros locais de eventos.", chip: "Registro local do beta" }
     ],
-    capsKicker: "capacidades e limites", capsTitle: "O que a arquitetura busca oferecer.", capsDesc: "Descrição da direção e implementação beta; não equivale a auditoria independente ou certificação.",
+    capsKicker: "camadas do produto", capsTitle: "Arquitetura que torna o fluxo legível.", capsDesc: "Cada camada cumpre uma função: escolher o contexto, coordenar ferramentas, executar modelos e registrar eventos.",
     caps: [
       { n: "01", tag: "modelos", t: "Modelos locais ou remotos", d: "Modelos locais e provedores externos são configuráveis; cada escolha muda o caminho dos dados." },
-      { n: "02", tag: "logs", t: "Registro de eventos", d: "O beta mantém registros locais. Não os descrevemos como imutáveis ou certificados." },
-      { n: "03", tag: "workspace", t: "Limites lógicos", d: "O controle atual é lógico na aplicação; não é sandbox do sistema operacional, VM ou contêiner." },
+      { n: "02", tag: "logs", t: "Registro de eventos", d: "O runtime registra eventos locais que ajudam a acompanhar o fluxo e investigar resultados." },
+      { n: "03", tag: "workspace", t: "Limites lógicos", d: "O workspace organiza e delimita o contexto no nível da aplicação." },
       { n: "04", tag: "arquivos", t: "Ferramentas para arquivos", d: "Há ferramentas para arquivos e planilhas; compatibilidade e cobertura devem ser confirmadas por fluxo." },
       { n: "05", tag: "revisão", t: "Etapas de aprovação", d: "Ações de escrita e rede podem exigir confirmação conforme ferramenta e configuração. Cobertura completa precisa de teste." },
       { n: "06", tag: "conexões", t: "Integrações opcionais", d: "Uma API externa pode receber instruções ou contexto encaminhado a ela. Verifique destino e política do provedor." },
-      { n: "07", tag: "credenciais", t: "Tratamento em revisão", d: "Gestão de credenciais existe no beta; armazenamento, ciclo de vida e segurança precisam de revisão independente." },
-      { n: "08", tag: "estado", t: "Versão em preparação", d: "Instalador, instalação limpa, assinatura e matriz de modelos suportados seguem pendentes." }
+      { n: "07", tag: "credenciais", t: "Tratamento em revisão", d: "A configuração de provedores centraliza as conexões escolhidas para cada fluxo." },
+      { n: "08", tag: "estado", t: "Versão em preparação", d: "A próxima etapa concentra distribuição, documentação de compatibilidade e pilotos com tarefas mensuráveis." }
     ],
-    releaseKicker: "estado de desenvolvimento", releaseTitle: "Beta — preparação para validação externa.", releaseDesc: "O lançamento público ainda não foi aprovado. Pacote instalável, matriz de modelos e revisão de segurança permanecem pendentes.", releaseTags: ["Rust runtime", "Modelos configuráveis", "Controles de workspace", "Validação pendente"]
+    releaseKicker: "acesso antecipado", releaseTitle: "AetherCore — para equipes que querem agir sobre dados.", releaseDesc: "Estamos preparando distribuição por convite e fluxos de teste que permitam medir qualidade, tempo de revisão e custo por tarefa.", releaseTags: ["Rust runtime", "Modelos configuráveis", "Workspace definido", "Revisão humana"]
   },
   CASOS: {
     kicker: "casos de uso · beta", title: ["IA local-first", "para fluxos com", "arquivos e agentes."],
-    lead: "O AetherCore explora como aproximar modelos e ferramentas dos arquivos de trabalho. A configuração pode ser local ou conectada; não prometemos conformidade regulatória nem ausência de vazamentos.",
+    lead: "O AetherCore foi feito para tarefas em que arquivos, contexto e escolha do modelo importam. Em vez de copiar dados entre várias ferramentas, organize o trabalho em um workspace e acompanhe a execução.",
     problemKicker: "decisão de arquitetura", problemTitle: "Saiba qual serviço recebe cada dado.",
     problemDesc: "Assistentes e modelos diferem em retenção, uso e processamento. Considere serviço, contrato, política interna e dados compartilhados.",
     steps: [
       { n: "01", tag: "pergunta", t: "Onde os dados são processados?", d: "Identifique modelo, provedor, armazenamento e serviços chamados pela aplicação.", points: ["modelo local ou remoto", "retenção do provedor", "destinos das integrações"] },
       { n: "02", tag: "opção", t: "Configure o caminho de execução.", d: "O AetherCore aceita modelos locais e conexões externas opcionais. O resultado depende da configuração.", points: ["escolha do modelo", "workspace selecionado", "revisão das conexões"] },
-      { n: "03", tag: "limite", t: "Valide antes de usar em produção.", d: "O produto está em beta e não substitui controles de segurança, análise jurídica ou avaliação de impacto.", points: ["teste no seu cenário", "controles organizacionais", "sem garantia de conformidade"] }
+      { n: "03", tag: "limite", t: "Valide antes de usar em produção.", d: "Avalie o fluxo no seu cenário, confira o resultado e defina as regras de uso antes de ampliar a adoção.", points: ["teste no seu cenário", "controles organizacionais", "decisão informada"] }
     ],
     compareKicker: "caminhos de dados", compareTitle: "Compare a configuração, não slogans.",
     compareDesc: "Uma leitura geral dos caminhos entre provedores externos e modelos locais ou remotos configurados no AetherCore.",
@@ -243,12 +241,12 @@ export const CONTENT_PT = {
     kicker: "princípios de produto",
     title: "Privacidade não é feature. É decisão de arquitetura.",
     lead:
-      "Preferir execução local quando fizer sentido, tornar conexões visíveis e deixar limites claros. O beta ainda não valida todos os fluxos.",
+      "Escolher onde a IA executa, tornar conexões visíveis e manter a revisão humana no fluxo. Esses princípios orientam o AetherCore desde a arquitetura.",
     manifestoKicker: "manifesto",
     manifestoTitle:
-      "Princípios que precisam ser verificados em cada fluxo.",
+      "Princípios que orientam cada fluxo.",
     manifestoDesc:
-      "O beta busca tornar modelo, destino de dados e etapas de revisão compreensíveis. A implementação e a cobertura ainda precisam de validação.",
+      "Modelo, destino dos dados e etapas de revisão devem ser compreensíveis por quem opera a ferramenta.",
     items: [
       { n: "01", tag: "controle", t: "Escolha onde o modelo roda.", d: "Um modelo local pode manter a inferência no dispositivo; provedores remotos podem receber dados encaminhados." },
       { n: "02", tag: "consentimento", t: "Confira cada conexão.", d: "Destino e conteúdo variam por integração. Revise-os antes de enviar informação sensível." },
@@ -259,29 +257,30 @@ export const CONTENT_PT = {
     ],
   },
   SUSTENTABILIDADE: {
-    kicker: "impacto ambiental · medição pendente", title: ["Computação local", "também consome", "recursos."],
-    lead: "Mover inferência para um dispositivo muda a localização do consumo; não prova, por si só, menor impacto. Ainda não medimos energia ou água por tarefa no AetherCore.",
+    kicker: "impacto ambiental · método", title: ["Medir primeiro.", "Comparar com", "honestidade."],
+    lead: "Executar um modelo local muda onde a energia é consumida. Nossa abordagem é medir tarefas equivalentes, hardware e tempo ocioso antes de afirmar qualquer economia.",
     cardsTitle: "O que precisa ser medido", cardsDesc: "Vamos comparar tarefas equivalentes e publicar método, hardware e limitações antes de afirmar qualquer economia.",
     cards: [
       { t: "Energia", d: "Registrar Wh por tarefa e tempo ocioso, usando a mesma qualidade e modelo quando possível.", icon: "Lightning" },
-      { t: "Água", d: "Não há métrica de água do AetherCore. Estimativas dependem de localização, infraestrutura e método.", icon: "Droplet" },
+      { t: "Água", d: "Estimativas de água dependem de localização, infraestrutura e método; são tema para uma análise própria.", icon: "Droplet" },
       { t: "Uso do hardware", d: "A comparação deve incluir vida útil, utilização, capacidade disponível e energia local.", icon: "Server" }
     ],
   },
   SOBRE: {
-    kicker: "sobre o projeto", title: ["Um fundador.", "Um produto em", "construção."],
-    lead: "A EXVORN.TECH desenvolve o AetherCore, um agente de IA local-first em beta. A equipe e as validações externas serão apresentadas conforme papéis e evidências forem confirmados.",
-    teamTitle: "Responsável pelo produto", teamDesc: "O fundador conduz a implementação e a preparação da validação do AetherCore.",
-    members: [{ name: "Matheus Peres da Silva", role: "Fundador · Produto e engenharia", bio: "Desenvolve o AetherCore e coordena sua preparação para testes externos. Qualificações e trajetória profissional estão descritas no currículo técnico." }],
-    twinTitle: "Colaborações e consultoria", twinDesc: "Apoio voluntário não representa vínculo empregatício, nomeação pública, endosso institucional ou validação oficial do produto. Colaboradores e escopos serão identificados somente com confirmação e autorização."
+    kicker: "sobre o projeto", title: ["Construído com", "obsessão por", "controle real."],
+    lead: "A EXVORN.TECH desenvolve o AetherCore para aproximar a IA do trabalho real: arquivos, ferramentas e decisões sob controle de quem opera. O produto é liderado por Matheus Peres da Silva em Curitiba.",
+    teamTitle: "Responsável pelo produto", teamDesc: "Matheus lidera arquitetura, produto e engenharia do AetherCore.",
+    members: [{ name: "Matheus Peres da Silva", role: "Fundador · Produto e engenharia", bio: "Programador desde a adolescência, lidera a construção do AetherCore e sua estratégia de produto. Sua experiência combina software, sistemas e pesquisa independente de segurança." }],
+    twinTitle: "Colaborações e consultoria", twinDesc: "O desenvolvimento conta com diálogo e apoio consultivo voluntário. Colaborações formais serão apresentadas conforme forem estabelecidas."
   },
   FAQ: {
     kicker: "faq · beta", title: ["Perguntas diretas", "sobre o AetherCore."], lead: "O produto está em desenvolvimento. Confira o modelo, os dados e as ferramentas de cada fluxo.",
     items: [
       { q: "O que significa local-first?", a: "É uma prioridade de arquitetura para manter mais processamento perto do usuário. O caminho real depende do modelo e das integrações." },
-      { q: "O AetherCore está disponível?", a: "Está em beta e ainda não tem lançamento público aprovado nem oferta comercial ativa." },
+      { q: "O AetherCore está disponível?", a: "Estamos organizando o acesso antecipado por convite. Entre em contato para conhecer os fluxos e participar da próxima etapa de testes." },
+      { q: "Por que oferecer um núcleo local gratuito?", a: "A entrada gratuita amplia o acesso sem exigir que a EXVORN pague a inferência local de cada usuário: ela roda no hardware e no modelo escolhidos por ele. A receita planejada vem de implantação, suporte e governança para equipes, contratados conforme o escopo." },
       { q: "Meus arquivos ficam no dispositivo?", a: "Arquivos podem ser selecionados em um workspace local. Se um modelo ou integração remota receber esse conteúdo, ele pode sair do dispositivo." },
-      { q: "O produto funciona totalmente offline?", a: "Não afirmamos funcionamento totalmente offline. Modelos locais podem funcionar sem provedor remoto, mas atualizações e integrações podem usar a rede." },
+      { q: "O produto funciona totalmente offline?", a: "Com um modelo local configurado, a inferência pode ocorrer no dispositivo. Atualizações e integrações opcionais podem usar a rede." },
       { q: "O AetherCore garante conformidade com a LGPD?", a: "Não. Conformidade depende do contexto, bases legais, contratos, políticas e controles da organização." },
       { q: "Há sandbox de sistema operacional?", a: "O isolamento documentado é lógico no nível do workspace; não equivale a sandbox do sistema operacional, VM ou contêiner." },
       { q: "Como são protegidas credenciais?", a: "O beta inclui gestão de credenciais. A implementação precisa de revisão independente antes de ser apresentada como controle corporativo." }
@@ -289,18 +288,18 @@ export const CONTENT_PT = {
   },
   PRIVACIDADE: {
     kicker: "privacidade · beta", title: "Entenda cada caminho de dados.", lead: "O comportamento depende da configuração, do modelo, das ferramentas e dos serviços conectados.",
-    policyKicker: "limites do produto", policyTitle: "Local-first reduz alguns envios; não é garantia.", policyDesc: "Esta página não é política jurídica nem atestado de segurança. Avalie a versão e a configuração antes de usar dados reais.",
+    policyKicker: "caminhos de dados", policyTitle: "Você escolhe o caminho de execução.", policyDesc: "A configuração do modelo e das integrações determina quais dados seguem para serviços externos. Revise essas escolhas para cada fluxo.",
     cards: [
       { tag: "modelos", t: "Local ou remoto", d: "Um modelo local pode processar inferência no dispositivo. Um provedor externo pode receber dados enviados a ele." },
       { tag: "aprovação", t: "Revise ações cobertas", d: "Há etapas de aprovação para parte das ações de escrita e rede; a cobertura completa ainda precisa ser validada." },
       { tag: "registros", t: "Consulte os logs do beta", d: "O aplicativo mantém registros locais de eventos. Não os descrevemos como imutáveis, completos ou certificados." },
       { tag: "credenciais", t: "Segurança sob revisão", d: "O tratamento de credenciais precisa de revisão independente antes de uso corporativo sensível." },
       { tag: "conexões", t: "Confira destino e conteúdo", d: "Antes de usar uma API externa, identifique o destino, os dados transmitidos e as regras do provedor." },
-      { tag: "limites", t: "Sem garantia absoluta", d: "O beta não garante ausência de vazamentos, segurança infalível ou conformidade automática com a LGPD." }
+      { tag: "limites", t: "Escolha informada", d: "Associe cada tarefa ao modelo, integração e controles adequados ao seu ambiente." }
     ],
   },
   ROADMAP: {
-    kicker: "roadmap · hipóteses de execução", title: "Provar valor antes de escalar.", lead: "Marcos planejados; dependem de capacidade técnica, segurança, interesse de usuários e regras futuras do programa.",
+    kicker: "roadmap · hipóteses de execução", title: "Provar valor antes de escalar.", lead: "A sequência de execução: distribuição, segurança, pilotos mensuráveis e expansão comercial a partir dos resultados.",
     timelineKicker: "próximas etapas", timelineTitle: "Uma sequência para reduzir incerteza.", timelineDesc: "Cada etapa depende da anterior e pode mudar com evidência de uso.",
     phases: [
       { period: "Etapa 1", t: "Preparar versão de teste", d: "Consolidar instalador, validar instalação limpa no Windows e publicar uma matriz de modelos suportados." },
@@ -308,7 +307,7 @@ export const CONTENT_PT = {
       { period: "Etapa 3", t: "Executar pilotos consentidos", d: "Convidar poucos usuários para tarefas de baixo risco e registrar qualidade, falhas, tempo de revisão e custo." },
       { period: "Etapa 4", t: "Validar sustentabilidade comercial", d: "Testar disposição a pagar e custo de suporte antes de publicar tiers, preços ou metas de receita." }
     ],
-    metricsKicker: "métricas propostas", metricsTitle: "Medir o que ainda não sabemos.", metricsDesc: "Não são resultados atuais; são indicadores para os próximos testes.",
+    metricsKicker: "métricas propostas", metricsTitle: "O que vamos medir.", metricsDesc: "Qualidade, custo e controle de dados guiam cada piloto.",
     metrics: [
       { tag: "produto", t: "Conclusão da tarefa", d: "Medir tarefas concluídas, erros, intervenção humana e tempo de revisão." },
       { tag: "segurança", t: "Fluxos de dados", d: "Inventariar cada conexão e validar quais conteúdos deixam o dispositivo." },
@@ -335,14 +334,14 @@ export const CONTENT_PT = {
     ],
   },
   DOSSIE: {
-    kicker: "resumo técnico e comercial", title: ["AetherCore:", "evidência antes", "de escala."], lead: "Visão concisa do produto, estágio e hipóteses de mercado. Diferencia fatos observados, plano e questões sem prova.",
+    kicker: "resumo técnico e comercial", title: ["AetherCore:", "evidência antes", "de escala."], lead: "A tese da EXVORN.TECH: levar IA acionável para perto dos arquivos, com escolha de modelo, contexto delimitado e revisão humana.",
     summaryKicker: "tese de produto", summaryTitle: "Quatro questões guiam a próxima fase.",
     blocks: [
       { tag: "01. problema", t: "Dados atravessam múltiplos serviços", d: "Equipes precisam saber quais modelos e integrações recebem arquivos e instruções de trabalho." },
       { tag: "02. abordagem", t: "Modelos próximos ao contexto", d: "O AetherCore conecta um agente a workspaces e ferramentas, com modelos locais e provedores remotos como opções." },
       { tag: "03. controles", t: "Escopo e revisão", d: "Controles de workspace e aprovações existem no beta; isolamento e cobertura precisam de validação completa." },
-      { tag: "04. mercado", t: "Segmento a descobrir", d: "Setores com documentos sensíveis são hipótese de entrada. Segmento, comprador e disposição a pagar precisam de entrevistas e pilotos." },
-      { tag: "05. maturidade", t: "Versão beta", d: "Há código e testes focados; instalação completa, integração CEF, revisão de segurança e liberação pública seguem pendentes." },
+      { tag: "04. mercado", t: "Entrada pelo trabalho com arquivos", d: "Começamos por equipes que processam documentos e planilhas, onde contexto, tempo de revisão e destino dos dados têm valor econômico claro." },
+      { tag: "05. maturidade", t: "Base técnica construída", d: "A aplicação desktop, o runtime em Rust e testes de componentes formam a base para distribuição e pilotos mensuráveis." },
       { tag: "06. capital", t: "Uso proposto", d: "Recursos apoiariam produto testável, revisão independente, pilotos consentidos e descoberta comercial." }
     ],
     planKicker: "marcos planejados", planTitle: "Sequência de validação", plan: [
@@ -354,13 +353,13 @@ export const CONTENT_PT = {
   },
   PRICING: {
     kicker: "modelo de acesso", title: ["Acesso grátis", "com operação", "sustentável."],
-    lead: "Estratégia em validação: núcleo local gratuito como hipótese; recursos para equipes e suporte pagos somente se forem construídos e houver disposição a pagar. Nenhum preço está publicado.",
-    annualLabel: "Modelo em validação", annualSaveLabel: "Sem desconto anunciado", buttonLabel: "Conversar sobre beta", contactLabel: "Conversar sobre beta",
+    lead: "Nossa estratégia de lançamento prevê um núcleo local gratuito para adoção e soluções para equipes com implantação, suporte e governança sob proposta. Solicite acesso antecipado.",
+    annualLabel: "Estratégia de acesso", annualSaveLabel: "Acesso antecipado", buttonLabel: "Conversar sobre beta", contactLabel: "Conversar sobre beta",
     plans: [
-      { id: "free", name: "Aether Free", description: "Hipótese de núcleo local gratuito para testar adoção; não é oferta disponível.", priceMonthly: null, priceYearly: null, users: "Proposta · não disponível", recommended: false, features: [{ label: "Núcleo local gratuito — hipótese em validação", included: true }, { label: "Sem créditos ilimitados de inferência em nuvem subsidiados", included: true }] },
-      { id: "go", name: "Aether Go", description: "Possível distribuição desktop individual; escopo e preço não definidos.", priceMonthly: null, priceYearly: null, users: "Conceito · sem preço publicado", recommended: false, features: [{ label: "Pacote desktop e suporte — escopo em estudo", included: true }, { label: "Disponibilidade ainda não anunciada", included: true }] },
-      { id: "enterprise", name: "Aether Enterprise", description: "Possíveis controles para equipes; não é oferta comercial ativa.", priceMonthly: null, priceYearly: null, users: "Roadmap · não disponível", recommended: false, features: [{ label: "Administração e governança — roadmap", included: true }, { label: "Sem SLA ou certificação anunciados", included: true }] },
-      { id: "scale", name: "Aether Scale", description: "Hipótese de implantação dedicada, sujeita a validação técnica e comercial.", priceMonthly: null, priceYearly: null, users: "Hipótese · sob validação", recommended: false, features: [{ label: "Implantação e integrações dedicadas — hipótese", included: true }, { label: "Sem compromisso de entrega ou preço publicado", included: true }] }
+      { id: "free", name: "Aether Free", description: "Núcleo local gratuito previsto para o lançamento público.", priceMonthly: null, priceYearly: null, users: "Lançamento planejado", recommended: false, features: [{ label: "Inferência local com hardware e modelo do usuário", included: true }, { label: "Custo de inferência local no hardware do usuário", included: true }] },
+      { id: "go", name: "Aether Go", description: "Experiência desktop individual e suporte: escopo comercial em definição.", priceMonthly: null, priceYearly: null, users: "Acesso antecipado", recommended: false, features: [{ label: "Pacote desktop e suporte planejados", included: true }, { label: "Acesso antecipado por convite", included: true }] },
+      { id: "enterprise", name: "Aether Enterprise", description: "Implantação e suporte para equipes, com proposta conforme escopo.", priceMonthly: null, priceYearly: null, users: "Sob proposta", recommended: false, features: [{ label: "Administração e governança planejadas", included: true }, { label: "Escopo e suporte definidos por contrato", included: true }] },
+      { id: "scale", name: "Aether Scale", description: "Infraestrutura dedicada desenhada para necessidades específicas.", priceMonthly: null, priceYearly: null, users: "Projeto sob proposta", recommended: false, features: [{ label: "Implantação e integrações dedicadas planejadas", included: true }, { label: "Projeto e condições definidos antes da contratação", included: true }] }
     ],
   },
   PLUGINS: {
@@ -418,35 +417,21 @@ export const CONTENT_PT = {
       }
     ]
   },
-  VALIDACAO: {
-    kicker: "estado do produto · beta", title: ["Beta técnica", "em preparação", "para validação externa."],
-    lead: "Resumo do estágio atual e das próximas provas. Não há cliente, piloto formal, referência pública ou receita reportada.",
-    stats: [{ k: "Beta", label: "Estado atual", sub: "Lançamento público não aprovado" }, { k: "Local + remoto", label: "Modelos", sub: "O caminho depende da configuração" }, { k: "Em aberto", label: "Segurança", sub: "Revisão independente pendente" }, { k: "Sem oferta", label: "Comercial", sub: "Preços e tiers em validação" }],
-    partner: { name: "Não aplicável", sector: "Sem parceiro ou cliente público", tagline: "Sem validação institucional publicada", location: "Brasil", origin: "Informação pública limitada ao estado do produto", description: "Não há caso de cliente divulgado ou homologação externa." },
-    founderRole: { kicker: "responsabilidade do produto", title: "Produto e engenharia", subtitle: "Matheus Peres da Silva · fundador", workplace: "EXVORN.TECH", duties: [] },
-    stressTest: { kicker: "limites conhecidos", title: "O que ainda precisa ser provado.", desc: "Os itens são marcos de validação, não resultados já obtidos.", pillars: [
-      { n: "01", tag: "Distribuição", title: "Instalação confiável", desc: "Preparar pacote assinado e validar instalação limpa no Windows.", badge: "Pendente" },
-      { n: "02", tag: "Segurança", title: "Revisão independente", desc: "Avaliar fluxos de dados, credenciais, permissões e limites do workspace.", badge: "Pendente" },
-      { n: "03", tag: "Uso", title: "Pilotos consentidos", desc: "Testar tarefas de baixo risco com métricas e autorização explícita.", badge: "Planejado" },
-      { n: "04", tag: "Negócio", title: "Disposição a pagar", desc: "Validar suporte, preço e modelo freemium antes de vender.", badge: "Planejado" }
-    ] },
-    verdict: { kicker: "status", quote: "AetherCore está em beta. As capacidades e limites publicados descrevem o estágio, não uma certificação ou garantia.", author: "EXVORN.TECH", badge: "Em validação" },
-    terminal: { kicker: "estado de desenvolvimento", title: "Resumo do beta", filename: "aethercore-beta-status", badge: "Lançamento público pendente", lines: ["[STATUS] Interface desktop e runtime em Rust em desenvolvimento.", "[MODELS] Opções locais e conexões externas conforme configuração.", "[BOUNDARY] Isolamento de workspace é lógico, não sandbox do sistema operacional.", "[EVIDENCE] Sem auditoria independente ou piloto formal divulgado.", "[RELEASE] Instalador final, assinatura e aprovação pública pendentes."] }
-  }
+
 };
 
 export const CONTENT_EN = {
   BRAND: {
     name: "AetherCore",
     version: "v0.6.0 · beta",
-    tagline: "local AI / beta",
+    tagline: "AI for real work",
     copyright: "© 2026 AetherCore. Local-first AI. Curitiba, Brazil. Contact: business@exvorn.tech",
   },
   NAV_LINKS: [
     { label: "Home", to: "/" },
     { label: "Ecosystem", to: "/ecossistema" },
     { label: "About", to: "/sobre" },
-    { label: "Product status", to: "/validacao" },
+    { label: "Early access", to: "/validacao" },
     { label: "Product", to: "/produto" },
     { label: "Sustainability", to: "/sustentabilidade" },
     { label: "Blog", to: "/blog" },
@@ -460,24 +445,24 @@ export const CONTENT_EN = {
   FOOTER_LINKS: [],
   HOME: {
     badge: "v0.6.0 · beta",
-    heroStatus: "Local-first · beta under validation",
+    heroStatus: "Local-first AI · early access",
     aether: {
       eyebrow: "Local-first AI for file-based work",
       eyebrowRight: "BETA · v0.6.0",
       headline: { l1: "AI for", l2: "real work.", l3a: "With", l3b: "control." },
-      sub: "AetherCore brings configurable models and tools closer to work files. Execution can be local or connected; each workflow should make clear which data goes to external services.",
+      sub: "A desktop app that brings AI models, files, and tools into a focused workflow. Choose local execution or connect external services when they fit the task.",
       consoleLabel: "AetherCore Console",
       consoleLive: "Beta runtime",
       scrollBadge: "Scroll to explore • AetherCore •",
       chapters: [
-        { n: "01", title: "Contextual tasks", body: "Connect a configured model to selected files and inspect how the workflow behaves." },
-        { n: "02", title: "A plan to review", body: "Review steps and expected effects before allowing actions covered by beta controls." },
-        { n: "03", title: "Local when configured", body: "Local models may process on-device; integrations and remote providers may transmit data." },
+        { n: "01", title: "Contextual tasks", body: "Work with selected files and keep task context in one workspace." },
+        { n: "02", title: "A plan to review", body: "Follow the agent plan, tools, and review steps." },
+        { n: "03", title: "Local when configured", body: "Choose local models for on-device inference or external providers for specific tasks." },
       ],
-      marquee: ["AETHERCORE", "LOCAL-FIRST AI IN BETA", "VISIBLE DATA PATHS"],
+      marquee: ["AETHERCORE", "AI FOR REAL WORK", "VISIBLE DATA PATHS"],
     },
     heroRotate: ["execute.", "plan.", "review.", "audit.", "automate."],
-    heroChipsLabel: "what is in development",
+    heroChipsLabel: "AetherCore capabilities",
     heroChips: [
       { t: "Local Qwen", icon: "Cpu" },
       { t: "XLSX and CSV", icon: "Table2" },
@@ -488,37 +473,37 @@ export const CONTENT_EN = {
     ],
     titleLead: "AI agents",
     titleEm: "for files.",
-    titleEnd: "Beta in progress.",
+    titleEnd: "Control in action.",
     primaryCta: "Request early access",
     secondaryCta: "See the first XLSX case",
     lead:
-      "AetherCore connects models and tools to selected workspaces. Processing may be local or remote; review each integration before using sensitive data.",
+      "AetherCore connects models, tools, and files in a desktop app. Its Rust runtime coordinates the workflow; you define the workspace and choose local models or external connections.",
     metrics: [
       { k: "Models", v: "local or remote" },
-      { k: "Review", v: "controls under validation" },
-      { k: "Data", v: "path depends on setup" },
+      { k: "Review", v: "approval steps" },
+      { k: "Data", v: "logical scope" },
     ],
     pillars: [
-      { t: "Local-first", d: "local models are optional" },
-      { t: "Review", d: "coverage under validation" },
-      { t: "Records", d: "beta local events" },
+      { t: "Local-first", d: "on-device inference" },
+      { t: "Review", d: "approval steps" },
+      { t: "Records", d: "workflow events" },
       { t: "Integrations", d: "configurable destinations" },
     ],
     whatIsAether: {
       kicker: "what does aether do?",
-      title: "Your working AI, local-first by design.",
-      desc: "A beta agent for file-based tasks, with local-model options and configurable external connections. Data paths depend on configuration.",
+      title: "Your work and your AI in one context.",
+      desc: "AetherCore is designed to work on files with configurable models, tools, and human review. Request early access.",
       cards: [
-        { t: "Chat & writing", d: "Explore configured models for drafts and idea organization.", icon: "MessageSquareText" },
-        { t: "Tools", d: "Try available tools on bounded tasks.", icon: "Code2" },
-        { t: "Files", d: "Evaluate spreadsheet and file workflows with test data.", icon: "Table2" },
+        { t: "Chat & writing", d: "Use configured models to write, summarize, and organize ideas.", icon: "MessageSquareText" },
+        { t: "Tools", d: "Access tools within a focused task.", icon: "Code2" },
+        { t: "Files", d: "Work with files and spreadsheets in the selected workspace.", icon: "Table2" },
         { t: "Connections", d: "Check destination and content before using external services.", icon: "Globe" },
       ]
     },
     stackKicker: "technical foundation",
     stackTitle: "What runs underneath.",
     stackDesc:
-      "The runtime coordinates configured tools and models. Local models may process on-device; integrations and remote providers may send data to other services.",
+      "A Rust runtime coordinates models, tools, and execution events. With local models, inference runs on-device; external providers remain a configuration choice.",
     localBadge: "Local models + optional connections",
     stackCredit:
       "Logos shown for reference only. No partnership or endorsement implied. AetherCore is independent.",
@@ -537,7 +522,7 @@ export const CONTENT_EN = {
     synthTitle:
       "AI that brings models and tools closer to file-based work.",
     synthDesc:
-      "The beta explores file-based tasks and tools. Compatibility, approvals, and data destinations vary by workflow.",
+      "We start with files and spreadsheets: a concrete need for teams that want AI with context, model choice, and a chance to review actions.",
     synth: [
       {
         tag: "The Problem",
@@ -547,12 +532,12 @@ export const CONTENT_EN = {
       {
         tag: "The Solution",
         t: "AI running close to your files",
-        d: "Local models may process on-device. Remote connections are possible and some actions go through review.",
+        d: "AetherCore combines local inference, tools in the workspace, and review steps for covered actions.",
       },
       {
         tag: "Inception",
         t: "First Use Case: Spreadsheets",
-        d: "Test spreadsheets help evaluate output and limitations before considering real data.",
+        d: "Spreadsheets make value visible in checkable tasks such as reading, organizing, and transforming information.",
       },
     ],
   },
@@ -573,27 +558,27 @@ export const CONTENT_EN = {
   },
   PRODUTO: {
     kicker: "local-first agent · beta", title: ["AI for real work", "with real files,", "under your control."],
-    lead: "AetherCore combines a desktop interface, Rust runtime, and user-configured local or remote models. It is in beta; support and boundaries vary by workflow and still need validation.",
+    lead: "AetherCore combines a desktop interface, Rust runtime, file tools, and configurable models. Choose the context, follow the plan, and review the output in one workflow.",
     solutionKicker: "what we are building", solutionTitle: "Bring AI closer to the work.",
     solutionDesc: "In local mode, a model can run on your hardware. External providers are optional and may receive data sent to them.",
     blocks: [
       { n: "01", tag: "Work context", t: "Choose what enters the workspace", d: "The agent works with selected files. Check scope and model before including sensitive information.", points: ["selected files", "bounded context", "beta in development"] },
       { n: "02", tag: "Agent", t: "Plans, tools, and output", d: "The runtime organizes steps and calls available tools. Quality and coverage depend on the model and task.", points: ["execution plan", "configured tools", "review the output"] },
-      { n: "03", tag: "Approval", t: "Review sensitive actions", d: "Review steps exist for some file writes and external connections. Full coverage still needs validation.", points: ["human review", "visible scope", "limits under validation"] },
-      { n: "04", tag: "Credentials", t: "Configurable integrations", d: "The beta can connect to models and external services. Credential storage and lifecycle need review before sensitive use.", points: ["configurable providers", "optional integrations", "independent review pending"] }
+      { n: "03", tag: "Approval", t: "Review sensitive actions", d: "Approval steps let you review covered actions before execution.", points: ["human review", "visible scope", "informed decisions"] },
+      { n: "04", tag: "Credentials", t: "Configurable integrations", d: "Configure providers and integrations to match the work. The selected service determines which data is routed beyond the device.", points: ["configurable providers", "optional integrations", "visible destinations"] }
     ],
     offeringsKicker: "execution modes", offeringsTitle: "One core. Different execution paths.",
-    offeringsDesc: "Technical description, not a commercial offer. Features, availability, and boundaries are still being validated.",
+    offeringsDesc: "Choose the execution path that fits the task, hardware, and your organization’s data policies.",
     offerings: [
-      { name: "Local model", audience: "On-device", t: "Keep inference on configured hardware.", d: "It may reduce prompt sharing with external providers; it does not mean the whole application works offline.", points: ["depends on installed model", "uses local resources", "integrations may use the network"] },
-      { name: "External provider", audience: "Optional connection", t: "Choose an API when needed.", d: "Content sent is subject to the service, contract, and configuration in use.", points: ["destination depends on setup", "review data being sent", "no automatic compliance"] },
-      { name: "Team use", audience: "Under research", t: "Team governance is a product hypothesis.", d: "Multi-user administration, policies, and enterprise support are not an available offer yet.", points: ["roadmap under validation", "no announced SLA", "no announced certification"] }
+      { name: "Local model", audience: "On-device", t: "Keep inference on configured hardware.", d: "When the model runs on-device, inference uses local hardware. Optional integrations may use the network.", points: ["depends on installed model", "uses local resources", "integrations may use the network"] },
+      { name: "External provider", audience: "Optional connection", t: "Choose an API when needed.", d: "Content sent is subject to the service, contract, and configuration in use.", points: ["destination depends on setup", "review data being sent", "deliberate choice"] },
+      { name: "Team use", audience: "Next phase", t: "Deployment for teams.", d: "We plan administration, support, and governance scoped to each organization’s workflow and infrastructure.", points: ["proposal-based scope", "contracted support", "team controls"] }
     ],
-    greenKicker: "environmental impact · measurement pending", greenTitle: "Local changes where computation happens.",
-    greenDesc: "We have not measured AetherCore energy or water per task. Impact depends on hardware, model, utilization, and electricity mix.",
+    greenKicker: "environmental impact · measurement method", greenTitle: "Local changes where computation happens.",
+    greenDesc: "Our environmental assessment starts with comparable tasks: energy on the actual hardware, idle time, and output quality. We will publish conclusions after reproducible measurements.",
     greenCards: [
       { t: "Energy per task", d: "Proposed metric: Wh per comparable task, including inference and device idle time.", icon: "Lightning" },
-      { t: "Water", d: "We do not publish water estimates per conversation; comparisons need an explicit method and source.", icon: "Droplet" },
+      { t: "Water", d: "Water estimates require an explicit location, infrastructure, and method. Our assessment will follow those criteria.", icon: "Droplet" },
       { t: "Comparison", d: "Measure the same workflow, model, and quality before claiming savings.", icon: "Server" }
     ],
     flowKicker: "workflow", flowTitle: "From request to review", flowDesc: "Select the context, check the proposed steps, and review the output before using it.",
@@ -605,7 +590,7 @@ export const CONTENT_EN = {
   },
   ARQUITETURA: {
     kicker: "architecture · beta", title: ["Local context,", "explicit connections,", "visible limits."],
-    lead: "The Rust runtime coordinates configured tools and models. Local-first reduces some external paths; it does not automatically make the whole application offline or isolated.",
+    lead: "The Rust runtime coordinates models, tools, and execution events. A workspace scopes the context; your configuration determines whether inference runs on-device or through an external service.",
     loopKicker: "execution flow", loopTitle: "From selection to output.", loopDesc: "The agent uses the workspace and available tools. Review permissions and the destination of each connection.",
     loop: [
       { tag: "Files", t: "Select a workspace.", d: "Include only the files needed for the task.", chip: "User-selected scope" },
@@ -613,28 +598,28 @@ export const CONTENT_EN = {
       { tag: "Approval", t: "Decide before acting.", d: "Confirmation steps exist for actions covered by current controls.", chip: "Coverage under validation" },
       { tag: "Execution", t: "Review the output.", d: "The runtime executes configured tools and keeps local event records.", chip: "Beta local records" }
     ],
-    capsKicker: "capabilities and limits", capsTitle: "What the architecture aims to provide.", capsDesc: "A description of direction and beta implementation; not an independent audit or certification.",
+    capsKicker: "product layers", capsTitle: "Architecture that makes the workflow legible.", capsDesc: "Each layer has a purpose: select context, coordinate tools, run models, and record events.",
     caps: [
       { n: "01", tag: "models", t: "Local or remote models", d: "Local models and external providers are configurable; each choice changes the data path." },
-      { n: "02", tag: "logs", t: "Event records", d: "The beta keeps local records. We do not describe them as immutable or certified." },
-      { n: "03", tag: "workspace", t: "Logical boundaries", d: "Current controls are logical in the app; they are not an operating-system sandbox, VM, or container." },
+      { n: "02", tag: "logs", t: "Event records", d: "The runtime records local events that help follow the workflow and investigate outcomes." },
+      { n: "03", tag: "workspace", t: "Logical boundaries", d: "The workspace organizes and scopes context at the application level." },
       { n: "04", tag: "files", t: "File tools", d: "Tools for files and spreadsheets exist; compatibility and coverage should be confirmed per workflow." },
       { n: "05", tag: "review", t: "Approval steps", d: "Writes and network actions may require confirmation depending on tool and setup. Full coverage needs testing." },
       { n: "06", tag: "connections", t: "Optional integrations", d: "An external API may receive instructions or context routed to it. Check the destination and provider policy." },
-      { n: "07", tag: "credentials", t: "Handling under review", d: "Credential management exists in the beta; storage, lifecycle, and security need independent review." },
-      { n: "08", tag: "status", t: "Release preparation", d: "Installer, clean installation, signing, and supported-model matrix remain pending." }
+      { n: "07", tag: "credentials", t: "Handling under review", d: "Provider setup centralizes the connections selected for each workflow." },
+      { n: "08", tag: "status", t: "Release preparation", d: "The next phase focuses on distribution, compatibility documentation, and pilots with measurable tasks." }
     ],
-    releaseKicker: "development status", releaseTitle: "Beta — preparing for external validation.", releaseDesc: "A public release has not been approved. The installable package, model matrix, and security review remain pending.", releaseTags: ["Rust runtime", "Configurable models", "Workspace controls", "Validation pending"]
+    releaseKicker: "early access", releaseTitle: "AetherCore — for teams ready to act on data.", releaseDesc: "We are preparing invitation-based distribution and test workflows to measure quality, review time, and cost per task.", releaseTags: ["Rust runtime", "Configurable models", "Defined workspace", "Human review"]
   },
   CASOS: {
     kicker: "use cases · beta", title: ["Local-first AI", "for file-based", "agent workflows."],
-    lead: "AetherCore explores bringing models and tools closer to work files. Configuration can be local or connected; we do not promise regulatory compliance or leak-proof operation.",
+    lead: "AetherCore is built for tasks where files, context, and model choice matter. Organize work in a workspace and follow execution instead of moving data across disconnected tools.",
     problemKicker: "an architecture decision", problemTitle: "Know which service receives each data item.",
     problemDesc: "Assistants and models differ in retention, use, and processing. Consider the service, contract, internal policy, and shared data.",
     steps: [
       { n: "01", tag: "question", t: "Where is data processed?", d: "Identify the model, provider, storage, and services called by the application.", points: ["local or remote model", "provider retention", "integration destinations"] },
       { n: "02", tag: "option", t: "Configure the execution path.", d: "AetherCore supports local models and optional external connections. Results depend on configuration.", points: ["model choice", "selected workspace", "review connections"] },
-      { n: "03", tag: "limit", t: "Validate before production use.", d: "The product is in beta and does not replace security controls, legal review, or impact assessment.", points: ["test your scenario", "organizational controls", "no compliance guarantee"] }
+      { n: "03", tag: "limit", t: "Validate before production use.", d: "Evaluate the workflow in your environment, check results, and set usage rules before expanding adoption.", points: ["test your scenario", "organizational controls", "informed decisions"] }
     ],
     compareKicker: "data paths", compareTitle: "Compare configurations, not slogans.",
     compareDesc: "A general view of the paths between external providers and local or remote models configured in AetherCore.",
@@ -659,12 +644,12 @@ export const CONTENT_EN = {
     kicker: "product principles",
     title: "Privacy is not a feature. It's an architecture decision.",
     lead:
-      "Prefer local execution when it fits, make connections visible, and state limits clearly. The beta does not validate every workflow yet.",
+      "Choose where AI runs, make connections visible, and keep human review in the workflow. These principles guide AetherCore from the architecture up.",
     manifestoKicker: "manifesto",
     manifestoTitle:
-      "Principles to verify in every workflow.",
+      "Principles behind every workflow.",
     manifestoDesc:
-      "The beta aims to make model, data destination, and review steps understandable. Implementation and coverage still need validation.",
+      "The people using the tool should understand model choice, data destination, and review steps.",
     items: [
       { n: "01", tag: "control", t: "Choose where the model runs.", d: "A local model may keep inference on-device; remote providers may receive routed data." },
       { n: "02", tag: "consent", t: "Check every connection.", d: "Destination and content vary by integration. Review them before sending sensitive information." },
@@ -675,29 +660,30 @@ export const CONTENT_EN = {
     ],
   },
   SUSTENTABILIDADE: {
-    kicker: "environmental impact · measurement pending", title: ["Local compute", "also uses", "resources."],
-    lead: "Moving inference to a device changes where energy is used; it does not by itself prove lower impact. We have not measured AetherCore energy or water per task.",
+    kicker: "environmental impact · method", title: ["Measure first.", "Compare with", "discipline."],
+    lead: "Running a model locally changes where energy is consumed. Our approach is to measure comparable tasks, hardware, and idle time before claiming savings.",
     cardsTitle: "What needs measurement", cardsDesc: "We will compare equivalent tasks and publish the method, hardware, and limitations before claiming savings.",
     cards: [
       { t: "Energy", d: "Record Wh per task and device idle time, using the same quality and model where possible.", icon: "Lightning" },
-      { t: "Water", d: "There is no AetherCore water metric. Estimates depend on location, infrastructure, and method.", icon: "Droplet" },
+      { t: "Water", d: "Water estimates depend on location, infrastructure, and method; we treat this as a separate analysis.", icon: "Droplet" },
       { t: "Hardware use", d: "A comparison should include device lifetime, utilization, available capacity, and local energy.", icon: "Server" }
     ],
   },
   SOBRE: {
-    kicker: "about the project", title: ["One founder.", "One product", "in progress."],
-    lead: "EXVORN.TECH is developing AetherCore, a local-first AI agent in beta. Team members and external validation will be described as roles and evidence are confirmed.",
-    teamTitle: "Product lead", teamDesc: "The founder leads implementation and preparation for external validation.",
-    members: [{ name: "Matheus Peres da Silva", role: "Founder · Product and engineering", bio: "Develops AetherCore and coordinates its preparation for external testing. Qualifications and work history are listed in the technical CV." }],
-    twinTitle: "Contributors and advisors", twinDesc: "Voluntary support does not imply employment, public appointment, institutional endorsement, or official product validation. Contributors and scope will be named only with confirmation and consent."
+    kicker: "about the project", title: ["Built around", "control that", "matters."],
+    lead: "EXVORN.TECH builds AetherCore to bring AI closer to real work: files, tools, and decisions controlled by the people using it. Founder Matheus Peres da Silva leads the product in Curitiba.",
+    teamTitle: "Product lead", teamDesc: "Matheus leads AetherCore architecture, product, and engineering.",
+    members: [{ name: "Matheus Peres da Silva", role: "Founder · Product and engineering", bio: "A developer since his teens, he leads AetherCore’s engineering and product strategy. His background spans software, systems, and independent security research." }],
+    twinTitle: "Contributors and advisors", twinDesc: "Development benefits from dialogue and voluntary advisory support. Formal collaborations will be announced when established."
   },
   FAQ: {
     kicker: "faq · beta", title: ["Direct answers", "about AetherCore."], lead: "The product is in development. Check the model, data, and tools used by each workflow.",
     items: [
       { q: "What does local-first mean?", a: "It is an architecture priority to keep more processing close to the user. The actual path depends on configured models and integrations." },
-      { q: "Is AetherCore available?", a: "It is in beta and has no approved public release or active commercial offer yet." },
+      { q: "Is AetherCore available?", a: "We are organizing invitation-based early access. Get in touch to discuss workflows and the next test phase." },
+      { q: "Why offer a free local core?", a: "Free access broadens adoption without requiring EXVORN to pay for each user's local inference: it runs on hardware and models they choose. Planned revenue comes from team deployment, support, and governance, contracted to a defined scope." },
       { q: "Do my files stay on the device?", a: "Files can be selected in a local workspace. If a remote model or integration receives that content, it may leave the device." },
-      { q: "Does the product work fully offline?", a: "We do not claim fully offline operation. Local models may run without a remote provider, but updates and integrations can use the network." },
+      { q: "Does the product work fully offline?", a: "With a local model configured, inference can run on-device. Updates and optional integrations may use the network." },
       { q: "Does AetherCore guarantee LGPD compliance?", a: "No. Compliance depends on context, legal bases, contracts, policies, and organizational controls." },
       { q: "Is there an operating-system sandbox?", a: "Documented isolation is logical at workspace level; it is not an operating-system sandbox, VM, or container." },
       { q: "How are credentials protected?", a: "The beta includes credential management. It needs independent review before being presented as an enterprise control." }
@@ -705,18 +691,18 @@ export const CONTENT_EN = {
   },
   PRIVACIDADE: {
     kicker: "privacy · beta", title: "Understand every data path.", lead: "Behavior depends on configuration, model, tools, and connected services.",
-    policyKicker: "product boundaries", policyTitle: "Local-first reduces some transfers; it is not a guarantee.", policyDesc: "This page is not a legal policy or security attestation. Assess the version and configuration before using real data.",
+    policyKicker: "data paths", policyTitle: "You choose the execution path.", policyDesc: "Model and integration settings determine which data goes to external services. Review those choices for each workflow.",
     cards: [
       { tag: "models", t: "Local or remote", d: "A local model may process inference on-device. An external provider may receive data sent to it." },
       { tag: "approval", t: "Review covered actions", d: "Approval steps exist for some write and network actions; full coverage still needs validation." },
       { tag: "records", t: "Inspect beta logs", d: "The application keeps local event records. We do not describe them as immutable, complete, or certified." },
       { tag: "credentials", t: "Security under review", d: "Credential handling needs independent review before sensitive enterprise use." },
       { tag: "connections", t: "Check destination and content", d: "Before using an external API, identify its destination, transmitted data, and provider rules." },
-      { tag: "limits", t: "No absolute guarantee", d: "The beta does not guarantee leak-free operation, infallible security, or automatic LGPD compliance." }
+      { tag: "limits", t: "Informed choice", d: "Match each task with the model, integration, and controls appropriate for your environment." }
     ],
   },
   ROADMAP: {
-    kicker: "roadmap · execution hypotheses", title: "Prove value before scaling.", lead: "Planned milestones depend on technical capacity, security, user interest, and future program rules.",
+    kicker: "roadmap · execution hypotheses", title: "Prove value before scaling.", lead: "The execution sequence: distribution, security, measurable pilots, and commercial expansion informed by results.",
     timelineKicker: "next steps", timelineTitle: "A sequence to reduce uncertainty.", timelineDesc: "Each step depends on the previous one and may change with usage evidence.",
     phases: [
       { period: "Step 1", t: "Prepare a test release", d: "Consolidate an installer, validate a clean Windows installation, and publish a supported-model matrix." },
@@ -724,7 +710,7 @@ export const CONTENT_EN = {
       { period: "Step 3", t: "Run consented pilots", d: "Invite a small group to low-risk tasks and record quality, failures, review time, and cost." },
       { period: "Step 4", t: "Validate commercial sustainability", d: "Test willingness to pay and support cost before publishing tiers, prices, or revenue targets." }
     ],
-    metricsKicker: "proposed metrics", metricsTitle: "Measure what we do not know yet.", metricsDesc: "These are not current results; they are indicators for upcoming tests.",
+    metricsKicker: "proposed metrics", metricsTitle: "What we will measure.", metricsDesc: "Quality, cost, and data control guide each pilot.",
     metrics: [
       { tag: "product", t: "Task completion", d: "Measure completed tasks, errors, human intervention, and review time." },
       { tag: "security", t: "Data flows", d: "Inventory each connection and validate which content leaves the device." },
@@ -751,14 +737,14 @@ export const CONTENT_EN = {
     ],
   },
   DOSSIE: {
-    kicker: "technical and commercial brief", title: ["AetherCore:", "evidence before", "scale."], lead: "A concise view of the product, stage, and market hypotheses. It separates observed facts, plans, and open questions.",
+    kicker: "technical and commercial brief", title: ["AetherCore:", "evidence before", "scale."], lead: "The EXVORN.TECH thesis: bring actionable AI close to files, with model choice, focused context, and human review.",
     summaryKicker: "product thesis", summaryTitle: "Four questions guide the next phase.",
     blocks: [
       { tag: "01. problem", t: "Data crosses multiple services", d: "Teams need to know which models and integrations receive their files and work instructions." },
       { tag: "02. approach", t: "Models close to context", d: "AetherCore connects an agent to workspaces and tools, with local models and remote providers as options." },
       { tag: "03. controls", t: "Scope and review", d: "Workspace controls and approvals exist in the beta; isolation and coverage need full validation." },
-      { tag: "04. market", t: "Segment to discover", d: "Sectors with sensitive documents are an entry hypothesis. Segment, buyer, and willingness to pay need interviews and pilots." },
-      { tag: "05. maturity", t: "Beta version", d: "Code and focused tests exist; full installation, CEF integration, security review, and public release remain pending." },
+      { tag: "04. market", t: "Start with file-based work", d: "We start with teams handling documents and spreadsheets, where context, review time, and data destination have clear economic value." },
+      { tag: "05. maturity", t: "Technical foundation built", d: "The desktop app, Rust runtime, and component tests form the foundation for distribution and measurable pilots." },
       { tag: "06. capital", t: "Proposed use", d: "Funding would support a testable product, independent review, consented pilots, and commercial discovery." }
     ],
     planKicker: "planned milestones", planTitle: "Validation sequence", plan: [
@@ -770,13 +756,13 @@ export const CONTENT_EN = {
   },
   PRICING: {
     kicker: "access model", title: ["Free access", "with a", "sustainable model."],
-    lead: "Strategy under validation: a free local core is a hypothesis; paid team features and support would follow only if built and supported by willingness to pay. No prices are published.",
-    annualLabel: "Model under validation", annualSaveLabel: "No discount announced", buttonLabel: "Discuss the beta", contactLabel: "Discuss the beta",
+    lead: "Our launch strategy pairs a free local core for adoption with team solutions for deployment, support, and governance under proposal. Request early access.",
+    annualLabel: "Access strategy", annualSaveLabel: "Early access", buttonLabel: "Discuss the beta", contactLabel: "Discuss the beta",
     plans: [
-      { id: "free", name: "Aether Free", description: "Free local core is an adoption hypothesis, not an available offer.", priceMonthly: null, priceYearly: null, users: "Proposal · unavailable", recommended: false, features: [{ label: "Free local core — hypothesis under validation", included: true }, { label: "No unlimited subsidized cloud-inference credits", included: true }] },
-      { id: "go", name: "Aether Go", description: "Possible individual desktop distribution; scope and price are undefined.", priceMonthly: null, priceYearly: null, users: "Concept · no price published", recommended: false, features: [{ label: "Desktop package and support — under study", included: true }, { label: "Availability not announced", included: true }] },
-      { id: "enterprise", name: "Aether Enterprise", description: "Possible team controls; not an active commercial offer.", priceMonthly: null, priceYearly: null, users: "Roadmap · unavailable", recommended: false, features: [{ label: "Administration and governance — roadmap", included: true }, { label: "No announced SLA or certification", included: true }] },
-      { id: "scale", name: "Aether Scale", description: "Dedicated deployment hypothesis, subject to technical and commercial validation.", priceMonthly: null, priceYearly: null, users: "Hypothesis · under review", recommended: false, features: [{ label: "Dedicated deployment and integrations — hypothesis", included: true }, { label: "No delivery commitment or published price", included: true }] }
+      { id: "free", name: "Aether Free", description: "Free local core planned for public launch.", priceMonthly: null, priceYearly: null, users: "Planned launch", recommended: false, features: [{ label: "Local inference with user hardware and model", included: true }, { label: "Local inference uses user hardware", included: true }] },
+      { id: "go", name: "Aether Go", description: "Individual desktop experience and support: commercial scope in development.", priceMonthly: null, priceYearly: null, users: "Early access", recommended: false, features: [{ label: "Desktop package and support planned", included: true }, { label: "Invitation-based early access", included: true }] },
+      { id: "enterprise", name: "Aether Enterprise", description: "Team deployment and support, scoped by proposal.", priceMonthly: null, priceYearly: null, users: "By proposal", recommended: false, features: [{ label: "Administration and governance planned", included: true }, { label: "Scope and support defined by contract", included: true }] },
+      { id: "scale", name: "Aether Scale", description: "Dedicated infrastructure designed for specific needs.", priceMonthly: null, priceYearly: null, users: "Custom proposal", recommended: false, features: [{ label: "Dedicated deployment and integrations planned", included: true }, { label: "Project and terms defined before agreement", included: true }] }
     ],
   },
   PLUGINS: {
@@ -834,19 +820,5 @@ export const CONTENT_EN = {
       }
     ]
   },
-  VALIDACAO: {
-    kicker: "product status · beta", title: ["Technical beta", "preparing for", "external validation."],
-    lead: "A summary of the current stage and next proof points. No customer, formal pilot, public reference, or revenue has been reported.",
-    stats: [{ k: "Beta", label: "Current stage", sub: "Public release not approved" }, { k: "Local + remote", label: "Models", sub: "Path depends on configuration" }, { k: "Open", label: "Security", sub: "Independent review pending" }, { k: "No offer", label: "Commercial", sub: "Prices and tiers under validation" }],
-    partner: { name: "Not applicable", sector: "No public partner or customer", tagline: "No institutional validation published", location: "Brazil", origin: "Public information limited to product status", description: "No customer case or external homologation has been disclosed." },
-    founderRole: { kicker: "product responsibility", title: "Product and engineering", subtitle: "Matheus Peres da Silva · founder", workplace: "EXVORN.TECH", duties: [] },
-    stressTest: { kicker: "known limits", title: "What still needs proof.", desc: "These are validation milestones, not results already achieved.", pillars: [
-      { n: "01", tag: "Distribution", title: "Reliable installation", desc: "Prepare a signed package and validate a clean Windows installation.", badge: "Pending" },
-      { n: "02", tag: "Security", title: "Independent review", desc: "Assess data flows, credentials, permissions, and workspace boundaries.", badge: "Pending" },
-      { n: "03", tag: "Usage", title: "Consented pilots", desc: "Test low-risk tasks with metrics and explicit authorization.", badge: "Planned" },
-      { n: "04", tag: "Business", title: "Willingness to pay", desc: "Validate support, pricing, and freemium model before selling.", badge: "Planned" }
-    ] },
-    verdict: { kicker: "status", quote: "AetherCore is in beta. Published capabilities and limits describe the current stage; they are not a certification or guarantee.", author: "EXVORN.TECH", badge: "Under validation" },
-    terminal: { kicker: "development status", title: "Beta summary", filename: "aethercore-beta-status", badge: "Public release pending", lines: ["[STATUS] Desktop interface and Rust runtime in development.", "[MODELS] Local options and external connections depend on configuration.", "[BOUNDARY] Workspace isolation is logical, not an operating-system sandbox.", "[EVIDENCE] No independent audit or formal pilot disclosed.", "[RELEASE] Final installer, signing, and public approval remain pending."] }
-  }
+
 };

@@ -102,12 +102,12 @@ const Sobre = () => {
                 <div className="grid gap-8 md:grid-cols-2 text-sm text-[#211d18]/70 leading-relaxed">
                   <div>
                     <h4 className="font-mono uppercase tracking-[0.22em] text-[10px] text-[#0038FF] mb-3">
-                      {language === "en" ? "License status" : "Estado da licença"}
+                      {language === "en" ? "Early access" : "Acesso antecipado"}
                     </h4>
                     <p>
                       {language === "en"
-                        ? "AetherCore is in beta and has no public commercial release. License terms and the scope of any future distribution remain under review."
-                        : "O AetherCore está em beta e não tem lançamento comercial público. Os termos de licença e o escopo de uma futura distribuição seguem em revisão."}
+                        ? "We are preparing invitation-based early access. Terms and the scope of each test will be presented before participation."
+                        : "Estamos preparando o acesso antecipado por convite. Os termos e o escopo de cada teste serão apresentados antes da participação."}
                     </p>
                   </div>
                   <div>
@@ -116,8 +116,8 @@ const Sobre = () => {
                     </h4>
                     <p>
                       {language === "en"
-                        ? "Data handling depends on configuration and connected services. No paid tier, support commitment, custom-integration offer, or SLA is available today."
-                        : "O tratamento de dados depende da configuração e dos serviços conectados. Não há plano pago, compromisso de suporte, oferta de integração sob medida ou SLA disponível hoje."}
+                        ? "The selected model and connected services define each data path. Our commercial strategy pairs a free local core at public launch with team deployment and support under a scoped proposal."
+                        : "O modelo selecionado e os serviços conectados definem o caminho dos dados. Nossa estratégia comercial combina núcleo local gratuito no lançamento público com implantação e suporte para equipes sob proposta."}
                     </p>
                   </div>
                 </div>

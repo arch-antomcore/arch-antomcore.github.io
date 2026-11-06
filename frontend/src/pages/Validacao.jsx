@@ -5,42 +5,42 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 const STATUS_COPY = {
   pt: {
-    kicker: "estado do produto · beta",
-    title: ["Construindo a base.", "Provando cada", "fronteira."],
-    lead: "O AetherCore está em desenvolvimento. Esta página descreve o estágio atual e o que ainda precisa ser validado antes de uma oferta comercial.",
-    action: "Conversar sobre validação",
+    kicker: "AetherCore · acesso antecipado",
+    title: ["IA para agir", "sobre arquivos.", "Você decide como."],
+    lead: "O AetherCore une modelos, arquivos e ferramentas em uma aplicação desktop. O runtime em Rust organiza as etapas; você escolhe o contexto e o caminho de execução.",
+    action: "Solicitar acesso antecipado",
     explore: "Ver arquitetura",
-    sectionKicker: "o que é verdade hoje",
-    sectionTitle: "Estado atual, limites e próxima prova.",
-    sectionLead: "A proposta local-first orienta o produto; cada caminho de dados depende do modelo, dos conectores e da configuração escolhida.",
+    sectionKicker: "a proposta em ação",
+    sectionTitle: "Um produto para trabalho verificável.",
+    sectionLead: "A arquitetura permite selecionar arquivos, configurar modelos e acompanhar a execução das ferramentas no workspace.",
     cards: [
-      { label: "01 · estágio", title: "Beta em desenvolvimento", body: "O produto reúne uma interface desktop e um runtime em Rust. O lançamento público ainda não foi aprovado e não há oferta comercial ativa." },
-      { label: "02 · execução", title: "Local quando configurado", body: "O AetherCore pode usar modelos locais, como Ollama, e também permite conexões externas opcionais. Uma chamada a provedor remoto pode transmitir o conteúdo enviado a esse provedor." },
-      { label: "03 · segurança", title: "Controles com escopo definido", body: "Há controles de workspace e etapas de aprovação no fluxo. O isolamento atual é lógico; não equivale a sandbox do sistema operacional, máquina virtual ou contêiner." },
-      { label: "04 · validação", title: "Evidência ainda em construção", body: "Ainda não há auditoria independente, certificação, piloto formal, referência pública de cliente ou receita reportada. Não afirmamos conformidade LGPD nem garantia de ausência de vazamentos." },
+      { label: "01 · produto", title: "Interface + runtime Rust", body: "Uma aplicação desktop combina interação com o usuário, coordenação de tarefas e ferramentas para trabalhar com arquivos." },
+      { label: "02 · modelos", title: "Escolha onde inferir", body: "Use modelos locais, como os disponibilizados via Ollama, ou conecte um provedor externo quando o fluxo exigir. A escolha determina o destino dos dados enviados ao modelo." },
+      { label: "03 · controle", title: "Contexto definido por você", body: "O workspace delimita os arquivos da tarefa. Etapas de aprovação ajudam a revisar ações cobertas pelo fluxo antes da execução." },
+      { label: "04 · negócio", title: "Acesso amplo, valor empresarial", body: "A estratégia prevê um núcleo local gratuito no lançamento público. Implantação, suporte e governança para equipes formam a frente comercial, com proposta conforme o caso." },
     ],
-    nextTitle: "Próximos marcos de prova",
-    nextBody: "Pacote instalável e assinado, instalação limpa em Windows, matriz de modelos suportados, revisão de segurança independente e pilotos consentidos com métricas publicáveis.",
-    note: "Para tarefas com dados sensíveis, confirme o modelo e o destino de cada conexão antes de usar. A configuração local reduz algumas transmissões, mas não substitui avaliação de risco, controles organizacionais ou análise jurídica.",
+    nextTitle: "Próxima etapa: acesso antecipado",
+    nextBody: "Estamos preparando distribuição, documentação de compatibilidade e pilotos com tarefas mensuráveis. Interessados podem solicitar uma conversa e acompanhar a evolução do produto.",
+    note: "Para fluxos com dados sensíveis, selecione o modelo e revise os destinos das conexões antes de iniciar a tarefa.",
   },
   en: {
-    kicker: "product status · beta",
-    title: ["Building the foundation.", "Proving each", "boundary."],
-    lead: "AetherCore is in development. This page describes its current stage and what still needs validation before a commercial offer.",
-    action: "Discuss validation",
+    kicker: "AetherCore · early access",
+    title: ["AI that works", "with files.", "You decide how."],
+    lead: "AetherCore brings models, files, and tools into a desktop app. Its Rust runtime coordinates each step; you choose the context and execution path.",
+    action: "Request early access",
     explore: "View architecture",
-    sectionKicker: "what is true today",
-    sectionTitle: "Current status, limits, and next proof.",
-    sectionLead: "Local-first guides the product; each data path depends on the selected model, connectors, and configuration.",
+    sectionKicker: "the product in action",
+    sectionTitle: "Built for work you can inspect.",
+    sectionLead: "The architecture lets you select files, configure models, and follow tool execution within a workspace.",
     cards: [
-      { label: "01 · stage", title: "Beta in development", body: "The product combines a desktop interface and a Rust runtime. A public release has not been approved and there is no active commercial offer." },
-      { label: "02 · execution", title: "Local when configured", body: "AetherCore can use local models such as Ollama and also allows optional external connections. A remote-provider call may transmit submitted content to that provider." },
-      { label: "03 · security", title: "Controls with defined scope", body: "Workspace controls and approval steps exist in the flow. Current isolation is logical; it is not an operating-system sandbox, virtual machine, or container." },
-      { label: "04 · validation", title: "Evidence is still being built", body: "There is no independent audit, certification, formal pilot, public customer reference, or reported revenue yet. We do not claim LGPD compliance or a guarantee against leaks." },
+      { label: "01 · product", title: "Interface + Rust runtime", body: "A desktop app combines user interaction, task coordination, and tools for working with files." },
+      { label: "02 · models", title: "Choose where inference runs", body: "Use local models, including those served through Ollama, or connect an external provider when a workflow calls for one. That choice sets the destination for model input." },
+      { label: "03 · control", title: "Context you define", body: "The workspace scopes task files. Approval steps help you review covered actions before execution." },
+      { label: "04 · business", title: "Broad access, enterprise value", body: "Our strategy calls for a free local core at public launch. Team deployment, support, and governance form the commercial offer, scoped by proposal." },
     ],
-    nextTitle: "Next proof points",
-    nextBody: "Signed installer, clean Windows installation, supported-model matrix, independent security review, and consented pilots with publishable metrics.",
-    note: "For sensitive work, confirm the model and destination of every connection before use. Local configuration reduces some transmissions, but does not replace risk assessment, organizational controls, or legal review.",
+    nextTitle: "Next: early access",
+    nextBody: "We are preparing distribution, compatibility documentation, and pilots with measurable tasks. Interested teams can request a conversation and follow product progress.",
+    note: "For sensitive workflows, choose the model and review connection destinations before starting the task.",
   },
 };
 
@@ -76,7 +76,7 @@ const Validacao = () => {
 
           <Reveal className="mt-8">
             <div className="rounded-[24px] border border-[#0038FF]/20 bg-[#0038FF]/[0.04] p-7 md:p-9">
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#0038FF]">// roadmap de validação</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#0038FF]">// próximo passo</span>
               <h2 className="mt-4 text-xl font-semibold tracking-tight text-[#211d18] md:text-2xl">{copy.nextTitle}</h2>
               <p className="mt-3 max-w-4xl text-sm leading-relaxed text-[#211d18]/65">{copy.nextBody}</p>
             </div>
