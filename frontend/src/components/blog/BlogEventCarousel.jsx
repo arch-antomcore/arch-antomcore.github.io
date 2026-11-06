@@ -70,79 +70,64 @@ export const BlogEventCarousel = () => {
 
   const CAROUSEL_CARDS = [
     {
-      id: "runtime-kernel-governance",
-      icon: Cpu,
-      phase: isPt ? "FASE 01 • NÚCLEO DE EXECUÇÃO" : "PHASE 01 • EXECUTION CORE",
-      title: isPt ? "Aether Runtime Kernel" : "Aether Runtime Kernel",
-      subtitle: isPt ? "A autoridade operacional em Rust" : "The Rust operational authority",
+      id: "runtime-status", icon: Cpu,
+      phase: isPt ? "ESTÁGIO 01 · PRODUTO" : "STAGE 01 · PRODUCT",
+      title: isPt ? "Runtime em Rust" : "Rust runtime",
+      subtitle: isPt ? "Beta em desenvolvimento" : "Beta in development",
       description: isPt
-        ? "O Kernel recebe a intenção, roteia o modelo, valida ferramentas e mantém sessões, permissões e auditoria no fluxo local. Modelo propõe; Kernel valida; Kernel executa."
-        : "The Kernel receives intent, routes the model, validates tools, and keeps sessions, permissions, and auditing in the local flow. The model proposes; the Kernel validates and executes.",
-      metrics: isPt ? ["Rust", "Permissões", "Trilha de auditoria"] : ["Rust", "Permissions", "Audit trail"],
-      tag: isPt ? "NÚCLEO" : "CORE",
-      highlight: isPt ? "Arquitetura verificável" : "Verifiable architecture",
-      status: isPt ? "IMPLEMENTADO" : "IMPLEMENTED",
-      badgeColor: "bg-[#CCFF00] text-black",
+        ? "A base Rust está em desenvolvimento. Testes focados passaram, mas o build integral, o instalador e a validação de lançamento continuam pendentes."
+        : "The Rust foundation is in development. Focused tests passed, while the full build, installer, and release validation remain pending.",
+      metrics: isPt ? ["Rust", "Build integral pendente", "Instalador pendente"] : ["Rust", "Full build pending", "Installer pending"],
+      tag: isPt ? "BETA" : "BETA", highlight: isPt ? "Estado técnico" : "Technical status",
+      status: isPt ? "EM DESENVOLVIMENTO" : "IN DEVELOPMENT", badgeColor: "bg-[#CCFF00] text-black",
     },
     {
-      id: "local-model-routing",
-      icon: Broadcast,
-      phase: isPt ? "FASE 02 • MODELOS" : "PHASE 02 • MODELS",
-      title: isPt ? "Modelos no controle do usuário" : "Models under your control",
-      subtitle: isPt ? "Ollama, Qwen, Granite e GLM" : "Ollama, Qwen, Granite, and GLM",
+      id: "model-status", icon: Broadcast,
+      phase: isPt ? "ESTÁGIO 02 · MODELOS" : "STAGE 02 · MODELS",
+      title: isPt ? "Modelos configuráveis" : "Configurable models",
+      subtitle: isPt ? "Locais ou remotos" : "Local or remote",
       description: isPt
-        ? "O caminho local validado usa Qwen via Ollama sob demanda. Granite pode atuar como orquestrador estruturado; GLM e uplinks compatíveis entram quando configurados, sem fallback silencioso para a nuvem."
-        : "The validated local path uses Qwen through Ollama on demand. Granite can act as a structured orchestrator; GLM and compatible uplinks are used only when configured, with no silent cloud fallback.",
-      metrics: isPt ? ["Qwen + Ollama", "Granite", "Uplinks explícitos"] : ["Qwen + Ollama", "Granite", "Explicit uplinks"],
-      tag: isPt ? "LOCAL-FIRST" : "LOCAL-FIRST",
-      highlight: isPt ? "Roteamento explícito" : "Explicit routing",
-      status: isPt ? "CONFIGURAÇÃO VISÍVEL" : "VISIBLE CONFIGURATION",
-      badgeColor: "bg-white text-black",
+        ? "O usuário pode configurar modelos locais e conexões externas. A matriz de versões suportadas e o caminho de cada dado ainda precisam de validação."
+        : "Users can configure local models and external connections. The supported-version matrix and each data path still need validation.",
+      metrics: isPt ? ["Configuração por modelo", "Provedores externos", "Matriz pendente"] : ["Per-model setup", "External providers", "Matrix pending"],
+      tag: isPt ? "MODELOS" : "MODELS", highlight: isPt ? "Caminho configurável" : "Configurable path",
+      status: isPt ? "VALIDAÇÃO PENDENTE" : "VALIDATION PENDING", badgeColor: "bg-white text-black",
     },
     {
-      id: "governed-agents",
-      icon: ShieldCheck,
-      phase: isPt ? "FASE 03 • GOVERNANÇA" : "PHASE 03 • GOVERNANCE",
-      title: isPt ? "Autonomia com freios claros" : "Autonomy with clear brakes",
-      subtitle: isPt ? "Workspace Scope, checkpoints e ARL" : "Workspace Scope, checkpoints, and ARL",
+      id: "workspace-status", icon: ShieldCheck,
+      phase: isPt ? "ESTÁGIO 03 · CONTROLES" : "STAGE 03 · CONTROLS",
+      title: isPt ? "Workspace e revisão" : "Workspace and review",
+      subtitle: isPt ? "Limites e cobertura" : "Boundaries and coverage",
       description: isPt
-        ? "Cada leitura, escrita ou ferramenta passa por escopo e política. Ações sensíveis pedem aprovação humana e deixam registro local para revisão."
-        : "Every read, write, or tool call goes through scope and policy. Sensitive actions require human approval and leave a local record for review.",
-      metrics: isPt ? ["Escopo local", "Checkpoints", "Trilha ARL"] : ["Local scope", "Checkpoints", "ARL audit trail"],
-      tag: isPt ? "SEGURANÇA" : "SECURITY",
-      highlight: isPt ? "Revisão humana" : "Human review",
-      status: isPt ? "APROVAÇÃO HUMANA" : "HUMAN APPROVAL",
-      badgeColor: "bg-[#CCFF00] text-black",
+        ? "O isolamento atual é lógico dentro da aplicação, não uma sandbox do sistema operacional. A cobertura das etapas de aprovação precisa ser testada por fluxo."
+        : "Current isolation is logical within the application, not an operating-system sandbox. Approval-step coverage needs workflow testing.",
+      metrics: isPt ? ["Escopo lógico", "Sem sandbox de SO", "Cobertura em teste"] : ["Logical scope", "No OS sandbox", "Coverage under test"],
+      tag: isPt ? "LIMITES" : "LIMITS", highlight: isPt ? "Transparência" : "Transparency",
+      status: isPt ? "EM VALIDAÇÃO" : "UNDER VALIDATION", badgeColor: "bg-[#CCFF00] text-black",
     },
     {
-      id: "ecosystem-surfaces",
-      icon: Sparkle,
-      phase: isPt ? "FASE 04 • ECOSSISTEMA" : "PHASE 04 • ECOSYSTEM",
-      title: isPt ? "Quintessence e Telegram" : "Quintessence and Telegram",
-      subtitle: isPt ? "Duas superfícies, o mesmo Kernel" : "Two surfaces, the same Kernel",
+      id: "integration-status", icon: Sparkle,
+      phase: isPt ? "ESTÁGIO 04 · INTEGRAÇÕES" : "STAGE 04 · INTEGRATIONS",
+      title: isPt ? "Conectores em avaliação" : "Connectors under review",
+      subtitle: isPt ? "Cada destino exige revisão" : "Each destination needs review",
       description: isPt
-        ? "A Quintessence conecta o Aether Chat ao workspace por uma ponte IPC local. O gateway Telegram oferece menu, status e seleção de modelo com allowlist; o chat Gemini permanece sem ferramentas locais."
-        : "Quintessence connects Aether Chat to the workspace through a local IPC bridge. The Telegram gateway provides menus, status, and model selection with an allowlist; Gemini chat remains free of local tools.",
-      metrics: isPt ? ["JSON-RPC local", "Open VSX", "Telegram allowlist"] : ["Local JSON-RPC", "Open VSX", "Telegram allowlist"],
-      tag: isPt ? "INTEGRAÇÕES" : "INTEGRATIONS",
-      highlight: isPt ? "Superfícies controladas" : "Controlled surfaces",
-      status: isPt ? "EM EVOLUÇÃO" : "IN PROGRESS",
-      badgeColor: "bg-cyan-300 text-black",
+        ? "Integrações podem encaminhar conteúdo a serviços externos. Disponibilidade, permissões e tratamento dos dados precisam ser confirmados antes de uso sensível."
+        : "Integrations may route content to external services. Availability, permissions, and data handling should be confirmed before sensitive use.",
+      metrics: isPt ? ["Destino explícito", "Política do provedor", "Teste por fluxo"] : ["Explicit destination", "Provider policy", "Workflow testing"],
+      tag: isPt ? "INTEGRAÇÕES" : "INTEGRATIONS", highlight: isPt ? "Configuração consciente" : "Deliberate setup",
+      status: isPt ? "ESCOPO EM REVISÃO" : "SCOPE UNDER REVIEW", badgeColor: "bg-cyan-300 text-black",
     },
     {
-      id: "open-source-community",
-      icon: Code,
-      phase: isPt ? "FASE 05 • ABERTURA PÚBLICA" : "PHASE 05 • PUBLIC OPENING",
-      title: isPt ? "Código aberto, com governança" : "Open source, with governance",
-      subtitle: isPt ? "O próximo passo do AetherCore" : "AetherCore's next step",
+      id: "release-status", icon: Code,
+      phase: isPt ? "ESTÁGIO 05 · DISTRIBUIÇÃO" : "STAGE 05 · DISTRIBUTION",
+      title: isPt ? "Lançamento público" : "Public release",
+      subtitle: isPt ? "Sem aprovação de release" : "No release approval",
       description: isPt
-        ? "Estamos preparando a abertura pública do código no GitHub, com licença, avisos, SECURITY e guia de contribuição. A comunidade poderá auditar, sugerir e enviar melhorias quando a base estiver publicada."
-        : "We are preparing the public GitHub release with licensing, notices, SECURITY, and contribution guidance. The community will be able to audit, suggest, and submit improvements once the code is published.",
-      metrics: isPt ? ["GitHub público", "Licença e avisos", "CONTRIBUTING"] : ["Public GitHub", "License and notices", "CONTRIBUTING"],
-      tag: isPt ? "OPEN SOURCE" : "OPEN SOURCE",
-      highlight: isPt ? "Plano de abertura" : "Opening plan",
-      status: isPt ? "EM PREPARAÇÃO" : "IN PREPARATION",
-      badgeColor: "bg-[#CCFF00] text-black",
+        ? "O repositório e a distribuição continuam privados. Assinatura, instalação limpa, revisão de licença e aprovação pública ainda são etapas pendentes."
+        : "The repository and distribution remain private. Signing, clean installation, license review, and public approval are still pending.",
+      metrics: isPt ? ["Sem release pública", "Assinatura pendente", "Revisão pendente"] : ["No public release", "Signing pending", "Review pending"],
+      tag: isPt ? "DISTRIBUIÇÃO" : "DISTRIBUTION", highlight: isPt ? "Próxima prova" : "Next proof",
+      status: isPt ? "NÃO APROVADO" : "NOT APPROVED", badgeColor: "bg-[#CCFF00] text-black",
     },
   ];
 
@@ -351,7 +336,7 @@ export const BlogEventCarousel = () => {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#CCFF00]"></span>
               </span>
               <span className="font-mono font-bold text-[11px] md:text-xs uppercase tracking-[0.2em] text-[#CCFF00]">
-                {isPt ? "ATUALIZAÇÃO DO PROJETO • MARCOS VERIFICADOS" : "PROJECT UPDATE • VERIFIED MILESTONES"}
+                {isPt ? "STATUS DO PRODUTO • SNAPSHOT DE BETA" : "PRODUCT STATUS • BETA SNAPSHOT"}
               </span>
             </div>
 
@@ -364,7 +349,7 @@ export const BlogEventCarousel = () => {
                   textShadow: '1px 1px 0 #001A99, 2px 2px 0 #001A99, 3px 3px 0 #001A99, 4px 4px 0 #001A99, 5px 5px 0 #001A99, 6px 6px 0 #001A99, 7px 7px 0 #001A99, 8px 8px 0 #001A99'
                 }}
               >
-                {isPt ? "#AETHERCORE EM EVOLUÇÃO" : "#AETHERCORE IN PROGRESS"}
+                {isPt ? "#AETHERCORE BETA" : "#AETHERCORE BETA"}
               </h2>
               <h3 
                 className="text-[clamp(2rem,5.5vw,3.8rem)] font-black leading-[0.9] tracking-tighter text-[#f7f4ec] uppercase m-0 p-0"
@@ -373,14 +358,14 @@ export const BlogEventCarousel = () => {
                   textShadow: '1px 1px 0 #001A99, 2px 2px 0 #001A99, 3px 3px 0 #001A99, 4px 4px 0 #001A99, 5px 5px 0 #001A99, 6px 6px 0 #001A99, 7px 7px 0 #001A99, 8px 8px 0 #001A99'
                 }}
               >
-                {isPt ? "CÓDIGO, CONTROLE E COMUNIDADE" : "CODE, CONTROL, AND COMMUNITY"}
+                {isPt ? "LIMITES E PRÓXIMAS PROVAS" : "LIMITS AND NEXT PROOFS"}
               </h3>
             </div>
 
             <p className="mt-4 text-[#f7f4ec]/90 text-sm md:text-base font-medium max-w-2xl leading-relaxed">
               {isPt
-                ? "Do runtime Rust ao plano de abertura open source: estes são os marcos implementados e os próximos passos que estamos preparando para o AetherCore."
-                : "From the Rust runtime to the open-source opening plan: these are the milestones shipped and the next steps we are preparing for AetherCore."}
+                ? "Este snapshot separa o que existe na beta das validações e etapas de distribuição ainda pendentes."
+                : "This snapshot separates what exists in the beta from the validation and release work that remains."}
             </p>
           </div>
 
@@ -388,7 +373,7 @@ export const BlogEventCarousel = () => {
           <div className="flex items-center gap-5 sm:gap-6 self-start md:self-end">
             <div className="hidden sm:block">
               <CircularEventBadge 
-                text={isPt ? "AETHERCORE • CÓDIGO ABERTO EM PREPARAÇÃO • " : "AETHERCORE • OPEN SOURCE IN PREPARATION • "}
+                text={isPt ? "AETHERCORE • STATUS DA BETA • " : "AETHERCORE • BETA STATUS • "}
               />
             </div>
 

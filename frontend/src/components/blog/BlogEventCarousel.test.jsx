@@ -95,17 +95,21 @@ describe("BlogEventCarousel navigation", () => {
     expect(getNextCarouselIndex(2, "left", 0)).toBe(0);
   });
 
-  it("renders verified product milestones and the planned community opening", () => {
+  it("renders the current beta status without obsolete milestones", () => {
     act(() => {
       root.render(<BlogEventCarousel />);
     });
 
     const content = container.textContent;
-    expect(content).toContain("Aether Runtime Kernel");
-    expect(content).toContain("Quintessence e Telegram");
-    expect(content).toContain("Código aberto, com governança");
-    expect(content).toContain("GitHub público");
-    expect(content).not.toContain("Multi-Agent Swarm");
+    expect(content).toContain("STATUS DO PRODUTO");
+    expect(content).toContain("Beta em desenvolvimento");
+    expect(content).toContain("A base Rust está em desenvolvimento.");
+    expect(content).toContain("Sem release pública");
+    expect(content).toContain("O isolamento atual é lógico");
+    expect(content).not.toContain("Aether Runtime Kernel");
+    expect(content).not.toContain("Quintessence e Telegram");
+    expect(content).not.toContain("Código aberto, com governança");
+    expect(content).not.toContain("GitHub público");
     expect(content).not.toContain("120 FPS");
   });
 

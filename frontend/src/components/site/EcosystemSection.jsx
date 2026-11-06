@@ -6,8 +6,8 @@ import { SpotlightCard } from "@/components/site/interactions";
 import { useTranslation } from "@/hooks/useTranslation";
 
 /**
- * EcosystemSection - Showcases Exvorn's two active products:
- * 1. AetherCore (Flagship Local AI)
+ * EcosystemSection - Shows the AetherCore beta and MonitorSmith:
+ * 1. AetherCore (Local-first AI beta)
  * 2. MonitorSmith (Hardware & System Telemetry)
  */
 const EcosystemSection = () => {
@@ -18,17 +18,17 @@ const EcosystemSection = () => {
     {
       id: "aethercore",
       name: "AetherCore",
-      badge: isPt ? "Carro-Chefe · IA Local" : "Flagship · Local AI",
+      badge: isPt ? "Beta · Local-first" : "Beta · Local-first",
       badgeColor: "bg-[#0038FF]/10 text-[#0038FF] border-[#0038FF]/20",
-      status: isPt ? "🟢 Ativo · v0.6.0" : "🟢 Live · v0.6.0",
+      status: isPt ? "Em desenvolvimento" : "In development",
       logo: "/assets/img/brand/logo-aether.png",
       logoAlt: "Símbolo oficial do AetherCore",
       logoContainer: "border-[#0038FF]/20 bg-white p-2",
-      headline: isPt ? "Agentes Autônomos de IA Local-First" : "Autonomous Local-First Cognitive AI",
+      headline: isPt ? "Agente de IA para tarefas com arquivos" : "AI agent for file-based tasks",
       desc: isPt
-        ? "Plataforma de inteligência artificial executada 100% no seu hardware com motor nativo em Rust, auditoria criptográfica e governança estrita."
-        : "Autonomous cognitive AI engine running 100% on local hardware with native Rust performance, cryptographic audit logs, and human-in-the-loop control.",
-      tags: ["Rust / Axum", "Local LLMs", "Privacidade 100%"],
+        ? "Agente de IA em beta com modelos locais e provedores externos opcionais; o caminho dos dados depende da configuração."
+        : "AI agent in beta with local models and optional external providers; data paths depend on configuration.",
+      tags: ["Rust / Axum", "Modelos locais", "Conexões opcionais"],
       cta: {
         label: isPt ? "Explorar AetherCore" : "Explore AetherCore",
         to: "/produto",

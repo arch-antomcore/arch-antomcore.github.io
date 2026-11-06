@@ -126,11 +126,11 @@ const Footer = () => {
   const productLinks = [
     { label: language === "pt" ? "Início" : "Home", to: "/" },
     { label: language === "pt" ? "Produto" : "Product", to: "/produto" },
-    { label: language === "pt" ? "Validação Pacific Palm (¥45M)" : "Pacific Palm Validation (¥45M)", to: "/validacao" },
+    { label: language === "pt" ? "Status do produto" : "Product status", to: "/validacao" },
     { label: language === "pt" ? "Funcionamento Local" : "How it Works", to: "/produto#funcionamento" },
     { label: language === "pt" ? "Planos & Edições" : "Editions & Plans", to: "/produto#edicoes" },
     { label: language === "pt" ? "Casos de Uso" : "Use Cases", to: "/casos-de-uso" },
-    { label: language === "pt" ? "Tabela de Riscos" : "Risk Comparison", to: "/casos-de-uso#comparison-section" },
+    { label: language === "pt" ? "Caminhos de dados" : "Data paths", to: "/casos-de-uso#comparison-section" },
     { label: language === "pt" ? "Preços" : "Pricing", to: "/precos" },
     { label: language === "pt" ? "Roadmap de Lançamentos" : "Release Roadmap", to: "/roadmap" },
     { label: language === "pt" ? "Ecossistema de Plugins" : "Plugin Ecosystem", to: "/plugins" },
@@ -140,7 +140,7 @@ const Footer = () => {
 
   const exploreLinks = [
     { label: language === "pt" ? "Sobre a AetherCore" : "About AetherCore", to: "/sobre" },
-    { label: language === "pt" ? "Validação Offshore (Hedge Fund)" : "Offshore Validation (Hedge Fund)", to: "/validacao" },
+    { label: language === "pt" ? "Estado e limites do beta" : "Beta status and limits", to: "/validacao" },
     { label: language === "pt" ? "Equipe de Engenharia" : "Engineering Team", to: "/sobre#equipe" },
     { label: language === "pt" ? "Motor Duplo (Twin)" : "Symmetric Twin Engine", to: "/sobre#paradigma" },
     { label: language === "pt" ? "Blog & Novidades" : "Blog & News", to: "/blog" },
@@ -157,7 +157,7 @@ const Footer = () => {
     { label: language === "pt" ? "Política de Privacidade" : "Privacy Policy", to: "/privacidade" },
     { label: language === "pt" ? "Segurança Local-First" : "Local-First Security", to: "/arquitetura#seguranca" },
     { label: language === "pt" ? "Termos & Licenciamento" : "Terms & Licensing", to: "/sobre#licenciamento" },
-    { label: language === "pt" ? "Sandbox Declarativo" : "Declarative Sandbox", to: "/referencias#configuracao" },
+    { label: language === "pt" ? "Workspace e limites" : "Workspace boundaries", to: "/arquitetura" },
     { label: language === "pt" ? "Plano de Contingência" : "Contingency Plan", to: "/dossie#plano" },
     { label: language === "pt" ? "Solicitar Suporte" : "Request Support", to: "/#cta" },
     { label: language === "pt" ? "Model Context Protocol (MCP)" : "Model Context Protocol (MCP)", to: "/plugins#mcp" },
@@ -218,8 +218,8 @@ const Footer = () => {
 
                 <p className="text-sm text-[#211d18]/60 max-w-sm leading-relaxed mt-2 pointer-events-auto">
                   {language === "pt"
-                    ? "IA local-first projetada para máxima privacidade, controle e velocidade."
-                    : "Local-first AI designed for maximum privacy, control, and speed."}
+                    ? "IA local-first em beta, com modelos configuráveis e limites documentados."
+                    : "Local-first AI in beta, with configurable models and documented limits."}
                 </p>
                 <a
                   href="mailto:business@exvorn.tech"

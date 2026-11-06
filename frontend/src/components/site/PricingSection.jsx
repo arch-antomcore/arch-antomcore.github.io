@@ -18,51 +18,6 @@ const NOISE_PATTERN =
 
 const easeExpo = [0.16, 1, 0.3, 1];
 
-/* Billing toggle — animated spring pill with integrated -20% badge */
-const BillingToggle = ({ isAnnual, setIsAnnual, text, annualLabel, shouldReduceMotion }) => (
-  <div
-    data-testid="billing-toggle-glass"
-    className="relative grid grid-cols-2 items-center rounded-full border border-white/12 bg-white/[0.05] p-1.5 backdrop-blur-xl"
-  >
-    <motion.div
-      aria-hidden="true"
-      transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 30 }}
-      className="absolute inset-y-1.5 rounded-full bg-[#0038FF] shadow-[0_4px_16px_rgba(0,56,255,0.4)]"
-      style={{ width: "calc(50% - 6px)" }}
-      animate={{
-        left: isAnnual ? "calc(50% + 3px)" : "6px",
-      }}
-    />
-    <button
-      type="button"
-      aria-pressed={!isAnnual}
-      onClick={() => setIsAnnual(false)}
-      className={`relative z-10 flex items-center justify-center rounded-full py-2 font-mono text-[10px] font-bold uppercase tracking-[0.24em] transition-colors duration-300 ${
-        !isAnnual ? "text-white" : "text-white/45 hover:text-white/70"
-      }`}
-    >
-      {text.monthly}
-    </button>
-    <button
-      type="button"
-      aria-pressed={isAnnual}
-      onClick={() => setIsAnnual(true)}
-      className={`relative z-10 flex items-center justify-center gap-2 rounded-full py-2 font-mono text-[10px] font-bold uppercase tracking-[0.24em] transition-colors duration-300 ${
-        isAnnual ? "text-white" : "text-white/45 hover:text-white/70"
-      }`}
-    >
-      {annualLabel}
-      <span
-        className={`rounded-full px-2 py-0.5 text-[9px] font-bold tracking-wider transition-colors duration-300 ${
-          isAnnual ? "bg-white text-[#0038FF]" : "bg-[#0038FF]/20 text-[#0038FF]"
-        }`}
-      >
-        -20%
-      </span>
-    </button>
-  </div>
-);
-
 const cardVariants = {
   hidden: { opacity: 0, y: 64 },
   visible: (index) => ({
@@ -301,31 +256,27 @@ export const PlanCard = ({ plan, index, isAnnual, lang, labels }) => {
 /* Feature comparison matrix with animated check-ins */
 const FEATURE_MATRIX = {
   pt: {
-    heading: "Compare os planos em detalhe",
-    cols: ["Free", "Go", "Enterprise"],
+    heading: "Estado das capacidades",
+    cols: ["Beta", "Em validação", "Roadmap"],
     rows: [
-      { f: "Agente local persistente", v: [false, true, true] },
-      { f: "Leitura e escrita local de XLSX/CSV", v: [false, true, true] },
-      { f: "Aprovação humana de ações", v: ["demo", true, "granular"] },
-      { f: "Logs ARL auditáveis", v: [false, "local", "exportáveis"] },
-      { f: "Permissões por usuário e pasta", v: [false, false, true] },
-      { f: "Workspace multiusuário", v: [false, false, "até 3"] },
-      { f: "Dados enviados para a nuvem", v: ["sandbox", "0 bytes", "0 bytes"] },
-      { f: "Suporte prioritário", v: [false, false, true] },
+      { f: "Runtime Rust", v: ["Em desenvolvimento", false, false] },
+      { f: "Modelos locais e remotos", v: ["Configuráveis", "Matriz pendente", false] },
+      { f: "Controles de workspace", v: ["Lógicos", "Revisão pendente", false] },
+      { f: "Instalador assinado", v: [false, "Pendente", false] },
+      { f: "Governança multiusuário", v: [false, false, "Hipótese"] },
+      { f: "Suporte empresarial", v: [false, false, "Não ofertado"] },
     ],
   },
   en: {
-    heading: "Compare plans in detail",
-    cols: ["Free", "Go", "Enterprise"],
+    heading: "Capability status",
+    cols: ["Beta", "Under validation", "Roadmap"],
     rows: [
-      { f: "Persistent local agent", v: [false, true, true] },
-      { f: "Local XLSX/CSV read & write", v: [false, true, true] },
-      { f: "Human approval of actions", v: ["demo", true, "granular"] },
-      { f: "Auditable ARL logs", v: [false, "local", "exportable"] },
-      { f: "Per-user & folder permissions", v: [false, false, true] },
-      { f: "Multi-user workspace", v: [false, false, "up to 3"] },
-      { f: "Data sent to the cloud", v: ["sandbox", "0 bytes", "0 bytes"] },
-      { f: "Priority support", v: [false, false, true] },
+      { f: "Rust runtime", v: ["In development", false, false] },
+      { f: "Local and remote models", v: ["Configurable", "Matrix pending", false] },
+      { f: "Workspace controls", v: ["Logical", "Review pending", false] },
+      { f: "Signed installer", v: [false, "Pending", false] },
+      { f: "Multi-user governance", v: [false, false, "Hypothesis"] },
+      { f: "Enterprise support", v: [false, false, "Not offered"] },
     ],
   },
 };
@@ -418,7 +369,7 @@ const FeatureMatrix = ({ language }) => {
 
 const PricingStage = ({ PRICING, language, labels, text }) => {
   const shouldReduceMotion = useReducedMotion();
-  const [isAnnual, setIsAnnual] = useState(false);
+  const isAnnual = false;
   const stageRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: stageRef, offset: ["start end", "end start"] });
   const auroraY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
@@ -482,18 +433,9 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
           >
             {PRICING.lead}
           </motion.p>
-          <motion.div
-            variants={shouldReduceMotion ? undefined : { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeExpo } } }}
-            className="mt-4"
-          >
-            <BillingToggle
-              isAnnual={isAnnual}
-              setIsAnnual={setIsAnnual}
-              text={text}
-              annualLabel={PRICING.annualLabel}
-              shouldReduceMotion={shouldReduceMotion}
-            />
-          </motion.div>
+          <p className="mt-4 rounded-full border border-white/15 bg-white/[0.04] px-5 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/55">
+            {language === "en" ? "No prices published · model under validation" : "Sem preços publicados · modelo em validação"}
+          </p>
         </motion.div>
 
         {/* Cards */}
@@ -503,7 +445,7 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
           ))}
         </div>
 
-        {/* Sovereignty Guarantee Callout */}
+        {/* Commercial status */}
         <motion.div
           initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -517,12 +459,12 @@ const PricingStage = ({ PRICING, language, labels, text }) => {
             </span>
             <div className="space-y-1">
               <h4 className="font-sans text-sm font-semibold tracking-wide text-white">
-                {language === "pt" ? "Garantia de Soberania (Fallback Vitalício)" : "Sovereignty Guarantee (Lifetime Fallback)"}
+                {language === "pt" ? "Estado comercial" : "Commercial status"}
               </h4>
               <p className="text-xs leading-relaxed text-white/60">
-                {language === "pt" 
-                  ? "Se você assinar o plano anual e decidir não renovar, a versão instalada continua sendo sua para sempre. O software continuará executando localmente na sua máquina de forma offline e independente, apenas perdendo o acesso a atualizações futuras e suporte ativo." 
-                  : "If you subscribe to the annual plan and decide not to renew, the installed version remains yours forever. The software will continue to run locally on your machine offline and independently, only losing access to future updates and active support."}
+                {language === "pt"
+                  ? "Nenhum plano pago está disponível hoje. O núcleo local gratuito é uma hipótese; recursos para equipes, suporte e hospedagem só serão definidos após implementação e validação de custos."
+                  : "No paid plan is available today. A free local core is a hypothesis; team features, support, and hosting will be defined only after implementation and cost validation."}
               </p>
             </div>
           </div>
@@ -592,15 +534,15 @@ const PricingSection = () => {
   const TEXTS = {
     pt: {
       monthly: "Mensal",
-      scaleKicker: "Sob Consulta",
+      scaleKicker: "Hipótese · não disponível",
       scaleTitle: "Aether Scale",
       scaleDesc:
-        "Para operações corporativas com requisitos específicos de segurança, infraestrutura e volume. Implementamos o AetherCore sob medida no ambiente privado da sua organização com suporte e governança customizados.",
-      scaleSubtitle: "Implantação Dedicada",
+        "Possível implantação dedicada, sujeita a validação técnica, de segurança, suporte e custos. Não é uma oferta ativa.",
+      scaleSubtitle: "Roadmap em validação",
       techKicker: "Especificações Técnicas & Engenharia",
       techTitle: "Requisitos de Servidor & Infraestrutura Local",
       techDesc:
-        "O AetherCore foi projetado para máxima soberania de dados, executando a inteligência e o processamento principal de forma privada e local. Para garantir baixa latência no processamento dos modelos locais de linguagem principal, no funcionamento dos agentes autônomos de planejamento cognitivo, e nos mecanismos locais de mídia e planilhas, consulte as diretrizes de hardware recomendadas.",
+        "Modelos e tarefas têm requisitos diferentes. Os valores abaixo são referências ilustrativas, não requisitos validados; faça benchmark no hardware e no modelo escolhidos antes de uso produtivo.",
       workstationTitle: "Estação de Trabalho Local",
       workstationSub: "Uso Individual / Estação de Trabalho",
       processor: "PROCESSADOR",
@@ -608,12 +550,12 @@ const PricingSection = () => {
       ram: "MEMÓRIA RAM",
       disk: "DISCO SSD",
       workstationFoot:
-        "Perfeito para operadores individuais, desenvolvimento e execução local supervisionada em computadores pessoais.",
+        "Referência ilustrativa para experimentação local; não é garantia de desempenho ou compatibilidade.",
       serverTitle: "Servidor Dedicado Padrão",
       serverSub: "Ambiente de Produção Local",
       diskNetwork: "DISCO & REDE",
       serverFoot:
-        "Recomendado para implantações de equipes em servidores físicos locais ou servidores virtuais locais.",
+        "Faça testes de capacidade e coexistência antes de qualquer implantação compartilhada ou produtiva.",
       nodeTitle: "AetherNode™ Custom",
       nodeSub: "Hardware sob Engenharia / Exclusivo",
       nodeConcept: "CONCEPÇÃO",
@@ -632,23 +574,23 @@ const PricingSection = () => {
         "O futuro do AetherCore: hardware proprietário com SO próprio e exclusivo para IA corporativa local de alta densidade.",
       underConstruction: "Em Construção",
       comingSoon: "Brevemente",
-      warningTitle: "Alerta de Coexistência de Recursos & Impacto de Desempenho",
+      warningTitle: "Teste de desempenho e coexistência",
       warningDesc:
-        "O processamento e a inferência contínua de agentes locais geram rajadas intensivas de uso de processador, aceleradores gráficos e leitura de disco. Se a infraestrutura local do AetherCore for implantada em um servidor compartilhado com outros serviços corporativos ativos da empresa (como ERPs, bancos de dados centrais ou servidores web), as demais aplicações sofrerão degradação severa de desempenho. É fundamental reservar uma infraestrutura física ou máquina virtual dedicada e exclusiva para este ambiente.",
+        "Inferência local consome recursos do dispositivo e o impacto depende do modelo, da tarefa e da carga. Faça benchmark no ambiente escolhido antes de compartilhar infraestrutura ou usar em produção.",
       footerNote:
-        "Valores ilustrativos de lançamento. O plano Aether Free oferece processamento seguro na nuvem em sandbox temporária descartável. Os planos Aether Go e Aether Enterprise operam de forma nativa e 100% isolada em sua própria máquina, garantindo soberania absoluta de dados.",
+        "Nenhum preço ou plano está disponível. O núcleo local gratuito e os níveis pagos para equipes são hipóteses de modelo comercial, ainda sem implementação e validação de disposição a pagar.",
     },
     en: {
       monthly: "Monthly",
-      scaleKicker: "Upon Request",
+      scaleKicker: "Hypothesis · unavailable",
       scaleTitle: "Aether Scale",
       scaleDesc:
-        "For enterprise operations with specific security, infrastructure, and volume requirements. We deploy AetherCore tailored to your organization's private environment with custom support and governance.",
-      scaleSubtitle: "Dedicated Deployment",
+        "Possible dedicated deployment, subject to technical, security, support, and cost validation. Not an active offer.",
+      scaleSubtitle: "Roadmap under validation",
       techKicker: "Technical Specifications & Engineering",
       techTitle: "Server & Local Infrastructure Requirements",
       techDesc:
-        "AetherCore is designed for maximum data sovereignty, executing core intelligence and processing privately and locally. To ensure low latency in local language models, cognitive planning for autonomous agents, and local spreadsheet/media processing engines, refer to the recommended hardware guidelines.",
+        "Models and tasks have different requirements. Values below are illustrative references, not validated requirements; benchmark your selected hardware and model before production use.",
       workstationTitle: "Local Workstation",
       workstationSub: "Individual Use / Workstation",
       processor: "PROCESSOR",
@@ -656,12 +598,12 @@ const PricingSection = () => {
       ram: "SYSTEM RAM",
       disk: "SSD STORAGE",
       workstationFoot:
-        "Perfect for individual operators, local development and supervised local execution on personal computers.",
+        "Illustrative reference for local experimentation; not a performance or compatibility guarantee.",
       serverTitle: "Standard Dedicated Server",
       serverSub: "Local Production Environment",
       diskNetwork: "DISK & NETWORK",
       serverFoot:
-        "Recommended for team deployments on local physical servers or local virtual machines.",
+        "Test capacity and coexistence before any shared or production deployment.",
       nodeTitle: "Custom AetherNode™",
       nodeSub: "Engineered / Exclusive Hardware",
       nodeConcept: "CONCEPT",
@@ -679,11 +621,11 @@ const PricingSection = () => {
         "The future of AetherCore: proprietary hardware with custom OS for high-density local enterprise AI.",
       underConstruction: "Under Construction",
       comingSoon: "Coming Soon",
-      warningTitle: "Resource Coexistence & Performance Impact Warning",
+      warningTitle: "Performance and coexistence testing",
       warningDesc:
-        "Continuous processing and inference of local agents generate intensive CPU, GPU, and disk read bursts. If AetherCore's local infrastructure is deployed on a shared server with other active corporate services (such as ERPs, central databases, or web servers), other applications will suffer severe performance degradation. It is essential to reserve a dedicated and exclusive physical machine or virtual machine for this environment.",
+        "Local inference uses device resources; impact depends on model, task, and workload. Benchmark the selected environment before sharing infrastructure or using it in production.",
       footerNote:
-        "Illustrative launch prices. The Aether Free plan offers secure cloud processing in a temporary disposable sandbox. Aether Go and Aether Enterprise plans run natively and 100% isolated on your machine, ensuring absolute data sovereignty.",
+        "No price or plan is available. A free local core and paid team tiers are commercial-model hypotheses, not yet implemented or validated for willingness to pay.",
     },
   };
 
@@ -692,7 +634,7 @@ const PricingSection = () => {
     recommended: language === "en" ? "Recommended" : "Recomendado",
     getStarted: PRICING.buttonLabel,
     contact: PRICING.contactLabel,
-    uponRequest: language === "en" ? "Upon request" : "Sob consulta",
+    uponRequest: language === "en" ? "No price published" : "Sem preço público",
   };
 
   const cautionOverlay = (

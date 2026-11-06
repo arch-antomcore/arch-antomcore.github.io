@@ -1,9 +1,6 @@
 import fs from "fs";
 import path from "path";
 
-const stylesheetNames = ["index.css", "reference-theme.css", "cinematic-theme.css", "design-refinements.css"];
-const stylesheets = stylesheetNames.map((name) => fs.readFileSync(path.join(__dirname, name), "utf8"));
-const [baseCss, , , refinementsCss] = stylesheets;
 const validationPage = fs.readFileSync(path.join(__dirname, "pages", "Validacao.jsx"), "utf8");
 
 const toLuminance = (hex) => {
@@ -21,77 +18,39 @@ const contrastRatio = (foreground, background) => {
     / (Math.min(foregroundLuminance, backgroundLuminance) + 0.05);
 };
 
-// Resolve palette variables in the same stylesheet order as the app entry.
-const palette = {};
-stylesheets.forEach((source) => {
-  [...source.matchAll(/:root\s*\{([^}]+)\}/g)].forEach((root) => {
-    [...root[1].matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)].forEach((declaration) => {
-      palette[declaration[1]] = declaration[2].trim();
-    });
-  });
-});
-
-const resolveColor = (value) => {
-  const variable = value.match(/^var\((--[\w-]+)\)$/);
-  if (variable) {
-    expect(palette[variable[1]]).toBeDefined();
-    return resolveColor(palette[variable[1]]);
-  }
-  expect(value).toMatch(/^#[0-9a-f]{6}$/i);
-  return value;
+const blend = (foreground, opacity, background) => {
+  const channels = [1, 3, 5].map((index) => Math.round(
+    parseInt(foreground.slice(index, index + 2), 16) * opacity
+      + parseInt(background.slice(index, index + 2), 16) * (1 - opacity),
+  ));
+  return `#${channels.map((channel) => channel.toString(16).padStart(2, "0")).join("")}`;
 };
 
-const colorFromRule = (source, selectorTail, property = "color") => {
-  const selectorIndex = source.indexOf(selectorTail);
-  expect(selectorIndex).toBeGreaterThanOrEqual(0);
-  const blockStart = source.indexOf("{", selectorIndex);
-  const blockEnd = source.indexOf("}", blockStart);
-  const match = source.slice(blockStart, blockEnd).match(new RegExp(`(?:^|[;{])\\s*${property}:\\s*([^;!]+)`, "i"));
-  expect(match).not.toBeNull();
-  return resolveColor(match[1].trim());
-};
-
-const surfaces = [...validationPage.matchAll(/className="([^"]*\b(?:aether-dark-surface|design-blue-panel)\b[^"]*)"/g)]
-  .map((match) => match[1]);
-const darkSurfaces = surfaces.filter((classes) => classes.includes("aether-dark-surface"));
-const blueSurfaces = surfaces.filter((classes) => classes.includes("design-blue-panel"));
-const darkBackgrounds = darkSurfaces.map((classes) => classes.match(/bg-\[(#[0-9a-f]{6})\]/i)?.[1]);
-
-describe("validation editorial surface contrast", () => {
-  it("keeps the product logo and terminal dark, with blue financial and verdict panels", () => {
-    // These are the two actual dark backgrounds still used by the page, not
-    // the obsolete brown verdict gradient that the redesign removed.
-    expect(darkBackgrounds.sort()).toEqual(["#121110", "#211d18"]);
-    expect(blueSurfaces).toHaveLength(2);
-    expect(blueSurfaces.every((classes) => !/bg-\[#[0-9a-f]{6}\]/i.test(classes))).toBe(true);
-    expect(validationPage).not.toMatch(/from-\[#211d18\].*to-\[#2c2720\]/);
+describe("beta product status page", () => {
+  it("uses the current light reading surface instead of retired dark panels", () => {
+    expect(validationPage).toContain("liquid-divider bg-[#f4f1e8]");
+    expect(validationPage).not.toContain("aether-dark-surface");
+    expect(validationPage).not.toContain("design-blue-panel");
   });
 
-  it("keeps the remaining dark logo and terminal foregrounds above WCAG AA", () => {
-    const foregrounds = [
-      colorFromRule(baseCss, ".aether-dark-surface .text-white {"),
-      colorFromRule(baseCss, ".aether-dark-surface :is(.text-zinc-100, .text-zinc-200, .text-zinc-300) {"),
-      colorFromRule(baseCss, ".aether-dark-surface .text-zinc-400 {"),
-      colorFromRule(baseCss, ".aether-dark-surface .aether-dark-accent {"),
-      colorFromRule(baseCss, '.aether-dark-surface [class*="text-yellow-"] {'),
-    ];
-    foregrounds.forEach((foreground) => {
-      darkBackgrounds.forEach((background) => {
-        expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(4.5);
-      });
-    });
-  });
+  it("keeps card, roadmap, and footnote copy at WCAG AA contrast", () => {
+    const paper = "#f4f1e8";
+    const ink = "#211d18";
+    const card = blend("#ffffff", 0.6, paper);
+    const roadmap = blend("#0038ff", 0.04, paper);
+    const cardCopy = blend(ink, 0.65, card);
+    const roadmapCopy = blend(ink, 0.65, roadmap);
+    const note = blend(ink, 0.75, paper);
 
-  it("keeps cream, supporting copy and lime accents legible on the final deep-blue panels", () => {
-    const blue = colorFromRule(refinementsCss, ".design-page .design-blue-panel {", "background-color");
-    const foregrounds = [
-      colorFromRule(refinementsCss, ".design-page .design-blue-panel {"),
-      colorFromRule(refinementsCss, ".design-page .design-blue-panel :is(p,"),
-      colorFromRule(refinementsCss, ".design-page .design-blue-panel :is(h2, h3)"),
-      colorFromRule(refinementsCss, ".design-page .design-blue-panel :is(a, .aether-kicker, .aether-dark-accent)"),
-    ];
-    foregrounds.forEach((foreground) => {
-      expect(contrastRatio(foreground, blue)).toBeGreaterThanOrEqual(4.5);
-    });
+    expect(validationPage).toContain("bg-white/60");
+    expect(validationPage).toContain("bg-[#0038FF]/[0.04]");
+    expect(validationPage).toContain("text-[#211d18]/65");
+    expect(validationPage).toContain("text-[#211d18]/75");
+    [
+      contrastRatio("#0038ff", paper),
+      contrastRatio(cardCopy, card),
+      contrastRatio(roadmapCopy, roadmap),
+      contrastRatio(note, paper),
+    ].forEach((ratio) => expect(ratio).toBeGreaterThanOrEqual(4.5));
   });
 });
