@@ -16,16 +16,16 @@ const Ecossistema = () => {
       id: "aethercore",
       name: "AetherCore",
       number: "01",
-      badge: isPt ? "Flagship · IA Local" : "Flagship · Local AI",
+      badge: isPt ? "Beta · Local-first" : "Beta · Local-first",
       badgeStyle: "bg-[#0038FF]/15 text-[#0038FF] border-[#0038FF]/30",
       logo: "/assets/img/brand/logo-aether.png",
       logoAlt: "Símbolo oficial do AetherCore",
       logoContainer: "border-[#0038FF]/20 bg-white shadow-sm shadow-[#0038FF]/10 p-2",
       logoClass: "w-full h-full object-contain",
-      headline: isPt ? "Inteligência Autônoma Local-First" : "Autonomous Local-First Intelligence",
+      headline: isPt ? "Agente de IA para tarefas com arquivos" : "AI agent for file-based tasks",
       desc: isPt
-        ? "Plataforma cognitiva que executa agentes de IA com segurança e governança 100% no hardware local, sem envio de dados a nuvens de terceiros."
-        : "Cognitive AI platform executing local-first autonomous agents with strict governance, zero cloud latency, and absolute privacy.",
+        ? "Agente de IA em beta com modelos locais e provedores externos opcionais; o caminho dos dados depende da configuração."
+        : "AI agent in beta with local models and optional external providers; data paths depend on configuration.",
       cta: {
         label: isPt ? "Explorar AetherCore" : "Explore AetherCore",
         to: "/produto",
@@ -63,8 +63,8 @@ const Ecossistema = () => {
           lines={isPt ? ["O Ecossistema", "de Projetos", "da Exvorn."] : ["The Exvorn", "Project", "Ecosystem."]}
           lead={
             isPt
-              ? "A Exvorn desenvolve o AetherCore — com a IDE Quintessence — e o MonitorSmith. Conheça os produtos e a tecnologia por trás de cada iniciativa."
-              : "Exvorn builds AetherCore — with the Quintessence IDE — and MonitorSmith. Explore the products and technology behind each initiative."
+              ? "A Exvorn desenvolve o AetherCore em beta e o MonitorSmith. Conheça os projetos e o estágio de cada iniciativa."
+              : "Exvorn is developing AetherCore in beta and MonitorSmith. Explore the projects and the current stage of each initiative."
           }
           ghostWord={isPt ? "Ecosystem" : "Ecossistema"}
           primary={{

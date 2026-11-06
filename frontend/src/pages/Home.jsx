@@ -6,7 +6,6 @@ import { Container, Section, SectionHeader, Kicker, Reveal } from "@/components/
 import { SpotlightCard } from "@/components/site/interactions";
 import GsapReveal from "@/components/site/GsapReveal";
 import Marquee from "@/components/site/Marquee";
-import GlobalLeakCounter from "@/components/site/GlobalLeakCounter";
 import AetherHero from "@/components/aether/AetherHero";
 import AetherClosing from "@/components/aether/AetherClosing";
 
@@ -66,7 +65,7 @@ const StackSection = () => {
           <SectionHeader kicker={HOME.stackKicker} title={HOME.stackTitle} desc={HOME.stackDesc} />
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 border border-[#211d18]/10 text-xs font-mono uppercase tracking-widest text-[#211d18] shrink-0 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-[#0038FF] animate-pulse" />
-            14 Módulos · Processamento 100% Local
+            {HOME.localBadge}
           </div>
         </div>
       </Container>
@@ -125,14 +124,6 @@ const Home = () => {
     <div className="home-editorial-sections">
       <ScrollCinematic>
         <WhatIsAetherSection />
-      </ScrollCinematic>
-      
-      <ScrollCinematic>
-        <Section id="global-leak-counter" className="liquid-divider">
-          <Container>
-            <GlobalLeakCounter />
-          </Container>
-        </Section>
       </ScrollCinematic>
       
       <ScrollCinematic>

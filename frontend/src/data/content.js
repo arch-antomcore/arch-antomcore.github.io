@@ -1,6 +1,4 @@
-// Bilíngue (PT/EN) - Estruturado para o pitch do Programa Centelha Paraná.
-// A versão do produto definida aqui deve refletir sempre a versão mais recente anunciada na área de Blog. O Blog é a fonte da verdade.
-// Narrativa histórica de desenvolvimento ampliada para 19 meses de P&D prévio.
+// Conteúdo público bilíngue da EXVORN.TECH. Capacidades atuais e próximos passos são apresentados separadamente.
 
 export const STACK = [
   { name: "Rust", src: "/stack/rust.svg" },
@@ -23,14 +21,14 @@ export const CONTENT_PT = {
   BRAND: {
     name: "AetherCore",
     version: "v0.6.0 · beta",
-    tagline: "IA local / beta",
+    tagline: "IA para trabalho real",
     copyright: "© 2026 AetherCore. IA local-first. Curitiba, Brasil. Contato: business@exvorn.tech",
   },
   NAV_LINKS: [
     { label: "Início", to: "/" },
     { label: "Ecossistema", to: "/ecossistema" },
     { label: "Sobre", to: "/sobre" },
-    { label: "Validação", to: "/validacao" },
+    { label: "Acesso antecipado", to: "/validacao" },
     { label: "Produto", to: "/produto" },
     { label: "Sustentabilidade", to: "/sustentabilidade" },
     { label: "Blog", to: "/blog" },
@@ -44,65 +42,66 @@ export const CONTENT_PT = {
   FOOTER_LINKS: [],
   HOME: {
     badge: "v0.6.0 · beta",
-    heroStatus: "Sistema local · acesso completo",
+    heroStatus: "IA local-first · acesso antecipado",
     aether: {
-      eyebrow: "Plataforma de Agentes Autônomos",
-      eyebrowRight: "EST. 2025 — v0.6.0",
-      headline: { l1: "Além da", l2: "Automação.", l3a: "Pura", l3b: "Cognição" },
-      sub: "O AetherCore substitui fluxos rígidos por um sistema nervoso de IA local — que pensa, se adapta e executa na velocidade da sua ambição. Nada sai do seu dispositivo sem você saber.",
+      eyebrow: "IA local-first para fluxos de trabalho",
+      eyebrowRight: "BETA · v0.6.0",
+      headline: { l1: "IA para", l2: "trabalho real.", l3a: "Com", l3b: "controle." },
+      sub: "Uma aplicação desktop que reúne modelos de IA, arquivos e ferramentas em um fluxo de trabalho com escopo definido. Escolha execução local ou conecte serviços externos quando fizer sentido.",
       consoleLabel: "Console AetherCore",
-      consoleLive: "Malha de Agentes ao Vivo",
+      consoleLive: "Runtime beta",
       scrollBadge: "Role para explorar • AetherCore •",
       chapters: [
-        { n: "01", title: "O Fim dos Scripts", body: "Adeus à lógica rígida de 'se-então'. Agentes raciocinam sobre a ambiguidade em vez de quebrar com ela." },
-        { n: "02", title: "Execução Autônoma", body: "Decisões em milissegundos, verificadas por você. Da triagem ao deploy, com aprovação humana de ponta a ponta." },
-        { n: "03", title: "Local por Padrão", body: "Um agente que aprende sua cadência operacional e fica mais afiado a cada ciclo — sem nada sair da sua máquina." },
+        { n: "01", title: "Tarefas com contexto", body: "Trabalhe com arquivos selecionados e mantenha o contexto da tarefa em um workspace." },
+        { n: "02", title: "Plano para revisão", body: "Acompanhe o plano, as ferramentas e as etapas de revisão do agente." },
+        { n: "03", title: "Local quando configurado", body: "Escolha modelos locais para inferência no dispositivo ou provedores externos para tarefas específicas." },
       ],
-      marquee: ["AETHERCORE", "O NOVO PADRÃO PARA AGENTES AUTÔNOMOS", "COGNIÇÃO LOCAL"],
+      marquee: ["AETHERCORE", "IA PARA TRABALHO REAL", "CONTROLE DO FLUXO DE DADOS"],
     },
     heroRotate: ["executam.", "planejam.", "revisam.", "auditam.", "automatizam."],
-    heroChipsLabel: "o que já está funcionando",
+    heroChipsLabel: "capacidades do AetherCore",
     heroChips: [
       { t: "Qwen local", icon: "Cpu" },
       { t: "XLSX e CSV", icon: "Table2" },
       { t: "Arquivos locais", icon: "HardDrive" },
-      { t: "Aprovação humana", icon: "ShieldCheck" },
-      { t: "Logs auditáveis", icon: "ClipboardCheck" },
-      { t: "Cofre AES-256-GCM", icon: "LockKey" },
+      { t: "Etapas de revisão", icon: "ShieldCheck" },
+      { t: "Registros locais", icon: "ClipboardCheck" },
+      { t: "Conexões opcionais", icon: "LockKey" },
     ],
-    titleLead: "Agentes que",
-    titleEm: "autônomos.",
-    titleEnd: "Controle absoluto.",
+    titleLead: "Agentes de IA",
+    titleEm: "para arquivos.",
+    titleEnd: "Controle na prática.",
     primaryCta: "Solicitar acesso antecipado",
     secondaryCta: "Ver primeiro caso com XLSX",
     lead:
-      "O AetherCore lê seus arquivos, roda tarefas na sua máquina e pede aprovação antes de mexer em qualquer coisa sensível. Nada sai do seu dispositivo sem você saber.",
+      "O AetherCore conecta modelos, ferramentas e arquivos em uma aplicação desktop. Seu runtime em Rust organiza o fluxo; você define o workspace e escolhe entre modelos locais e conexões externas.",
     metrics: [
-      { k: "Local", v: "arquivos no dispositivo" },
-      { k: "Revisão", v: "aprovação humana" },
-      { k: "Agente", v: "planeja e usa ferramentas" },
+      { k: "Modelos", v: "locais ou remotos" },
+      { k: "Revisão", v: "etapas de aprovação" },
+      { k: "Dados", v: "escopo lógico" },
     ],
     pillars: [
-      { t: "Local-first", d: "roda no dispositivo" },
-      { t: "Human-in-the-loop", d: "você aprova" },
-      { t: "Audit trail", d: "tudo registrado" },
-      { t: "Cofre AES-256", d: "segredos cifrados em repouso" },
+      { t: "Local-first", d: "inferência no dispositivo" },
+      { t: "Revisão", d: "etapas de aprovação" },
+      { t: "Registros", d: "eventos do fluxo" },
+      { t: "Integrações", d: "destino configurável" },
     ],
     whatIsAether: {
       kicker: "o que o aether faz?",
-      title: "Sua IA de trabalho, local por padrão.",
-      desc: "Ele faz tudo o que as IAs famosas de nuvem fazem, mas isolado no seu ambiente. Desenvolva, pesquise e analise sem compartilhar dados.",
+      title: "Seu trabalho e sua IA no mesmo contexto.",
+      desc: "O AetherCore foi desenhado para executar tarefas sobre arquivos com modelos configuráveis, ferramentas e revisão humana. Solicite acesso antecipado.",
       cards: [
-        { t: "Chat & Escrita", d: "Converse e crie documentos usando modelos SOTA avançados.", icon: "MessageSquareText" },
-        { t: "Geração de Código", d: "Programe autonomamente com ferramentas de edição no sandbox.", icon: "Code2" },
-        { t: "Análise de Dados", d: "Cruze informações de planilhas complexas com segurança local.", icon: "Table2" },
-        { t: "Pesquisa Web", d: "O agente busca dados externos apenas quando você autoriza.", icon: "Globe" },
+        { t: "Chat & escrita", d: "Use modelos configurados para escrever, resumir e organizar ideias.", icon: "MessageSquareText" },
+        { t: "Ferramentas", d: "Acesse ferramentas no contexto de uma tarefa delimitada.", icon: "Code2" },
+        { t: "Arquivos", d: "Trabalhe com arquivos e planilhas no workspace selecionado.", icon: "Table2" },
+        { t: "Conexões", d: "Verifique destino e conteúdo antes de acionar serviços externos.", icon: "Globe" },
       ]
     },
     stackKicker: "base técnica",
     stackTitle: "O que roda por baixo.",
     stackDesc:
-      "Modelos rodam na máquina, ferramentas são abertas, permissões ficam com você. O processamento principal fica no seu ambiente; validações de licença e integrações autorizadas passam pelo backend quando necessário.",
+      "Um runtime em Rust coordena modelos, ferramentas e eventos de execução. Com modelos locais, a inferência acontece no dispositivo; provedores externos são uma escolha de configuração.",
+    localBadge: "Modelos locais + conexões opcionais",
     stackCredit:
       "Logos exibidos para referência. Não implicam parceria ou endosso. AetherCore é independente.",
     mapKicker: "mapa do site",
@@ -118,9 +117,9 @@ export const CONTENT_PT = {
     ],
     synthKicker: "resumo comercial",
     synthTitle:
-      "Uma IA que faz coisas, pra empresas que não podem vazar dados.",
+      "Uma IA que aproxima modelos e ferramentas do trabalho com arquivos.",
     synthDesc:
-      "Começa com planilhas, mas já lê documentos, gera relatórios e roda automações. Tudo com aprovação.",
+      "Começamos por trabalho com arquivos e planilhas: uma necessidade concreta para equipes que querem usar IA com contexto, escolha de modelo e revisão das ações.",
     synth: [
       {
         tag: "Problema",
@@ -130,12 +129,12 @@ export const CONTENT_PT = {
       {
         tag: "Solução",
         t: "IA que roda perto dos arquivos",
-        d: "O AetherCore processa tudo localmente. Se precisa fazer algo arriscado, pede aprovação antes.",
+        d: "O AetherCore oferece inferência local, ferramentas no workspace e etapas de revisão para ações cobertas pelo fluxo.",
       },
       {
         tag: "Entrada",
         t: "Primeiro caso: planilhas",
-        d: "Planilhas complexas viram análises e relatórios sem sair da sua máquina.",
+        d: "Planilhas permitem demonstrar valor em tarefas verificáveis, como leitura, organização e transformação de informações.",
       },
     ],
   },
@@ -155,278 +154,164 @@ export const CONTENT_PT = {
     ],
   },
   PRODUTO: {
-    kicker: "agente local & MVP",
-    title: ["IA que roda na sua máquina", "e trabalha de verdade", "com seus arquivos."],
-    lead:
-      "O AetherCore entende o que você quer, monta um plano, lê e escreve arquivos, usa ferramentas e pede permissão antes de fazer qualquer coisa arriscada. O MVP com XLSX é a primeira prova disso funcionando.",
-    solutionKicker: "o que ele faz",
-    solutionTitle: "A IA vem até os seus arquivos.",
-    solutionDesc:
-      "Você não manda seus dados pra fora. O AetherCore roda tudo na sua máquina, com ferramentas próprias e aprovação pra ações sensíveis.",
+    kicker: "agente local-first · beta", title: ["IA para trabalhar", "com arquivos reais,", "sob seu controle."],
+    lead: "O AetherCore combina interface desktop, runtime em Rust, ferramentas para arquivos e modelos configuráveis. Escolha o contexto, acompanhe o plano e revise o resultado em um único fluxo.",
+    solutionKicker: "o que estamos construindo", solutionTitle: "Levar a IA para perto do trabalho.",
+    solutionDesc: "No modo local, o modelo pode rodar no seu hardware. Provedores externos são opcionais e podem receber os dados enviados a eles.",
     blocks: [
-      {
-        n: "01",
-        tag: "Memória local",
-        t: "Seus arquivos ficam aqui",
-        d: "PDFs, planilhas, contratos e código ficam no dispositivo. O agente acessa como material de trabalho, sem mandar pra servidor nenhum.",
-        points: ["arquivos organizados", "relações entre documentos", "mudanças rastreáveis"],
-      },
-      {
-        n: "02",
-        tag: "Agente de trabalho",
-        t: "Entende, executa e revisa",
-        d: "O agente transforma sua instrução em um plano, aciona as ferramentas certas, vê o resultado e ajusta se precisar. Não é chat descartável.",
-        points: ["plano de ação", "uso de ferramentas", "revisão do resultado"],
-      },
-      {
-        n: "03",
-        tag: "Permissões",
-        t: "Nada sai sem você deixar",
-        d: "Qualquer ação sensível (mandar algo pra nuvem, escrever num arquivo) aparece pra você aprovar antes. Com escopo, risco e justificativa.",
-        points: ["aprovação antes do envio", "limites claros", "histórico consultável"],
-      },
-      {
-        n: "04",
-        tag: "Cofre criptográfico",
-        t: "Segredos cifrados em repouso",
-        d: "Chaves de API, tokens e credenciais são armazenados em um cofre local criptografado com AES-256-GCM. Chave mestra gerada por CSPRNG de hardware. Nenhum segredo existe em texto puro no disco.",
-        points: ["AES-256-GCM com nonce único", "chave mestra via OsRng", "política Zero-Plaintext"],
-      },
+      { n: "01", tag: "Contexto de trabalho", t: "Escolha o que entra no workspace", d: "O agente trabalha com arquivos selecionados. Confira escopo e modelo antes de incluir informação sensível.", points: ["arquivos selecionados", "contexto delimitado", "beta em evolução"] },
+      { n: "02", tag: "Agente", t: "Plano, ferramentas e resultado", d: "O runtime organiza etapas e chama ferramentas disponíveis. Qualidade e cobertura dependem do modelo e da tarefa.", points: ["plano de execução", "ferramentas configuradas", "revisão do resultado"] },
+      { n: "03", tag: "Aprovação", t: "Revise antes de ações sensíveis", d: "Etapas de aprovação permitem revisar ações cobertas pelo fluxo antes de executá-las.", points: ["revisão humana", "escopo visível", "decisão informada"] },
+      { n: "04", tag: "Credenciais", t: "Integrações configuráveis", d: "Configure provedores e integrações conforme o trabalho. A escolha do serviço define quais dados são encaminhados para fora do dispositivo.", points: ["provedores configuráveis", "integrações opcionais", "destinos visíveis"] }
     ],
-    offeringsKicker: "produto + negócio",
-    offeringsTitle: "Um agente, quatro formatos.",
-    offeringsDesc:
-      "Da sandbox gratuita ao deploy on-premise dedicado. A mesma base de IA local com aprovação humana, adaptada ao porte e à sensibilidade dos seus dados.",
+    offeringsKicker: "modos de uso", offeringsTitle: "Um núcleo. Caminhos de execução diferentes.",
+    offeringsDesc: "Escolha o caminho de execução conforme a tarefa, o hardware e as regras de dados da sua organização.",
     offerings: [
-      {
-        name: "Aether Free",
-        audience: "Para experimentar",
-        t: "Teste a IA sem instalar nada.",
-        d: "Agente web em sandbox temporária na nuvem. Ideal pra conhecer o produto com tarefas leves antes de rodar local.",
-        points: ["sandbox limitada na web", "créditos diários inclusos", "sem dados locais"],
-      },
-      {
-        name: "Aether Go",
-        audience: "Para uso individual",
-        t: "Pra quem quer usar no dia a dia.",
-        d: "Agente local completo para produtividade. Lê e escreve XLSX, executa localmente com aprovação humana e sem limite de arquivos.",
-        points: ["agente local completo", "leitura e escrita XLSX", "execução local"],
-      },
-      {
-        name: "Aether Enterprise",
-        audience: "Para equipes",
-        t: "Pra quem lida com dados que não podem vazar.",
-        d: "Workspace com até 5 usuários base, logs auditáveis, permissões granulares por membro e relatórios automatizados.",
-        points: ["logs auditáveis", "permissões por usuário", "governança corporativa"],
-      },
-      {
-        name: "Aether Scale",
-        audience: "Deploy dedicado",
-        t: "Operações em larga escala com máxima governança.",
-        d: "Deploy on-premise autônomo com SLA dedicado, integrações customizadas e contratos sob medida. Para quem precisa de controle total.",
-        points: ["on-premise autônomo", "SLA e suporte 24/7", "sob consulta"],
-      },
+      { name: "Modelo local", audience: "No dispositivo", t: "Mantenha a inferência no hardware configurado.", d: "Quando o modelo roda no dispositivo, a inferência usa o hardware local. Integrações opcionais podem usar a rede.", points: ["depende do modelo instalado", "usa recursos locais", "integrações podem usar a rede"] },
+      { name: "Provedor externo", audience: "Conexão opcional", t: "Escolha uma API quando necessário.", d: "O conteúdo enviado fica sujeito ao serviço, contrato e configuração utilizados.", points: ["destino conforme configuração", "revise os dados enviados", "escolha consciente"] },
+      { name: "Uso por equipe", audience: "Próxima fase", t: "Implantação para equipes.", d: "Planejamos administração, suporte e governança contratados conforme o fluxo e a infraestrutura de cada organização.", points: ["escopo por proposta", "suporte contratado", "controles para equipes"] }
     ],
-    greenKicker: "ia sustentável / green ai",
-    greenTitle: "Soberania ecológica e eficiência energética.",
-    greenDesc: "IAs centralizadas na nuvem consomem gigawatts de eletricidade e toneladas de água para resfriamento de servidores. O AetherCore roda localmente, aproveitando a infraestrutura que sua empresa já mantém ligada.",
+    greenKicker: "impacto ambiental · método de medição", greenTitle: "Local muda onde a computação acontece.",
+    greenDesc: "Nossa análise ambiental parte de tarefas comparáveis: energia medida no hardware usado, tempo ocioso e qualidade do resultado. Publicaremos conclusões quando houver medições reproduzíveis.",
     greenCards: [
-      { t: "Consumo de Água", d: "Uma única conversa de 20 a 50 mensagens com IAs tradicionais de nuvem consome cerca de 500ml de água purificada para resfriar os data centers.", icon: "Droplet" },
-      { t: "Pegada de Carbono", d: "A etapa de inferência (o uso diário das consultas) representa de 80% a 90% de todas as emissões de carbono de um modelo de IA. A execução local elimina o tráfego de rede e centralização energética.", icon: "Wind" },
-      { t: "Infraestrutura Reutilizada", d: "Em vez de exigir a construção de novos data centers massivos, o AetherCore se instala de forma invisível nos computadores e servidores locais já existentes na sua empresa.", icon: "Server" },
+      { t: "Energia por tarefa", d: "Métrica proposta: Wh por tarefa comparável, incluindo inferência e tempo ocioso.", icon: "Lightning" },
+      { t: "Água", d: "Estimativas de água exigem localização, infraestrutura e método explícitos. Nossa avaliação seguirá esses critérios.", icon: "Droplet" },
+      { t: "Comparação", d: "Medir o mesmo fluxo, modelo e qualidade antes de afirmar economia.", icon: "Server" }
     ],
-    flowKicker: "fluxo prático",
-    flowTitle: "Do pedido até a entrega",
-    flowDesc:
-      "Você define uma tarefa; o Aether lê o contexto, usa ferramentas e entrega algo que dá pra revisar.",
+    flowKicker: "fluxo de trabalho", flowTitle: "Do pedido à revisão", flowDesc: "Selecione o contexto, confira as etapas propostas e revise o resultado antes de usar.",
     flow: [
-      { n: "1", t: "Escolhe o contexto", d: "Planilha, documento, pasta, log ou base local." },
-      { n: "2", t: "Plano em ação", d: "O Aether escolhe ferramentas, executa os passos e avalia riscos." },
-      { n: "3", t: "Entrega pronta", d: "Resumo, relatório, arquivo revisado ou próxima ação pra você aprovar." },
+      { n: "1", t: "Selecione o contexto", d: "Escolha os arquivos e o workspace necessários." },
+      { n: "2", t: "Confira o plano", d: "Revise o modelo e as ferramentas configuradas para a tarefa." },
+      { n: "3", t: "Avalie o resultado", d: "Confira o que foi gerado e aprove apenas ações cujo escopo entenda." }
     ],
   },
   ARQUITETURA: {
-    kicker: "arquitetura",
-    title: ["Roda local,", "pede aprovação", "e registra tudo."],
-    lead:
-      "Como o processamento funciona, o que é a aprovação e quais peças técnicas fazem tudo rodar local.",
-    loopKicker: "fluxo de execução",
-    loopTitle: "Do arquivo até o log.",
-    loopDesc:
-      "O agente planeja, valida, executa e registra. Tudo no mesmo lugar, com feedback visual.",
+    kicker: "arquitetura · beta", title: ["Contexto local,", "conexões explícitas,", "limites visíveis."],
+    lead: "O runtime em Rust coordena modelos, ferramentas e eventos de execução. O workspace delimita o contexto; a configuração escolhida define se a inferência acontece no dispositivo ou em um serviço externo.",
+    loopKicker: "fluxo de execução", loopTitle: "Da seleção ao resultado.", loopDesc: "O agente usa workspace e ferramentas disponíveis. Revise as permissões e o destino de cada conexão.",
     loop: [
-      { tag: "Arquivos", t: "Traga seus arquivos.", d: "Monte um workspace com PDFs, planilhas, código e notas. O agente lê estrutura e dependências antes de fazer qualquer coisa.", chip: "Workspace preparado" },
-      { tag: "Plano", t: "Veja o plano antes.", d: "O planejador mostra os passos, as ferramentas que vai usar e os possíveis efeitos antes de rodar.", chip: "Plano visível antes da execução" },
-      { tag: "Aprovação", t: "Você decide.", d: "A tela de aprovação mostra risco, escopo e o que vai ser alterado. Sem OK, a ação para.", chip: "Escrita pede aprovação" },
-      { tag: "Execução", t: "Roda local, registra tudo.", d: "Ferramentas em Rust e IPC tipado executam a tarefa, geram o resultado e salvam o que aconteceu no log.", chip: "Resultado gerado + log salvo" },
+      { tag: "Arquivos", t: "Selecione o workspace.", d: "Inclua apenas os arquivos necessários para a tarefa.", chip: "Escopo escolhido pelo usuário" },
+      { tag: "Plano", t: "Revise as etapas.", d: "Confira tarefa, modelo e ferramentas que serão acionadas.", chip: "Plano para revisão" },
+      { tag: "Aprovação", t: "Decida antes de agir.", d: "Há confirmações para ações cobertas pelos controles atuais.", chip: "Cobertura em validação" },
+      { tag: "Execução", t: "Confira o resultado.", d: "O runtime executa ferramentas configuradas e mantém registros locais de eventos.", chip: "Registro local do beta" }
     ],
-    capsKicker: "capacidades",
-    capsTitle: "O que o sistema sabe fazer.",
-    capsDesc:
-      "Oito peças que fazem o sistema funcionar: execução local, ferramentas, memória, dados, aprovação e conexão externa.",
+    capsKicker: "camadas do produto", capsTitle: "Arquitetura que torna o fluxo legível.", capsDesc: "Cada camada cumpre uma função: escolher o contexto, coordenar ferramentas, executar modelos e registrar eventos.",
     caps: [
-      { n: "01", tag: "local", t: "IA local-first", d: "Chat, geração de código e análises rodam direto no dispositivo. O poder das IAs famosas, mas no seu ambiente." },
-      { n: "02", tag: "audit", t: "Log de execução", d: "Tudo que o agente lê ou altera fica registrado em logs locais." },
-      { n: "03", tag: "govern", t: "Controle de acesso", d: "SQLite local com controle de quais pastas e arquivos o agente pode acessar." },
-      { n: "04", tag: "xlsx", t: "Análise de planilhas", d: "Lê, escreve e cruza dados de XLSX e CSV nativamente, sem mandar para a nuvem." },
-      { n: "05", tag: "human", t: "Aprovação humana", d: "Ações de escrita e conexões externas começam bloqueadas. Só rodam com aprovação." },
-      { n: "06", tag: "conexão", t: "Conexão externa opcional", d: "Pesquisas na web e acesso a APIs externas só acontecem quando você autoriza." },
-      { n: "07", tag: "security", t: "Cofre Criptográfico AES-256-GCM", d: "Chaves de API e tokens são cifrados em repouso com AES-256-GCM (nonce único de 12 bytes por item) pelo Rust Kernel. A chave mestra de 256 bits é gerada por CSPRNG de hardware (OsRng) e nunca sai do dispositivo. Política Zero-Plaintext: nenhum segredo toca o disco em texto puro." },
-      { n: "08", tag: "insights", t: "Relatórios automáticos", d: "Planilhas complexas viram resumos executivos e análises prontas, igual às IAs de nuvem." },
+      { n: "01", tag: "modelos", t: "Modelos locais ou remotos", d: "Modelos locais e provedores externos são configuráveis; cada escolha muda o caminho dos dados." },
+      { n: "02", tag: "logs", t: "Registro de eventos", d: "O runtime registra eventos locais que ajudam a acompanhar o fluxo e investigar resultados." },
+      { n: "03", tag: "workspace", t: "Limites lógicos", d: "O workspace organiza e delimita o contexto no nível da aplicação." },
+      { n: "04", tag: "arquivos", t: "Ferramentas para arquivos", d: "Há ferramentas para arquivos e planilhas; compatibilidade e cobertura devem ser confirmadas por fluxo." },
+      { n: "05", tag: "revisão", t: "Etapas de aprovação", d: "Ações de escrita e rede podem exigir confirmação conforme ferramenta e configuração. Cobertura completa precisa de teste." },
+      { n: "06", tag: "conexões", t: "Integrações opcionais", d: "Uma API externa pode receber instruções ou contexto encaminhado a ela. Verifique destino e política do provedor." },
+      { n: "07", tag: "credenciais", t: "Tratamento em revisão", d: "A configuração de provedores centraliza as conexões escolhidas para cada fluxo." },
+      { n: "08", tag: "estado", t: "Versão em preparação", d: "A próxima etapa concentra distribuição, documentação de compatibilidade e pilotos com tarefas mensuráveis." }
     ],
-    releaseKicker: "status + release notes",
-    releaseTitle: "v0.6.0 — capability guards & resolução de modelos.",
-    releaseDesc:
-      "Finalizamos a Fase 7 do Kernel de Execução: introdução de Capability Guards (validação preditiva), hierarquia rígida de resolução de modelos, e política de interrupção clara sem fallbacks silenciosos na nuvem.",
-    releaseTags: ["Capability Guards", "Resolução de Modelos", "Kernel Security", "Zero Cloud Fallback", "AES-256-GCM Vault"],
+    releaseKicker: "acesso antecipado", releaseTitle: "AetherCore — para equipes que querem agir sobre dados.", releaseDesc: "Estamos preparando distribuição por convite e fluxos de teste que permitam medir qualidade, tempo de revisão e custo por tarefa.", releaseTags: ["Rust runtime", "Modelos configuráveis", "Workspace definido", "Revisão humana"]
   },
   CASOS: {
-    kicker: "soluções",
-    title: ["IA local aplicada", "a dados sensíveis", "de verdade."],
-    lead:
-      "A vacina definitiva contra vazamentos e multas da LGPD: IA em formato de agente que opera de forma local e governada para manter sua empresa em total conformidade.",
-    problemKicker: "a doença regulatória",
-    problemTitle: "O risco iminente de multas da LGPD ao usar chatbots comuns.",
-    problemDesc:
-      "Enviar dados pessoais, contratos e planilhas financeiras para IAs na nuvem é o caminho mais rápido para um vazamento de dados. A LGPD pune severamente a exposição desgovernada de informações. AetherCore elimina essa vulnerabilidade na raiz.",
+    kicker: "casos de uso · beta", title: ["IA local-first", "para fluxos com", "arquivos e agentes."],
+    lead: "O AetherCore foi feito para tarefas em que arquivos, contexto e escolha do modelo importam. Em vez de copiar dados entre várias ferramentas, organize o trabalho em um workspace e acompanhe a execução.",
+    problemKicker: "decisão de arquitetura", problemTitle: "Saiba qual serviço recebe cada dado.",
+    problemDesc: "Assistentes e modelos diferem em retenção, uso e processamento. Considere serviço, contrato, política interna e dados compartilhados.",
     steps: [
-      { n: "01", tag: "a doença", t: "Vazamento e Multa LGPD", d: "Chatbots centralizados coletam, processam e armazenam dados confidenciais fora da sua infraestrutura. O risco de sanções da ANPD e danos de reputação travam a inovação.", points: ["dados pessoais expostos", "sanções da ANPD", "quebra de acordos (NDAs)"] },
-      { n: "02", tag: "a vacina", t: "Soberania Local-First", d: "O AetherCore processa tudo no próprio dispositivo do usuário. Nenhuma informação pessoal ou confidencial sai da máquina para treinar modelos ou ser exposta em servidores externos.", points: ["isolamento de dados", "zero tráfego externo", "arquitetura blindada"] },
-      { n: "03", tag: "imunidade", t: "Governança e Trilha de Auditoria", d: "Toda ação é monitorada e registrada localmente em logs imutáveis. O agente atua sob regras estritas e aprovação humana obrigatória para ações de escrita ou rede.", points: ["human-in-the-loop", "logs auditáveis", "segurança preventiva"] },
+      { n: "01", tag: "pergunta", t: "Onde os dados são processados?", d: "Identifique modelo, provedor, armazenamento e serviços chamados pela aplicação.", points: ["modelo local ou remoto", "retenção do provedor", "destinos das integrações"] },
+      { n: "02", tag: "opção", t: "Configure o caminho de execução.", d: "O AetherCore aceita modelos locais e conexões externas opcionais. O resultado depende da configuração.", points: ["escolha do modelo", "workspace selecionado", "revisão das conexões"] },
+      { n: "03", tag: "limite", t: "Valide antes de usar em produção.", d: "Avalie o fluxo no seu cenário, confira o resultado e defina as regras de uso antes de ampliar a adoção.", points: ["teste no seu cenário", "controles organizacionais", "decisão informada"] }
     ],
-    compareKicker: "comparativo de risco",
-    compareTitle: "AetherCore vs Chatbots Comuns.",
-    compareDesc:
-      "Por que assistentes na nuvem são um passivo regulatório e como o AetherCore protege a empresa.",
+    compareKicker: "caminhos de dados", compareTitle: "Compare a configuração, não slogans.",
+    compareDesc: "Uma leitura geral dos caminhos entre provedores externos e modelos locais ou remotos configurados no AetherCore.",
     compare: [
-      { feat: "Conformidade LGPD", cloud: "Incompatível com políticas rígidas; expõe dados pessoais de clientes em nuvens terceiras.", aether: "Total conformidade. Os dados pessoais não trafegam e ficam sob controle do DPO da empresa." },
-      { feat: "Privacidade & controle", cloud: "Exige que você mande arquivos e bases para servidores externos de terceiros.", aether: "Prioriza execução local. Arquivos e dados confidenciais nunca saem do seu dispositivo." },
-      { feat: "Execução de Tarefas", cloud: "Apenas responde perguntas genéricas em uma interface de bate-papo linear.", aether: "Executa planos complexos, lê e escreve arquivos locais e manipula planilhas sob governança." },
-      { feat: "Trilha de Auditoria", cloud: "Pouca ou nenhuma transparência sobre o processamento subjacente dos dados.", aether: "Registra cada leitura, escrita ou ferramenta executada em um log local estruturado." },
-      { feat: "Governança Corporativa", cloud: "Executa qualquer prompt livremente, permitindo manipulações perigosas sem aviso.", aether: "Pede aprovação de escopo e justificativa antes de efetuar escritas ou conexões." },
-      { feat: "Autonomia & Resiliência", cloud: "Fica fora do ar se houver instabilidade ou interrupção na internet.", aether: "Processa localmente por padrão. Ideal para auditorias e processamentos internos governados." },
-      { feat: "Armazenamento de Segredos", cloud: "Chaves de API e tokens ficam em texto puro ou em vaults de terceiros na nuvem, sujeitos a violações.", aether: "Cofre local AES-256-GCM com chave mestra de CSPRNG. Nenhum segredo em texto puro. Zero dependência de nuvem." },
+      { feat: "Destino do prompt", cloud: "O serviço remoto recebe o conteúdo enviado conforme sua configuração, política e contrato.", aether: "O modelo pode ser local ou remoto. Se remoto, os dados encaminhados podem sair do dispositivo." },
+      { feat: "Armazenamento", cloud: "Retenção e uso variam por produto, conta e termos contratados.", aether: "Arquivos ficam no workspace escolhido; logs e retenção do beta precisam ser verificados." },
+      { feat: "Ações em arquivos", cloud: "Acesso a arquivos locais varia por produto.", aether: "Há ferramentas para arquivos; compatibilidade e escopo variam por fluxo e precisam de validação." },
+      { feat: "Aprovação", cloud: "Controles variam entre produtos e políticas organizacionais.", aether: "Há etapas de aprovação para parte das ações; cobertura completa ainda está em validação." },
+      { feat: "Conformidade", cloud: "Depende do serviço, contrato, configuração e obrigações do controlador.", aether: "Execução local pode reduzir transferências, mas não comprova conformidade com a LGPD." },
+      { feat: "Conexões externas", cloud: "O serviço processa solicitações na infraestrutura do fornecedor.", aether: "Integrações remotas são opcionais e devem ser avaliadas e configuradas conscientemente." }
     ],
-    audienceKicker: "para quem",
-    audienceTitle: "Blindagem para os setores mais regulados do mercado.",
-    audienceDesc:
-      "Setores onde a proteção de dados pessoais e o sigilo de informações não são opcionais, mas sim obrigações legais.",
+    audienceKicker: "para explorar", audienceTitle: "Comece pelo fluxo de trabalho.",
+    audienceDesc: "Use a beta em tarefas de baixo risco, meça a qualidade e identifique quais dados precisam permanecer locais.",
     audience: [
-      { t: "DPOs & Compliance Officers", d: "Tenha a certeza matemática de que os funcionários não estão colando dados confidenciais e pessoais de clientes em servidores externos sob risco de multas da LGPD." },
-      { t: "Setores Jurídico & Regulatório", d: "Analise contratos confidenciais e minutas de processos sigilosos sem ferir termos de confidencialidade (NDAs) ou expor segredos industriais." },
-      { t: "Financeiro, Contábil & Auditores", d: "Cruze planilhas XLSX e analise fluxos de caixa de múltiplos clientes locais com a garantia de que as informações financeiras permanecem seguras." },
-      { t: "Setor de Cooperativas & PMEs", d: "Proteja as bases de dados de cooperados e clientes integrando automação por agentes em total conformidade com a governança da empresa." },
+      { t: "Finanças e controladoria", d: "Avalie tarefas com dados fictícios ou anonimizados antes de considerar informação real." },
+      { t: "Jurídico e operações", d: "Teste busca e revisão em documentos sem sigilo enquanto valida limites e resultados." },
+      { t: "Auditoria e análise", d: "Compare o resultado com um processo conhecido e registre erros e tempo de revisão." },
+      { t: "PMEs e equipes técnicas", d: "Mapeie modelos, arquivos, integrações e controles antes de avaliar a beta." }
     ],
   },
   PRINCIPIOS: {
     kicker: "princípios de produto",
     title: "Privacidade não é feature. É decisão de arquitetura.",
     lead:
-      "IA local, controle de execução e aprovação humana. Software tem que devolver controle pra quem usa.",
+      "Escolher onde a IA executa, tornar conexões visíveis e manter a revisão humana no fluxo. Esses princípios orientam o AetherCore desde a arquitetura.",
     manifestoKicker: "manifesto",
     manifestoTitle:
-      "Aparece na interface: em permissões, logs e o que dá pra desfazer.",
+      "Princípios que orientam cada fluxo.",
     manifestoDesc:
-      "Não é slogan. O produto processa local por padrão, bloqueia por padrão, só conecta externo com permissão e registra tudo.",
+      "Modelo, destino dos dados e etapas de revisão devem ser compreensíveis por quem opera a ferramenta.",
     items: [
-      { n: "01", tag: "controle", t: "O dado fica perto de quem criou.", d: "Planilhas, contratos e relatórios ficam no ambiente do usuário quando a tarefa pode ser resolvida localmente." },
-      { n: "02", tag: "consentimento", t: "Conexão externa é exceção.", d: "Conexões externas, escritas e ações sensíveis precisam de autorização explícita antes de rodar." },
-      { n: "03", tag: "registro", t: "Automação sem log é caixa preta.", d: "O agente registra objetivos, permissões, ferramentas usadas, arquivos tocados e decisões relevantes." },
-      { n: "04", tag: "proporcionalidade", t: "Usa o mínimo necessário.", d: "O sistema trabalha com o menor escopo possível e reduz exposição sem perder utilidade." },
-      { n: "05", tag: "humano no comando", t: "IA propõe. Você aprova.", d: "A camada de aprovação protege decisões críticas. Quem usa é operador, não passageiro." },
-      { n: "06", tag: "código como defesa", t: "Privacidade precisa de código, não de promessa.", d: "Inspirado pela cultura cypherpunk: boas intenções não bastam. É preciso construir os mecanismos." },
+      { n: "01", tag: "controle", t: "Escolha onde o modelo roda.", d: "Um modelo local pode manter a inferência no dispositivo; provedores remotos podem receber dados encaminhados." },
+      { n: "02", tag: "consentimento", t: "Confira cada conexão.", d: "Destino e conteúdo variam por integração. Revise-os antes de enviar informação sensível." },
+      { n: "03", tag: "registro", t: "Registros ajudam a investigar.", d: "O beta mantém eventos locais, mas não os apresenta como completos, imutáveis ou certificados." },
+      { n: "04", tag: "proporcionalidade", t: "Delimite o contexto.", d: "Selecione os arquivos necessários e teste o fluxo com dados fictícios ou anonimizados." },
+      { n: "05", tag: "revisão humana", t: "Revise ações cobertas.", d: "Há etapas de aprovação para parte das ações; cobertura e comportamento precisam de teste." },
+      { n: "06", tag: "código como defesa", t: "Código reduz riscos; não elimina todos.", d: "A implementação deve ser testada e revisada; boas intenções e arquitetura não substituem evidência." },
     ],
   },
   SUSTENTABILIDADE: {
-    kicker: "ia sustentável / green ai",
-    title: ["Soberania ecológica", "e eficiência energética", "para inteligência artificial."],
-    lead: "Modelos centralizados consomem gigawatts de eletricidade e toneladas de água para resfriamento de servidores. AetherCore oferece uma alternativa ecológica ao rodar localmente na infraestrutura existente.",
-    cardsTitle: "A Pegada Ecológica da IA de Nuvem",
-    cardsDesc: "Como o uso diário de chatbots centralizados afeta o meio ambiente e como o processamento local atua como solução.",
+    kicker: "impacto ambiental · método", title: ["Medir primeiro.", "Comparar com", "honestidade."],
+    lead: "Executar um modelo local muda onde a energia é consumida. Nossa abordagem é medir tarefas equivalentes, hardware e tempo ocioso antes de afirmar qualquer economia.",
+    cardsTitle: "O que precisa ser medido", cardsDesc: "Vamos comparar tarefas equivalentes e publicar método, hardware e limitações antes de afirmar qualquer economia.",
     cards: [
-      { t: "Consumo de Água", d: "Uma única conversa de 20 a 50 mensagens com IAs tradicionais de nuvem consome cerca de 500ml de água purificada para resfriar os data centers.", icon: "Droplet" },
-      { t: "Pegada de Carbono", d: "A etapa de inferência (o uso diário das consultas) representa de 80% a 90% de todas as emissões de carbono de um modelo de IA. A execução local elimina o tráfego de rede e centralização energética.", icon: "Wind" },
-      { t: "Infraestrutura Reutilizada", d: "Em vez de exigir a construção de novos data centers massivos, o AetherCore se instala de forma invisível nos computadores e servidores locais já existentes na sua empresa.", icon: "Server" },
+      { t: "Energia", d: "Registrar Wh por tarefa e tempo ocioso, usando a mesma qualidade e modelo quando possível.", icon: "Lightning" },
+      { t: "Água", d: "Estimativas de água dependem de localização, infraestrutura e método; são tema para uma análise própria.", icon: "Droplet" },
+      { t: "Uso do hardware", d: "A comparação deve incluir vida útil, utilização, capacidade disponível e energia local.", icon: "Server" }
     ],
   },
   SOBRE: {
-    kicker: "quem somos / equipe",
-    title: ["Arquitetura simétrica:", "código robusto e", "rigor científico."],
-    lead: "AetherCore é construído sobre um motor duplo de inovação: engenharia de software avançada local-first e validação estatística federal.",
-    teamTitle: "Equipe Executora & Conselheiros",
-    teamDesc: "Conheça as mentes por trás do projeto que devolve a soberania de dados para as empresas.",
-    members: [
-      {
-        name: "Matheus Peres da Silva",
-        role: "Founder & CEO / Principal Systems Architect",
-        bio: "Desenvolvedor especialista em Rust e WebAssembly, focado na criação de sandboxes locais seguras e integridade de orquestração local de LLMs. Projetou o AetherCore sob a premissa de que a melhor forma de proteger dados sensíveis é nunca permitir que eles toquem a nuvem de terceiros.",
-      },
-      {
-        name: "Especialista em Modelagem e Metodologia Estatística",
-        role: "Conselheiro Técnico Voluntário",
-        bio: "Conselheiro voluntário com sólida fundamentação em pesquisas estatísticas nacionais. Iniciou sua atuação prática como recenseador de campo (NPE), adquirindo vivência direta em mapeamento territorial e coleta de dados na ponta antes de se consolidar como estatístico concursado no IBGE. Presta apoio técnico estritamente individual e consultivo (sem participação societária, cargo de gerência ou remuneração de fomento), garantindo isenção sob a Lei 8.112/90 para orientar a integridade estatística, consistência matemática e modelos de amostragem local do sistema.",
-      }
-    ],
-    twinTitle: "Paradigma do Duplo Controle",
-    twinDesc: "O AetherCore foi projetado sobre o princípio da separação total entre execução e auditoria. A integridade técnica da sandbox e o desenvolvimento em Rust são conduzidos pelo fundador. A precisão matemática da amostragem e a integridade estatística são validadas de forma externa e voluntária por seu irmão gêmeo idêntico, estatístico federal. Essa redundância biométrica e analítica traz ao projeto o rigor de dados científicos oficiais e uma blindagem de dados absoluta, garantindo total conformidade legal e isenção societária.",
+    kicker: "sobre o projeto", title: ["Construído com", "obsessão por", "controle real."],
+    lead: "A EXVORN.TECH desenvolve o AetherCore para aproximar a IA do trabalho real: arquivos, ferramentas e decisões sob controle de quem opera. O produto é liderado por Matheus Peres da Silva em Curitiba.",
+    teamTitle: "Responsável pelo produto", teamDesc: "Matheus lidera arquitetura, produto e engenharia do AetherCore.",
+    members: [{ name: "Matheus Peres da Silva", role: "Fundador · Produto e engenharia", bio: "Programador desde a adolescência, lidera a construção do AetherCore e sua estratégia de produto. Sua experiência combina software, sistemas e pesquisa independente de segurança." }],
+    twinTitle: "Colaborações e consultoria", twinDesc: "O desenvolvimento conta com diálogo e apoio consultivo voluntário. Colaborações formais serão apresentadas conforme forem estabelecidas."
   },
   FAQ: {
-    kicker: "FAQ & governança",
-    title: ["Perguntas frequentes", "sobre IA local", "e dados sensíveis."],
-    lead:
-      "Respostas diretas sobre como funciona, privacidade, arquivos e aprovação humana.",
+    kicker: "faq · beta", title: ["Perguntas diretas", "sobre o AetherCore."], lead: "O produto está em desenvolvimento. Confira o modelo, os dados e as ferramentas de cada fluxo.",
     items: [
-      { q: "O que é IA local-first?", a: "É uma IA feita pra rodar no dispositivo ou na infra do próprio usuário. A ideia é reduzir ao máximo o envio de dados pra servidores de terceiros." },
-      { q: "É só pra planilhas?", a: "Não. Planilhas são o primeiro caso porque provam leitura, escrita controlada e valor de negócio. Mas o AetherCore trabalha com arquivos, documentos, ferramentas e tarefas sensíveis em geral." },
-      { q: "Por que usar IA local pra planilhas?", a: "Porque planilhas normalmente têm dados financeiros, comerciais ou operacionais que ninguém quer ver em servidor alheio. É um bom ponto de partida pra validar o agente com menos risco." },
-      { q: "Substitui um chatbot?", a: "Vai além. O AetherCore entende objetivos, monta plano, usa ferramentas, lê e escreve arquivos, registra o que fez e pede aprovação pra ações sensíveis. Chatbot só conversa." },
-      { q: "Meus arquivos vão pra nuvem?", a: "A proposta é que não. Execução local é o padrão. Se alguma integração externa for necessária, ela é opcional, explícita e precisa de autorização." },
-      { q: "Pra quem é indicado?", a: "Empresas e profissionais que lidam com planilhas, relatórios, contratos e dados sensíveis. Principalmente financeiro, contabilidade, jurídico, auditoria e gestão." },
-      { q: "Como o AetherCore protege minhas chaves de API e segredos?", a: "O Kernel Rust cifra todas as credenciais com AES-256-GCM antes de gravar no disco. Cada item recebe um nonce randômico único de 12 bytes. A chave mestra de 256 bits é gerada por CSPRNG de hardware (OsRng) na primeira inicialização e nunca sai do dispositivo. Nenhum segredo existe em texto puro em nenhum momento — política Zero-Plaintext." },
+      { q: "O que significa local-first?", a: "É uma prioridade de arquitetura para manter mais processamento perto do usuário. O caminho real depende do modelo e das integrações." },
+      { q: "O AetherCore está disponível?", a: "Estamos organizando o acesso antecipado por convite. Entre em contato para conhecer os fluxos e participar da próxima etapa de testes." },
+      { q: "Por que oferecer um núcleo local gratuito?", a: "A entrada gratuita amplia o acesso sem exigir que a EXVORN pague a inferência local de cada usuário: ela roda no hardware e no modelo escolhidos por ele. A receita planejada vem de implantação, suporte e governança para equipes, contratados conforme o escopo." },
+      { q: "Meus arquivos ficam no dispositivo?", a: "Arquivos podem ser selecionados em um workspace local. Se um modelo ou integração remota receber esse conteúdo, ele pode sair do dispositivo." },
+      { q: "O produto funciona totalmente offline?", a: "Com um modelo local configurado, a inferência pode ocorrer no dispositivo. Atualizações e integrações opcionais podem usar a rede." },
+      { q: "O AetherCore garante conformidade com a LGPD?", a: "Não. Conformidade depende do contexto, bases legais, contratos, políticas e controles da organização." },
+      { q: "Há sandbox de sistema operacional?", a: "O isolamento documentado é lógico no nível do workspace; não equivale a sandbox do sistema operacional, VM ou contêiner." },
+      { q: "Como são protegidas credenciais?", a: "O beta inclui gestão de credenciais. A implementação precisa de revisão independente antes de ser apresentada como controle corporativo." }
     ],
   },
   PRIVACIDADE: {
-    kicker: "trust center",
-    title: "Privacidade, controle e execução local.",
-    lead:
-      "Como o AetherCore trata seus arquivos: escopo definido, consentimento, registro e processamento local.",
-    policyKicker: "política técnica",
-    policyTitle: "O design reduz exposição antes de prometer segurança.",
-    policyDesc:
-      "Isso não substitui uma política jurídica. São os princípios técnicos do beta. Precisam ser validados com a implementação real antes de virar produto.",
+    kicker: "privacidade · beta", title: "Entenda cada caminho de dados.", lead: "O comportamento depende da configuração, do modelo, das ferramentas e dos serviços conectados.",
+    policyKicker: "caminhos de dados", policyTitle: "Você escolhe o caminho de execução.", policyDesc: "A configuração do modelo e das integrações determina quais dados seguem para serviços externos. Revise essas escolhas para cada fluxo.",
     cards: [
-      { tag: "local-first", t: "Processa perto dos arquivos", d: "O foco é análise local de XLSX e documentos, pra reduzir a necessidade de enviar bases sensíveis pra serviços externos." },
-      { tag: "approval", t: "Ações sensíveis passam por revisão", d: "Escrita em arquivos, conexões externas e alterações relevantes passam por uma tela de aprovação com escopo e justificativa." },
-      { tag: "logs", t: "Log sem espetáculo", d: "O sistema registra eventos suficientes pra depuração e prestação de contas. Sem coletar mais do que precisa." },
-      { tag: "segredos", t: "Redação e retenção", d: "Segredos, tokens e credenciais não aparecem em relatórios ou logs legíveis. Retenção é configurável." },
-      { tag: "cofre", t: "Cofre Simétrico AES-256-GCM", d: "Todas as credenciais (chaves de API, tokens OAuth, segredos) são cifradas com AES-256-GCM antes de tocar o disco. Chave mestra de 256 bits gerada por CSPRNG de hardware (OsRng), nonce único de 12 bytes por item. Política Zero-Plaintext: nenhum segredo existe em texto puro em nenhum momento." },
-      { tag: "transparência", t: "Conexão externa explícita", d: "Quando houver integração externa, você sabe pra onde, por quê e com quais dados." },
-      { tag: "limite", t: "Beta, sem promessas absolutas", d: "AetherCore prioriza controle local e redução de exposição. Não promete privacidade total ou segurança infalível." },
+      { tag: "modelos", t: "Local ou remoto", d: "Um modelo local pode processar inferência no dispositivo. Um provedor externo pode receber dados enviados a ele." },
+      { tag: "aprovação", t: "Revise ações cobertas", d: "Há etapas de aprovação para parte das ações de escrita e rede; a cobertura completa ainda precisa ser validada." },
+      { tag: "registros", t: "Consulte os logs do beta", d: "O aplicativo mantém registros locais de eventos. Não os descrevemos como imutáveis, completos ou certificados." },
+      { tag: "credenciais", t: "Segurança sob revisão", d: "O tratamento de credenciais precisa de revisão independente antes de uso corporativo sensível." },
+      { tag: "conexões", t: "Confira destino e conteúdo", d: "Antes de usar uma API externa, identifique o destino, os dados transmitidos e as regras do provedor." },
+      { tag: "limites", t: "Escolha informada", d: "Associe cada tarefa ao modelo, integração e controles adequados ao seu ambiente." }
     ],
   },
   ROADMAP: {
-    kicker: "plano de execução centelha PR",
-    title: "Cronograma de Consolidação e Entrada no Mercado",
-    lead:
-      "Planejamento de 12 meses focado em robustez tecnológica, validação regulatória regional e expansão comercial B2B pós-fomento.",
-    timelineKicker: "cronograma",
-    timelineTitle: "Fases claras com entregas tangíveis e de baixo risco.",
-    timelineDesc:
-      "Estruturado para demonstrar avanço técnico contínuo e inserção assertiva no mercado de tecnologia do Paraná.",
+    kicker: "roadmap · hipóteses de execução", title: "Provar valor antes de escalar.", lead: "A sequência de execução: distribuição, segurança, pilotos mensuráveis e expansão comercial a partir dos resultados.",
+    timelineKicker: "próximas etapas", timelineTitle: "Uma sequência para reduzir incerteza.", timelineDesc: "Cada etapa depende da anterior e pode mudar com evidência de uso.",
     phases: [
-      { period: "Meses 1–3", t: "Consolidação e Sandbox", d: "Otimizar o motor local em Rust e proxy Ollama com aceleração de hardware (GPU), estabilizando a sandbox e a integração XLSX nativa." },
-      { period: "Meses 4–6", t: "Projetos-Piloto no Paraná", d: "Homologar a ferramenta em 5 pilotos em empresas reais e cooperativas da região de Curitiba. Medir a economia de tempo de auditoria e conformidade." },
-      { period: "Meses 7–9", t: "Módulo de Governança DPO", d: "Desenvolver o painel de auditoria do DPO, permitindo relatórios em PDF locais e redação automatizada de dados pessoais sensíveis." },
-      { period: "Meses 10–12", t: "Entrada Comercial e Homologação", d: "Embalar a versão comercial integrada (AetherNode), capturar clientes corporativos ativos e obter certificações de segurança locais." },
+      { period: "Etapa 1", t: "Preparar versão de teste", d: "Consolidar instalador, validar instalação limpa no Windows e publicar uma matriz de modelos suportados." },
+      { period: "Etapa 2", t: "Revisar limites de segurança", d: "Mapear fluxos de dados, permissões, armazenamento e superfícies de ataque; buscar revisão independente." },
+      { period: "Etapa 3", t: "Executar pilotos consentidos", d: "Convidar poucos usuários para tarefas de baixo risco e registrar qualidade, falhas, tempo de revisão e custo." },
+      { period: "Etapa 4", t: "Validar sustentabilidade comercial", d: "Testar disposição a pagar e custo de suporte antes de publicar tiers, preços ou metas de receita." }
     ],
-    metricsKicker: "métricas de fomento",
-    metricsTitle: "Como vamos medir o sucesso do projeto.",
-    metricsDesc:
-      "Métricas claras exigidas em auditorias de fomento para provar viabilidade comercial, proteção de dados e produtividade.",
+    metricsKicker: "métricas propostas", metricsTitle: "O que vamos medir.", metricsDesc: "Qualidade, custo e controle de dados guiam cada piloto.",
     metrics: [
-      { tag: "produtividade", t: "Tempo de Processamento", d: "Reduzir o tempo de compilação de relatórios e análises de planilhas complexas em até 80% comparado ao fluxo manual." },
-      { tag: "conformidade", t: "Vazamento Zero de Dados", d: "Processamento local por padrão para dados sensíveis em workspaces configurados, com tráfego externo apenas quando autorizado." },
-      { tag: "mercado", t: "Tração de Clientes Beta", d: "Atingir pelo menos 20 clientes corporativos ativos utilizando a plataforma em ambiente corporativo até o 12º mês." },
+      { tag: "produto", t: "Conclusão da tarefa", d: "Medir tarefas concluídas, erros, intervenção humana e tempo de revisão." },
+      { tag: "segurança", t: "Fluxos de dados", d: "Inventariar cada conexão e validar quais conteúdos deixam o dispositivo." },
+      { tag: "negócio", t: "Disposição a pagar", d: "Fazer entrevistas e pilotos antes de anunciar conversão, receita ou preço definitivo." }
     ],
   },
   REFERENCIAS: {
@@ -449,282 +334,104 @@ export const CONTENT_PT = {
     ],
   },
   DOSSIE: {
-    kicker: "dossiê de fomento e viabilidade",
-    title: ["AetherCore: Inteligência Local,", "Soberania de Dados", "e Conformidade Regulatória"],
-    lead:
-      "Documentação de maturidade tecnológica e viabilidade comercial desenhada para editais de inovação, investidores e comitês de homologação (ex: Centelha Paraná).",
-    summaryKicker: "tese tecnológica e de mercado",
-    summaryTitle: "O projeto estruturado em 6 pilares fundamentais.",
+    kicker: "resumo técnico e comercial", title: ["AetherCore:", "evidência antes", "de escala."], lead: "A tese da EXVORN.TECH: levar IA acionável para perto dos arquivos, com escolha de modelo, contexto delimitado e revisão humana.",
+    summaryKicker: "tese de produto", summaryTitle: "Quatro questões guiam a próxima fase.",
     blocks: [
-      { tag: "01. problema", t: "Vazamento de dados corporativos via nuvem", d: "A pressa para usar IA faz funcionários colarem planilhas e minutas confidenciais em IAs públicas. Isso quebra NDAs e expõe a empresa a pesadas multas da LGPD." },
-      { tag: "02. solução", t: "IA de agente local por padrão", d: "O AetherCore traz o processamento de IA para perto dos arquivos corporativos. O agente lê e processa planilhas, códigos e PDFs dentro do ambiente do usuário." },
-      { tag: "03. inovação", t: "Arquitetura blindada e Human-in-the-Loop", d: "Motor local nativo em Rust com comunicação segura, isolamento de processos de runtime e logs estruturados em SQLite. Toda escrita ou conexão de rede exige aprovação ativa." },
-      { tag: "04. mercado", t: "Foco em B2B regulado e cooperativismo", d: "Nosso mercado inicial foca em DPOs, escritórios jurídicos, auditorias e contabilidades corporativas. O Paraná oferece um setor cooperativo gigante que necessita dessa blindagem." },
-      { tag: "05. maturidade", t: "19 meses de desenvolvimento contínuo", d: "Não somos um wrapper recente. A base tecnológica do AetherCore representa 19 meses de P&D focado em otimização de VRAM, segurança de sandboxes e IPC seguro, atingindo a robustez da v0.6.0." },
-      { tag: "06. fomento", t: "Homologação e Módulo Multiusuário", d: "A subvenção do Centelha Paraná permitirá acelerar a homologação de segurança, realizar auditoria externa de código aberto e finalizar o painel corporativo do DPO." },
+      { tag: "01. problema", t: "Dados atravessam múltiplos serviços", d: "Equipes precisam saber quais modelos e integrações recebem arquivos e instruções de trabalho." },
+      { tag: "02. abordagem", t: "Modelos próximos ao contexto", d: "O AetherCore conecta um agente a workspaces e ferramentas, com modelos locais e provedores remotos como opções." },
+      { tag: "03. controles", t: "Escopo e revisão", d: "Controles de workspace e aprovações existem no beta; isolamento e cobertura precisam de validação completa." },
+      { tag: "04. mercado", t: "Entrada pelo trabalho com arquivos", d: "Começamos por equipes que processam documentos e planilhas, onde contexto, tempo de revisão e destino dos dados têm valor econômico claro." },
+      { tag: "05. maturidade", t: "Base técnica construída", d: "A aplicação desktop, o runtime em Rust e testes de componentes formam a base para distribuição e pilotos mensuráveis." },
+      { tag: "06. capital", t: "Uso proposto", d: "Recursos apoiariam produto testável, revisão independente, pilotos consentidos e descoberta comercial." }
     ],
-    planKicker: "cronograma de desenvolvimento de fomento",
-    planTitle: "Roadmap e Metas Claras de Implementação (12 Meses)",
-    plan: [
-      { period: "Mês 1–3 (P&D Interno)", d: "Consolidação e polimento do motor local em Rust, refinamento da sandbox e suporte nativo ao XLSX com proxy Ollama otimizado (versão v0.6.0)." },
-      { period: "Mês 4–6 (Validação Regional)", d: "Implementação de 5 pilotos controlados em cooperativas e escritórios no Paraná para medir ganho de tempo em auditoria de planilhas e assegurar vazamento zero." },
-      { period: "Mês 7–9 (Módulo de Governança)", d: "Desenvolver o painel de auditoria do DPO, com logs locais estruturados criptografados e algoritmos locais para redação de dados sensíveis de clientes." },
-      { period: "Mês 10–12 (Entrada Comercial)", d: "Preparação da embalagem comercial (AetherNode / OS), auditoria de segurança externa, captação de clientes iniciais e preparação de escala." },
+    planKicker: "marcos planejados", planTitle: "Sequência de validação", plan: [
+      { period: "Etapa 1", d: "Preparar pacote de instalação e documentar versões e modelos suportados." },
+      { period: "Etapa 2", d: "Validar fronteiras de dados e buscar revisão independente de segurança." },
+      { period: "Etapa 3", d: "Conduzir pilotos consentidos com tarefas e dados de baixo risco." },
+      { period: "Etapa 4", d: "Validar preço, custo de suporte e modelo freemium antes de uma oferta comercial." }
     ],
   },
   PRICING: {
-    kicker: "preços",
-    title: ["Escolha o plano", "que cabe no seu", "fluxo de trabalho."],
-    lead:
-      "Comece pela demo beta, evolua para o app local com Qwen/Ollama e leve governança auditável para equipes quando fizer sentido.",
-    annualLabel: "Cobrança anual",
-    annualSaveLabel: "Economize até 20%",
-    buttonLabel: "Começar agora",
-    contactLabel: "Falar com a gente",
+    kicker: "modelo de acesso", title: ["Acesso grátis", "com operação", "sustentável."],
+    lead: "Nossa estratégia de lançamento prevê um núcleo local gratuito para adoção e soluções para equipes com implantação, suporte e governança sob proposta. Solicite acesso antecipado.",
+    annualLabel: "Estratégia de acesso", annualSaveLabel: "Acesso antecipado", buttonLabel: "Conversar sobre beta", contactLabel: "Conversar sobre beta",
     plans: [
-      {
-        id: "free",
-        name: "Aether Free",
-        description: "Entrada beta para conhecer o fluxo sem instalar nada.",
-        priceMonthly: 0,
-        priceYearly: 0,
-        users: "Demo guiada / Beta",
-        recommended: false,
-        features: [
-          { label: "Acesso à lista beta e materiais de validação", included: true },
-          { label: "Demo com dados de exemplo e tarefas leves", included: true },
-          { label: "Sem instalação local obrigatória", included: true },
-          { label: "Fluxo de aprovação humana demonstrável", included: true },
-          { label: "Contato para diagnóstico de caso real", included: true },
-          { label: "Sem uso com dados sensíveis de produção", included: false },
-          { label: "Sem agente local persistente", included: false },
-          { label: "Sem escrita em arquivos reais", included: false },
-        ],
-      },
-      {
-        id: "go",
-        name: "Aether Go",
-        description: "App desktop 100% local com Qwen/Ollama para produtividade individual.",
-        priceMonthly: 99,
-        priceYearly: 950,
-        users: "1 usuário (Local)",
-        recommended: true,
-        features: [
-          { label: "App desktop local com Qwen via Ollama", included: true },
-          { label: "Modelo carregado sob demanda para economizar RAM", included: true },
-          { label: "Leitura e escrita local avançada de XLSX/CSV", included: true },
-          { label: "Ferramentas Rust para arquivos, busca e execução supervisionada", included: true },
-          { label: "Execução local com aprovação humana", included: true },
-          { label: "ARL local com histórico e rastreio de ações", included: true },
-          { label: "Conexões externas apenas quando autorizadas", included: true },
-          { label: "Uso condicionado ao hardware do dispositivo", included: true },
-        ],
-      },
-      {
-        id: "enterprise",
-        name: "Aether Enterprise",
-        description: "Governança, conformidade, permissões e logs para pequenos times.",
-        priceMonthly: 449,
-        priceYearly: 4310,
-        users: "Workspace (Até 5 usuários base)",
-        recommended: false,
-        features: [
-          { label: "Tudo do Aether Go", included: true },
-          { label: "Workspace com até 5 usuários base", included: true },
-          { label: "Dual-Control Audit Paradigm (aprovação dupla para ações de risco)", included: true },
-          { label: "Módulos Voluntários de Conformidade (compliance com auditorias)", included: true },
-          { label: "Permissões por usuário, pasta e tipo de ação", included: true },
-          { label: "Logs ARL auditáveis e exportáveis criptografados", included: true },
-          { label: "Implantação assistida em sandbox privada e suporte prioritário", included: true },
-          { label: "Usuários adicionais sob consulta", included: true },
-        ],
-      },
-      {
-        id: "scale",
-        name: "Aether Scale",
-        description: "Implantação dedicada para ambientes corporativos privados e regulados.",
-        priceMonthly: null,
-        priceYearly: null,
-        users: "Deploy Dedicado",
-        recommended: false,
-        features: [
-          { label: "Deploy on-premise ou intranet isolada integralmente", included: true },
-          { label: "Integrações personalizadas com APIs, bancos e fluxos internos", included: true },
-          { label: "Políticas corporativas rígidas de governança e retenção", included: true },
-          { label: "Auditoria sob demanda e logs locais sob medida", included: true },
-          { label: "Treinamento, runbooks corporativos e suporte dedicado 24/7", included: true },
-          { label: "Contratos e faturamento flexíveis de grande escala", included: true },
-        ],
-      },
+      { id: "free", name: "Aether Free", description: "Núcleo local gratuito previsto para o lançamento público.", priceMonthly: null, priceYearly: null, users: "Lançamento planejado", recommended: false, features: [{ label: "Inferência local com hardware e modelo do usuário", included: true }, { label: "Custo de inferência local no hardware do usuário", included: true }] },
+      { id: "go", name: "Aether Go", description: "Experiência desktop individual e suporte: escopo comercial em definição.", priceMonthly: null, priceYearly: null, users: "Acesso antecipado", recommended: false, features: [{ label: "Pacote desktop e suporte planejados", included: true }, { label: "Acesso antecipado por convite", included: true }] },
+      { id: "enterprise", name: "Aether Enterprise", description: "Implantação e suporte para equipes, com proposta conforme escopo.", priceMonthly: null, priceYearly: null, users: "Sob proposta", recommended: false, features: [{ label: "Administração e governança planejadas", included: true }, { label: "Escopo e suporte definidos por contrato", included: true }] },
+      { id: "scale", name: "Aether Scale", description: "Infraestrutura dedicada desenhada para necessidades específicas.", priceMonthly: null, priceYearly: null, users: "Projeto sob proposta", recommended: false, features: [{ label: "Implantação e integrações dedicadas planejadas", included: true }, { label: "Projeto e condições definidos antes da contratação", included: true }] }
     ],
   },
   PLUGINS: {
     kicker: "extensibilidade",
     title: ["Plugins", "AetherCore."],
-    lead: "Expanda a inteligência do AetherCore conectando provedores locais e ferramentas externas com segurança local-first.",
-    cardsTitle: "O que você pode conectar",
-    cardsDesc: "Uma superfície de plugins para escolher o motor, conversar por canais autorizados e executar ferramentas com o Kernel mantendo a decisão humana no centro.",
+    lead: "Integrações são uma área em avaliação. Confirme disponibilidade, destino dos dados e controles antes de habilitar um conector.",
+    cardsTitle: "Conectores em avaliação",
+    cardsDesc: "Esta lista aponta tecnologias possíveis; não confirma que cada integração esteja disponível, auditada ou pronta para produção.",
     cards: [
       {
         t: "Motores locais · LocalAI + Ollama",
-        d: "Rode LLMs, áudio, imagens e embeddings no próprio hardware. O plugin só expõe o que o workspace autorizou, sem amarrar o Kernel a um fornecedor.",
+        d: "Ollama e LocalAI são opções de execução local. Compatibilidade, versões e limites precisam ser validados por modelo.",
         icon: "Cpu",
         link: "https://localai.io"
       },
       {
         t: "Telegram Bridge",
-        d: "Converse com os agentes pelo Telegram e escolha o motor por conversa — Granite, Qwen, Gemma, GLM, Llama ou outro provider configurado — sempre com aprovação e escopo explícitos.",
+        d: "Um canal de mensagens pode encaminhar instruções e respostas a serviços externos. Disponibilidade e aprovações devem ser verificadas no fluxo usado.",
         icon: "PaperPlaneTilt",
         link: "https://core.telegram.org/bots/api"
       },
       {
         t: "Model API Bridge",
-        d: "Use APIs compatíveis com OpenAI/GPT, Anthropic/Claude e Google/Gemini quando você permitir. O mesmo contrato também acomoda Granite, Qwen, Gemma, GLM e Llama em endpoints locais ou remotos.",
+        d: "Provedores remotos podem receber prompts e contexto encaminhados a eles. Revise o provedor, o contrato e o conteúdo enviado.",
         icon: "Brain",
         link: "https://platform.openai.com/docs/api-reference"
       },
       {
         t: "Model Context Protocol (MCP)",
-        d: "Conecte servidores MCP externos para importar contextos e ferramentas universais de forma padronizada, com permissões visíveis antes de cada ação.",
+        d: "Conexões com servidores MCP externos são uma possibilidade técnica; permissões, destinos e disponibilidade precisam de validação.",
         icon: "Blocks",
         link: "https://modelcontextprotocol.io"
       },
       {
         t: "Ferramentas & Memory RAG",
-        d: "Adicione ações executáveis, índices vetoriais e pipelines RAG diretamente ao Memory Kernel local, com trilha de auditoria por workspace.",
+        d: "Memória, índices vetoriais e pipelines RAG permanecem sujeitos a validação de implementação e tratamento de dados.",
         icon: "Database"
       },
       {
         t: "Webhooks & Eventos locais",
-        d: "Reaja a arquivos, filas e eventos do sistema sem transformar cada integração em um processo residente pesado.",
+        d: "Webhooks e eventos locais são uma área em estudo; não há compromisso de disponibilidade ou desempenho.",
         icon: "ArrowsClockwise"
       }
     ],
-    featuresTitle: "Segurança de Extensão",
-    featuresDesc: "Controle estrito sobre o ciclo de vida dos plugins instalados.",
+    featuresTitle: "Limites de extensão",
+    featuresDesc: "A segurança e o isolamento de extensões ainda precisam de revisão independente.",
     features: [
       {
         title: "Manifesto plugin.json",
-        desc: "Cada plugin declara explicitamente suas capacidades e as permissões de acesso requisitadas ao Kernel."
+        desc: "Manifestos e permissões devem ser revisados por conector; a validação completa segue pendente."
       },
       {
         title: "Isolamento por Workspace",
-        desc: "Configurações e chaves ativas de plugins ficam restritas ao workspace do projeto atual."
+        desc: "Limites de workspace são lógicos na aplicação e não equivalem a sandbox do sistema operacional."
       }
     ]
   },
-  VALIDACAO: {
-    kicker: "validação institucional · private hedge fund",
-    title: ["Validação em", "Hedge Fund Offshore", "de ¥45M+ anuais."],
-    lead: "Enquanto o mercado corporativo arrisca segredos de alto valor em nuvens públicas de Big Techs, a Pacific Palm Partners — private hedge fund de raízes italianas sediado no centro financeiro de Labuan (Malásia) que movimenta mais de 45 milhões de Yuans anuais — homologou a eficácia, a velocidade e o isolamento absoluto de dados do AetherCore.",
-    stats: [
-      { k: "¥45.000.000+", label: "Turnover Anual em RMB", sub: "Arbitragem e operações cross-border offshore" },
-      { k: "0 Bytes", label: "Vazados para Nuvem", sub: "Execução 100% local com isolamento criptográfico" },
-      { k: "82%", label: "Redução de Tempo", sub: "Auditoria e cruzamento de planilhas complexas" },
-      { k: "Labuan IBFC", label: "Jurisdição Offshore", sub: "Hub financeiro internacional da Malásia" }
-    ],
-    partner: {
-      name: "Pacific Palm Partners",
-      sector: "Capital de risco e participações privadas · Private Hedge Fund",
-      tagline: "Private Hedge Fund & Cross-Border Digital Strategy",
-      location: "Labuan, Malaysian Federal Territory of Labuan (Labuan IBFC)",
-      origin: "Origens e governança estratégica italiana",
-      linkedinUrl: "https://www.linkedin.com/company/pacific-palm-partners",
-      logoUrl: "/assets/img/brand/pacific-palm-logo.png",
-      description: "Operação financeira institucional focada em alinhar estratégia digital com objetivos de investimento global, capturando oportunidades de mercado cross-border e eficiências operacionais impulsionadas por tecnologia de ponta."
-    },
-    founderRole: {
-      kicker: "atuação executiva do fundador",
-      title: "Arquitetura Digital em Finanças Globais",
-      subtitle: "Matheus Peres da Silva · Estratégia Digital & Análise de Portfólio",
-      workplace: "Private Hedge Fund — Labuan, Malaysia",
-      duties: [
-        {
-          title: "Alinhamento de Estratégia Digital & Investimentos Globais",
-          desc: "Engajado no alinhamento de estratégia digital com objetivos de investimento global, focando em eficiências orientadas por tecnologia e oportunidades de mercado cross-border."
-        },
-        {
-          title: "Análise de Portfólio & Transformação Digital",
-          desc: "Contribui para análise de portfólio, iniciativas de transformação digital e projetos orientados à inovação projetados para conectar o mercado financeiro tradicional à moderna análise de dados."
-        },
-        {
-          title: "Tendências Emergentes & Crescimento de Ativos",
-          desc: "Trabalho próximo aos sócios seniores na identificação de tendências em mercados emergentes, otimização de frameworks operacionais e suporte ao crescimento de ativos a longo prazo por meio de inteligência digital estratégica."
-        }
-      ]
-    },
-    stressTest: {
-      kicker: "o teste de fogo · auditoria de alto impacto",
-      title: "Por que a IA comum quebra e o AetherCore venceu.",
-      desc: "No mercado de hedge funds offshore e arbitragem de ¥45M+ por ano, um único vazamento de posição financeira ou planilha estratégica para data centers de terceiros causaria prejuízos catastróficos. Veja como o AetherCore foi validado em campo.",
-      pillars: [
-        {
-          n: "01",
-          tag: "Sigilo Offshore Absoluto",
-          title: "Zero Exposição a Servidores Estrangeiros",
-          desc: "A Pacific Palm Partners opera sob estrito sigilo de dados financeiros. Todas as análises de valuation, fluxos de câmbio em Renminbi (RMB) e balanços foram processados 100% no hardware local, sem disparar uma única requisição HTTP para fora.",
-          badge: "100% Offline Validated"
-        },
-        {
-          n: "02",
-          tag: "Velocidade em Rust",
-          title: "Auditoria Instantânea de XLSX Complexos",
-          desc: "Planilhas densas de portfólio com dezenas de milhares de linhas e fórmulas cruzadas foram processadas, auditadas e sumarizadas em segundos pelos motores nativos em Rust do AetherCore, acelerando decisões dos sócios seniores.",
-          badge: "82% Ganho de Velocidade"
-        },
-        {
-          n: "03",
-          tag: "Human-in-the-Loop",
-          title: "Aprovação Física Obrigatória",
-          desc: "No setor financeiro, alucinações de IA geram prejuízo real. O AetherCore nunca escreve em arquivos ou toma ações sem a confirmação explícita do operador humano na tela de aprovação com escopo e cálculo de risco.",
-          badge: "Controle Total do Operador"
-        },
-        {
-          n: "04",
-          tag: "Imunidade Regulatória",
-          title: "Governança Blindada Cross-Border",
-          desc: "Trilha de auditoria local em SQLite gravando cada arquivo tocado e cada cálculo efetuado, permitindo auditorias contábeis e fiscais imediatas com confiabilidade matemática e jurídica absoluta.",
-          badge: "Audit Trail Imutável"
-        }
-      ]
-    },
-    verdict: {
-      kicker: "veredito institucional",
-      quote: "O AetherCore provou em produção o que nenhuma Big Tech consegue entregar: a capacidade de raciocinar sobre dados financeiros ultra-sensíveis e planilhas multimilionárias sem enviar um único bit para a nuvem. Eficácia, velocidade e soberania validadas no mais alto padrão de exigência offshore.",
-      author: "Pacific Palm Partners — Labuan IBFC",
-      badge: "Eficácia e Segurança Homologadas"
-    },
-    terminal: {
-      kicker: "telemetria de stress test",
-      title: "Registro de Auditoria de Portfólio Offshore",
-      filename: "cross_border_portfolio_audit_v06.rs",
-      badge: "Sandbox Ativa · Zero Vazamento",
-      lines: [
-        "[KERNEL] Initializing local memory sandbox for Pacific Palm Partners (Labuan IBFC)...",
-        "[AUTH] Operator: Matheus Peres da Silva · Role: Digital Strategy & Portfolio Insight",
-        "[ENV] Target Volume: ¥45,000,000.00 RMB · Cross-border Asset Allocation",
-        "[SANDBOX] Ingesting 14 encrypted XLSX/CSV balance sheets and currency matrices...",
-        "[COMPUTE] Local Qwen + Rust IPC executing quantitative anomaly detection...",
-        "[NETWORK] External network interface: HARD BLOCKED (0 packets sent / 0 received)",
-        "[ARL-AUDIT] Processing latency: 142ms · VRAM utilization: 2.1 GB · 0 cloud fallback",
-        "[STATUS] 100% local validation successful. Human-in-the-loop signoff verified."
-      ]
-    }
-  }
+
 };
 
 export const CONTENT_EN = {
   BRAND: {
     name: "AetherCore",
     version: "v0.6.0 · beta",
-    tagline: "local AI / beta",
+    tagline: "AI for real work",
     copyright: "© 2026 AetherCore. Local-first AI. Curitiba, Brazil. Contact: business@exvorn.tech",
   },
   NAV_LINKS: [
     { label: "Home", to: "/" },
     { label: "Ecosystem", to: "/ecossistema" },
     { label: "About", to: "/sobre" },
-    { label: "Validation", to: "/validacao" },
+    { label: "Early access", to: "/validacao" },
     { label: "Product", to: "/produto" },
     { label: "Sustainability", to: "/sustentabilidade" },
     { label: "Blog", to: "/blog" },
@@ -738,65 +445,66 @@ export const CONTENT_EN = {
   FOOTER_LINKS: [],
   HOME: {
     badge: "v0.6.0 · beta",
-    heroStatus: "Local system · full access",
+    heroStatus: "Local-first AI · early access",
     aether: {
-      eyebrow: "Autonomous Agent Platform",
-      eyebrowRight: "EST. 2025 — v0.6.0",
-      headline: { l1: "Beyond", l2: "Automation.", l3a: "Pure", l3b: "Cognition" },
-      sub: "AetherCore replaces rigid workflows with a local AI nervous system — thinking, adapting, and executing at the speed of your ambition. Nothing leaves your device without your knowledge.",
+      eyebrow: "Local-first AI for file-based work",
+      eyebrowRight: "BETA · v0.6.0",
+      headline: { l1: "AI for", l2: "real work.", l3a: "With", l3b: "control." },
+      sub: "A desktop app that brings AI models, files, and tools into a focused workflow. Choose local execution or connect external services when they fit the task.",
       consoleLabel: "AetherCore Console",
-      consoleLive: "Live Agent Mesh",
+      consoleLive: "Beta runtime",
       scrollBadge: "Scroll to explore • AetherCore •",
       chapters: [
-        { n: "01", title: "The End of Scripts", body: "Goodbye to rigid 'if-then' logic. Agents reason about ambiguity instead of breaking with it." },
-        { n: "02", title: "Autonomous Execution", body: "Millisecond decisions, verified by you. From triage to deployment, with end-to-end human approval." },
-        { n: "03", title: "Local by Default", body: "An agent that learns your operational cadence and gets sharper with every cycle — without anything leaving your machine." },
+        { n: "01", title: "Contextual tasks", body: "Work with selected files and keep task context in one workspace." },
+        { n: "02", title: "A plan to review", body: "Follow the agent plan, tools, and review steps." },
+        { n: "03", title: "Local when configured", body: "Choose local models for on-device inference or external providers for specific tasks." },
       ],
-      marquee: ["AETHERCORE", "THE NEW STANDARD FOR AUTONOMOUS AGENTS", "LOCAL COGNITION"],
+      marquee: ["AETHERCORE", "AI FOR REAL WORK", "VISIBLE DATA PATHS"],
     },
     heroRotate: ["execute.", "plan.", "review.", "audit.", "automate."],
-    heroChipsLabel: "what already works",
+    heroChipsLabel: "AetherCore capabilities",
     heroChips: [
       { t: "Local Qwen", icon: "Cpu" },
       { t: "XLSX and CSV", icon: "Table2" },
       { t: "Local files", icon: "HardDrive" },
-      { t: "Human approval", icon: "ShieldCheck" },
-      { t: "Auditable logs", icon: "ClipboardCheck" },
-      { t: "AES-256-GCM Vault", icon: "LockKey" },
+      { t: "Review steps", icon: "ShieldCheck" },
+      { t: "Local event records", icon: "ClipboardCheck" },
+      { t: "Optional connections", icon: "LockKey" },
     ],
-    titleLead: "Agents that",
-    titleEm: "autonomous.",
-    titleEnd: "Absolute control.",
+    titleLead: "AI agents",
+    titleEm: "for files.",
+    titleEnd: "Control in action.",
     primaryCta: "Request early access",
     secondaryCta: "See the first XLSX case",
     lead:
-      "AetherCore reads your files, runs tasks on your machine, and requests approval before modifying anything sensitive. Nothing leaves your device without your knowledge.",
+      "AetherCore connects models, tools, and files in a desktop app. Its Rust runtime coordinates the workflow; you define the workspace and choose local models or external connections.",
     metrics: [
-      { k: "Local", v: "on-device files" },
-      { k: "Review", v: "human approval" },
-      { k: "Agentic", v: "plans & uses tools" },
+      { k: "Models", v: "local or remote" },
+      { k: "Review", v: "approval steps" },
+      { k: "Data", v: "logical scope" },
     ],
     pillars: [
-      { t: "Local-first", d: "runs on device" },
-      { t: "Human-in-the-loop", d: "you approve" },
-      { t: "Audit trail", d: "fully logged" },
-      { t: "AES-256 Vault", d: "secrets encrypted at rest" },
+      { t: "Local-first", d: "on-device inference" },
+      { t: "Review", d: "approval steps" },
+      { t: "Records", d: "workflow events" },
+      { t: "Integrations", d: "configurable destinations" },
     ],
     whatIsAether: {
       kicker: "what does aether do?",
-      title: "Your working AI, local by default.",
-      desc: "It does everything the famous cloud AIs do, but isolated in your environment. Develop, research, and analyze without sharing data.",
+      title: "Your work and your AI in one context.",
+      desc: "AetherCore is designed to work on files with configurable models, tools, and human review. Request early access.",
       cards: [
-        { t: "Chat & Writing", d: "Chat and draft documents using advanced SOTA models.", icon: "MessageSquareText" },
-        { t: "Code Generation", d: "Code autonomously with local file editing tools in a sandbox.", icon: "Code2" },
-        { t: "Data Analysis", d: "Crunch complex spreadsheets with total local security.", icon: "Table2" },
-        { t: "Web Search", d: "The agent searches external data only when you authorize.", icon: "Globe" },
+        { t: "Chat & writing", d: "Use configured models to write, summarize, and organize ideas.", icon: "MessageSquareText" },
+        { t: "Tools", d: "Access tools within a focused task.", icon: "Code2" },
+        { t: "Files", d: "Work with files and spreadsheets in the selected workspace.", icon: "Table2" },
+        { t: "Connections", d: "Check destination and content before using external services.", icon: "Globe" },
       ]
     },
     stackKicker: "technical foundation",
     stackTitle: "What runs underneath.",
     stackDesc:
-      "Models run on your machine, tools are opened locally, permissions stay with you. Zero external server requirement.",
+      "A Rust runtime coordinates models, tools, and execution events. With local models, inference runs on-device; external providers remain a configuration choice.",
+    localBadge: "Local models + optional connections",
     stackCredit:
       "Logos shown for reference only. No partnership or endorsement implied. AetherCore is independent.",
     mapKicker: "sitemap",
@@ -812,24 +520,24 @@ export const CONTENT_EN = {
     ],
     synthKicker: "commercial summary",
     synthTitle:
-      "An AI that gets work done, for companies that cannot leak data.",
+      "AI that brings models and tools closer to file-based work.",
     synthDesc:
-      "Starting with spreadsheets, but already reads documents, generates reports, and runs automated pipelines. All with approval.",
+      "We start with files and spreadsheets: a concrete need for teams that want AI with context, model choice, and a chance to review actions.",
     synth: [
       {
         tag: "The Problem",
         t: "Sensitive data scattered across third-party tools",
-        d: "Critical information ends up on external servers, with zero control over who accesses it or how it is stored.",
+        d: "Information may move through external services without a clear view of destination, retention, or access rules.",
       },
       {
         tag: "The Solution",
         t: "AI running close to your files",
-        d: "AetherCore processes everything on-device. If it needs to perform a risky action, it prompts for approval first.",
+        d: "AetherCore combines local inference, tools in the workspace, and review steps for covered actions.",
       },
       {
         tag: "Inception",
         t: "First Use Case: Spreadsheets",
-        d: "Complex Excel spreadsheets turn into insights and reports without ever leaving your machine.",
+        d: "Spreadsheets make value visible in checkable tasks such as reading, organizing, and transforming information.",
       },
     ],
   },
@@ -849,278 +557,164 @@ export const CONTENT_EN = {
     ],
   },
   PRODUTO: {
-    kicker: "local agent & MVP",
-    title: ["AI running on your machine", "actually getting work done", "with your files."],
-    lead:
-      "AetherCore understands your instructions, creates a plan, reads and writes files, utilizes local tools, and requests approval before executing anything risky. Our XLSX MVP is the first proof of this running.",
-    solutionKicker: "what it does",
-    solutionTitle: "AI comes to your files.",
-    solutionDesc:
-      "You don't send files to external clouds. AetherCore executes everything locally, with dedicated tools and approval checks.",
+    kicker: "local-first agent · beta", title: ["AI for real work", "with real files,", "under your control."],
+    lead: "AetherCore combines a desktop interface, Rust runtime, file tools, and configurable models. Choose the context, follow the plan, and review the output in one workflow.",
+    solutionKicker: "what we are building", solutionTitle: "Bring AI closer to the work.",
+    solutionDesc: "In local mode, a model can run on your hardware. External providers are optional and may receive data sent to them.",
     blocks: [
-      {
-        n: "01",
-        tag: "Local Memory",
-        t: "Your files stay here",
-        d: "PDFs, spreadsheets, contracts, and code reside on your device. The agent accesses them as workspace context, with zero cloud uploads.",
-        points: ["organized workspaces", "document relationships", "tracked changes"],
-      },
-      {
-        n: "02",
-        tag: "Working Agent",
-        t: "Understand, execute, refine",
-        d: "The agent splits your prompt into a logical plan, calls the right tools, evaluates outcomes, and adjusts. This isn't a disposable chat window.",
-        points: ["action planning", "tool integration", "outcome evaluation"],
-      },
-      {
-        n: "03",
-        tag: "Permissions",
-        t: "Nothing exits without consent",
-        d: "Any sensitive action (sending data, writing files) prompts a review card showing scope, risks, and reasoning before execution.",
-        points: ["approval gating", "clear boundaries", "audit history"],
-      },
-      {
-        n: "04",
-        tag: "Cryptographic Vault",
-        t: "Secrets encrypted at rest",
-        d: "API keys, tokens, and credentials are stored in a local vault encrypted with AES-256-GCM. Master key generated via hardware CSPRNG. No secret ever exists in plaintext on disk.",
-        points: ["AES-256-GCM with unique nonce", "master key via OsRng", "Zero-Plaintext policy"],
-      },
+      { n: "01", tag: "Work context", t: "Choose what enters the workspace", d: "The agent works with selected files. Check scope and model before including sensitive information.", points: ["selected files", "bounded context", "beta in development"] },
+      { n: "02", tag: "Agent", t: "Plans, tools, and output", d: "The runtime organizes steps and calls available tools. Quality and coverage depend on the model and task.", points: ["execution plan", "configured tools", "review the output"] },
+      { n: "03", tag: "Approval", t: "Review sensitive actions", d: "Approval steps let you review covered actions before execution.", points: ["human review", "visible scope", "informed decisions"] },
+      { n: "04", tag: "Credentials", t: "Configurable integrations", d: "Configure providers and integrations to match the work. The selected service determines which data is routed beyond the device.", points: ["configurable providers", "optional integrations", "visible destinations"] }
     ],
-    offeringsKicker: "product + business",
-    offeringsTitle: "One agent, four tiers.",
-    offeringsDesc:
-      "From a free temporary sandbox to dedicated on-premise deployments. The same secure local AI engine with human approval, sized for your data requirements.",
+    offeringsKicker: "execution modes", offeringsTitle: "One core. Different execution paths.",
+    offeringsDesc: "Choose the execution path that fits the task, hardware, and your organization’s data policies.",
     offerings: [
-      {
-        name: "Aether Free",
-        audience: "To experiment",
-        t: "Try the agent without installing anything.",
-        d: "Cloud-hosted web agent inside a temporary sandbox. Ideal for testing lightweight workflows before setting up local execution.",
-        points: ["limited web sandbox", "daily credits included", "no local data access"],
-      },
-      {
-        name: "Aether Go",
-        audience: "For individuals",
-        t: "For day-to-day productivity.",
-        d: "Full local agent for productivity. Reads and writes XLSX, runs locally with human approval, and supports unlimited files.",
-        points: ["full local agent", "native XLSX read/write", "local execution"],
-      },
-      {
-        name: "Aether Enterprise",
-        audience: "For teams",
-        t: "For companies managing sensitive information.",
-        d: "Workspace with up to 5 base users, audit trails, granular team permissions, and automated compliance reports.",
-        points: ["audit trail logs", "team permissions", "corporate governance"],
-      },
-      {
-        name: "Aether Scale",
-        audience: "Dedicated deploy",
-        t: "Large-scale operations with maximum compliance.",
-        d: "Autonomous on-premise deployment with dedicated SLA, custom integrations, and tailored licensing. Full infrastructure sovereignty.",
-        points: ["autonomous on-premise", "24/7 dedicated support", "custom pricing"],
-      },
+      { name: "Local model", audience: "On-device", t: "Keep inference on configured hardware.", d: "When the model runs on-device, inference uses local hardware. Optional integrations may use the network.", points: ["depends on installed model", "uses local resources", "integrations may use the network"] },
+      { name: "External provider", audience: "Optional connection", t: "Choose an API when needed.", d: "Content sent is subject to the service, contract, and configuration in use.", points: ["destination depends on setup", "review data being sent", "deliberate choice"] },
+      { name: "Team use", audience: "Next phase", t: "Deployment for teams.", d: "We plan administration, support, and governance scoped to each organization’s workflow and infrastructure.", points: ["proposal-based scope", "contracted support", "team controls"] }
     ],
-    greenKicker: "sustainable ai / green ai",
-    greenTitle: "Ecological sovereignty and energy efficiency.",
-    greenDesc: "Centralized cloud AIs consume gigawatts of electricity and tons of water to cool data centers. AetherCore executes locally, utilizing the infrastructure your enterprise is already running.",
+    greenKicker: "environmental impact · measurement method", greenTitle: "Local changes where computation happens.",
+    greenDesc: "Our environmental assessment starts with comparable tasks: energy on the actual hardware, idle time, and output quality. We will publish conclusions after reproducible measurements.",
     greenCards: [
-      { t: "Water Footprint", d: "A single interaction of 20 to 50 messages with cloud-based AI models consumes roughly 500ml of fresh water for server cooling.", icon: "Droplet" },
-      { t: "Carbon Savings", d: "Inference (daily query use) accounts for 80% to 90% of AI's total carbon emissions. Local execution avoids network hops and high-intensity centralized compute grids.", icon: "Wind" },
-      { t: "Reclaimed Infrastructure", d: "Instead of building carbon-heavy data centers, AetherCore deploys on the hardware and intranet servers your company already keeps powered.", icon: "Server" },
+      { t: "Energy per task", d: "Proposed metric: Wh per comparable task, including inference and device idle time.", icon: "Lightning" },
+      { t: "Water", d: "Water estimates require an explicit location, infrastructure, and method. Our assessment will follow those criteria.", icon: "Droplet" },
+      { t: "Comparison", d: "Measure the same workflow, model, and quality before claiming savings.", icon: "Server" }
     ],
-    flowKicker: "workflow",
-    flowTitle: "From request to delivery",
-    flowDesc:
-      "Specify a task; Aether reads the local context, runs the necessary steps, and outputs a draft for your review.",
+    flowKicker: "workflow", flowTitle: "From request to review", flowDesc: "Select the context, check the proposed steps, and review the output before using it.",
     flow: [
-      { n: "1", t: "Context definition", d: "Select a spreadsheet, document, folder, or local database." },
-      { n: "2", t: "Plan execution", d: "Aether selects local tools, executes steps, and assesses write/net risks." },
-      { n: "3", t: "Output generation", d: "Get a summary, updated report, or draft ready for your review." },
+      { n: "1", t: "Select context", d: "Choose the files and workspace needed." },
+      { n: "2", t: "Review the plan", d: "Check the model and tools configured for the task." },
+      { n: "3", t: "Assess the result", d: "Review the output and approve only actions whose scope you understand." }
     ],
   },
   ARQUITETURA: {
-    kicker: "architecture",
-    title: ["Runs locally,", "prompts for approval,", "logs everything."],
-    lead:
-      "How local execution is designed, what the approval gateway covers, and which modules keep your data safe.",
-    loopKicker: "execution loop",
-    loopTitle: "From file access to logs.",
-    loopDesc:
-      "The agent plans, validates, executes, and records. A closed loop on-device with visual feedback.",
+    kicker: "architecture · beta", title: ["Local context,", "explicit connections,", "visible limits."],
+    lead: "The Rust runtime coordinates models, tools, and execution events. A workspace scopes the context; your configuration determines whether inference runs on-device or through an external service.",
+    loopKicker: "execution flow", loopTitle: "From selection to output.", loopDesc: "The agent uses the workspace and available tools. Review permissions and the destination of each connection.",
     loop: [
-      { tag: "Files", t: "Select workspaces.", d: "Mount a workspace with PDFs, Excel sheets, code, and notes. The agent analyzes structure and imports only needed context.", chip: "Workspace initialized" },
-      { tag: "Plan", t: "Review the plan first.", d: "The planner outlines the task steps, the local tools required, and the expected side effects before running.", chip: "Plan visible before run" },
-      { tag: "Approval", t: "You have final say.", d: "The approval prompt displays danger ratings, write scopes, and explanations. If you deny, execution halts.", chip: "Write/Net gated" },
-      { tag: "Execution", t: "Run and record.", d: "Natively compiled Rust tools execute the step, retrieve the output, and write details to an immutable local database.", chip: "Output generated + logged" },
+      { tag: "Files", t: "Select a workspace.", d: "Include only the files needed for the task.", chip: "User-selected scope" },
+      { tag: "Plan", t: "Review the steps.", d: "Check the task, model, and tools that will be used.", chip: "Plan ready for review" },
+      { tag: "Approval", t: "Decide before acting.", d: "Confirmation steps exist for actions covered by current controls.", chip: "Coverage under validation" },
+      { tag: "Execution", t: "Review the output.", d: "The runtime executes configured tools and keeps local event records.", chip: "Beta local records" }
     ],
-    capsKicker: "capabilities",
-    capsTitle: "System features.",
-    capsDesc:
-      "Eight functional layers keeping operations local, logged, governed, and secure.",
+    capsKicker: "product layers", capsTitle: "Architecture that makes the workflow legible.", capsDesc: "Each layer has a purpose: select context, coordinate tools, run models, and record events.",
     caps: [
-      { n: "01", tag: "local", t: "Local-First AI", d: "Writing, reasoning, and analysis run directly on-device, without sending work data to public clouds." },
-      { n: "02", tag: "audit", t: "Immutable Logs", d: "Every directory read, file write, or shell tool call is recorded locally for auditing." },
-      { n: "03", tag: "govern", t: "Directory Control", d: "A local SQLite database controls exactly which folders and files the agent has access to." },
-      { n: "04", tag: "xlsx", t: "Spreadsheet Engine", d: "Reads, writes, and merges XLSX and CSV files natively, keeping financial data safe." },
-      { n: "05", tag: "human", t: "Human-in-the-Loop", d: "All write and network calls are blocked by default. They execute only with physical approval." },
-      { n: "06", tag: "network", t: "Optional Uplinks", d: "Web search and external API tasks occur only when explicitly authorized on a per-task basis." },
-      { n: "07", tag: "security", t: "AES-256-GCM Cryptographic Vault", d: "API keys and tokens are encrypted at rest using AES-256-GCM (unique 12-byte nonce per item) by the Rust Kernel. The 256-bit master key is generated via hardware CSPRNG (OsRng) and never leaves the device. Zero-Plaintext policy: no secret ever touches disk in cleartext." },
-      { n: "08", tag: "insights", t: "Automated Reporting", d: "Complex spreadsheet data turns into polished executive summaries and PDF reports on-device." },
+      { n: "01", tag: "models", t: "Local or remote models", d: "Local models and external providers are configurable; each choice changes the data path." },
+      { n: "02", tag: "logs", t: "Event records", d: "The runtime records local events that help follow the workflow and investigate outcomes." },
+      { n: "03", tag: "workspace", t: "Logical boundaries", d: "The workspace organizes and scopes context at the application level." },
+      { n: "04", tag: "files", t: "File tools", d: "Tools for files and spreadsheets exist; compatibility and coverage should be confirmed per workflow." },
+      { n: "05", tag: "review", t: "Approval steps", d: "Writes and network actions may require confirmation depending on tool and setup. Full coverage needs testing." },
+      { n: "06", tag: "connections", t: "Optional integrations", d: "An external API may receive instructions or context routed to it. Check the destination and provider policy." },
+      { n: "07", tag: "credentials", t: "Handling under review", d: "Provider setup centralizes the connections selected for each workflow." },
+      { n: "08", tag: "status", t: "Release preparation", d: "The next phase focuses on distribution, compatibility documentation, and pilots with measurable tasks." }
     ],
-    releaseKicker: "release notes",
-    releaseTitle: "v0.6.0 — capability guards & model resolution.",
-    releaseDesc:
-      "Completed Phase 7 of the Execution Kernel: introduced Capability Guards (predictive validation), strict model resolution hierarchy, and clear abort policy with zero silent cloud fallbacks.",
-    releaseTags: ["Capability Guards", "Model Resolution", "Kernel Security", "Zero Cloud Fallback", "AES-256-GCM Vault"],
+    releaseKicker: "early access", releaseTitle: "AetherCore — for teams ready to act on data.", releaseDesc: "We are preparing invitation-based distribution and test workflows to measure quality, review time, and cost per task.", releaseTags: ["Rust runtime", "Configurable models", "Defined workspace", "Human review"]
   },
   CASOS: {
-    kicker: "solutions",
-    title: ["Local AI built for", "highly regulated", "businesses."],
-    lead:
-      "The ultimate defense against data leaks and LGPD compliance penalties: a local, governed agent designed to keep corporate data strictly private.",
-    problemKicker: "compliance liability",
-    problemTitle: "The massive risks of using public cloud chatbots in enterprise.",
-    problemDesc:
-      "Pasting customer records, contracts, and financial spreadsheets into cloud AI engines violates Brazilian LGPD data laws. AetherCore solves this liability at the architecture level.",
+    kicker: "use cases · beta", title: ["Local-first AI", "for file-based", "agent workflows."],
+    lead: "AetherCore is built for tasks where files, context, and model choice matter. Organize work in a workspace and follow execution instead of moving data across disconnected tools.",
+    problemKicker: "an architecture decision", problemTitle: "Know which service receives each data item.",
+    problemDesc: "Assistants and models differ in retention, use, and processing. Consider the service, contract, internal policy, and shared data.",
     steps: [
-      { n: "01", tag: "the liability", t: "Data Leaks & GDPR/LGPD Fines", d: "Centralized chatbots collect, process, and retain confidential company data outside your firewall, inviting regulatory fines and NDA breaches.", points: ["customer data exposure", "ANPD/GDPR sanctions", "corporate NDA breaches"] },
-      { n: "02", tag: "the defense", t: "Local-First Sovereignty", d: "AetherCore processes all sensitive materials inside the user's local operating system. No company secrets or client records exit the device.", points: ["isolated data environments", "zero cloud telemetry", "hardened shell"] },
-      { n: "03", tag: "immunity", t: "Immutable Audit Trails", d: "Every operation is checked and logged locally. The agent operates under a strict consent model, keeping your DPO in full control.", points: ["human-in-the-loop gate", "auditable local DB", "preventative security"] },
+      { n: "01", tag: "question", t: "Where is data processed?", d: "Identify the model, provider, storage, and services called by the application.", points: ["local or remote model", "provider retention", "integration destinations"] },
+      { n: "02", tag: "option", t: "Configure the execution path.", d: "AetherCore supports local models and optional external connections. Results depend on configuration.", points: ["model choice", "selected workspace", "review connections"] },
+      { n: "03", tag: "limit", t: "Validate before production use.", d: "Evaluate the workflow in your environment, check results, and set usage rules before expanding adoption.", points: ["test your scenario", "organizational controls", "informed decisions"] }
     ],
-    compareKicker: "risk comparison",
-    compareTitle: "AetherCore vs Public Chatbots.",
-    compareDesc:
-      "Why cloud assistant tools are compliance liabilities and how AetherCore protects your enterprise.",
+    compareKicker: "data paths", compareTitle: "Compare configurations, not slogans.",
+    compareDesc: "A general view of the paths between external providers and local or remote models configured in AetherCore.",
     compare: [
-      { feat: "LGPD/GDPR Compliance", cloud: "Non-compliant with strict policies; exposes customer data to third-party cloud data centers.", aether: "Fully compliant. Customer records and logs stay on-premise under your DPO's governance." },
-      { feat: "Data Privacy & Control", cloud: "Requires uploading files and database contexts to external networks.", aether: "Local-first priority. Confidential assets never leave the physical computer." },
-      { feat: "Task Automation", cloud: "Limited to conversational answers inside a generic linear chat interface.", aether: "Executes complex agentic workflows, edits files, and manipulates sheets locally." },
-      { feat: "Audit Logs", cloud: "Zero transparency on how data is handled or processed in the background.", aether: "Logs every read, write, or system command into a local database." },
-      { feat: "Safety Boundaries", cloud: "Executes prompts freely, potentially making dangerous edits or assumptions.", aether: "Gated writes. Requires explicit user approval for any file write or web request." },
-      { feat: "Uptime & Resilience", cloud: "Completely unavailable if there is an internet outage or server downtime.", aether: "Processes locally by default. Suitable for governed intranet environments and remote field audits." },
-      { feat: "Secret Storage", cloud: "API keys and tokens stored in plaintext or third-party cloud vaults, exposed to breaches.", aether: "Local AES-256-GCM vault with CSPRNG master key. No secret in plaintext. Zero cloud dependency." },
+      { feat: "Prompt destination", cloud: "The remote service receives submitted content according to its configuration, policy, and contract.", aether: "The model can be local or remote. If remote, routed data may leave the device." },
+      { feat: "Storage", cloud: "Retention and use vary by product, account, and contract terms.", aether: "Files remain in the selected workspace; beta logging and retention should be checked." },
+      { feat: "File actions", cloud: "Access to local files varies by product.", aether: "File tools exist; compatibility and scope vary by workflow and need validation." },
+      { feat: "Approval", cloud: "Controls vary across products and organizational policies.", aether: "Approval steps exist for some actions; full coverage is still under validation." },
+      { feat: "Compliance", cloud: "Depends on the service, contract, configuration, and controller obligations.", aether: "Local execution may reduce transfers, but does not establish LGPD compliance." },
+      { feat: "External connections", cloud: "The service processes requests on infrastructure defined by its provider.", aether: "Remote integrations are optional but should be assessed and configured deliberately." }
     ],
-    audienceKicker: "target audience",
-    audienceTitle: "Engineered for highly sensitive industries.",
-    audienceDesc:
-      "Sectors where data confidentiality and regulatory compliance are not optional, but legal obligations.",
+    audienceKicker: "where to explore", audienceTitle: "Start with the workflow.",
+    audienceDesc: "Use the beta for low-risk tasks, measure quality, and identify which data must remain local.",
     audience: [
-      { t: "DPOs & Compliance Officers", d: "Ensure staff aren't pasting corporate secrets or customer files into external cloud systems, violating local privacy laws." },
-      { t: "Legal & Corporate Counsel", d: "Review sensitive contracts, NDAs, and case files without breaching client privilege or disclosing intellectual property." },
-      { t: "Finance, Audit & Accounting", d: "Crunch multi-client financial sheets and cashflows knowing numbers remain strictly inside your corporate network." },
-      { t: "Cooperatives & Regional Enterprises", d: "Deploy automation features for members and employees while matching strict enterprise governance." },
+      { t: "Finance and operations", d: "Evaluate tasks using fictitious or anonymized data before considering real records." },
+      { t: "Legal and operations", d: "Test search and review on non-confidential documents while validating limits and results." },
+      { t: "Audit and analysis", d: "Compare output with a known process and record errors and review time." },
+      { t: "SMBs and technical teams", d: "Map models, files, integrations, and controls before evaluating the beta." }
     ],
   },
   PRINCIPIOS: {
     kicker: "product principles",
     title: "Privacy is not a feature. It's an architecture decision.",
     lead:
-      "Local execution, auditable logs, and human-in-the-loop design. Software must return control to the user.",
+      "Choose where AI runs, make connections visible, and keep human review in the workflow. These principles guide AetherCore from the architecture up.",
     manifestoKicker: "manifesto",
     manifestoTitle:
-      "Exposed in the interface: rules, logs, and undoable actions.",
+      "Principles behind every workflow.",
     manifestoDesc:
-      "Not a marketing slogan. We process locally by default, block network calls by default, and log everything.",
+      "The people using the tool should understand model choice, data destination, and review steps.",
     items: [
-      { n: "01", tag: "control", t: "Data belongs close to its creator.", d: "Spreadsheets, contracts, and internal audits reside on your hardware, processed where they were born." },
-      { n: "02", tag: "consent", t: "External connections are exceptions.", d: "Web search, cloud API integration, and writes only execute when explicitly approved by the user." },
-      { n: "03", tag: "transparency", t: "Automation requires auditability.", d: "An agent must log its goals, the files it accessed, the commands it ran, and the choices it made." },
-      { n: "04", tag: "minimization", t: "Minimal data scope.", d: "The system reads only the needed directories and files, minimizing data exposure while solving the task." },
-      { n: "05", tag: "human command", t: "AI proposes. You approve.", d: "The human operator holds the key to critical actions. You are the commander, not a passenger." },
-      { n: "06", tag: "code as defense", t: "Privacy requires code, not promises.", d: "Inspired by cypherpunk ideals: good intentions are not enough. We must build technical locks." },
+      { n: "01", tag: "control", t: "Choose where the model runs.", d: "A local model may keep inference on-device; remote providers may receive routed data." },
+      { n: "02", tag: "consent", t: "Check every connection.", d: "Destination and content vary by integration. Review them before sending sensitive information." },
+      { n: "03", tag: "records", t: "Records help investigation.", d: "The beta keeps local events but does not present them as complete, immutable, or certified." },
+      { n: "04", tag: "minimization", t: "Bound the context.", d: "Select needed files and test the workflow with fictitious or anonymized data." },
+      { n: "05", tag: "human review", t: "Review covered actions.", d: "Approval steps exist for some actions; coverage and behavior need testing." },
+      { n: "06", tag: "code as defense", t: "Code reduces risk; it does not remove all risk.", d: "Implementation needs testing and review; architecture alone is not evidence." },
     ],
   },
   SUSTENTABILIDADE: {
-    kicker: "sustainable ai / green ai",
-    title: ["Ecological sovereignty", "and energy efficiency", "for artificial intelligence."],
-    lead: "Centralized cloud models consume gigawatts of electricity and tons of water for server cooling. AetherCore provides an eco-friendly alternative by running locally on existing hardware.",
-    cardsTitle: "The Environmental Cost of Cloud AI",
-    cardsDesc: "How daily queries to centralized chatbots affect the planet, and how local processing acts as a solution.",
+    kicker: "environmental impact · method", title: ["Measure first.", "Compare with", "discipline."],
+    lead: "Running a model locally changes where energy is consumed. Our approach is to measure comparable tasks, hardware, and idle time before claiming savings.",
+    cardsTitle: "What needs measurement", cardsDesc: "We will compare equivalent tasks and publish the method, hardware, and limitations before claiming savings.",
     cards: [
-      { t: "Water Footprint", d: "A single interaction of 20 to 50 messages with cloud-based AI models consumes roughly 500ml of fresh water for server cooling.", icon: "Droplet" },
-      { t: "Carbon Savings", d: "Inference (daily query use) accounts for 80% to 90% of AI's total carbon emissions. Local execution avoids network hops and high-intensity centralized compute grids.", icon: "Wind" },
-      { t: "Reclaimed Infrastructure", d: "Instead of building carbon-heavy data centers, AetherCore deploys on the hardware and intranet servers your company already keeps powered.", icon: "Server" },
+      { t: "Energy", d: "Record Wh per task and device idle time, using the same quality and model where possible.", icon: "Lightning" },
+      { t: "Water", d: "Water estimates depend on location, infrastructure, and method; we treat this as a separate analysis.", icon: "Droplet" },
+      { t: "Hardware use", d: "A comparison should include device lifetime, utilization, available capacity, and local energy.", icon: "Server" }
     ],
   },
   SOBRE: {
-    kicker: "about us / team",
-    title: ["Symmetric design:", "robust code and", "scientific rigor."],
-    lead: "AetherCore is built upon a twin engine of innovation: advanced local-first software engineering and federal statistical validation.",
-    teamTitle: "Execution Team & Advisors",
-    teamDesc: "Meet the minds behind the project returning data sovereignty to enterprises.",
-    members: [
-      {
-        name: "Matheus Peres da Silva",
-        role: "Founder & CEO / Principal Systems Architect",
-        bio: "Rust and WebAssembly developer specialized in local sandboxing and secure local orchestration of LLMs. Designed AetherCore under the premise that the best way to protect sensitive data is to never let it touch third-party clouds.",
-      },
-      {
-        name: "Specialist in Statistical Modeling & Methodology",
-        role: "Voluntary Technical Advisor",
-        bio: "Voluntary advisor with solid foundations in national statistical research. Started his practical career as a field census surveyor (NPE), gaining direct experience in territorial mapping and frontline data collection before establishing himself as a tenured statistician at IBGE. Provides strictly personal, advisory-only technical support (no equity holding, no management duties, and R$ 0.00 funding allocation), ensuring complete compliance under Law 8.112/90 to guide the system's mathematical integrity and local data sampling models.",
-      }
-    ],
-    twinTitle: "Dual-Control Audit Paradigm",
-    twinDesc: "AetherCore is built on the principle of strict separation between code execution and data auditing. Technical sandbox integrity and Rust systems development are led by the founder. Mathematical accuracy and sampling models are validated externally and voluntarily by his identical twin brother, a federal career statistician. This biological and analytical redundancy introduces official scientific data rigor to the platform, ensuring complete legal compliance and corporate separation.",
+    kicker: "about the project", title: ["Built around", "control that", "matters."],
+    lead: "EXVORN.TECH builds AetherCore to bring AI closer to real work: files, tools, and decisions controlled by the people using it. Founder Matheus Peres da Silva leads the product in Curitiba.",
+    teamTitle: "Product lead", teamDesc: "Matheus leads AetherCore architecture, product, and engineering.",
+    members: [{ name: "Matheus Peres da Silva", role: "Founder · Product and engineering", bio: "A developer since his teens, he leads AetherCore’s engineering and product strategy. His background spans software, systems, and independent security research." }],
+    twinTitle: "Contributors and advisors", twinDesc: "Development benefits from dialogue and voluntary advisory support. Formal collaborations will be announced when established."
   },
   FAQ: {
-    kicker: "FAQ & governance",
-    title: ["Frequently asked questions", "about local AI", "and sensitive data."],
-    lead:
-      "Direct answers about features, privacy, files, and our human approval gate.",
+    kicker: "faq · beta", title: ["Direct answers", "about AetherCore."], lead: "The product is in development. Check the model, data, and tools used by each workflow.",
     items: [
-      { q: "What is local-first AI?", a: "It is an AI designed to run directly on the user's device or private servers, reducing data transmission to third parties." },
-      { q: "Is it only for spreadsheets?", a: "No. Spreadsheets are our launch case because they validate native read/write workflows and offer high B2B value, but AetherCore works on general files, code, and PDFs." },
-      { q: "Why start with local spreadsheets?", a: "Spreadsheets contain critical financial, client, and sales data that companies cannot afford to expose. It's the perfect test for secure local execution." },
-      { q: "Does this replace a chatbot?", a: "It goes beyond. AetherCore acts as an agent: it creates plans, runs local commands, reads/writes files, and logs tasks under human approval. Chatbots just talk." },
-      { q: "Are my files uploaded to the cloud?", a: "No. On-device execution is the default. External connections are optional, disabled by default, and require explicit permission." },
-      { q: "Who is this built for?", a: "Enterprises, DPOs, accountants, legal teams, and auditors dealing with sensitive reports and client data." },
-      { q: "How does AetherCore protect my API keys and secrets?", a: "The Rust Kernel encrypts all credentials with AES-256-GCM before writing to disk. Each item receives a unique random 12-byte nonce. The 256-bit master key is generated via hardware CSPRNG (OsRng) at first launch and never leaves the device. No secret ever exists in plaintext — Zero-Plaintext policy." },
+      { q: "What does local-first mean?", a: "It is an architecture priority to keep more processing close to the user. The actual path depends on configured models and integrations." },
+      { q: "Is AetherCore available?", a: "We are organizing invitation-based early access. Get in touch to discuss workflows and the next test phase." },
+      { q: "Why offer a free local core?", a: "Free access broadens adoption without requiring EXVORN to pay for each user's local inference: it runs on hardware and models they choose. Planned revenue comes from team deployment, support, and governance, contracted to a defined scope." },
+      { q: "Do my files stay on the device?", a: "Files can be selected in a local workspace. If a remote model or integration receives that content, it may leave the device." },
+      { q: "Does the product work fully offline?", a: "With a local model configured, inference can run on-device. Updates and optional integrations may use the network." },
+      { q: "Does AetherCore guarantee LGPD compliance?", a: "No. Compliance depends on context, legal bases, contracts, policies, and organizational controls." },
+      { q: "Is there an operating-system sandbox?", a: "Documented isolation is logical at workspace level; it is not an operating-system sandbox, VM, or container." },
+      { q: "How are credentials protected?", a: "The beta includes credential management. It needs independent review before being presented as an enterprise control." }
     ],
   },
   PRIVACIDADE: {
-    kicker: "trust center",
-    title: "Privacy, control, and local execution.",
-    lead:
-      "How AetherCore handles your files: strict scopes, consent-driven actions, local logs, and local execution.",
-    policyKicker: "technical policy",
-    policyTitle: "Reducing exposure at the code level before promising safety.",
-    policyDesc:
-      "This is a technical summary of our beta rules. These principles are built directly into our codebase to enforce data sovereignty.",
+    kicker: "privacy · beta", title: "Understand every data path.", lead: "Behavior depends on configuration, model, tools, and connected services.",
+    policyKicker: "data paths", policyTitle: "You choose the execution path.", policyDesc: "Model and integration settings determine which data goes to external services. Review those choices for each workflow.",
     cards: [
-      { tag: "local-first", t: "Processes close to files", d: "We focus on local processing of spreadsheets and assets to remove the need for cloud data sharing." },
-      { tag: "approval", t: "Gated sensitive actions", d: "File writes, shell commands, and web connections prompt an approval card explaining risks and reasoning." },
-      { tag: "logs", t: "Local telemetry only", d: "Telemetry is logged to a local SQLite db for your review. No tracking reports are sent to external servers." },
-      { tag: "secrets", t: "Token redaction", d: "Local parsers scan and redact API tokens, passwords, and identifiers from readable text logs." },
-      { tag: "vault", t: "AES-256-GCM Symmetric Vault", d: "All credentials (API keys, OAuth tokens, secrets) are encrypted with AES-256-GCM before touching disk. 256-bit master key generated via hardware CSPRNG (OsRng), unique 12-byte nonce per item. Zero-Plaintext policy: no secret ever exists in cleartext at any point." },
-      { tag: "transparency", t: "Explicit external links", d: "Any external request (like web searches) displays the destination domain and payloads before sending." },
-      { tag: "boundaries", t: "Beta safety limits", d: "AetherCore focuses on minimizing risk, but does not guarantee absolute software invulnerability." },
+      { tag: "models", t: "Local or remote", d: "A local model may process inference on-device. An external provider may receive data sent to it." },
+      { tag: "approval", t: "Review covered actions", d: "Approval steps exist for some write and network actions; full coverage still needs validation." },
+      { tag: "records", t: "Inspect beta logs", d: "The application keeps local event records. We do not describe them as immutable, complete, or certified." },
+      { tag: "credentials", t: "Security under review", d: "Credential handling needs independent review before sensitive enterprise use." },
+      { tag: "connections", t: "Check destination and content", d: "Before using an external API, identify its destination, transmitted data, and provider rules." },
+      { tag: "limits", t: "Informed choice", d: "Match each task with the model, integration, and controls appropriate for your environment." }
     ],
   },
   ROADMAP: {
-    kicker: "execution plan",
-    title: "Consolidation & B2B Go-to-Market Timeline",
-    lead:
-      "A 12-month timeline focused on software robustness, regional compliance validation, and B2B corporate customer growth.",
-    timelineKicker: "timeline",
-    timelineTitle: "Structured phases with clear technical milestones.",
-    timelineDesc:
-      "Designed to demonstrate constant development velocity and safe integration into enterprise networks.",
+    kicker: "roadmap · execution hypotheses", title: "Prove value before scaling.", lead: "The execution sequence: distribution, security, measurable pilots, and commercial expansion informed by results.",
+    timelineKicker: "next steps", timelineTitle: "A sequence to reduce uncertainty.", timelineDesc: "Each step depends on the previous one and may change with usage evidence.",
     phases: [
-      { period: "Months 1–3", t: "Core & Sandbox Polish", d: "Refine the native Rust runtime and Ollama proxy with GPU acceleration. Stabilize local file sandboxing and XLSX write drivers." },
-      { period: "Months 4–6", t: "Regional Pilot Runs", d: "Deploy and validate AetherCore in 5 pilot organizations (cooperatives and law firms) in Curitiba. Benchmark time savings and audit logs." },
-      { period: "Months 7–9", t: "DPO Compliance Suite", d: "Build the DPO auditor panel, providing automated local PDF reports and local algorithms to redact sensitive customer data." },
-      { period: "Months 10–12", t: "Commercial Packaging & Scale", d: "Finalize the AetherNode hardware appliance deployment model, perform external code security audits, and acquire commercial accounts." },
+      { period: "Step 1", t: "Prepare a test release", d: "Consolidate an installer, validate a clean Windows installation, and publish a supported-model matrix." },
+      { period: "Step 2", t: "Review security boundaries", d: "Map data flows, permissions, storage, and attack surfaces; seek independent review." },
+      { period: "Step 3", t: "Run consented pilots", d: "Invite a small group to low-risk tasks and record quality, failures, review time, and cost." },
+      { period: "Step 4", t: "Validate commercial sustainability", d: "Test willingness to pay and support cost before publishing tiers, prices, or revenue targets." }
     ],
-    metricsKicker: "funding metrics",
-    metricsTitle: "How we track development success.",
-    metricsDesc:
-      "Explicit key performance indicators (KPIs) to evaluate technological readiness, speed, and privacy compliance.",
+    metricsKicker: "proposed metrics", metricsTitle: "What we will measure.", metricsDesc: "Quality, cost, and data control guide each pilot.",
     metrics: [
-      { tag: "productivity", t: "Report Compile Speed", d: "Cut manual data auditing and spreadsheet report generation times by up to 80% using the local agent." },
-      { tag: "compliance", t: "Zero Telemetry Leaks", d: "Maintain a local-by-default loop for workspaces, with external transmissions blocked unless explicitly authorized." },
-      { tag: "traction", t: "Active Beta Workspaces", d: "Grow to 20+ active corporate pilot environments using the local agent for internal operations by Month 12." },
+      { tag: "product", t: "Task completion", d: "Measure completed tasks, errors, human intervention, and review time." },
+      { tag: "security", t: "Data flows", d: "Inventory each connection and validate which content leaves the device." },
+      { tag: "business", t: "Willingness to pay", d: "Interview users and run pilots before announcing conversion, revenue, or final pricing." }
     ],
   },
   REFERENCIAS: {
@@ -1143,266 +737,88 @@ export const CONTENT_EN = {
     ],
   },
   DOSSIE: {
-    kicker: "feasibility & grant dossier",
-    title: ["AetherCore: Local Intelligence,", "Data Sovereignty", "and Regulatory Compliance"],
-    lead:
-      "Detailed technology readiness and commercial viability dossier designed for innovation grant committees, compliance officers, and partners (e.g., Centelha Paraná).",
-    summaryKicker: "technological & market thesis",
-    summaryTitle: "The project structured across 6 core pillars.",
+    kicker: "technical and commercial brief", title: ["AetherCore:", "evidence before", "scale."], lead: "The EXVORN.TECH thesis: bring actionable AI close to files, with model choice, focused context, and human review.",
+    summaryKicker: "product thesis", summaryTitle: "Four questions guide the next phase.",
     blocks: [
-      { tag: "01. problem", t: "Corporate data leaks via public cloud APIs", d: "Employees paste financial spreadsheets and legal drafts into public cloud systems, breaching corporate NDAs and exposing the company to major data privacy fines." },
-      { tag: "02. solution", t: "Local-by-default agentic AI workspace", d: "AetherCore brings advanced AI capabilities directly to the local hardware. The agent processes complex XLSX data, PDFs, and scripts inside the local OS." },
-      { tag: "03. innovation", t: "Rust Native Engine & Human-in-the-Loop", d: "Natively compiled Rust core with custom IPC communication and SQLite audit trail. Every write command or external connection is blocked until approved." },
-      { tag: "04. market", t: "B2B compliance & regional cooperatives", d: "Our initial target covers DPOs, legal councils, and financial audits. Paraná offers a massive cooperative and agribusiness market requiring strict compliance." },
-      { tag: "05. maturity", t: "19 months of active R&D foundation", d: "This is not a simple cloud wrapper. AetherCore represents 19 months of deep R&D in local VRAM management, secure sandboxing, and native IPC communication, reaching v0.6.0." },
-      { tag: "06. grant target", t: "DPO Suite & Enterprise Expansion", d: "The Centelha Paraná grant will accelerate safety certification, enable external open-source code audits, and complete our team governance console." },
+      { tag: "01. problem", t: "Data crosses multiple services", d: "Teams need to know which models and integrations receive their files and work instructions." },
+      { tag: "02. approach", t: "Models close to context", d: "AetherCore connects an agent to workspaces and tools, with local models and remote providers as options." },
+      { tag: "03. controls", t: "Scope and review", d: "Workspace controls and approvals exist in the beta; isolation and coverage need full validation." },
+      { tag: "04. market", t: "Start with file-based work", d: "We start with teams handling documents and spreadsheets, where context, review time, and data destination have clear economic value." },
+      { tag: "05. maturity", t: "Technical foundation built", d: "The desktop app, Rust runtime, and component tests form the foundation for distribution and measurable pilots." },
+      { tag: "06. capital", t: "Proposed use", d: "Funding would support a testable product, independent review, consented pilots, and commercial discovery." }
     ],
-    planKicker: "grant development timeline",
-    planTitle: "Roadmap and Execution Milestones (12 Months)",
-    plan: [
-      { period: "Months 1–3 (R&D)", d: "Consolidate local Rust runtime, optimize Ollama proxy for GPU/VRAM performance, and release stable XLSX local write drivers (version v0.6.0)." },
-      { period: "Months 4–6 (Validation)", d: "Deploy 5 pilot runs in agricultural cooperatives and law offices in Paraná to measure audit time savings and ensure zero cloud data leakage." },
-      { period: "Months 7–9 (DPO Panel)", d: "Develop the DPO dashboard, incorporating local encrypted audit logs and local PII data masking algorithms." },
-      { period: "Months 10–12 (Commercial)", d: "Package the enterprise bundle (AetherNode hardware appliance), complete external code security audits, and sign first commercial accounts." },
+    planKicker: "planned milestones", planTitle: "Validation sequence", plan: [
+      { period: "Step 1", d: "Prepare an installer and document supported versions and models." },
+      { period: "Step 2", d: "Validate data boundaries and seek an independent security review." },
+      { period: "Step 3", d: "Run consented pilots with low-risk tasks and data." },
+      { period: "Step 4", d: "Validate price, support cost, and freemium model before a commercial offer." }
     ],
   },
   PRICING: {
-    kicker: "pricing",
-    title: ["Select the plan", "that fits your", "work structure."],
-    lead:
-      "Start with the beta demo, move into the local Qwen/Ollama app, and add auditable governance for teams when the workflow is ready.",
-    annualLabel: "Billed annually",
-    annualSaveLabel: "Save up to 20%",
-    buttonLabel: "Get started",
-    contactLabel: "Contact us",
+    kicker: "access model", title: ["Free access", "with a", "sustainable model."],
+    lead: "Our launch strategy pairs a free local core for adoption with team solutions for deployment, support, and governance under proposal. Request early access.",
+    annualLabel: "Access strategy", annualSaveLabel: "Early access", buttonLabel: "Discuss the beta", contactLabel: "Discuss the beta",
     plans: [
-      {
-        id: "free",
-        name: "Aether Free",
-        description: "Beta entry point to understand the workflow before installing.",
-        priceMonthly: 0,
-        priceYearly: 0,
-        users: "Guided demo / Beta",
-        recommended: false,
-        features: [
-          { label: "Beta waitlist and validation materials", included: true },
-          { label: "Demo with sample data and lightweight tasks", included: true },
-          { label: "No local installation required", included: true },
-          { label: "Human approval flow demonstration", included: true },
-          { label: "Contact for real-use-case triage", included: true },
-          { label: "No sensitive production data", included: false },
-          { label: "No persistent local agent", included: false },
-          { label: "No writes to real local files", included: false },
-        ],
-      },
-      {
-        id: "go",
-        name: "Aether Go",
-        description: "100% local desktop app with Qwen/Ollama for individual productivity.",
-        priceMonthly: 99,
-        priceYearly: 950,
-        users: "1 User (Local)",
-        recommended: true,
-        features: [
-          { label: "Local desktop app with Qwen through Ollama", included: true },
-          { label: "On-demand model loading to reduce idle RAM", included: true },
-          { label: "Advanced local XLSX/CSV read and write workflows", included: true },
-          { label: "Rust tools for files, search, and supervised execution", included: true },
-          { label: "Local execution with human approval gates", included: true },
-          { label: "Local ARL history with traceable actions", included: true },
-          { label: "External connections only when approved", included: true },
-          { label: "Performance depends on the device hardware", included: true },
-        ],
-      },
-      {
-        id: "enterprise",
-        name: "Aether Enterprise",
-        description: "Governance, compliance, permissions, and logs for small teams.",
-        priceMonthly: 449,
-        priceYearly: 4310,
-        users: "Workspace (Up to 5 base users)",
-        recommended: false,
-        features: [
-          { label: "Everything in Aether Go", included: true },
-          { label: "Workspace with up to 5 base users", included: true },
-          { label: "Dual-Control Audit Paradigm (dual-signoff for risky actions)", included: true },
-          { label: "Voluntary Advisory & Compliance Modules", included: true },
-          { label: "Permissions by user, folder, and action type", included: true },
-          { label: "Auditable and encrypted exportable ARL logs", included: true },
-          { label: "Assisted deployment in private sandboxes and priority support", included: true },
-          { label: "Additional users upon request", included: true },
-        ],
-      },
-      {
-        id: "scale",
-        name: "Aether Scale",
-        description: "Dedicated deployment for private and regulated corporate environments.",
-        priceMonthly: null,
-        priceYearly: null,
-        users: "Dedicated Deployment",
-        recommended: false,
-        features: [
-          { label: "Full on-premise or isolated intranet deployment", included: true },
-          { label: "Custom integrations with internal APIs, databases, and workflows", included: true },
-          { label: "Strict corporate governance and retention policies", included: true },
-          { label: "On-demand audits and custom local logs", included: true },
-          { label: "Training, corporate runbooks, and dedicated 24/7 support", included: true },
-          { label: "Tailored contracts and flexible scale billing", included: true },
-        ],
-      },
+      { id: "free", name: "Aether Free", description: "Free local core planned for public launch.", priceMonthly: null, priceYearly: null, users: "Planned launch", recommended: false, features: [{ label: "Local inference with user hardware and model", included: true }, { label: "Local inference uses user hardware", included: true }] },
+      { id: "go", name: "Aether Go", description: "Individual desktop experience and support: commercial scope in development.", priceMonthly: null, priceYearly: null, users: "Early access", recommended: false, features: [{ label: "Desktop package and support planned", included: true }, { label: "Invitation-based early access", included: true }] },
+      { id: "enterprise", name: "Aether Enterprise", description: "Team deployment and support, scoped by proposal.", priceMonthly: null, priceYearly: null, users: "By proposal", recommended: false, features: [{ label: "Administration and governance planned", included: true }, { label: "Scope and support defined by contract", included: true }] },
+      { id: "scale", name: "Aether Scale", description: "Dedicated infrastructure designed for specific needs.", priceMonthly: null, priceYearly: null, users: "Custom proposal", recommended: false, features: [{ label: "Dedicated deployment and integrations planned", included: true }, { label: "Project and terms defined before agreement", included: true }] }
     ],
   },
   PLUGINS: {
     kicker: "extensibility",
     title: ["AetherCore", "Plugins."],
-    lead: "Expand AetherCore capabilities by connecting local inference engines and external tool suites with local-first safety.",
-    cardsTitle: "Supported Connectors",
-    cardsDesc: "A plugin surface for choosing the engine, talking through approved channels, and executing tools while the Kernel keeps the human in control.",
+    lead: "Integrations are under evaluation. Confirm availability, data destinations, and controls before enabling a connector.",
+    cardsTitle: "Connectors under evaluation",
+    cardsDesc: "This list points to possible technologies; it does not confirm that each integration is available, audited, or production-ready.",
     cards: [
       {
         t: "Local engines · LocalAI + Ollama",
-        d: "Run LLMs, audio, images, and embeddings on your own hardware. Plugins expose only the capabilities approved by the active workspace.",
+        d: "Ollama and LocalAI are local execution options. Compatibility, versions, and limits need per-model validation.",
         icon: "Cpu",
         link: "https://localai.io"
       },
       {
         t: "Telegram Bridge",
-        d: "Talk to agents from Telegram and select the engine per conversation — Granite, Qwen, Gemma, GLM, Llama, or another configured provider — with explicit approval gates.",
+        d: "A messaging channel may route instructions and replies to external services. Availability and approvals should be checked in the workflow used.",
         icon: "PaperPlaneTilt",
         link: "https://core.telegram.org/bots/api"
       },
       {
         t: "Model API Bridge",
-        d: "Use OpenAI/GPT, Anthropic/Claude, and Google/Gemini APIs when you allow it. The same contract also fits Granite, Qwen, Gemma, GLM, and Llama through local or remote endpoints.",
+        d: "Remote providers may receive prompts and context routed to them. Review the provider, contract, and content being sent.",
         icon: "Brain",
         link: "https://platform.openai.com/docs/api-reference"
       },
       {
         t: "MCP Bridge",
-        d: "Connect external MCP servers to import universal contexts and tools under a standard protocol, with permissions visible before each action.",
+        d: "Connections to external MCP servers are a technical possibility; permissions, destinations, and availability need validation.",
         icon: "Blocks",
         link: "https://modelcontextprotocol.io"
       },
       {
         t: "Tools & Memory RAG",
-        d: "Add executable actions, vector indexes, and RAG pipelines directly into the local Memory Kernel with a workspace audit trail.",
+        d: "Memory, vector indexes, and RAG pipelines remain subject to implementation and data-handling validation.",
         icon: "Database"
       },
       {
         t: "Local webhooks & events",
-        d: "React to files, queues, and system events without turning every integration into a heavyweight resident process.",
+        d: "Webhooks and local events are under study; availability and performance are not committed.",
         icon: "ArrowsClockwise"
       }
     ],
-    featuresTitle: "Extension Safety",
-    featuresDesc: "Strict isolation controls over active workspace extensions.",
+    featuresTitle: "Extension boundaries",
+    featuresDesc: "Extension security and isolation still need independent review.",
     features: [
       {
         title: "plugin.json Manifests",
-        desc: "Plugins declare exact capabilities and sandbox access tokens audited by the Kernel."
+        desc: "Manifests and permissions need connector-by-connector review; complete validation remains pending."
       },
       {
         title: "Workspace Boundaries",
-        desc: "All plugin parameters and credentials remain bound to the active project folder."
+        desc: "Workspace boundaries are logical within the app and are not an operating-system sandbox."
       }
     ]
   },
-  VALIDACAO: {
-    kicker: "institutional validation · private hedge fund",
-    title: ["Offshore Hedge Fund", "Battle-Tested", "at ¥45M+ Yearly."],
-    lead: "While mainstream enterprises risk high-value secrets on public Big Tech clouds, Pacific Palm Partners — a private hedge fund with Italian heritage headquartered in the international financial hub of Labuan (Malaysia) managing over ¥45M+ RMB annually — battle-tested and validated AetherCore's effectiveness, speed, and absolute data isolation.",
-    stats: [
-      { k: "¥45,000,000+", label: "Annual RMB Turnover", sub: "Offshore cross-border arbitrage & asset growth" },
-      { k: "0 Bytes", label: "Cloud Telemetry", sub: "100% on-device execution with cryptographic isolation" },
-      { k: "82%", label: "Time Saved", sub: "Complex spreadsheet auditing & cross-analysis" },
-      { k: "Labuan IBFC", label: "Offshore Jurisdiction", sub: "Malaysia's International Business & Financial Centre" }
-    ],
-    partner: {
-      name: "Pacific Palm Partners",
-      sector: "Venture Capital & Private Equity · Private Hedge Fund",
-      tagline: "Private Hedge Fund & Cross-Border Digital Strategy",
-      location: "Labuan, Malaysian Federal Territory of Labuan (Labuan IBFC)",
-      origin: "Italian heritage & executive governance",
-      linkedinUrl: "https://www.linkedin.com/company/pacific-palm-partners",
-      logoUrl: "/assets/img/brand/pacific-palm-logo.png",
-      description: "Institutional financial operation engaged in aligning digital strategy with global investment objectives, focusing on technology-driven efficiencies and cross-border market opportunities."
-    },
-    founderRole: {
-      kicker: "founder's executive role",
-      title: "Digital Architecture in Global Finance",
-      subtitle: "Matheus Peres da Silva · Digital Strategy & Portfolio Insight",
-      workplace: "Private Hedge Fund — Labuan, Malaysia",
-      duties: [
-        {
-          title: "Aligning Digital Strategy & Global Investments",
-          desc: "Engaged in aligning digital strategy with global investment objectives, focusing on technology-driven efficiencies and cross-border market opportunities."
-        },
-        {
-          title: "Portfolio Analysis & Digital Transformation",
-          desc: "Contribute to portfolio analysis, digital transformation initiatives, and innovation-oriented projects designed to bridge traditional finance with modern data analytics."
-        },
-        {
-          title: "Emerging Market Trends & Asset Growth",
-          desc: "Work closely with senior partners in identifying emerging market trends, optimizing operational frameworks, and supporting long-term asset growth through strategic digital insight."
-        }
-      ]
-    },
-    stressTest: {
-      kicker: "the stress test · high-impact financial audit",
-      title: "Why generic AI fails and AetherCore triumphed.",
-      desc: "In the high-stakes world of offshore hedge funds and ¥45M+ yearly turnover, a single leaked financial position or proprietary spreadsheet to third-party clouds invites catastrophe. Here is how AetherCore proved itself under fire.",
-      pillars: [
-        {
-          n: "01",
-          tag: "Absolute Offshore Secrecy",
-          title: "Zero Exposure to External Servers",
-          desc: "Pacific Palm Partners operates under strict financial confidentiality. All valuation models, Renminbi (RMB) foreign exchange flows, and balance sheets were computed 100% on local hardware, without emitting a single external HTTP packet.",
-          badge: "100% Offline Validated"
-        },
-        {
-          n: "02",
-          tag: "Rust Native Velocity",
-          title: "Instant Audit of Massive XLSX Files",
-          desc: "Dense portfolio sheets with tens of thousands of rows and interlinked formulas were audited, parsed, and synthesized in milliseconds by AetherCore's native Rust engines, accelerating decisions for senior partners.",
-          badge: "82% Speed Acceleration"
-        },
-        {
-          n: "03",
-          tag: "Human-in-the-Loop",
-          title: "Mandatory Operator Signoff",
-          desc: "In financial operations, AI hallucinations cause direct capital losses. AetherCore never modifies local files or runs actions without explicit physical confirmation through the human approval review card.",
-          badge: "Full Operator Control"
-        },
-        {
-          n: "04",
-          tag: "Regulatory Immunity",
-          title: "Cross-Border Sovereign Governance",
-          desc: "Immutable SQLite audit trails log every file touched and every formula evaluated, empowering real-time internal compliance with complete mathematical and legal certainty.",
-          badge: "Immutable Audit Trail"
-        }
-      ]
-    },
-    verdict: {
-      kicker: "institutional verdict",
-      quote: "AetherCore demonstrated in production what no Big Tech platform can deliver: the ability to reason across high-stakes financial data and multi-million spreadsheets without uploading a single byte to the cloud. Verified effectiveness, speed, and sovereignty at the highest offshore standard.",
-      author: "Pacific Palm Partners — Labuan IBFC",
-      badge: "Effectiveness & Security Homologated"
-    },
-    terminal: {
-      kicker: "stress test telemetry",
-      title: "Offshore Portfolio Audit Log",
-      filename: "cross_border_portfolio_audit_v06.rs",
-      badge: "Active Sandbox · Zero Leaks",
-      lines: [
-        "[KERNEL] Initializing local memory sandbox for Pacific Palm Partners (Labuan IBFC)...",
-        "[AUTH] Operator: Matheus Peres da Silva · Role: Digital Strategy & Portfolio Insight",
-        "[ENV] Target Volume: ¥45,000,000.00 RMB · Cross-border Asset Allocation",
-        "[SANDBOX] Ingesting 14 encrypted XLSX/CSV balance sheets and currency matrices...",
-        "[COMPUTE] Local Qwen + Rust IPC executing quantitative anomaly detection...",
-        "[NETWORK] External network interface: HARD BLOCKED (0 packets sent / 0 received)",
-        "[ARL-AUDIT] Processing latency: 142ms · VRAM utilization: 2.1 GB · 0 cloud fallback",
-        "[STATUS] 100% local validation successful. Human-in-the-loop signoff verified."
-      ]
-    }
-  }
+
 };

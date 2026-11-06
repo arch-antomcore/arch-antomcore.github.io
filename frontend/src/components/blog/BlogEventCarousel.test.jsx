@@ -95,17 +95,21 @@ describe("BlogEventCarousel navigation", () => {
     expect(getNextCarouselIndex(2, "left", 0)).toBe(0);
   });
 
-  it("renders verified product milestones and the planned community opening", () => {
+  it("explains the product layers and access path", () => {
     act(() => {
       root.render(<BlogEventCarousel />);
     });
 
     const content = container.textContent;
-    expect(content).toContain("Aether Runtime Kernel");
-    expect(content).toContain("Quintessence e Telegram");
-    expect(content).toContain("Código aberto, com governança");
-    expect(content).toContain("GitHub público");
-    expect(content).not.toContain("Multi-Agent Swarm");
+    expect(content).toContain("O AETHERCORE EM CINCO CAMADAS");
+    expect(content).toContain("Runtime em Rust");
+    expect(content).toContain("Modelo é uma escolha");
+    expect(content).toContain("Workspace definido");
+    expect(content).toContain("Acesso antecipado");
+    expect(content).not.toContain("Aether Runtime Kernel");
+    expect(content).not.toContain("Quintessence e Telegram");
+    expect(content).not.toContain("Código aberto, com governança");
+    expect(content).not.toContain("GitHub público");
     expect(content).not.toContain("120 FPS");
   });
 

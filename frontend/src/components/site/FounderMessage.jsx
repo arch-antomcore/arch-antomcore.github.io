@@ -28,7 +28,7 @@ const PostText = ({ expanded }) => (
       Quando comecei isso, eu estava tentando construir um assistente de IA que eu realmente quisesse usar.
     </p>
     <p>
-      Hoje, 19 meses depois, olho para o projeto e vejo um ecossistema inteiro: o{" "}
+      Hoje, olho para o projeto e vejo um ecossistema em construção: o{" "}
       <Link to="/" className="text-[var(--a-terracotta)] hover:underline font-bold decoration-[var(--a-terracotta)]/40 underline-offset-4">
         AetherCore
       </Link>{" "}
@@ -54,7 +54,7 @@ const PostText = ({ expanded }) => (
     <div className="border-l-2 border-[var(--a-terracotta)]/50 pl-4 py-1.5 my-3 bg-[#211d18]/[0.01] rounded-r-lg space-y-1">
       <p>🎬 <strong className="text-[#211d18]">AetherCore</strong> é o cockpit.</p>
       <p>💻 <strong className="text-[#211d18]">Quintessence</strong> (Nossa nova IDE) é onde a ideia vira código.</p>
-      <p>🛡️ E o <strong className="text-[#211d18]">Aether Runtime Kernel</strong> mantém a autoridade.</p>
+      <p>🛡️ E o <strong className="text-[#211d18]">runtime em Rust</strong> coordena parte da execução.</p>
     </div>
     <p>
       Dentro da IDE, o agente entende o projeto aberto, conversa com contexto, propõe arquivos e alterações, mostra o diff e pede aprovação antes de agir.
@@ -77,23 +77,19 @@ const PostText = ({ expanded }) => (
       </li>
     </ul>
     <p className="text-[#5d564b] italic font-mono text-[13px] bg-[#211d18]/[0.03] py-1.5 px-3 rounded-lg border border-[#211d18]/5 inline-block">
-      O modelo propõe. O Kernel (Proprietário) valida. Você decide.
+      O modelo propõe. O fluxo mostra controles. Você revisa.
     </p>
     <p>
       É isso que eu queria que a nova marca transmitisse: autonomia sem perder o controle. Ambição sem virar fumaça. Tecnologia avançada sem tirar o usuário do comando.
     </p>
     <p>
-      E não é só uma tela bonita. Na última rodada consolidada, foram{" "}
-      <Link to="/referencias" className="text-[var(--a-terracotta)] hover:underline font-bold decoration-[var(--a-terracotta)]/40 underline-offset-4">
-        878 testes automatizados
-      </Link>{" "}
-      passando no stack Rust, além do build do app, do build Windows da IDE e da validação real do caminho entre os dois.
+      A próxima etapa é levar essa base a usuários: distribuição por convite, fluxos mensuráveis com arquivos e evolução guiada pelo que realmente funciona.
     </p>
     <p className="font-semibold text-[#211d18] border-y border-[#211d18]/8 py-2.5 my-3">
-      Não é mockup. Não é um wrapper de fim de semana. É engenharia de produto construída no Brasil. 🇧🇷
+      Produto desenvolvido no Brasil. IA local-first para trabalho real, com escolha de modelo, contexto e revisão humana. 🇧🇷
     </p>
     <p>
-      Há alguns meses eu estava construindo um assistente. Hoje estou construindo o Aether. Uma marca. Um app. Agentes. Modelos. Um Kernel próprio. E agora, uma IDE.
+      O foco agora é transformar o fluxo de ponta a ponta em uma experiência de uso forte: modelo, workspace, ferramentas, aprovações e destino dos dados.
     </p>
     <p className="text-[var(--a-terracotta)] font-bold text-base">
       Essa é a nova cara do projeto. E, honestamente? Ainda estamos só começando. 🚀

@@ -70,79 +70,64 @@ export const BlogEventCarousel = () => {
 
   const CAROUSEL_CARDS = [
     {
-      id: "runtime-kernel-governance",
-      icon: Cpu,
-      phase: isPt ? "FASE 01 • NÚCLEO DE EXECUÇÃO" : "PHASE 01 • EXECUTION CORE",
-      title: isPt ? "Aether Runtime Kernel" : "Aether Runtime Kernel",
-      subtitle: isPt ? "A autoridade operacional em Rust" : "The Rust operational authority",
+      id: "runtime-status", icon: Cpu,
+      phase: isPt ? "01 · ARQUITETURA" : "01 · ARCHITECTURE",
+      title: isPt ? "Runtime em Rust" : "Rust runtime",
+      subtitle: isPt ? "Núcleo do agente" : "The agent core",
       description: isPt
-        ? "O Kernel recebe a intenção, roteia o modelo, valida ferramentas e mantém sessões, permissões e auditoria no fluxo local. Modelo propõe; Kernel valida; Kernel executa."
-        : "The Kernel receives intent, routes the model, validates tools, and keeps sessions, permissions, and auditing in the local flow. The model proposes; the Kernel validates and executes.",
-      metrics: isPt ? ["Rust", "Permissões", "Trilha de auditoria"] : ["Rust", "Permissions", "Audit trail"],
-      tag: isPt ? "NÚCLEO" : "CORE",
-      highlight: isPt ? "Arquitetura verificável" : "Verifiable architecture",
-      status: isPt ? "IMPLEMENTADO" : "IMPLEMENTED",
-      badgeColor: "bg-[#CCFF00] text-black",
+        ? "O runtime organiza tarefas, ferramentas e eventos de execução em uma base de engenharia voltada a fluxos com arquivos."
+        : "The runtime coordinates tasks, tools, and execution events in an engineering foundation for file-based workflows.",
+      metrics: isPt ? ["Rust", "Ferramentas", "Eventos"] : ["Rust", "Tools", "Events"],
+      tag: isPt ? "NÚCLEO" : "CORE", highlight: isPt ? "Arquitetura" : "Architecture",
+      status: isPt ? "EM EVOLUÇÃO" : "EVOLVING", badgeColor: "bg-[#CCFF00] text-black",
     },
     {
-      id: "local-model-routing",
-      icon: Broadcast,
-      phase: isPt ? "FASE 02 • MODELOS" : "PHASE 02 • MODELS",
-      title: isPt ? "Modelos no controle do usuário" : "Models under your control",
-      subtitle: isPt ? "Ollama, Qwen, Granite e GLM" : "Ollama, Qwen, Granite, and GLM",
+      id: "model-status", icon: Broadcast,
+      phase: isPt ? "02 · MODELOS" : "02 · MODELS",
+      title: isPt ? "Modelo é uma escolha" : "Model choice",
+      subtitle: isPt ? "Local ou conectado" : "Local or connected",
       description: isPt
-        ? "O caminho local validado usa Qwen via Ollama sob demanda. Granite pode atuar como orquestrador estruturado; GLM e uplinks compatíveis entram quando configurados, sem fallback silencioso para a nuvem."
-        : "The validated local path uses Qwen through Ollama on demand. Granite can act as a structured orchestrator; GLM and compatible uplinks are used only when configured, with no silent cloud fallback.",
-      metrics: isPt ? ["Qwen + Ollama", "Granite", "Uplinks explícitos"] : ["Qwen + Ollama", "Granite", "Explicit uplinks"],
-      tag: isPt ? "LOCAL-FIRST" : "LOCAL-FIRST",
-      highlight: isPt ? "Roteamento explícito" : "Explicit routing",
-      status: isPt ? "CONFIGURAÇÃO VISÍVEL" : "VISIBLE CONFIGURATION",
-      badgeColor: "bg-white text-black",
+        ? "Configure modelos locais para inferência no dispositivo ou conecte um provedor externo quando a tarefa pedir."
+        : "Configure local models for on-device inference or connect an external provider when the task calls for one.",
+      metrics: isPt ? ["Ollama", "Provedores", "Configuração"] : ["Ollama", "Providers", "Configuration"],
+      tag: isPt ? "MODELOS" : "MODELS", highlight: isPt ? "Flexibilidade" : "Flexibility",
+      status: isPt ? "CONFIGURÁVEL" : "CONFIGURABLE", badgeColor: "bg-white text-black",
     },
     {
-      id: "governed-agents",
-      icon: ShieldCheck,
-      phase: isPt ? "FASE 03 • GOVERNANÇA" : "PHASE 03 • GOVERNANCE",
-      title: isPt ? "Autonomia com freios claros" : "Autonomy with clear brakes",
-      subtitle: isPt ? "Workspace Scope, checkpoints e ARL" : "Workspace Scope, checkpoints, and ARL",
+      id: "workspace-status", icon: ShieldCheck,
+      phase: isPt ? "03 · CONTEXTO" : "03 · CONTEXT",
+      title: isPt ? "Workspace definido" : "Defined workspace",
+      subtitle: isPt ? "Arquivos no escopo" : "Files in scope",
       description: isPt
-        ? "Cada leitura, escrita ou ferramenta passa por escopo e política. Ações sensíveis pedem aprovação humana e deixam registro local para revisão."
-        : "Every read, write, or tool call goes through scope and policy. Sensitive actions require human approval and leave a local record for review.",
-      metrics: isPt ? ["Escopo local", "Checkpoints", "Trilha ARL"] : ["Local scope", "Checkpoints", "ARL audit trail"],
-      tag: isPt ? "SEGURANÇA" : "SECURITY",
-      highlight: isPt ? "Revisão humana" : "Human review",
-      status: isPt ? "APROVAÇÃO HUMANA" : "HUMAN APPROVAL",
-      badgeColor: "bg-[#CCFF00] text-black",
+        ? "Selecione os arquivos relevantes para a tarefa e mantenha contexto, plano e resultado no mesmo fluxo."
+        : "Select files relevant to the task and keep context, plan, and output in one workflow.",
+      metrics: isPt ? ["Arquivos", "Escopo", "Revisão"] : ["Files", "Scope", "Review"],
+      tag: isPt ? "WORKSPACE" : "WORKSPACE", highlight: isPt ? "Contexto" : "Context",
+      status: isPt ? "DEFINIDO PELO USUÁRIO" : "USER DEFINED", badgeColor: "bg-[#CCFF00] text-black",
     },
     {
-      id: "ecosystem-surfaces",
-      icon: Sparkle,
-      phase: isPt ? "FASE 04 • ECOSSISTEMA" : "PHASE 04 • ECOSYSTEM",
-      title: isPt ? "Quintessence e Telegram" : "Quintessence and Telegram",
-      subtitle: isPt ? "Duas superfícies, o mesmo Kernel" : "Two surfaces, the same Kernel",
+      id: "integration-status", icon: Sparkle,
+      phase: isPt ? "04 · AÇÕES" : "04 · ACTIONS",
+      title: isPt ? "Ferramentas com revisão" : "Tools with review",
+      subtitle: isPt ? "Da intenção ao resultado" : "From intent to output",
       description: isPt
-        ? "A Quintessence conecta o Aether Chat ao workspace por uma ponte IPC local. O gateway Telegram oferece menu, status e seleção de modelo com allowlist; o chat Gemini permanece sem ferramentas locais."
-        : "Quintessence connects Aether Chat to the workspace through a local IPC bridge. The Telegram gateway provides menus, status, and model selection with an allowlist; Gemini chat remains free of local tools.",
-      metrics: isPt ? ["JSON-RPC local", "Open VSX", "Telegram allowlist"] : ["Local JSON-RPC", "Open VSX", "Telegram allowlist"],
-      tag: isPt ? "INTEGRAÇÕES" : "INTEGRATIONS",
-      highlight: isPt ? "Superfícies controladas" : "Controlled surfaces",
-      status: isPt ? "EM EVOLUÇÃO" : "IN PROGRESS",
-      badgeColor: "bg-cyan-300 text-black",
+        ? "O agente combina ferramentas e etapas de aprovação para que ações cobertas pelo fluxo possam ser revisadas."
+        : "The agent combines tools and approval steps so covered actions can be reviewed within the workflow.",
+      metrics: isPt ? ["Plano", "Ferramentas", "Aprovação"] : ["Plan", "Tools", "Approval"],
+      tag: isPt ? "EXECUÇÃO" : "EXECUTION", highlight: isPt ? "Revisão humana" : "Human review",
+      status: isPt ? "CONTROLE NO FLUXO" : "WORKFLOW CONTROL", badgeColor: "bg-cyan-300 text-black",
     },
     {
-      id: "open-source-community",
-      icon: Code,
-      phase: isPt ? "FASE 05 • ABERTURA PÚBLICA" : "PHASE 05 • PUBLIC OPENING",
-      title: isPt ? "Código aberto, com governança" : "Open source, with governance",
-      subtitle: isPt ? "O próximo passo do AetherCore" : "AetherCore's next step",
+      id: "release-status", icon: Code,
+      phase: isPt ? "05 · ACESSO" : "05 · ACCESS",
+      title: isPt ? "Acesso antecipado" : "Early access",
+      subtitle: isPt ? "Construa conosco" : "Build with us",
       description: isPt
-        ? "Estamos preparando a abertura pública do código no GitHub, com licença, avisos, SECURITY e guia de contribuição. A comunidade poderá auditar, sugerir e enviar melhorias quando a base estiver publicada."
-        : "We are preparing the public GitHub release with licensing, notices, SECURITY, and contribution guidance. The community will be able to audit, suggest, and submit improvements once the code is published.",
-      metrics: isPt ? ["GitHub público", "Licença e avisos", "CONTRIBUTING"] : ["Public GitHub", "License and notices", "CONTRIBUTING"],
-      tag: isPt ? "OPEN SOURCE" : "OPEN SOURCE",
-      highlight: isPt ? "Plano de abertura" : "Opening plan",
-      status: isPt ? "EM PREPARAÇÃO" : "IN PREPARATION",
-      badgeColor: "bg-[#CCFF00] text-black",
+        ? "Estamos preparando acesso por convite e buscamos equipes que trabalham com arquivos para testar fluxos mensuráveis."
+        : "We are preparing invitation-based access and looking for teams working with files to test measurable workflows.",
+      metrics: isPt ? ["Beta", "Por convite", "Contato direto"] : ["Beta", "By invitation", "Direct contact"],
+      tag: isPt ? "ACESSO" : "ACCESS", highlight: isPt ? "Próxima etapa" : "Next step",
+      status: isPt ? "SOLICITE ACESSO" : "REQUEST ACCESS", badgeColor: "bg-[#CCFF00] text-black",
     },
   ];
 
@@ -351,7 +336,7 @@ export const BlogEventCarousel = () => {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#CCFF00]"></span>
               </span>
               <span className="font-mono font-bold text-[11px] md:text-xs uppercase tracking-[0.2em] text-[#CCFF00]">
-                {isPt ? "ATUALIZAÇÃO DO PROJETO • MARCOS VERIFICADOS" : "PROJECT UPDATE • VERIFIED MILESTONES"}
+                {isPt ? "O AETHERCORE EM CINCO CAMADAS" : "AETHERCORE IN FIVE LAYERS"}
               </span>
             </div>
 
@@ -364,7 +349,7 @@ export const BlogEventCarousel = () => {
                   textShadow: '1px 1px 0 #001A99, 2px 2px 0 #001A99, 3px 3px 0 #001A99, 4px 4px 0 #001A99, 5px 5px 0 #001A99, 6px 6px 0 #001A99, 7px 7px 0 #001A99, 8px 8px 0 #001A99'
                 }}
               >
-                {isPt ? "#AETHERCORE EM EVOLUÇÃO" : "#AETHERCORE IN PROGRESS"}
+                {isPt ? "#AETHERCORE BETA" : "#AETHERCORE BETA"}
               </h2>
               <h3 
                 className="text-[clamp(2rem,5.5vw,3.8rem)] font-black leading-[0.9] tracking-tighter text-[#f7f4ec] uppercase m-0 p-0"
@@ -373,14 +358,14 @@ export const BlogEventCarousel = () => {
                   textShadow: '1px 1px 0 #001A99, 2px 2px 0 #001A99, 3px 3px 0 #001A99, 4px 4px 0 #001A99, 5px 5px 0 #001A99, 6px 6px 0 #001A99, 7px 7px 0 #001A99, 8px 8px 0 #001A99'
                 }}
               >
-                {isPt ? "CÓDIGO, CONTROLE E COMUNIDADE" : "CODE, CONTROL, AND COMMUNITY"}
+                {isPt ? "DA ARQUITETURA AO USO" : "FROM ARCHITECTURE TO USE"}
               </h3>
             </div>
 
             <p className="mt-4 text-[#f7f4ec]/90 text-sm md:text-base font-medium max-w-2xl leading-relaxed">
               {isPt
-                ? "Do runtime Rust ao plano de abertura open source: estes são os marcos implementados e os próximos passos que estamos preparando para o AetherCore."
-                : "From the Rust runtime to the open-source opening plan: these are the milestones shipped and the next steps we are preparing for AetherCore."}
+                ? "A evolução do AetherCore conecta arquitetura, uso e distribuição em etapas mensuráveis."
+                : "AetherCore connects architecture, usage, and distribution through measurable steps."}
             </p>
           </div>
 
@@ -388,7 +373,7 @@ export const BlogEventCarousel = () => {
           <div className="flex items-center gap-5 sm:gap-6 self-start md:self-end">
             <div className="hidden sm:block">
               <CircularEventBadge 
-                text={isPt ? "AETHERCORE • CÓDIGO ABERTO EM PREPARAÇÃO • " : "AETHERCORE • OPEN SOURCE IN PREPARATION • "}
+                text={isPt ? "AETHERCORE • ARQUITETURA EM AÇÃO • " : "AETHERCORE • ARCHITECTURE IN ACTION • "}
               />
             </div>
 
@@ -549,8 +534,8 @@ export const BlogEventCarousel = () => {
             <CalendarBlank className="w-4 h-4 text-[#CCFF00]" />
             <span>
               {isPt
-                ? "STATUS DO PROJETO: ROADMAP E GOVERNANÇA EM CONSTRUÇÃO"
-                : "PROJECT STATUS: ROADMAP AND GOVERNANCE IN PROGRESS"}
+                ? "AETHERCORE: DO CONTEXTO À EXECUÇÃO"
+                : "AETHERCORE: FROM CONTEXT TO EXECUTION"}
             </span>
           </div>
         </div>

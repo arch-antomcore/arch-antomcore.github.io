@@ -102,22 +102,22 @@ const Sobre = () => {
                 <div className="grid gap-8 md:grid-cols-2 text-sm text-[#211d18]/70 leading-relaxed">
                   <div>
                     <h4 className="font-mono uppercase tracking-[0.22em] text-[10px] text-[#0038FF] mb-3">
-                      {language === "en" ? "On-Premise License Model" : "Modelo On-Premise"}
+                      {language === "en" ? "Early access" : "Acesso antecipado"}
                     </h4>
                     <p>
                       {language === "en"
-                        ? "AetherCore is distributed under a proprietary on-premise licensing model. The software runs entirely on your own local infrastructure, with no external data transmission. Commercial usage requires a valid enterprise license agreement."
-                        : "O AetherCore é distribuído sob um modelo de licenciamento proprietário on-premise. O software executa inteiramente na sua infraestrutura local, sem transmissão de dados externa. O uso comercial requer um contrato de licença corporativo ativo."}
+                        ? "We are preparing invitation-based early access. Terms and the scope of each test will be presented before participation."
+                        : "Estamos preparando o acesso antecipado por convite. Os termos e o escopo de cada teste serão apresentados antes da participação."}
                     </p>
                   </div>
                   <div>
                     <h4 className="font-mono uppercase tracking-[0.22em] text-[10px] text-[#0038FF] mb-3">
-                      {language === "en" ? "Data Sovereignty & Support" : "Soberania & Suporte"}
+                      {language === "en" ? "Data handling & support" : "Tratamento de dados & suporte"}
                     </h4>
                     <p>
                       {language === "en"
-                        ? "All data processing, logs, and execution traces remain your exclusive property. Dedicated support, custom integrations, and SLA guarantees are available for enterprise tier subscribers. Subject to our standard terms of service."
-                        : "Todo o processamento de dados, logs e registros de execução permanecem como sua propriedade exclusiva. Suporte dedicado, integrações sob medida e garantias de SLA estão disponíveis para assinantes corporativos."}
+                        ? "The selected model and connected services define each data path. Our commercial strategy pairs a free local core at public launch with team deployment and support under a scoped proposal."
+                        : "O modelo selecionado e os serviços conectados definem o caminho dos dados. Nossa estratégia comercial combina núcleo local gratuito no lançamento público com implantação e suporte para equipes sob proposta."}
                     </p>
                   </div>
                 </div>
